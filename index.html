@@ -10,7 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- External Libraries for Auto-Flow logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Using xlsx-js-style to support cell colors and formatting -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
@@ -407,63 +408,36 @@
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Assets</h2>
                 <h3 class="mck-serif text-4xl text-[#051C2C] mb-8">Ecosystem Hub</h3>
                 <div class="carousel-container">
-                    <!-- Card 1: Resolution AI -->
                     <div class="carousel-card accent-blue" onclick="showPage('tools')">
                         <div class="flex justify-between items-start">
-                            <div>
-                                <span class="system-tag">SYS_ID: RES-AI</span>
-                                <span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span>
-                            </div>
+                            <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
                             <i class="fas fa-robot text-blue-100 text-2xl"></i>
                         </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Real-time strategic synthesis engine for high-level resolution analysis and follow-up support.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Real-time strategic synthesis engine for resolution analysis and follow-up support.</p>
                         <div class="flex justify-between items-center mt-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Beta</span>
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Card 2: Auto-Flow -->
                     <div class="carousel-card accent-navy" onclick="showPage('autoflow')">
                         <div class="flex justify-between items-start">
-                            <div>
-                                <span class="system-tag">SYS_ID: FLOW-02</span>
-                                <span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span>
-                            </div>
+                            <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span></div>
                             <i class="fas fa-file-excel text-blue-100 text-2xl"></i>
                         </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim .docx cases into optimized Excel flow sheets with automated highlighting.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
                         <div class="flex justify-between items-center mt-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Card 3: Discord -->
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
                         <div class="flex justify-between items-start">
-                            <div>
-                                <span class="system-tag">SYS_ID: HUB-03</span>
-                                <span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span>
-                            </div>
+                            <div><span class="system-tag">SYS_ID: HUB-03</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span></div>
                             <i class="fab fa-discord text-gray-200 text-2xl"></i>
                         </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Join our community for practice debates, direct architect access, and real-time round analysis.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Join our community for practice debates, direct architect access, and round analysis.</p>
                         <div class="flex justify-between items-center mt-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Connect Now</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
-                        </div>
-                    </a>
-                    <!-- Card 4: Instagram -->
-                    <a href="https://www.instagram.com/thedebate.101" target="_blank" class="carousel-card accent-blue">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="system-tag">SYS_ID: MEDIA-04</span>
-                                <span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Media Channel</span>
-                            </div>
-                            <i class="fab fa-instagram text-blue-500/10 text-2xl"></i>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Follow for circuit news, round highlights, and upcoming lecture series announcements.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">View Feed</span>
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </a>
@@ -480,7 +454,7 @@
                 </div>
                 <div class="md:w-2/3">
                     <p class="text-xl text-gray-600 mb-12 font-light leading-relaxed">
-                        Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We are architecting a sustainable learning ecosystem for the next generation of competitive thinkers.
+                        Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We are architecting a sustainable learning ecosystem for the next generation of thinkers.
                     </p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
                         <div><p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Vivaan Shahani</p><p class="text-[10px] text-gray-400 uppercase mt-1">Web & Tool Lead</p></div>
@@ -494,7 +468,7 @@
         </section>
     </main>
 
-    <!-- Page: Resolution AI (Renamed from Tools) -->
+    <!-- Page: Resolution AI -->
     <main id="page-tools" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="mb-12">
@@ -579,7 +553,7 @@
                 role: "CoFounder - Head of Media Management and Analysis",
                 image: "assets/max-f.png",
                 blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through methodological rigor.",
-                depth: "My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Debate is my primary academic interest, and I enjoy rounds where I learn new things. Subjectivity shift is real! <br><br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and other literature such as The Picture of Dorian Gray or East of Eden, and am an avid NBA fan. <br><br><b>Argument Interests:</b><br>I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature (Baudrillard, Nietzsche, Lacan, Jung). Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation and real impact calculus rather than purely empirical cost-benefit analysis.<br><br><b>Argument preferences (Teaching Level):</b><br>1—Kritiks, K affs, PIKs, Spark, Wipeout, K tricks (super underutilized), and unconventional arguments.<br>2—PICs, Phil, S/V, Tricks.<br>3—Counterplans, Policy, Disads.<br>4—Theory and procedurals.<br>5—Lay debate.<br><br>Email: feinsteinm29@altamontschool.org"
+                depth: "My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Subjectivity shift is real! <br><br>Outside of debate, I play ECNL and varsity soccer for Altamont and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and other literature, and am an avid NBA fan. <br><br><b>Argument Interests:</b><br>I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature (Baudrillard, Nietzsche, Lacan, Jung). Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation and real impact calculus rather than purely empirical cost-benefit analysis.<br><br>Email: feinsteinm29@altamontschool.org"
             },
             {
                 name: "Max McBride",
@@ -618,10 +592,7 @@
 
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
-            const target = document.getElementById(`page-${pageId}`);
-            if (target) {
-                target.classList.remove('hidden');
-            }
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
             const menuOverlay = document.getElementById('mobile-menu-overlay');
             if (menuOverlay.classList.contains('active')) toggleMobileMenu();
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -653,7 +624,6 @@
             const systemPrompt = "You are the Lead Strategist at Debate 101. Your tone is professional, analytical, and authoritative (McKinsey style). Provide high-level strategic insights for LD and Policy debate resolutions. Organize into logical sections with clear headers like '1. CLASH OVERVIEW'. Do not use markdown like **; use clean text.";
 
             try {
-                // Fixed URL and payload structure
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 const response = await fetch(url, { 
                     method: 'POST', 
@@ -665,7 +635,6 @@
                 });
                 
                 if (!response.ok) throw new Error("API Response Error");
-                
                 const result = await response.json();
                 const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No strategy generated.";
                 
@@ -674,7 +643,7 @@
                 
                 appendMessage('architect', aiResponseText);
             } catch (error) { 
-                appendMessage('architect', "The strategic core is currently resetting. Please join our Discord for immediate support from our human architects."); 
+                appendMessage('architect', "The strategic core is currently resetting. Please join our Discord for immediate support."); 
             } finally { 
                 btn.disabled = false; 
                 loading.classList.add('hidden'); 
@@ -691,9 +660,7 @@
         }
 
         function formatAiResponse(text) {
-            // Check if it's already structured HTML from appendMessage logic
             if (text.includes('<p>')) return text;
-
             return text.split('\n\n').map(block => {
                 const lines = block.split('\n');
                 const firstLine = lines[0].trim();
@@ -715,7 +682,6 @@
             const reader = new FileReader();
             reader.onload = async (event) => {
                 try {
-                    // Use mammoth to get structured HTML to identify Heading 4
                     const options = {
                         styleMap: [
                             "p[style-name='Heading 4'] => h4:fresh",
@@ -730,46 +696,65 @@
                     
                     const wb = XLSX.utils.book_new();
                     const headers = ["1AC", "1NC", "1AR", "2NR", "2AR"];
-                    const wsData = [headers];
                     
+                    // Create formatted worksheet headers
+                    const wsData = [headers];
                     const elements = Array.from(htmlDoc.querySelectorAll('h4, p'));
-                    const keywords = ["VOTER", "IMPACT", "RVI", "STOCK ISSUES", "ONTOLOGICAL", "EXISTENTIAL"];
 
                     for (let i = 0; i < elements.length; i++) {
                         const el = elements[i];
                         const text = el.innerText.trim();
 
-                        // Verbatim Tags map to H4
                         if (el.tagName === 'H4' && text) {
                             let displayText = text;
-                            
-                            // Look ahead for Cite (Author + Date)
                             if (i + 1 < elements.length) {
                                 const nextEl = elements[i+1];
                                 const nextText = nextEl.innerText.trim();
-                                // Verbatim cites often look like "Name 24"
                                 if (nextEl.classList.contains('cite') || nextText.match(/\b[A-Z][a-z]+.* (\d{2}|\d{4})\b/)) {
                                     displayText = `${text} (${nextText})`;
-                                    i++; // consume cite
+                                    i++; 
                                 }
                             }
-
-                            // Only take Tag + Cite. No content.
+                            // Push only tag+cite. Defaulting to column A.
                             wsData.push([displayText]);
-                            wsData.push([]); // Double space separation like Python code
+                            wsData.push([]); 
                         }
                     }
 
                     const ws = XLSX.utils.aoa_to_sheet(wsData);
                     
-                    // Column formatting (Width 60 like Python code)
+                    // BEAUTIFYING THE EXCEL FILE
+                    const headerStyle = { font: { bold: true }, fill: { fgColor: { rgb: "D3D3D3" } }, alignment: { horizontal: "center" } };
+                    const affStyle = { fill: { fgColor: { rgb: "E7F3FF" } }, alignment: { wrapText: true, vertical: "top" } };
+                    const negStyle = { alignment: { wrapText: true, vertical: "top" } };
+
+                    // Apply Column Widths (Width 70 for major clarity)
                     ws['!cols'] = [
-                        { wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }
+                        { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }
                     ];
+
+                    // Styling Loop
+                    for (let z in ws) {
+                        if (z[0] === '!') continue;
+                        const col = z[0];
+                        const row = parseInt(z.substring(1));
+
+                        // Style Headers
+                        if (row === 1) {
+                            ws[z].s = headerStyle;
+                        } else {
+                            // Shade Aff Columns (A, C, E)
+                            if (col === 'A' || col === 'C' || col === 'E') {
+                                ws[z].s = affStyle;
+                            } else {
+                                ws[z].s = negStyle;
+                            }
+                        }
+                    }
 
                     XLSX.utils.book_append_sheet(wb, ws, "Flow");
                     XLSX.writeFile(wb, file.name.replace('.docx', '_FLOW.xlsx'));
-                    status.innerText = "Success: Flow sheet generated.";
+                    status.innerText = "Success: Flow generated.";
                 } catch (err) {
                     status.innerText = "Error: File processing failed.";
                 }
@@ -778,11 +763,6 @@
         });
 
         window.onload = () => { initTeam(); };
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 40) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
-        });
     </script>
 </body>
 </html>
