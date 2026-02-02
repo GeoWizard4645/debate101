@@ -105,11 +105,12 @@
 
         /* Tool & Chat styling */
         .chat-container {
-            height: 500px;
+            height: 600px;
             display: flex;
             flex-direction: column;
             border: 1px solid #e5e5e5;
             background: white;
+            border-radius: 4px;
         }
 
         .chat-messages {
@@ -120,6 +121,7 @@
             flex-direction: column;
             gap: 1.5rem;
             scroll-behavior: smooth;
+            background-color: #fcfcfc;
         }
 
         .message {
@@ -127,6 +129,7 @@
             padding: 1.25rem;
             font-size: 0.875rem;
             line-height: 1.6;
+            border-radius: 2px;
         }
 
         .message-user {
@@ -146,8 +149,8 @@
 
         .chat-input-area {
             border-top: 1px solid #eee;
-            padding: 1rem;
-            background: #fcfcfc;
+            padding: 1.5rem;
+            background: white;
         }
 
         .chat-scroll-hide::-webkit-scrollbar {
@@ -156,6 +159,37 @@
         .chat-scroll-hide::-webkit-scrollbar-thumb {
             background: #e2e8f0;
             border-radius: 10px;
+        }
+
+        .ai-content h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--mck-accent);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .ai-content p {
+            margin-bottom: 1rem;
+        }
+
+        .ai-content ul {
+            margin-bottom: 1rem;
+        }
+
+        .ai-content li {
+            list-style-type: none;
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-content li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #ccc;
         }
     </style>
 </head>
@@ -243,15 +277,17 @@
             </div>
 
             <!-- Chat UI -->
-            <div class="chat-container max-w-5xl shadow-2xl rounded-sm overflow-hidden">
+            <div class="chat-container max-w-5xl shadow-2xl rounded-sm overflow-hidden mx-auto">
                 <div id="chat-messages" class="chat-messages chat-scroll-hide">
                     <div class="message message-architect">
                         <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>
-                        <p>Welcome to the Lab. Enter a resolution below to begin our strategic analysis.</p>
+                        <div class="ai-content">
+                            <p>Welcome to the Lab. Enter a resolution below to begin our strategic analysis.</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div id="chat-loading" class="px-8 py-2 hidden">
+                <div id="chat-loading" class="px-8 py-4 hidden bg-white">
                     <div class="flex items-center space-x-3">
                         <div class="animate-pulse flex space-x-1">
                             <div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div>
@@ -267,8 +303,8 @@
                         <input type="text" id="resolution-input" 
                                placeholder="Enter resolution or follow-up question..." 
                                onkeypress="if(event.key === 'Enter') analyzeTopic()"
-                               class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all">
-                        <button onclick="analyzeTopic()" id="analyze-btn" class="btn-mck text-white px-8 py-4 font-bold uppercase tracking-widest text-[10px]">
+                               class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
+                        <button onclick="analyzeTopic()" id="analyze-btn" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">
                             Send
                         </button>
                     </div>
@@ -405,20 +441,36 @@
             else nav.classList.remove('nav-scrolled');
         });
 
-        // Chat Formatting Logic
+        // Enhanced AI Formatting
         function formatAiResponse(text) {
+            // Split into sections by double newline
+            return text.split('\n\n').map(block => {
+                const lines = block.split('\n');
+                const firstLine = lines[0].trim();
+
+                // If block starts with a number (e.g. 1. CLASH OVERVIEW)
+                if (firstLine.match(/^\d+\.?\s*[A-Z\s]+$/) || firstLine.match(/^[A-Z\s]{8,}$/)) {
+                    const header = lines.shift();
+                    const content = lines.join('\n').trim();
+                    return `
+                        <div class="mb-6">
+                            <h4>${header}</h4>
+                            ${formatInner(content)}
+                        </div>
+                    `;
+                }
+                return `<div class="mb-4">${formatInner(block)}</div>`;
+            }).join('');
+        }
+
+        function formatInner(text) {
             return text.split('\n').map(line => {
                 const trimmed = line.trim();
                 if (!trimmed) return "";
-                // Formatting headers
-                if (trimmed.match(/^\d+\.\s+[A-Z\s]+$/) || trimmed.match(/^[A-Z\s]{8,}$/)) {
-                    return `<h4 class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0072b1] mt-6 mb-3">${trimmed}</h4>`;
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
+                    return `<li>${trimmed.replace(/^[-*•]\s*/, '')}</li>`;
                 }
-                // Bullet points
-                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-                    return `<li class="ml-4 mb-2 list-none border-l-2 border-gray-100 pl-3">${trimmed.substring(2)}</li>`;
-                }
-                return `<p class="mb-3 text-gray-700">${trimmed}</p>`;
+                return `<p>${trimmed}</p>`;
             }).join('');
         }
 
@@ -432,7 +484,8 @@
             header.innerText = role === 'user' ? 'Direct Query' : 'Architect AI';
             
             const body = document.createElement('div');
-            body.innerHTML = role === 'user' ? text : formatAiResponse(text);
+            body.className = "ai-content";
+            body.innerHTML = role === 'user' ? `<p>${text}</p>` : formatAiResponse(text);
             
             msgDiv.appendChild(header);
             msgDiv.appendChild(body);
@@ -451,16 +504,21 @@
             const btn = document.getElementById('analyze-btn');
             const loading = document.getElementById('chat-loading');
 
+            // --- API KEY SECURITY ---
+            // GitHub Pages is public. To protect your key:
+            // 1. Go to Google Cloud Console (https://console.cloud.google.com/)
+            // 2. Select your API key -> Edit Key -> Application Restrictions.
+            // 3. Set 'Websites (HTTP referrers)' -> Add domain 'debate101.org/*'.
+            const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
+
             // UI State
             appendMessage('user', rawInput);
             inputField.value = "";
             btn.disabled = true;
             loading.classList.remove('hidden');
 
-            const apiKey = ""; 
-            const systemPrompt = "You are the Lead Strategist at Debate 101, an elite architectural lab for competitive discourse. Your tone is professional, analytical, and authoritative (McKinsey style). Provide high-level strategic insights for LD and Policy debate resolutions. Keep track of the conversation history to answer follow-up questions accurately. Do not use markdown like **; use clean text.";
+            const systemPrompt = "You are the Lead Strategist at Debate 101. Your tone is professional, analytical, and authoritative (McKinsey style). Provide high-level strategic insights for LD and Policy debate resolutions. Organize into logical sections with clear headers like '1. CLASH OVERVIEW'. Do not use markdown like **; use clean text.";
 
-            // Maintain context
             chatHistory.push({ role: "user", parts: [{ text: rawInput }] });
 
             const fetchContent = async (url, options) => {
@@ -478,6 +536,7 @@
             };
 
             try {
+                // Using gemini-2.5-flash-preview-09-2025 as required by system instructions
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 const payload = {
                     contents: chatHistory,
@@ -493,15 +552,12 @@
                 const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 if (!aiResponseText) throw new Error("No response content");
 
-                // Update History
                 chatHistory.push({ role: "model", parts: [{ text: aiResponseText }] });
-                
-                // Truncate history if too long (token limit management)
                 if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
 
                 appendMessage('architect', aiResponseText);
             } catch (error) {
-                appendMessage('architect', "The lab is currently at peak capacity. Please join our Discord for immediate human support from the architects.");
+                appendMessage('architect', "The strategic engine is currently at peak capacity or requires an API key configuration for external sites. Please check your apiKey variable or join our Discord for support.");
             } finally {
                 btn.disabled = false;
                 loading.classList.add('hidden');
