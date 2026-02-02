@@ -101,6 +101,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            color: inherit;
         }
 
         .carousel-card::before {
@@ -432,13 +434,13 @@
                             </div>
                             <i class="fas fa-file-excel text-blue-100 text-2xl"></i>
                         </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim .docx cases into Excel flow templates with pure tag extraction.</p>
                         <div class="flex justify-between items-center mt-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Card 3: Discord Redirect -->
+                    <!-- Card 3: Discord Redirect (Restored) -->
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
                         <div class="flex justify-between items-start">
                             <div>
@@ -453,7 +455,7 @@
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </a>
-                    <!-- Card 4: Instagram Redirect -->
+                    <!-- Card 4: Instagram Redirect (Restored) -->
                     <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="carousel-card accent-blue">
                         <div class="flex justify-between items-start">
                             <div>
@@ -601,7 +603,7 @@
                 role: "CoFounder - Head of Media Management and Analysis",
                 image: "assets/max-f.png",
                 blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through methodological rigor.",
-                depth: "My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Subjectivity shift is real! <br><br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and other literature such as The Picture of Dorian Gray or East of Eden, and am an avid NBA fan. <br><br><b>Argument Interests:</b><br>I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature (Baudrillard, Nietzsche, Lacan, Jung). Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation and real impact calculus rather than purely empirical cost-benefit analysis.<br><br>Email: feinsteinm29@altamontschool.org"
+                depth: "My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Subjectivity shift is real! <br><br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and other literature, and am an avid NBA fan. <br><br><b>Argument Interests:</b><br>I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature (Baudrillard, Nietzsche, Lacan, Jung). Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation and real impact calculus rather than purely empirical cost-benefit analysis.<br><br>Email: feinsteinm29@altamontschool.org"
             },
             {
                 name: "Max McBride",
@@ -659,7 +661,7 @@
             else nav.classList.remove('nav-scrolled');
         });
 
-        // AI Logic
+        // AI Logic with Exponential Backoff Retry
         async function analyzeTopic() {
             const inputField = document.getElementById('resolution-input');
             const rawInput = inputField.value.trim();
@@ -667,16 +669,33 @@
             const btn = document.getElementById('analyze-btn');
             const loading = document.getElementById('chat-loading');
             const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
+            
             appendMessage('user', rawInput);
-            inputField.value = ""; btn.disabled = true; loading.classList.remove('hidden');
+            inputField.value = ""; 
+            btn.disabled = true; 
+            loading.classList.remove('hidden');
             
             chatHistory.push({ role: "user", parts: [{ text: rawInput }] });
 
             const systemPrompt = "You are the Lead Strategist at Debate 101. Your tone is professional, analytical, and authoritative (McKinsey style). Provide high-level strategic insights for LD and Policy debate resolutions. Organize into logical sections with clear headers like '1. CLASH OVERVIEW'. Do not use markdown like **; use clean text.";
 
+            const fetchContent = async (url, options) => {
+                const delays = [1000, 2000, 4000, 8000, 16000];
+                for (let i = 0; i < 5; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (response.ok) return await response.json();
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    } catch (e) {
+                        if (i === 4) throw e;
+                        await new Promise(r => setTimeout(r, delays[i]));
+                    }
+                }
+            };
+
             try {
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                const response = await fetch(url, { 
+                const result = await fetchContent(url, { 
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' }, 
                     body: JSON.stringify({ 
@@ -685,8 +704,6 @@
                     }) 
                 });
                 
-                if (!response.ok) throw new Error("API Response Error");
-                const result = await response.json();
                 const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No strategy generated.";
                 
                 chatHistory.push({ role: "model", parts: [{ text: aiResponseText }] });
@@ -694,7 +711,7 @@
                 
                 appendMessage('architect', aiResponseText);
             } catch (error) { 
-                appendMessage('architect', "The strategic core is currently resetting. Please join our Discord for immediate support."); 
+                appendMessage('architect', "The strategic core is currently resetting. Please join our Discord for immediate support from our human architects."); 
             } finally { 
                 btn.disabled = false; 
                 loading.classList.add('hidden'); 
@@ -748,7 +765,6 @@
                     const wb = XLSX.utils.book_new();
                     const headers = ["1AC", "1NC", "1AR", "2NR", "2AR"];
                     
-                    // Create formatted worksheet headers
                     const wsData = [headers];
                     const elements = Array.from(htmlDoc.querySelectorAll('h4, p'));
 
@@ -766,7 +782,6 @@
                                     i++; 
                                 }
                             }
-                            // Push only tag+cite. Defaulting to column A.
                             wsData.push([displayText]);
                             wsData.push([]); 
                         }
@@ -784,17 +799,14 @@
                         { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }
                     ];
 
-                    // Styling Loop
                     for (let z in ws) {
                         if (z[0] === '!') continue;
                         const col = z[0];
                         const row = parseInt(z.substring(1));
 
-                        // Style Headers
                         if (row === 1) {
                             ws[z].s = headerStyle;
                         } else {
-                            // Shade Aff Columns (A, C, E)
                             if (col === 'A' || col === 'C' || col === 'E') {
                                 ws[z].s = affStyle;
                             } else {
