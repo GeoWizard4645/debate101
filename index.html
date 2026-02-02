@@ -191,9 +191,42 @@
             left: 0;
             color: #ccc;
         }
+
+        /* Mobile Menu Styles */
+        #mobile-menu-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="bg-white">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[60] flex flex-col px-6 py-8">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center space-x-3">
+                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
+                <span class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="text-[#051C2C] text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-8 text-sm font-bold uppercase tracking-[0.2em] text-[#051C2C]">
+            <button onclick="showPage('home')" class="text-left hover:text-[#0072b1]">Insights</button>
+            <button onclick="showPage('team')" class="text-left hover:text-[#0072b1]">Our Team</button>
+            <button onclick="showPage('tools')" class="text-left hover:text-[#0072b1]">Tools</button>
+            <button onclick="scrollToGoals()" class="text-left hover:text-[#0072b1]">Roadmap</button>
+            <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1]">Discord</a>
+            <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1]">Instagram</a>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 px-6 py-5 md:px-12">
@@ -214,7 +247,7 @@
                 <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
             </div>
 
-            <button class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
+            <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
         </div>
     </nav>
 
@@ -423,6 +456,11 @@
             if (target) {
                 target.classList.remove('hidden');
             }
+            // Close mobile menu if open
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            if (menuOverlay.classList.contains('active')) {
+                toggleMobileMenu();
+            }
             window.scrollTo({top: 0, behavior: 'smooth'});
             if (pageId === 'team') initTeam();
         }
@@ -433,6 +471,16 @@
                 const element = document.getElementById('roadmap');
                 if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 300);
+        }
+
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobile-menu-overlay');
+            overlay.classList.toggle('active');
+            if (overlay.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
         window.addEventListener('scroll', () => {
@@ -504,11 +552,7 @@
             const btn = document.getElementById('analyze-btn');
             const loading = document.getElementById('chat-loading');
 
-            // --- API KEY SECURITY ---
-            // GitHub Pages is public. To protect your key:
-            // 1. Go to Google Cloud Console (https://console.cloud.google.com/)
-            // 2. Select your API key -> Edit Key -> Application Restrictions.
-            // 3. Set 'Websites (HTTP referrers)' -> Add domain 'debate101.org/*'.
+            // Using your provided API key
             const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
 
             // UI State
@@ -536,7 +580,7 @@
             };
 
             try {
-                // Using gemini-2.5-flash-preview-09-2025 as required by system instructions
+                // Using gemini-2.5-flash-preview-09-2025 as required
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
                 const payload = {
                     contents: chatHistory,
