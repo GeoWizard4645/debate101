@@ -33,6 +33,23 @@
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
 
+        /* Animated Mesh Gradient for Hero */
+        .hero-mesh {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(203,100%,96%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(201,100%,94%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(199,100%,92%,1) 0, transparent 50%);
+            background-size: 200% 200%;
+            animation: meshGradient 15s ease infinite;
+        }
+
+        @keyframes meshGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .team-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-top: 1px solid #e5e5e5;
@@ -85,6 +102,16 @@
         .team-card:hover .profile-img {
             filter: grayscale(0%);
         }
+
+        /* Tool styling */
+        .tool-container {
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+        .tool-container:hover {
+            border-color: var(--mck-accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -103,6 +130,7 @@
             <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C]">
                 <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Insights</button>
                 <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
+                <button onclick="showPage('tools')" class="hover:text-[#0072b1] transition-colors">Tools</button>
                 <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
                 <button onclick="scrollToGoals()" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
             </div>
@@ -113,17 +141,17 @@
 
     <!-- Page: Home -->
     <main id="page-home" class="page-view pt-16">
-        <section class="min-h-[85vh] flex items-center px-6 md:px-12">
-            <div class="max-w-5xl mx-auto w-full">
+        <section class="min-h-[85vh] flex items-center px-6 md:px-12 hero-mesh">
+            <div class="max-w-5xl mx-auto w-full relative z-10">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Building the Discourse of Tomorrow</h2>
                 <h1 class="mck-serif text-5xl md:text-8xl text-[#051C2C] leading-[1.1] mb-10">
-                    Reshaping <span class="italic font-normal">competitive</span> debate through <span class="text-[#0072b1]">open source</span> rigor.
+                    Reshaping <span class="italic font-normal text-[#0072b1]">competitive</span> debate through <span class="text-[#051C2C]">open source</span> rigor.
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-500 max-w-3xl mb-12 leading-relaxed font-light">
                     Debate 101 is an unincorporated non-profit collective bridging the gap between novice learners and elite competition through tools, community, and strategy.
                 </p>
-                <div class="flex flex-col sm:row gap-6">
-                    <button onclick="showPage('team')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Explore the Collective</button>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button onclick="showPage('tools')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Try AI Strategist</button>
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
                 </div>
             </div>
@@ -158,6 +186,45 @@
         </section>
     </main>
 
+    <!-- Page: Tools -->
+    <main id="page-tools" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Lab Beta</h2>
+                <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C] mb-8">Topic Strategist AI</h1>
+                <p class="text-gray-500 max-w-2xl text-lg font-light leading-relaxed">
+                    Input a resolution to generate a high-level strategic breakdown, including key stock issues, potential frameworks, and offensive paths for both Affirmative and Negative.
+                </p>
+            </div>
+
+            <div class="tool-container bg-white p-10 max-w-4xl">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Resolution</label>
+                        <input type="text" id="resolution-input" placeholder="Resolved: The United States should... " class="w-full p-4 bg-gray-50 border-0 focus:ring-1 focus:ring-[#0072b1] text-lg font-light outline-none">
+                    </div>
+                    <button onclick="analyzeTopic()" id="analyze-btn" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">
+                        Generate Strategy
+                    </button>
+                </div>
+
+                <div id="ai-output" class="mt-12 hidden">
+                    <div class="mck-divider mb-8"></div>
+                    <div id="ai-content" class="text-gray-700 leading-relaxed space-y-8">
+                        <!-- AI Content goes here -->
+                    </div>
+                </div>
+                
+                <div id="ai-loading" class="mt-12 hidden">
+                    <div class="flex items-center space-x-4">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-[#0072b1]"></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Mining the Wiki & Processing literature...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <!-- Page: Team -->
     <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
         <div class="max-w-7xl mx-auto">
@@ -176,7 +243,6 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start gap-12">
                 <div class="flex items-center space-x-3">
-                    <!-- Updated to assets folder -->
                     <img src="assets/logo.PNG" alt="Logo" class="h-8 w-auto">
                     <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
                 </div>
@@ -188,7 +254,7 @@
                     </div>
                     <div class="flex flex-col space-y-4">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Resource</span>
-                        <a href="#" class="text-sm hover:text-[#0072b1]">Wiki Miner</a>
+                        <a href="#" onclick="showPage('tools')" class="text-sm hover:text-[#0072b1]">Wiki Miner (AI)</a>
                         <a href="#" class="text-sm hover:text-[#0072b1]">Lecture Library</a>
                     </div>
                 </div>
@@ -203,29 +269,29 @@
         const teamData = [
             {
                 name: "Vivaan Shahani",
-                role: "Strategy & Automation",
-                image: "assets/vivaan.png", // Updated path
-                blurb: "Focuses on framework rigor and philosophical impact framing.",
-                depth: "Vivaan leads technical development. He is currently focused on building AI-driven research workflows to automate Wiki mining for argument trends."
+                role: "Web Development & Community Building",
+                image: "assets/vivaan.png",
+                blurb: "A LD Debater from Edgemont High School.",
+                depth: "Vivaan Shahani is a high-achieving scholar (Class of 2028) operating at the intersection of economics, technology, and strategic communication. With a 3.98 GPA and a rigorous academic profile including AP Computer Science and AP European History, Vivaan does not simply study complex systems—he analyzes and engineers them. His technical proficiency in Java, Python, and Swift is complemented by a sharp financial acumen, demonstrated through active technical analysis on TradingView and a deep engagement with macroeconomic theory.<br><br>Beyond the classroom, Vivaan is a proven leader and entrepreneur. As a Varsity Representative for the Edgemont Debate Team and a National Quarterfinalist, he has mastered the art of synthesizing complex geopolitical data into persuasive arguments under extreme pressure—skills honed further as a Harvard Debate Council Summer Scholar. This strategic mindset extends to his business ventures; he co-founded Solarflare Robotics, leading critical outreach and fundraising efforts to build a sustainable organization, and established his own tutoring and retail businesses, proving his ability to execute ideas from concept to revenue.<br><br>Vivaan’s drive is matched by a diverse range of creative and physical disciplines. He is a multifaceted creative—a jazz saxophonist competing at the National Jazz Festival, a professional DJ mixing Bollywood and Pop, and an independent journalist with over 15,000 reads on Medium. This versatility is grounded by the discipline of a Varsity Lacrosse defender and a Junior Black Belt in Taekwondo. Whether engineering a 3D printing curriculum for students or analyzing market trends, Vivaan brings a unique blend of logic, creativity, and relentless work ethic to every pursuit."
             },
             {
                 name: "Max McBride",
                 role: "Policy & Analysis",
-                image: "assets/max-m.jpg", // Updated path
+                image: "assets/max-m.jpg",
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
                 depth: "Max oversees policy content. He specializes in breaking down complex structural violence impacts and managing research archives."
             },
             {
                 name: "Max Feinstein",
                 role: "Technical Execution",
-                image: "assets/max-f.jpg", // Updated path
+                image: "assets/max-f.jpg",
                 blurb: "Expert in technical debate mechanics and speed/clarity optimization.",
                 depth: "Max works on pedagogy, creating resources to help debaters master technical execution and leading practice initiatives in Discord."
             },
             {
                 name: "Arjun Gupta",
                 role: "Critical Theory",
-                image: "assets/arjun.jpg", // Updated path
+                image: "assets/arjun.jpg",
                 blurb: "Lead analyst for K-Aff argumentation and critical literature.",
                 depth: "Arjun makes high-level critical theory accessible. He manages lectures on critical scholarship and an open-source position database."
             }
@@ -263,7 +329,12 @@
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(`page-${pageId}`);
-            if (target) target.classList.remove('hidden');
+            if (target) {
+                target.classList.remove('hidden');
+                target.style.animation = 'none';
+                target.offsetHeight; 
+                target.style.animation = null;
+            }
             window.scrollTo({top: 0, behavior: 'smooth'});
             if (pageId === 'team') initTeam();
         }
@@ -281,6 +352,76 @@
             if (window.scrollY > 40) nav.classList.add('nav-scrolled');
             else nav.classList.remove('nav-scrolled');
         });
+
+        // AI Tool Logic
+        async function analyzeTopic() {
+            const input = document.getElementById('resolution-input').value;
+            if (!input) return;
+
+            const btn = document.getElementById('analyze-btn');
+            const output = document.getElementById('ai-output');
+            const content = document.getElementById('ai-content');
+            const loading = document.getElementById('ai-loading');
+
+            btn.disabled = true;
+            loading.classList.remove('hidden');
+            output.classList.add('hidden');
+            content.innerHTML = "";
+
+            const apiKey = ""; // Runtime key
+            const systemPrompt = `You are a world-class debate strategist. Analyze the provided resolution for Lincoln-Douglas or Policy debate. 
+            Break down the strategy into these sections:
+            1. STOCK ISSUES: Key points of clash.
+            2. AFFIRMATIVE STRATEGY: Best frameworks and offensive paths.
+            3. NEGATIVE STRATEGY: Best counters and kritiks.
+            Use professional, analytical language (McKinsey style). Format each section with a bold header.`;
+
+            try {
+                let retries = 0;
+                const delays = [1000, 2000, 4000, 8000, 16000];
+                
+                const fetchContent = async () => {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: input }] }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] }
+                        })
+                    });
+                    if (!response.ok) throw new Error('API error');
+                    return response.json();
+                };
+
+                let result;
+                while (retries < 5) {
+                    try {
+                        result = await fetchContent();
+                        break;
+                    } catch (e) {
+                        retries++;
+                        if (retries === 5) throw e;
+                        await new Promise(res => setTimeout(res, delays[retries-1]));
+                    }
+                }
+
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Analysis failed.";
+                content.innerHTML = text.split('\n').map(line => {
+                    if (line.match(/^\d+\. [A-Z]/)) {
+                        return `<h4 class="text-xs font-bold uppercase tracking-widest text-[#0072b1] mt-8 mb-4">${line}</h4>`;
+                    }
+                    return `<p class="mb-4 text-sm leading-relaxed">${line}</p>`;
+                }).join('');
+
+                output.classList.remove('hidden');
+            } catch (error) {
+                content.innerHTML = `<p class="text-red-500 text-sm">Strategic analysis currently offline. Please join the Discord for live support.</p>`;
+                output.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                loading.classList.add('hidden');
+            }
+        }
 
         window.onload = () => initTeam();
     </script>
