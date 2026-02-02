@@ -3,40 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debate 101 | Insights & Discourse</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Debate 101 | Open Source Discourse</title>
+    <!-- Tailwind CSS for layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --mck-blue: #051C2C;
+            --mck-accent: #0072b1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+        }
+
+        .mck-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .team-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .team-card:hover {
+            border-top-color: var(--mck-accent);
+            background-color: #fcfcfc;
+        }
+
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out;
+        }
+
+        .expand-content.active {
+            max-height: 1200px;
+        }
+
+        .btn-mck {
+            background-color: var(--mck-blue);
+            transition: all 0.3s ease;
+        }
+
+        .btn-mck:hover {
+            background-color: var(--mck-accent);
+            letter-spacing: 0.5px;
+        }
+
+        /* View transitions */
+        .page-view {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="logo">DEBATE<span>101</span></div>
-        <ul class="nav-links">
-            <li><a href="#">Insights</a></li>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Case Files</a></li>
-        </ul>
+<body class="bg-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 px-6 py-5 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
+                    DEBATE<span class="font-light">101</span>
+                </button>
+            </div>
+            
+            <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C]">
+                <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Insights</button>
+                <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
+                <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
+                <button onclick="scrollToGoals()" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
+            </div>
+
+            <button class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
+        </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Reshaping the future of competitive discourse.</h1>
-            <p>We bring analytical rigor and strategic depth to Lincoln-Douglas and policy debate.</p>
-            <button id="cta-button">Explore our cases</button>
-        </div>
-    </header>
+    <!-- Page: Home -->
+    <main id="page-home" class="page-view pt-16">
+        <section class="min-h-[85vh] flex items-center px-6 md:px-12">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Building the Discourse of Tomorrow</h2>
+                <h1 class="mck-serif text-5xl md:text-8xl text-[#051C2C] leading-[1.1] mb-10">
+                    Reshaping <span class="italic font-normal">competitive</span> debate through <span class="text-[#0072b1]">open source</span> rigor.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-500 max-w-3xl mb-12 leading-relaxed font-light">
+                    Debate 101 is an unincorporated non-profit collective bridging the gap between novice learners and elite competition through tools, community, and strategy.
+                </p>
+                <div class="flex flex-col sm:row gap-6">
+                    <button onclick="showPage('team')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Explore the Collective</button>
+                    <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
+                </div>
+            </div>
+        </section>
 
-    <section class="featured-section">
-        <div class="card">
-            <span class="category">Strategy</span>
-            <h3>The evolution of K-Aff argumentation in 2026</h3>
-            <p>Analysis of critical theory's impact on contemporary resolution framing.</p>
-        </div>
-        <div class="card">
-            <span class="category">Research</span>
-            <h3>Nuclear Deterrence vs. Disarmament</h3>
-            <p>A deep dive into the geopolitical implications of the current LD topic.</p>
-        </div>
-    </section>
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <h2 class="mck-serif text-4xl md:text-6xl">Long-term vision for LD Unity.</h2>
+                    <p class="text-gray-400 max-w-sm text-sm leading-relaxed">Advancing from LD-focused roots to the broader high school debate circuit, integrating experts across all formats.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-16">
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">INFRASTRUCTURE</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">AI Wiki Mining</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Developing an updated version of tools like Logos—AI powered, constantly updated, and built for the 2026 circuit.</p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">EDUCATION</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">The Lecture Lab</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">A dedicated YouTube channel hosting round analysis, philosophy lectures, and technical breakdowns from champions.</p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">COMMUNITY</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">Real-time Support</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Our Discord serves as a hub for practice debates, community Q&A, and cross-format collaboration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <script src="script.js"></script>
+    <!-- Page: Team -->
+    <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-24">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Leadership</h2>
+                <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C]">The Architects.</h1>
+            </div>
+            <div id="team-grid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+                <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+                    <div class="flex flex-col space-y-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Social</span>
+                        <a href="https://instagram.com/debate101" class="text-sm hover:text-[#0072b1]">Instagram</a>
+                        <a href="https://discord.gg/Vgyt8MrW" class="text-sm hover:text-[#0072b1]">Discord</a>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Resource</span>
+                        <a href="#" class="text-sm hover:text-[#0072b1]">Wiki Miner</a>
+                        <a href="#" class="text-sm hover:text-[#0072b1]">Lecture Library</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold">
+                <p>© 2026 DEBATE 101 COLLECTIVE</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const teamData = [
+            {
+                name: "Vivaan Shahani",
+                role: "Strategy & Automation",
+                blurb: "Focuses on framework rigor and philosophical impact framing.",
+                depth: "Vivaan leads technical development. He is currently focused on building AI-driven research workflows to automate Wiki mining for argument trends."
+            },
+            {
+                name: "Max McBride",
+                role: "Policy & Analysis",
+                blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
+                depth: "Max oversees policy content. He specializes in breaking down complex structural violence impacts and managing research archives."
+            },
+            {
+                name: "Max Feinstein",
+                role: "Technical Execution",
+                blurb: "Expert in technical debate mechanics and speed/clarity optimization.",
+                depth: "Max works on pedagogy, creating resources to help debaters master technical execution and leading practice initiatives in Discord."
+            },
+            {
+                name: "Arjun Gupta",
+                role: "Critical Theory",
+                blurb: "Lead analyst for K-Aff argumentation and critical literature.",
+                depth: "Arjun makes high-level critical theory accessible. He manages lectures on critical scholarship and an open-source position database."
+            }
+        ];
+
+        function initTeam() {
+            const grid = document.getElementById('team-grid');
+            if (!grid) return;
+            grid.innerHTML = teamData.map((member, index) => `
+                <div class="team-card py-12 px-2">
+                    <span class="text-[#0072b1] text-[10px] font-bold uppercase tracking-[0.3em]">${member.role}</span>
+                    <h3 class="mck-serif text-3xl text-[#051C2C] mt-4 mb-4">${member.name}</h3>
+                    <p class="text-gray-500 mb-8 leading-relaxed max-w-md italic">${member.blurb}</p>
+                    <button onclick="toggleDepth(${index})" class="group flex items-center text-[#051C2C] text-[10px] font-bold uppercase tracking-widest focus:outline-none">
+                        <span class="mr-3">Full Profile</span>
+                        <div class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#051C2C] group-hover:text-white transition-all">
+                            <i class="fas fa-plus text-[8px] transition-transform" id="icon-${index}"></i>
+                        </div>
+                    </button>
+                    <div id="depth-${index}" class="expand-content">
+                        <div class="py-8 text-gray-600 text-sm leading-relaxed max-w-lg">${member.depth}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleDepth(index) {
+            const content = document.getElementById(`depth-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            content.classList.toggle('active');
+            icon.style.transform = content.classList.contains('active') ? 'rotate(45deg)' : 'rotate(0deg)';
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) target.classList.remove('hidden');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if (pageId === 'team') initTeam();
+        }
+
+        function scrollToGoals() {
+            showPage('home');
+            setTimeout(() => {
+                document.getElementById('roadmap').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 40) nav.classList.add('nav-scrolled');
+            else nav.classList.remove('nav-scrolled');
+        });
+
+        window.onload = () => initTeam();
+    </script>
 </body>
 </html>
