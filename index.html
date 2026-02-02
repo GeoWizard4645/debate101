@@ -3,16 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debate 101 | Open Source Discourse</title>
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Debate 101 | Open Source Competitive Discourse & AI Tools</title>
+    <meta name="description" content="Debate 101 is an open-source collective providing elite AI resolution analysis, Verbatim auto-flow tools, and comprehensive resources for LD and Policy debaters.">
+    <meta name="keywords" content="debate, LD debate, Policy debate, Lincoln Douglas, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
+    <meta name="author" content="Debate 101 Collective">
+    <link rel="canonical" href="https://debate101.org/">
+
+    <!-- OPEN GRAPH / SOCIAL MEDIA SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debate101.org/">
+    <meta property="og:title" content="Debate 101 | Architecting the Future of Discourse">
+    <meta property="og:description" content="Access elite AI-driven strategy, automated flow generators, and comprehensive learning resources for competitive debate.">
+    <meta property="og:image" content="assets/logo.PNG">
+
+    <!-- TWITTER SEO -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://debate101.org/">
+    <meta property="twitter:title" content="Debate 101 | Open Source Debate Tools">
+    <meta property="twitter:description" content="High-impact AI tools and resources built by debaters, for debaters.">
+    <meta property="twitter:image" content="assets/logo.PNG">
+
+    <!-- STRUCTURED DATA (JSON-LD) for Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Debate 101",
+      "url": "https://debate101.org",
+      "logo": "https://debate101.org/assets/logo.PNG",
+      "description": "An unincorporated non-profit collective bridging the gap between novice learners and elite competition through AI tools and community.",
+      "founders": [
+        { "@type": "Person", "name": "Vivaan Shahani" },
+        { "@type": "Person", "name": "Max Feinstein" },
+        { "@type": "Person", "name": "Max McBride" },
+        { "@type": "Person", "name": "Arjun Gupta" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Resolution AI",
+      "operatingSystem": "Web",
+      "applicationCategory": "EducationalApplication",
+      "description": "Strategic AI engine for analyzing debate resolutions and mapping competitive paths."
+    }
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="assets/logo.PNG">
     <!-- Tailwind CSS for layout -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- External Libraries for Auto-Flow logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <!-- Using xlsx-js-style to support cell colors and formatting -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
@@ -443,7 +492,6 @@
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Assets</h2>
                 <h3 class="mck-serif text-4xl text-[#051C2C] mb-8">Ecosystem Hub</h3>
                 <div class="carousel-container">
-                    <!-- Tool 1: Resolution AI -->
                     <div class="carousel-card accent-blue" onclick="showPage('tools')">
                         <div class="flex justify-between items-start">
                             <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
@@ -455,7 +503,6 @@
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Tool 2: Auto Flow Generator -->
                     <div class="carousel-card accent-navy" onclick="showPage('autoflow')">
                         <div class="flex justify-between items-start">
                             <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span></div>
@@ -467,7 +514,6 @@
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Card 5: FAQ & Mentor AI -->
                     <div class="carousel-card accent-blue" onclick="showPage('faq')">
                         <div class="flex justify-between items-start">
                             <div><span class="system-tag">SYS_ID: FAQ-01</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Mentor AI</span></div>
@@ -479,7 +525,6 @@
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
-                    <!-- Card 3: Discord Redirect -->
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
                         <div class="flex justify-between items-start">
                             <div><span class="system-tag">SYS_ID: HUB-03</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span></div>
@@ -761,16 +806,35 @@
 
         function toggleDepth(index) { document.getElementById(`depth-${index}`).classList.toggle('active'); }
 
+        /**
+         * Updated showPage to include Hash Routing for SEO and unique URLs
+         */
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(`page-${pageId}`);
-            if (target) target.classList.remove('hidden');
+            if (target) {
+                target.classList.remove('hidden');
+                // Update URL Hash for SEO / Unique link sharing
+                if (history.pushState) {
+                    history.pushState(null, null, '#' + pageId);
+                } else {
+                    location.hash = '#' + pageId;
+                }
+            }
             const menuOverlay = document.getElementById('mobile-menu-overlay');
             if (menuOverlay.classList.contains('active')) toggleMobileMenu();
             window.scrollTo({top: 0, behavior: 'smooth'});
             if (pageId === 'team') initTeam();
             if (pageId === 'faq') initFaq();
         }
+
+        /**
+         * Handle Initial Route or Back/Forward browser buttons
+         */
+        window.onpopstate = function() {
+            const hash = location.hash.replace('#', '') || 'home';
+            showPage(hash);
+        };
 
         function scrollToGoals() { showPage('home'); setTimeout(() => { document.getElementById('roadmap').scrollIntoView({ behavior: 'smooth' }); }, 300); }
         function toggleMobileMenu() { const overlay = document.getElementById('mobile-menu-overlay'); overlay.classList.toggle('active'); document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : ''; }
@@ -786,7 +850,7 @@
             const inputId = type === 'res' ? 'resolution-input' : 'faq-input';
             const msgId = type === 'res' ? 'chat-messages-res' : 'chat-messages-faq';
             const loadingId = type === 'res' ? 'chat-loading-res' : 'chat-loading-faq';
-            const history = type === 'res' ? chatHistoryRes : chatHistoryFaq;
+            const historyStore = type === 'res' ? chatHistoryRes : chatHistoryFaq;
 
             const inputField = document.getElementById(inputId);
             const rawInput = inputField.value.trim();
@@ -799,7 +863,7 @@
             inputField.value = ""; 
             loading.classList.remove('hidden');
             
-            history.push({ role: "user", parts: [{ text: rawInput }] });
+            historyStore.push({ role: "user", parts: [{ text: rawInput }] });
 
             const systemPrompt = type === 'res' 
                 ? "You are the Lead Strategist at Debate 101. Tone: professional, analytical, authoritative. Provide high-level strategic insights for resolutions. Use logical sections like '1. CLASH OVERVIEW'. Clean text only."
@@ -823,14 +887,14 @@
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' }, 
                     body: JSON.stringify({ 
-                        contents: history, 
+                        contents: historyStore, 
                         systemInstruction: { parts: [{ text: systemPrompt }] } 
                     }) 
                 });
                 
                 const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-                history.push({ role: "model", parts: [{ text: aiResponseText }] });
-                if (history.length > 10) history.splice(0, 2);
+                historyStore.push({ role: "model", parts: [{ text: aiResponseText }] });
+                if (historyStore.length > 10) historyStore.splice(0, 2);
                 
                 appendMessage(type === 'res' ? 'architect' : 'mentor', aiResponseText, msgId);
             } catch (error) { 
@@ -933,7 +997,13 @@
             reader.readAsArrayBuffer(file);
         });
 
-        window.onload = () => { initTeam(); initFaq(); };
+        // Initialize based on Hash on Page Load
+        window.onload = () => { 
+            const initialHash = location.hash.replace('#', '') || 'home';
+            showPage(initialHash);
+            initTeam(); 
+            initFaq(); 
+        };
     </script>
 </body>
 </html>
