@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debate 101 | Open Source Discourse</title>
+    <!-- Favicon - Updated to assets folder -->
+    <link rel="icon" type="image/jpeg" href="assets/logo.PNG">
     <!-- Tailwind CSS for layout -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -70,6 +72,19 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card:hover .profile-img {
+            filter: grayscale(0%);
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -77,7 +92,9 @@
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 px-6 py-5 md:px-12">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Updated to assets folder -->
+                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
                 <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
                     DEBATE<span class="font-light">101</span>
                 </button>
@@ -144,11 +161,11 @@
     <!-- Page: Team -->
     <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-24">
+            <div class="mb-24 text-center md:text-left">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Leadership</h2>
                 <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C]">The Architects.</h1>
             </div>
-            <div id="team-grid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12">
+            <div id="team-grid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-20">
                 <!-- Data injected via JS -->
             </div>
         </div>
@@ -158,12 +175,16 @@
     <footer class="bg-white border-t border-gray-100 py-20 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start gap-12">
-                <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+                <div class="flex items-center space-x-3">
+                    <!-- Updated to assets folder -->
+                    <img src="assets/logo.PNG" alt="Logo" class="h-8 w-auto">
+                    <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+                </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
                     <div class="flex flex-col space-y-4">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Social</span>
-                        <a href="https://instagram.com/debate101" class="text-sm hover:text-[#0072b1]">Instagram</a>
-                        <a href="https://discord.gg/Vgyt8MrW" class="text-sm hover:text-[#0072b1]">Discord</a>
+                        <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="text-sm hover:text-[#0072b1]">Instagram</a>
+                        <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="text-sm hover:text-[#0072b1]">Discord</a>
                     </div>
                     <div class="flex flex-col space-y-4">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Resource</span>
@@ -183,24 +204,28 @@
             {
                 name: "Vivaan Shahani",
                 role: "Strategy & Automation",
+                image: "assets/vivaan.png", // Updated path
                 blurb: "Focuses on framework rigor and philosophical impact framing.",
                 depth: "Vivaan leads technical development. He is currently focused on building AI-driven research workflows to automate Wiki mining for argument trends."
             },
             {
                 name: "Max McBride",
                 role: "Policy & Analysis",
+                image: "assets/max-m.jpg", // Updated path
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
                 depth: "Max oversees policy content. He specializes in breaking down complex structural violence impacts and managing research archives."
             },
             {
                 name: "Max Feinstein",
                 role: "Technical Execution",
+                image: "assets/max-f.jpg", // Updated path
                 blurb: "Expert in technical debate mechanics and speed/clarity optimization.",
                 depth: "Max works on pedagogy, creating resources to help debaters master technical execution and leading practice initiatives in Discord."
             },
             {
                 name: "Arjun Gupta",
                 role: "Critical Theory",
+                image: "assets/arjun.jpg", // Updated path
                 blurb: "Lead analyst for K-Aff argumentation and critical literature.",
                 depth: "Arjun makes high-level critical theory accessible. He manages lectures on critical scholarship and an open-source position database."
             }
@@ -211,6 +236,7 @@
             if (!grid) return;
             grid.innerHTML = teamData.map((member, index) => `
                 <div class="team-card py-12 px-2">
+                    <img src="${member.image}" alt="${member.name}" class="profile-img" onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
                     <span class="text-[#0072b1] text-[10px] font-bold uppercase tracking-[0.3em]">${member.role}</span>
                     <h3 class="mck-serif text-3xl text-[#051C2C] mt-4 mb-4">${member.name}</h3>
                     <p class="text-gray-500 mb-8 leading-relaxed max-w-md italic">${member.blurb}</p>
@@ -245,7 +271,8 @@
         function scrollToGoals() {
             showPage('home');
             setTimeout(() => {
-                document.getElementById('roadmap').scrollIntoView({ behavior: 'smooth' });
+                const element = document.getElementById('roadmap');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 300);
         }
 
