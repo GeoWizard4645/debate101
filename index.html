@@ -292,6 +292,13 @@
             margin-bottom: 8px;
             display: block;
         }
+
+        /* Directorate Masthead Styling */
+        .directorate-bar {
+            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -315,28 +322,41 @@
             <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1]">Discord</a>
             <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1]">Instagram</a>
         </div>
+        <div class="mt-auto border-t pt-8">
+            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Lead Architects</p>
+            <p class="text-xs text-gray-600">Vivaan S. // Max F. // Max M. // Arjun G.</p>
+        </div>
     </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 px-6 py-5 md:px-12">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
-                <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
-                    DEBATE<span class="font-light">101</span>
-                </button>
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
+                    <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
+                        DEBATE<span class="font-light">101</span>
+                    </button>
+                </div>
+                
+                <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C]">
+                    <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Insights</button>
+                    <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
+                    <button onclick="showPage('tools')" class="hover:text-[#0072b1] transition-colors">Tools</button>
+                    <button onclick="scrollToGoals()" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
+                    <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
+                    <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
             </div>
             
-            <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C]">
-                <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Insights</button>
-                <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
-                <button onclick="showPage('tools')" class="hover:text-[#0072b1] transition-colors">Tools</button>
-                <button onclick="scrollToGoals()" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
-                <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
-                <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
+            <!-- Lead Architects Masthead (Desktop Only) -->
+            <div class="hidden md:flex justify-end directorate-bar">
+                <p class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
+                    Lead Architects: <span class="text-[#051C2C] ml-2">Vivaan S. | Max F. | Max M. | Arjun G.</span>
+                </p>
             </div>
-
-            <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
         </div>
     </nav>
 
@@ -347,7 +367,7 @@
                 <div class="wave"></div>
                 <div class="wave wave2"></div>
             </div>
-            <div class="max-w-5xl mx-auto w-full relative z-10">
+            <div class="max-w-5xl mx-auto w-full relative z-10 pt-12 md:pt-0">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Building the Discourse of Tomorrow</h2>
                 <h1 class="mck-serif text-5xl md:text-8xl text-[#051C2C] leading-[1.1] mb-10">
                     Reshaping <span class="italic font-normal text-[#0072b1]">competitive</span> debate through <span class="text-[#051C2C]">open source</span> rigor.
@@ -456,6 +476,42 @@
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who We Are Section (Newly Added) -->
+        <section class="py-32 px-6 md:px-12 bg-white border-t border-gray-50">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-start">
+                <div class="md:w-1/3">
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">The Collective</h2>
+                    <h3 class="mck-serif text-4xl text-[#051C2C]">Who we are.</h3>
+                </div>
+                <div class="md:w-2/3">
+                    <p class="text-xl text-gray-600 mb-12 font-light leading-relaxed">
+                        Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We aren't just creating tools; we are architecting a sustainable learning ecosystem for the next generation of competitive thinkers.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                        <div>
+                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Vivaan Shahani</p>
+                            <p class="text-[10px] text-gray-400 uppercase mt-1">Web & Tool Lead</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Max Feinstein</p>
+                            <p class="text-[10px] text-gray-400 uppercase mt-1">Media & Analysis</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Max McBride</p>
+                            <p class="text-[10px] text-gray-400 uppercase mt-1">Community Lead</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Arjun Gupta</p>
+                            <p class="text-[10px] text-gray-400 uppercase mt-1">Lecture Lead</p>
+                        </div>
+                    </div>
+                    <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">
+                        Meet the team
+                    </button>
                 </div>
             </div>
         </section>
@@ -652,6 +708,7 @@
             else nav.classList.remove('nav-scrolled');
         });
 
+        // Enhanced AI Formatting
         function formatAiResponse(text) {
             // Split into sections by double newline
             return text.split('\n\n').map(block => {
