@@ -502,6 +502,36 @@
         .speech-item-active {
             @apply bg-blue-50 border-[#0072b1] opacity-100 !important;
         }
+
+        /* Screw Calculator Visuals */
+        .chart-bar {
+            height: 24px;
+            background: #f1f5f9;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-bar-fill {
+            height: 100%;
+            background: #cbd5e1;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bubble-danger {
+            background: #ef4444 !important;
+        }
+
+        .screw-input-group {
+            @apply relative border-b border-gray-200 py-2 transition-all;
+        }
+        .screw-input-group:focus-within {
+            @apply border-[#0072b1];
+        }
+        .screw-input-group label {
+            @apply block text-[8px] font-bold uppercase tracking-widest text-gray-400 mb-1;
+        }
+        .screw-input-group input, .screw-input-group select {
+            @apply w-full bg-transparent text-xl font-light outline-none text-[#051C2C];
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -522,6 +552,7 @@
             <div class="flex flex-col space-y-4 ml-4">
                 <span class="text-[10px] text-gray-400">Tools</span>
                 <button onclick="showPage('timer')" class="text-left">Architect Timer</button>
+                <button onclick="showPage('screw')" class="text-left">Screw Calculator</button>
                 <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
                 <button onclick="showPage('autoflow')" class="text-left">Auto Flow Generator</button>
             </div>
@@ -565,6 +596,7 @@
                         </button>
                         <div class="dropdown-content">
                             <button onclick="showPage('timer')">Architect Timer</button>
+                            <button onclick="showPage('screw')">Screw Calculator</button>
                             <button onclick="showPage('tools')">Resolution AI</button>
                             <button onclick="showPage('autoflow')">Auto Flow Generator</button>
                         </div>
@@ -573,6 +605,7 @@
                     <button onclick="scrollToSection('roadmap')" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
                     <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
+                    <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2"><i class="fas fa-search"></i></button>
                 </div>
                 <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
             </div>
@@ -658,6 +691,17 @@
                                 <i class="fas fa-arrow-right arrow-icon"></i>
                             </div>
                         </div>
+                        <div class="carousel-card accent-blue" onclick="showPage('screw')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: CALC-04</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Screw Calculator</span></div>
+                                <i class="fas fa-calculator text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Statistically project outround break points and "bubble" probabilities based on field entries.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">New Tool</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </div>
                         <div class="carousel-card accent-blue" onclick="showPage('tools')">
                             <div class="flex justify-between items-start">
                                 <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
@@ -680,17 +724,6 @@
                                 <i class="fas fa-arrow-right arrow-icon"></i>
                             </div>
                         </div>
-                        <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
-                            <div class="flex justify-between items-start">
-                                <div><span class="system-tag">SYS_ID: HUB-03</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span></div>
-                                <i class="fab fa-discord text-gray-200 text-2xl"></i>
-                            </div>
-                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Join our community for practice debates, direct architect access, and round analysis.</p>
-                            <div class="flex justify-between items-center mt-6">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Connect Now</span>
-                                <i class="fas fa-arrow-right arrow-icon"></i>
-                            </div>
-                        </a>
                     </div>
                     <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('home-carousel', 320)"><i class="fas fa-chevron-right"></i></div>
                 </div>
@@ -818,6 +851,70 @@
                     <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Speech Sequence (Click to Jump)</h3>
                     <div id="speech-queue" class="space-y-1">
                         <!-- Sequence injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Screw Calculator -->
+    <main id="page-screw" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 text-center">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Break Probability</h2>
+                <h1 class="mck-serif text-6xl text-[#051C2C] mb-8">Screw Calculator</h1>
+                <p class="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">Determine how many debaters with common records will miss the outround break based on total entries and field size.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div class="screw-input-group">
+                    <label>Total Entries</label>
+                    <input type="number" id="screw-entries" value="56">
+                </div>
+                <div class="screw-input-group">
+                    <label>Total Rounds</label>
+                    <input type="number" id="screw-rounds" value="6">
+                </div>
+                <div class="screw-input-group">
+                    <label>Outround Break</label>
+                    <select id="screw-break" onchange="toggleCustomBreak()">
+                        <option value="2">Finals (2)</option>
+                        <option value="4">Semifinals (4)</option>
+                        <option value="8">Quarterfinals (8)</option>
+                        <option value="12">Partial Quarters (12)</option>
+                        <option value="16">Octafinals (16)</option>
+                        <option value="24">Partial Octas (24)</option>
+                        <option value="32" selected>Double Octas (32)</option>
+                        <option value="48">Partial Doubles (48)</option>
+                        <option value="64">Triples (64)</option>
+                        <option value="custom">Custom Break Size...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="custom-break-container" class="hidden max-w-xs mx-auto mb-12">
+                <div class="screw-input-group">
+                    <label>Custom Break Count</label>
+                    <input type="number" id="screw-custom-break" value="32" placeholder="e.g. 52">
+                </div>
+            </div>
+
+            <div class="text-center mb-12">
+                <button onclick="calculateScrew()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">Calculate Projection</button>
+            </div>
+
+            <div id="screw-results" class="hidden">
+                <div class="bg-white p-12 shadow-2xl rounded-sm border border-gray-100 mb-8">
+                    <h3 class="mck-serif text-3xl text-[#051C2C] mb-6 text-center">The Architect's Verdict</h3>
+                    <div id="screw-verdict-text" class="text-xl text-center text-gray-600 leading-relaxed max-w-2xl mx-auto mb-10">
+                        <!-- Injected verdict -->
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <h4 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 text-center mb-8">Record Distribution Projection</h4>
+                        <div id="screw-chart-container" class="space-y-4">
+                            <!-- Bars injected -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -998,9 +1095,8 @@
                 title: "Prep Tools & Logic",
                 bgColor: "bg-white",
                 resources: [
-                    { title: "Architect Timer", desc: "Proprietary high-precision tournament timer for LD, Policy, and PF. Features automated speech sequences and prep tracking.", link: "#timer", type: "internal", icon: "fas fa-stopwatch", keywords: "timer, stop watch, clock, round time" },
-                    { title: "Auto Flow Generator", desc: "Proprietary Debate 101 tool for converting Cases into Excel Flow templates. Optimized for speed and technical clarity.", link: "#autoflow", type: "internal", icon: "fas fa-file-excel", keywords: "excel, flow, automated, spreadsheet" },
                     { title: "Resolution AI", desc: "Elite synthesis engine for high-level resolution analysis. Map offensive paths and framework clashes instantly.", link: "#tools", type: "internal", icon: "fas fa-robot", keywords: "ai, strategist, analysis, resolution, intelligence" },
+                    { title: "Auto Flow Generator", desc: "Proprietary Debate 101 tool for converting Cases into Excel Flow templates. Optimized for speed and technical clarity.", link: "#autoflow", type: "internal", icon: "fas fa-file-excel", keywords: "excel, flow, automated, spreadsheet" },
                     { title: "Debate.cards", desc: "A precision search engine designed specifically for finding carded evidence across multiple national circuit archives.", link: "https://debate.cards/", type: "external", icon: "fas fa-search-plus", keywords: "evidence search, carding, preparation" },
                     { title: "Logos Debate", desc: "A modern platform providing high-quality drills, evidence sets, and prep materials for LD and PF debaters.", link: "https://logos-debate.netlify.app/", type: "external", icon: "fas fa-bookmark", keywords: "prep, drills, logos" },
                     { title: "Cardr (GitHub)", desc: "Open-source browser extension for automated card-cutting from scholarly sites directly into Verbatim. Essential for research speed.", link: "https://github.com/SohamGovande/cardr", type: "external", icon: "fas fa-scissors", keywords: "extension, carding, research, github" },
@@ -1011,6 +1107,7 @@
                 title: "Technical Utilities",
                 bgColor: "bg-gray-50",
                 resources: [
+                    { title: "Architect Timer", desc: "Proprietary high-precision tournament timer for LD, Policy, and PF. Features automated speech sequences and prep tracking.", link: "#timer", type: "internal", icon: "fas fa-stopwatch", keywords: "timer, stop watch, clock, round time" },
                     { title: "DebateKeeper", desc: "The most customizable Android timer for competitive debate, supporting custom bell signals and prep-time logic.", link: "https://github.com/czlee/debatekeeper", type: "external", icon: "fas fa-stopwatch", keywords: "timer, android, prep time" },
                     { title: "DebTime", desc: "A minimalist, high-visibility web timer interface for tracking speech times on any device in-round.", link: "https://debti.me/", type: "external", icon: "fas fa-clock", keywords: "web timer, timing, debate" },
                     { title: "DebateTimers.com", desc: "Professional-grade browser timers featuring multi-room synchronization and streamlined UX for tournament use.", link: "https://debatetimers.com/", type: "external", icon: "fas fa-hourglass-half", keywords: "timer, clock, web" },
@@ -1021,6 +1118,7 @@
                 title: "Calculators & Odds",
                 bgColor: "bg-blue-50",
                 resources: [
+                    { title: "Screw Calculator", desc: "Proprietary projection utility for determining outround break points and 'bubble' probabilities based on tournament size.", link: "#screw", type: "internal", icon: "fas fa-calculator", keywords: "break, screw, odds, projection" },
                     { title: "DebateBreaker", desc: "Instant probability calculations for tournament breaks based on your current record and field power matching.", link: "https://www.debatebreaker.com/", type: "external", icon: "fas fa-calculator", keywords: "break calculator, odds, bracket" },
                     { title: "CDA Break Calc", desc: "Specialized calculator for determining break points and seed probabilities in large-scale tournament brackets.", link: "https://www.cdadebate.com/debate-tournament-break-calculator", type: "external", icon: "fas fa-percent", keywords: "break, seed, seeds" },
                     { title: "Circuit Debater Screw", desc: "Technical utility for calculating elimination round probabilities and ensuring fairness in bracket seeding.", link: "https://tools.circuitdebater.org/screw", type: "external", icon: "fas fa-tools", keywords: "screw calculator, bracket, circuit" }
@@ -1063,13 +1161,14 @@
                     { title: "Outreach Debate", desc: "Initiative focused on expanding access to competitive discourse for under-resourced schools and communities.", link: "https://www.outreachdebate.com/", type: "external", icon: "fas fa-hands-helping", keywords: "outreach, inclusive" },
                     { title: "PepTalk Debate", desc: "Mentorship-focused debate training designed to empower middle and high school students through discourse.", link: "https://www.peptalkdebate.org/", type: "external", icon: "fas fa-bullhorn", keywords: "mentorship, pep talk" },
                     { title: "Vanguard Debate", desc: "Innovative tournament management and tabulation software designed for modern high-speed circuit efficiency.", link: "https://vanguarddebate.com/", type: "external", icon: "fas fa-shield-alt", keywords: "vanguard, tab, tournament" }
-
                 ]
             },
             {
                 title: "Equity & Community",
                 bgColor: "bg-blue-50",
                 resources: [
+                    { title: "Architect Discord", desc: "Join our community hub for real-time round analysis, practice debates, and direct lead architect access.", link: "https://discord.gg/Vgyt8MrW", type: "external", icon: "fab fa-discord", keywords: "discord, community, chat, social" },
+                    { title: "Debate 101 Instagram", desc: "Follow for circuit news, round highlights, upcoming lecture series announcements, and community features.", link: "https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==", type: "external", icon: "fab fa-instagram", keywords: "instagram, social media, news" },
                     { title: "CDA Financial Aid", desc: "Essential resource for high school debaters seeking financial support and accessibility grants for competition.", link: "https://www.cdadebate.com/financial-aid", type: "external", icon: "fas fa-hand-holding-usd", keywords: "aid, grants, scholarships" },
                     { title: "Women's Debate Inst.", desc: "Non-profit providing elite debate education for gender-marginalized students to bridge the equity gap.", link: "https://www.womensdebateinstitute.org/", type: "external", icon: "fas fa-female", keywords: "wdi, inclusive, equity" },
                     { title: "W.I.N. Instagram", desc: "Women in National Debate platform focusing on representation, success stories, and community highlights.", link: "https://www.instagram.com/windebate/", type: "external", icon: "fab fa-instagram", keywords: "win, media, community" },
@@ -1179,7 +1278,6 @@
         let negPrepLeft = 240;
         let prepActive = null; 
 
-        // Soft sound implementation via Web Audio API
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
             const oscillator = audioCtx.createOscillator();
@@ -1208,7 +1306,6 @@
             document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('timer-btn-active'));
             document.getElementById(`format-${format}`).classList.add('timer-btn-active');
             
-            // Show/Hide LD specific settings
             document.getElementById('ld-settings').style.display = format === 'LD' ? 'flex' : 'none';
             
             updateTimerUI();
@@ -1234,7 +1331,6 @@
             
             document.getElementById('timer-start-pause').innerText = isRunning ? 'Pause' : 'Start';
             
-            // Prep UI
             const amins = Math.floor(affPrepLeft / 60);
             const asecs = affPrepLeft % 60;
             document.getElementById('prep-aff-display').innerText = `${amins.toString().padStart(2, '0')}:${asecs.toString().padStart(2, '0')}`;
@@ -1336,6 +1432,90 @@
             `).join('');
         }
 
+        // SCREW CALCULATOR LOGIC
+        function factorial(n) {
+            if (n === 0) return 1;
+            let res = 1;
+            for (let i = 1; i <= n; i++) res *= i;
+            return res;
+        }
+
+        function nCr(n, r) {
+            if (r < 0 || r > n) return 0;
+            return factorial(n) / (factorial(r) * factorial(n - r));
+        }
+
+        function toggleCustomBreak() {
+            const val = document.getElementById('screw-break').value;
+            document.getElementById('custom-break-container').classList.toggle('hidden', val !== 'custom');
+        }
+
+        function calculateScrew() {
+            const entries = parseInt(document.getElementById('screw-entries').value);
+            const rounds = parseInt(document.getElementById('screw-rounds').value);
+            const breakSelect = document.getElementById('screw-break').value;
+            const breakSize = breakSelect === 'custom' ? parseInt(document.getElementById('screw-custom-break').value) : parseInt(breakSelect);
+            
+            const resultsDiv = document.getElementById('screw-results');
+            const verdictDiv = document.getElementById('screw-verdict-text');
+            const chartDiv = document.getElementById('screw-chart-container');
+
+            resultsDiv.classList.remove('hidden');
+
+            const distribution = [];
+            for (let wins = rounds; wins >= 0; wins--) {
+                const prob = nCr(rounds, wins) / Math.pow(2, rounds);
+                const count = Math.round(entries * prob * 10) / 10;
+                distribution.push({ wins, count, losses: rounds - wins });
+            }
+
+            let slotsLeft = breakSize;
+            let bubbleRecord = null;
+            let bubbleScrewCount = 0;
+            let bubbleTotalAtRecord = 0;
+
+            for (let i = 0; i < distribution.length; i++) {
+                const item = distribution[i];
+                if (slotsLeft >= item.count) {
+                    slotsLeft -= item.count;
+                } else if (slotsLeft > 0) {
+                    bubbleRecord = `${item.wins}-${item.losses}`;
+                    bubbleTotalAtRecord = item.count;
+                    bubbleScrewCount = Math.round((item.count - slotsLeft) * 10) / 10;
+                    slotsLeft = 0;
+                }
+            }
+
+            if (bubbleRecord) {
+                const percent = Math.round((bubbleScrewCount / bubbleTotalAtRecord) * 100);
+                verdictDiv.innerHTML = `Approximately <span class="text-red-500 font-bold">${bubbleScrewCount} out of ${bubbleTotalAtRecord}</span> debaters with a <strong>${bubbleRecord}</strong> record will miss the break.<br><br>The <span class="text-red-500 font-bold">${bubbleRecord} Screw probability is ${percent}%</span>.`;
+            } else {
+                verdictDiv.innerHTML = `<span class="text-green-600 font-bold">Clear Break</span>: All debaters with competitive records are projected to break without a screw.`;
+            }
+
+            const maxCount = Math.max(...distribution.map(d => d.count));
+            chartDiv.innerHTML = distribution.map(d => {
+                const isBubble = `${d.wins}-${d.losses}` === bubbleRecord;
+                const width = (d.count / maxCount) * 100;
+                return `
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 text-[10px] font-bold text-gray-500">${d.wins}-${d.losses}</div>
+                        <div class="flex-grow chart-bar">
+                            <div class="chart-bar-fill ${isBubble ? 'bubble-danger' : ''}" style="width: ${width}%"></div>
+                        </div>
+                        <div class="w-12 text-[10px] font-bold text-[#051C2C]">${d.count}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function triggerGlobalSearch() {
+            showPage('hub');
+            setTimeout(() => {
+                document.getElementById('resource-search').focus();
+            }, 100);
+        }
+
         // CAROUSEL NAVIGATION
         function scrollCarousel(id, offset) {
             const el = document.getElementById(id);
@@ -1350,7 +1530,6 @@
             const counter = document.getElementById('resource-counter');
             if (!container) return;
 
-            // Actual math calculation
             const total = resourceCategories.reduce((acc, cat) => acc + cat.resources.length, 0);
             counter.innerText = total;
 
