@@ -109,6 +109,12 @@
         }
 
         /* Carousel Section Styles */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
         .carousel-container {
             display: flex;
             overflow-x: auto;
@@ -116,6 +122,7 @@
             gap: 16px;
             padding: 12px 0;
             scrollbar-width: none;
+            scroll-behavior: smooth;
         }
         .carousel-container::-webkit-scrollbar { display: none; }
 
@@ -175,6 +182,35 @@
             color: #bbb;
             margin-bottom: 6px;
             display: block;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            z-index: 30;
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            color: var(--mck-blue);
+        }
+        .nav-arrow:hover {
+            background: var(--mck-blue);
+            color: white;
+            border-color: var(--mck-blue);
+        }
+        .nav-arrow-left { left: -18px; }
+        .nav-arrow-right { right: -18px; }
+
+        @media (max-width: 768px) {
+            .nav-arrow { display: none; }
         }
 
         /* Team Card Interactions */
@@ -608,51 +644,55 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Assets</h2>
                 <h3 class="mck-serif text-4xl text-[#051C2C] mb-8">Ecosystem Hub</h3>
-                <div class="carousel-container">
-                    <div class="carousel-card accent-blue" onclick="showPage('timer')">
-                        <div class="flex justify-between items-start">
-                            <div><span class="system-tag">SYS_ID: TIME-01</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Architect Timer</span></div>
-                            <i class="fas fa-stopwatch text-blue-100 text-2xl"></i>
+                <div class="carousel-wrapper">
+                    <div class="nav-arrow nav-arrow-left" onclick="scrollCarousel('home-carousel', -320)"><i class="fas fa-chevron-left"></i></div>
+                    <div id="home-carousel" class="carousel-container">
+                        <div class="carousel-card accent-blue" onclick="showPage('timer')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: TIME-01</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Architect Timer</span></div>
+                                <i class="fas fa-stopwatch text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Precision tournament timer for LD, Policy, and PF. Integrated speech sequences and prep-tracking.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Tool</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
                         </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Precision tournament timer for LD, Policy, and PF. Integrated speech sequences and prep-tracking.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Tool</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
+                        <div class="carousel-card accent-blue" onclick="showPage('tools')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
+                                <i class="fas fa-robot text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Real-time strategic synthesis engine for resolution analysis and follow-up support.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Beta</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
                         </div>
+                        <div class="carousel-card accent-navy" onclick="showPage('autoflow')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span></div>
+                                <i class="fas fa-file-excel text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: HUB-03</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span></div>
+                                <i class="fab fa-discord text-gray-200 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Join our community for practice debates, direct architect access, and round analysis.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Connect Now</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </a>
                     </div>
-                    <div class="carousel-card accent-blue" onclick="showPage('tools')">
-                        <div class="flex justify-between items-start">
-                            <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
-                            <i class="fas fa-robot text-blue-100 text-2xl"></i>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Real-time strategic synthesis engine for resolution analysis and follow-up support.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Beta</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
-                        </div>
-                    </div>
-                    <div class="carousel-card accent-navy" onclick="showPage('autoflow')">
-                        <div class="flex justify-between items-start">
-                            <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span></div>
-                            <i class="fas fa-file-excel text-blue-100 text-2xl"></i>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
-                        </div>
-                    </div>
-                    <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="carousel-card accent-navy">
-                        <div class="flex justify-between items-start">
-                            <div><span class="system-tag">SYS_ID: HUB-03</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Discord Hub</span></div>
-                            <i class="fab fa-discord text-gray-200 text-2xl"></i>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Join our community for practice debates, direct architect access, and round analysis.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Connect Now</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
-                        </div>
-                    </a>
+                    <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('home-carousel', 320)"><i class="fas fa-chevron-right"></i></div>
                 </div>
             </div>
         </section>
@@ -1015,6 +1055,7 @@
                 title: "Elite Camps & Orgs",
                 bgColor: "bg-white",
                 resources: [
+                    { title: "CDA Financial Aid", desc: "Essential resource for high school debaters seeking financial support and accessibility grants for competition.", link: "https://www.cdadebate.com/financial-aid", type: "external", icon: "fas fa-hand-holding-usd", keywords: "aid, grants, scholarships" },
                     { title: "Vanguard Debate", desc: "Innovative tournament management and tabulation software designed for modern high-speed circuit efficiency.", link: "https://vanguarddebate.com/", type: "external", icon: "fas fa-shield-alt", keywords: "vanguard, tab, tournament" },
                     { title: "Harvard Workshops", desc: "World-class summer workshops taught by Ivy League champions and national circuit coaches.", link: "https://hdcsw.org/", type: "external", icon: "fas fa-crown", keywords: "camp, harvard, summer" },
                     { title: "Michigan Debate", desc: "The most rigorous Policy intensive workshop globally, known for its extreme research standards.", link: "https://michigandebate.com/", type: "external", icon: "fas fa-flask", keywords: "policy camp, michigan, summer" },
@@ -1195,7 +1236,6 @@
             // Prep UI
             const amins = Math.floor(affPrepLeft / 60);
             const asecs = affPrepLeft % 60;
-            document.getElementById('prep-aff-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             document.getElementById('prep-aff-display').innerText = `${amins.toString().padStart(2, '0')}:${asecs.toString().padStart(2, '0')}`;
             document.getElementById('prep-aff-btn').innerText = prepActive === 'aff' ? 'Stop' : 'Start';
             
@@ -1295,6 +1335,12 @@
             `).join('');
         }
 
+        // CAROUSEL NAVIGATION
+        function scrollCarousel(id, offset) {
+            const el = document.getElementById(id);
+            if (el) el.scrollLeft += offset;
+        }
+
         let chatHistoryRes = [];
         let chatHistoryFaq = [];
 
@@ -1307,26 +1353,30 @@
             const total = resourceCategories.reduce((acc, cat) => acc + cat.resources.length, 0);
             counter.innerText = total;
 
-            container.innerHTML = resourceCategories.map((cat) => `
+            container.innerHTML = resourceCategories.map((cat, idx) => `
                 <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-8 border-y border-gray-100 mt-4">
                     <h3 class="mck-serif text-xl text-[#051C2C] mb-6 pb-2 border-b border-gray-200">${cat.title}</h3>
-                    <div class="carousel-container pb-4">
-                        ${cat.resources.map(res => `
-                            <a href="${res.link}" target="${res.type === 'internal' ? '_self' : '_blank'}" class="carousel-card ${res.type === 'internal' ? 'accent-blue' : 'accent-gray'} resource-item-card resource-hub-card" data-title="${res.title}" data-desc="${res.desc}" data-keywords="${res.keywords || ''}" ${res.type === 'internal' ? `onclick="showPage('${res.link.replace('#','')}')"` : ''}>
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <span class="res-label ${res.type === 'internal' ? 'label-internal' : 'label-external'}">${res.type}</span>
-                                        <span class="text-[11px] block mt-1 font-bold uppercase tracking-widest text-[#051C2C]">${res.title}</span>
+                    <div class="carousel-wrapper">
+                        <div class="nav-arrow nav-arrow-left" onclick="scrollCarousel('cat-carousel-${idx}', -320)"><i class="fas fa-chevron-left"></i></div>
+                        <div id="cat-carousel-${idx}" class="carousel-container pb-4">
+                            ${cat.resources.map(res => `
+                                <a href="${res.link}" target="${res.type === 'internal' ? '_self' : '_blank'}" class="carousel-card ${res.type === 'internal' ? 'accent-blue' : 'accent-gray'} resource-item-card resource-hub-card" data-title="${res.title}" data-desc="${res.desc}" data-keywords="${res.keywords || ''}" ${res.type === 'internal' ? `onclick="showPage('${res.link.replace('#','')}')"` : ''}>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="res-label ${res.type === 'internal' ? 'label-internal' : 'label-external'}">${res.type}</span>
+                                            <span class="text-[11px] block mt-1 font-bold uppercase tracking-widest text-[#051C2C]">${res.title}</span>
+                                        </div>
+                                        <i class="${res.icon} text-blue-100 text-lg"></i>
                                     </div>
-                                    <i class="${res.icon} text-blue-100 text-lg"></i>
-                                </div>
-                                <p class="text-[11px] text-gray-500 leading-tight mt-1 line-clamp-3">${res.desc}</p>
-                                <div class="flex justify-between items-center mt-auto">
-                                    <span class="text-[8px] font-bold uppercase tracking-widest text-gray-400">Access</span>
-                                    <i class="fas fa-arrow-right arrow-icon"></i>
-                                </div>
-                            </a>
-                        `).join('')}
+                                    <p class="text-[11px] text-gray-500 leading-tight mt-1 line-clamp-3">${res.desc}</p>
+                                    <div class="flex justify-between items-center mt-auto">
+                                        <span class="text-[8px] font-bold uppercase tracking-widest text-gray-400">Access</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
+                        <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('cat-carousel-${idx}', 320)"><i class="fas fa-chevron-right"></i></div>
                     </div>
                 </div>
             `).join('');
