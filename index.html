@@ -6,7 +6,7 @@
     
     <!-- PRIMARY SEO TAGS -->
     <title>Debate 101 | Open Source Competitive Discourse & AI Tools</title>
-    <meta name="description" content="Debate 101 is an open-source collective providing elite AI resolution analysis, Verbatim auto-flow tools, and comprehensive resources for LD and Policy debaters.">
+    <meta name="description" content="Debate 101 is an open-source collective providing elite AI resolution analysis, Verbatim auto-flow tools, and the world's largest collection of debate resources.">
     <meta name="keywords" content="debate, LD debate, Policy debate, Lincoln Douglas, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
     <meta name="author" content="Debate 101 Collective">
     <link rel="canonical" href="https://debate101.org/">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://debate101.org/">
     <meta property="og:title" content="Debate 101 | Architecting the Future of Discourse">
-    <meta property="og:description" content="Access elite AI-driven strategy, automated flow generators, and comprehensive learning resources for competitive debate.">
+    <meta property="og:description" content="Access elite AI-driven strategy, automated flow generators, and the world's largest collection of debate tools.">
     <meta property="og:image" content="assets/logo.PNG">
 
     <!-- STRUCTURED DATA (JSON-LD) -->
@@ -111,17 +111,16 @@
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 24px;
-            padding: 40px 0;
+            gap: 16px;
+            padding: 12px 0;
             scrollbar-width: none;
         }
         .carousel-container::-webkit-scrollbar { display: none; }
 
         .carousel-card {
-            flex: 0 0 320px;
+            flex: 0 0 300px;
             background: white;
-            aspect-ratio: 1/1;
-            padding: 32px;
+            padding: 20px;
             border: 1px solid #eee;
             scroll-snap-align: start;
             display: flex;
@@ -135,13 +134,19 @@
             color: inherit;
         }
 
+        .carousel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(5, 28, 44, 0.06);
+            border-color: transparent;
+        }
+
         .carousel-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: #eee;
             transition: background 0.3s ease;
         }
@@ -150,29 +155,23 @@
         .carousel-card.accent-navy::before { background: var(--mck-blue); }
         .carousel-card.accent-gray::before { background: #d1d5db; }
 
-        .carousel-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(5, 28, 44, 0.08);
-            border-color: transparent;
-        }
-
         .carousel-card .arrow-icon {
             transition: all 0.4s ease;
             color: #ddd;
-            font-size: 1.5rem;
+            font-size: 1rem;
         }
 
         .carousel-card:hover .arrow-icon {
             color: var(--mck-accent);
-            transform: translateX(10px);
+            transform: translateX(6px);
         }
 
         .system-tag {
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 800;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
             color: #bbb;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: block;
         }
 
@@ -194,7 +193,7 @@
         }
 
         .expand-content.active {
-            max-height: 1200px;
+            max-height: 4000px;
         }
 
         .btn-mck {
@@ -319,7 +318,7 @@
         /* FAQ Styling */
         .faq-item {
             border-bottom: 1px solid #eee;
-            padding: 1.5rem 0;
+            padding: 1.25rem 0;
             transition: background 0.3s;
         }
         .faq-item:hover { background-color: #fafafa; }
@@ -348,6 +347,72 @@
             font-size: 0.75rem;
             color: var(--mck-accent);
         }
+
+        /* Resource Label Styling */
+        .res-label {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 0;
+            display: inline-block;
+        }
+        .label-internal { background: #e0f2fe; color: #0369a1; border: 1px solid #0369a1; }
+        .label-external { background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
+
+        /* Compact Hub Layout - 1/8th margins */
+        .resource-category-section {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+        .hub-title {
+            margin-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .resource-hub-card {
+            min-height: 200px;
+            height: 200px;
+        }
+
+        /* Toggle Switch UI */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; width: 18px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--mck-accent); }
+        input:checked + .slider:before { transform: translateX(26px); }
     </style>
 </head>
 <body class="bg-white">
@@ -393,8 +458,17 @@
                 <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C] items-center">
                     <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Insights</button>
                     <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
-                    <button onclick="showPage('faq')" class="hover:text-[#0072b1] transition-colors">Resources</button>
                     
+                    <div class="dropdown">
+                        <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
+                            Resources <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <button onclick="showPage('hub')">Resource Hub</button>
+                            <button onclick="showPage('faq')">FAQ</button>
+                        </div>
+                    </div>
+
                     <div class="dropdown">
                         <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
                             Tools <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
@@ -436,6 +510,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6">
                     <button onclick="showPage('autoflow')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Try Auto Flow Generator</button>
+                    <button onclick="showPage('hub')" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:bg-[#051C2C] hover:text-white transition-all">Visit Global Resource Hub</button>
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
                 </div>
             </div>
@@ -448,7 +523,12 @@
                     <h2 class="mck-serif text-4xl md:text-6xl">2026 Vision Map.</h2>
                     <p class="text-gray-400 max-w-sm text-sm leading-relaxed border-l border-gray-700 pl-6">Advancing LD-focused roots into a broader high school debate circuit ecosystem.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-16">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-16">
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">Global Repository</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">World's Largest Resource Collection</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Building a living, exhaustive library of every verified tool, course, and research asset in competitive debate. This is our core accessibility mission.</p>
+                    </div>
                     <div class="border-t border-gray-800 pt-10">
                         <span class="text-[#0072b1] font-bold text-xs tracking-widest">INFRASTRUCTURE</span>
                         <h3 class="text-2xl font-light mt-6 mb-6">AI Wiki Mining</h3>
@@ -457,7 +537,7 @@
                     <div class="border-t border-gray-800 pt-10">
                         <span class="text-[#0072b1] font-bold text-xs tracking-widest">EDUCATION</span>
                         <h3 class="text-2xl font-light mt-6 mb-6">The Lecture Lab</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">A digital archive hosting high-level round analysis, philosophy lectures, and technical breakdowns.</p>
+                        <p class="text-gray-400 leading-relaxed text-sm">A digital archive hosting high-level round analysis and technical breakdowns.</p>
                     </div>
                     <div class="border-t border-gray-800 pt-10">
                         <span class="text-[#0072b1] font-bold text-xs tracking-widest">COMMUNITY</span>
@@ -468,7 +548,7 @@
             </div>
         </section>
 
-        <!-- Asset Carousel -->
+        <!-- Ecosystem Hub Carousel -->
         <section class="py-32 px-6 md:px-12 bg-gray-100 overflow-hidden">
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Assets</h2>
@@ -493,17 +573,6 @@
                         <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
                         <div class="flex justify-between items-center mt-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
-                            <i class="fas fa-arrow-right arrow-icon"></i>
-                        </div>
-                    </div>
-                    <div class="carousel-card accent-blue" onclick="showPage('faq')">
-                        <div class="flex justify-between items-start">
-                            <div><span class="system-tag">SYS_ID: MENTOR-01</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Mentor AI</span></div>
-                            <i class="fas fa-graduation-cap text-blue-100 text-2xl"></i>
-                        </div>
-                        <p class="text-gray-500 text-sm leading-relaxed mt-4">Generic Debate AI trained to answer theory, mechanics, and terminology questions instantly.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Resource</span>
                             <i class="fas fa-arrow-right arrow-icon"></i>
                         </div>
                     </div>
@@ -533,6 +602,38 @@
             </div>
         </section>
 
+        <!-- Global Resource Hub Homepage Section -->
+        <section class="py-32 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</h2>
+                    <h3 class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h3>
+                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
+                        Debate 101 is cataloging every essential tool, lecture, camp, and research asset in the international circuit. From specialized software like Verbatim to niche critical theory scholarly databases, our Global Hub provides debaters with an exhaustive ecosystem of strategic advantages.
+                    </p>
+                    <button onclick="showPage('hub')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all">Explore Global Collection</button>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-tools text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Strategic Tools</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-university text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Verified Camps</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-book-open text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Research Bases</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-video text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Lecture Vaults</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Who We Are -->
         <section class="py-32 px-6 md:px-12 bg-white border-t border-gray-50">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-start">
@@ -544,30 +645,36 @@
                     <p class="text-xl text-gray-600 mb-12 font-light leading-relaxed">
                         Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We aren't just creating tools; we are architecting a sustainable learning ecosystem for the next generation of competitive thinkers.
                     </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                        <div>
-                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Vivaan Shahani</p>
-                            <p class="text-[10px] text-gray-400 uppercase mt-1">Web & Tool Lead</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Max Feinstein</p>
-                            <p class="text-[10px] text-gray-400 uppercase mt-1">Media & Analysis</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Max McBride</p>
-                            <p class="text-[10px] text-gray-400 uppercase mt-1">Community Lead</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-[#051C2C] uppercase tracking-widest">Arjun Gupta</p>
-                            <p class="text-[10px] text-gray-400 uppercase mt-1">Lecture Lead</p>
-                        </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 text-[#051C2C]">
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Vivaan Shahani</p><p class="text-[10px] text-gray-400 uppercase mt-1">Web & Tool Lead</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Max Feinstein</p><p class="text-[10px] text-gray-400 uppercase mt-1">Media & Analysis</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Max McBride</p><p class="text-[10px] text-gray-400 uppercase mt-1">Community Lead</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Arjun Gupta</p><p class="text-[10px] text-gray-400 uppercase mt-1">Lecture Lead</p></div>
                     </div>
-                    <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">
-                        Meet the team
-                    </button>
+                    <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">Meet the team</button>
                 </div>
             </div>
         </section>
+    </main>
+
+    <!-- Page: Resource Hub -->
+    <main id="page-hub" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-4 flex flex-col md:flex-row justify-between items-end gap-4">
+                <div>
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-1">Universal Repository</h2>
+                    <h1 class="mck-serif text-3xl md:text-4xl text-[#051C2C] leading-tight">Global <span class="italic text-[#0072b1] font-normal">Resource Hub.</span></h1>
+                </div>
+                <div class="search-bar-container w-full md:w-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="resource-search" placeholder="Search phil, camps, tools, authors..." oninput="filterResources()" class="search-input shadow-sm rounded-sm">
+                </div>
+            </div>
+
+            <div id="resource-hub-container">
+                <!-- Categories Injected via JS -->
+            </div>
+        </div>
     </main>
 
     <!-- Page: Resolution AI -->
@@ -604,64 +711,45 @@
     <!-- Page: Auto Flow Generator -->
     <main id="page-autoflow" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-12">
+            <div class="mb-12 text-center">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Utility</h2>
                 <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Auto Flow Generator</h1>
-                <p class="text-gray-500 max-w-2xl text-base font-light leading-relaxed">Instantly convert Verbatim cases into Excel flow templates. Client-side processing ensures your data stays private.</p>
-            </div>
-            <div class="bg-white p-12 shadow-xl border border-gray-100 max-w-2xl mx-auto text-center rounded-sm">
-                <i class="fas fa-file-excel text-6xl text-gray-200 mb-8 block"></i>
-                <input type="file" id="docx-input" accept=".docx" class="hidden">
-                <button onclick="document.getElementById('docx-input').click()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">Select Verbatim Case</button>
-                <div id="flow-status" class="mt-8 text-xs font-bold uppercase tracking-widest text-gray-400"></div>
+                <p class="text-gray-500 max-w-2xl mx-auto text-base font-light leading-relaxed mb-8">
+                    Instantly convert Verbatim cases into Excel flow templates. Only tags and citations (Author + Date) are extracted.
+                </p>
+
+                <div class="switch-container">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">AFF Flow (5 Col)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="flow-mode-switch">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">NEG Flow (4 Col + Tabs)</span>
+                </div>
+
+                <div class="bg-white p-12 shadow-xl border border-gray-100 max-w-2xl mx-auto text-center rounded-sm">
+                    <i class="fas fa-file-excel text-6xl text-gray-200 mb-8 block"></i>
+                    <input type="file" id="docx-input" accept=".docx" class="hidden">
+                    <button onclick="document.getElementById('docx-input').click()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">Select Verbatim Case</button>
+                    <div id="flow-status" class="mt-8 text-xs font-bold uppercase tracking-widest text-gray-400"></div>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Page: Resources -->
-    <main id="page-faq" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen">
+    <!-- Page: FAQ & Mentor AI -->
+    <main id="page-faq" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
         <div class="max-w-4xl mx-auto">
             <div class="mb-16">
                 <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Learning Hub</h2>
-                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Resources</h1>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">FAQ</h1>
                 <p class="text-gray-500 text-base font-light leading-relaxed">Fundamental knowledge for every debater, architected for clarity.</p>
             </div>
-
             <div id="faq-list" class="space-y-2 mb-24"></div>
-
             <div class="bg-gray-50 p-12 border border-gray-100 text-center mb-24">
                 <h3 class="mck-serif text-3xl text-[#051C2C] mb-6">Still have questions?</h3>
-                <p class="text-gray-600 mb-8 max-w-md mx-auto">Our human architects and community members are active 24/7 in the Discord to help you master elite strategy.</p>
+                <p class="text-gray-600 mb-8 max-w-md mx-auto">Our human architects and community members are active 24/7 in the Discord.</p>
                 <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block">Join our Discord</a>
-            </div>
-
-            <div class="mb-12 border-t pt-24">
-                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Beta Prototype</h2>
-                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Debate Mentor AI</h1>
-                <p class="text-gray-500 text-base font-light leading-relaxed mb-12 italic">
-                    This is a <b>Generic Debate AI</b>. It is trained on the broad landscape of competitive debate theory, terminology, and mechanics.
-                </p>
-                
-                <div class="chat-container shadow-2xl rounded-sm overflow-hidden">
-                    <div id="chat-messages-faq" class="chat-messages chat-scroll-hide">
-                        <div class="message message-architect">
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Mentor AI</p>
-                            <div class="ai-content"><p>Ask me any general question about debate. For example: "What is a Kritik?" or "How do I flow more efficiently?"</p></div>
-                        </div>
-                    </div>
-                    <div id="chat-loading-faq" class="px-8 py-4 hidden bg-white">
-                        <div class="flex items-center space-x-3">
-                            <div class="animate-pulse flex space-x-1"><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div></div>
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Mentor is teaching...</span>
-                        </div>
-                    </div>
-                    <div class="chat-input-area">
-                        <div class="flex gap-4">
-                            <input type="text" id="faq-input" placeholder="Ask a general debate question..." onkeypress="if(event.key === 'Enter') analyzeTopic('faq')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
-                            <button onclick="analyzeTopic('faq')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
@@ -690,37 +778,34 @@
     </footer>
 
     <script>
-        const faqData = [
-            { q: "What is Lincoln-Douglas (LD) debate?", a: "LD is a one-on-one debate format focusing on philosophical values and criteria. It traditionally clashes on moral imperatives, though modern 'circuit' LD includes policy-style plans and kritiks." },
-            { q: "What is Policy debate?", a: "Policy debate involves two-on-two teams debating a government's course of action. It is highly technical, evidence-intensive, and focuses on pragmatism and structural outcomes." },
-            { q: "What is Public Forum (PF) debate?", a: "PF is designed to be accessible to a general audience. It focuses on current events and persuasive speaking, avoiding the extreme technicality of Policy or circuit LD." },
-            { q: "What is a 'flow' in debate?", a: "Flowing is the specialized form of note-taking used by debaters to track the evolution of every argument throughout a round, usually organized in columns by speech." },
-            { q: "What is a 'tag' in a card?", a: "A tag is a one-sentence summary of the argument made by a piece of evidence. It is what the debater reads before the author and the evidence body." },
-            { q: "What is a citation?", a: "The citation (cite) includes the author's name, credentials, and the date of publication. It establishes the credibility and recency of the evidence." },
-            { q: "What is 'lay' vs. 'circuit' debate?", a: "Lay debate refers to rounds judged by community members without specialized experience, requiring clear speaking. Circuit debate refers to highly technical rounds judged by experts, often involving 'spreading'." },
-            { q: "What is a Kritik (K)?", a: "A Kritik is an argument that challenges the fundamental philosophical or ideological assumptions made by the other team, often focusing on language, mindset, or systemic issues." },
-            { q: "What is a Counterplan?", a: "A Counterplan is a competitive alternative proposed by the Negative to solve the problems of the Affirmative without being the Affirmative's specific plan." },
-            { q: "What is a Disadvantage (DA)?", a: "A DA is an argument that the Affirmative's plan will cause a specific, negative consequence. It consists of uniqueness, link, internal link, and impact." },
-            { q: "What is a Topicality (T) argument?", a: "T is a procedural argument that the Affirmative's plan does not fall within the boundaries of the resolution, effectively 'rule-breaking' the round's topic." },
-            { q: "What is Framework?", a: "Framework defines the lens through which the judge should evaluate the round. It usually includes a Value and a Criterion (standard)." },
-            { q: "What does 'spreading' mean?", a: "Spreading is a contraction of 'speed-reading.' It involves speaking extremely rapidly to maximize the quantity of arguments presented within the time limit." },
-            { q: "How do I improve my speaking speed?", a: "Speed is improved through consistent 'pen drills' (reading with a pen in your mouth) and breathing exercises, focusing on clarity over raw velocity." },
-            { q: "What is the Cross-Examination (CX) period?", a: "CX is a designated time for debaters to ask questions of their opponents to clarify positions, expose weaknesses, or set up future arguments." },
-            { q: "What is a Rebuttal?", a: "Rebuttals are later speeches in the round where new arguments are forbidden, and debaters must focus on responding to existing claims and weighing impacts." },
-            { q: "What is impact calculus?", a: "Impact calc is the process of comparing different outcomes based on Magnitude (how big), Probability (how likely), and Timeframe (how soon)." },
-            { q: "What is 'weighing'?", a: "Weighing is telling the judge why your arguments are more important than your opponent's, often using the impact calculus metrics." },
-            { q: "What is a 'voter'?", a: "A voter (or 'voter point') is a summary argument made in the final speech that explains why that debater has won the round." },
-            { q: "What is disclosure on the Wiki?", a: "The NDCA/Verbatim Wiki is a site where debaters post their previously read evidence and tags to facilitate higher-level clash and transparency." },
-            { q: "What is the NSDA?", a: "The National Speech & Debate Association is the largest interscholastic speech and debate organization in the United States." },
-            { q: "How do I find evidence for debate?", a: "Evidence is found through scholarly databases (JSTOR, LexisNexis), think tanks, news archives, and high-level academic journals." },
-            { q: "What is 'fiat'?", a: "Fiat is a debate convention where the judge assumes the plan would be enacted, allowing debaters to focus on whether the plan *should* happen." },
-            { q: "What is a permutation (perm)?", a: "A perm is an Affirmative test of a Negative counterplan, arguing that the plan and the counterplan can coexist." },
-            { q: "What is 'theory' in debate?", a: "Theory is an argument about the rules or norms of debate itself, usually arguing that an opponent's behavior was unfair." },
-            { q: "What is a 'drop'?", a: "A drop occurs when a debater fails to respond to an opponent's argument. In most circuits, a dropped argument is conceded as true." },
-            { q: "What is 'uniqueness'?", a: "Uniqueness describes the current state of the world (status quo) and why the disadvantage won't happen unless the plan is passed." },
-            { q: "What is a link?", a: "A link is the causal connection between the Affirmative plan and the consequence proposed by the Negative." },
-            { q: "What is an internal link?", a: "An internal link connects the initial link to the final impact (e.g., if the plan hurts the economy, and economic decline leads to war)." },
-            { q: "What is 'solvency'?", a: "Solvency is the argument that the Affirmative's plan actually solves the problems (harms) they identified in the status quo." }
+        const resourceCategories = [
+            {
+                title: "Infrastructure",
+                bgColor: "bg-pastel-blue",
+                resources: [
+                    { title: "Verbatim", desc: "The standard Word template for paperless debate. Features high-speed formatting macros, card organization, and automated case building used by almost every national circuit debater.", link: "https://paperlessdebate.com/", type: "external", icon: "fas fa-keyboard", keywords: "software, template, formatting, case building, word" },
+                    { title: "Tabroom", desc: "The official NSDA repository for tournament registration and balloting history. Essential for tracking circuit standings and research shifts.", link: "https://www.tabroom.com/", type: "external", icon: "fas fa-list", keywords: "registration, tournament, brackets, judging, nsda" },
+                    { title: "HS Policy Wiki", desc: "Meta-repository where teams disclose evidence. Research opponent strategies and find the latest offensive positions.", link: "https://hspolicy.debatecoaches.org/", type: "external", icon: "fas fa-globe", keywords: "disclosure, policy, evidence, scouting, history" },
+                    { title: "LD Wiki", desc: "National circuit LD evidence repository. View previous rounds and full citations from top-tier competitors.", link: "https://hsld.debatecoaches.org/", type: "external", icon: "fas fa-history", keywords: "ld wiki, lincoln douglas, scouting" }
+                ]
+            },
+            {
+                title: "Prep Tools",
+                bgColor: "bg-white-pure",
+                resources: [
+                    { title: "Auto Flow Generator", desc: "proprietary Debate 101 tool for converting Cases into Excel Flow templates. Optimized for in-round speed and focus.", link: "#autoflow", type: "internal", icon: "fas fa-file-excel", keywords: "excel, flow, automated, spreadsheet" },
+                    { title: "Resolution AI", desc: "Elite synthesis engine for high-level resolution analysis. Map offensive paths and framework clashes instantly.", link: "#tools", type: "internal", icon: "fas fa-robot", keywords: "ai, strategist, analysis, resolution, intelligence" },
+                    { title: "Flow.tg", desc: "Cloud-based digital flowing platform. Supports collaborative notation and technical clarity.", link: "https://flow.tg/", type: "external", icon: "fas fa-feather", keywords: "digital flow, cloud, sync, collab" }
+                ]
+            },
+            {
+                title: "Critical & Phil Hub",
+                bgColor: "bg-pastel-navy",
+                resources: [
+                    { title: "Stanford Encyclopedia", desc: "The definitive standard for philosophical framework research. Peer-reviewed entries on every framework and critical concept used in forensics.", link: "https://plato.stanford.edu/", type: "external", icon: "fas fa-landmark", keywords: "phil, philosophy, SEP, scholar, framework, kant, ethics" },
+                    { title: "PhilPapers", desc: "Comprehensive directory of philosophical literature. Essential for finding niche primary sources for K-Aff or high-theory research.", link: "https://philpapers.org/", type: "external", icon: "fas fa-balance-scale", keywords: "phil, papers, critical research, scholarship, archive" }
+                ]
+            }
         ];
 
         const teamData = [
@@ -743,32 +828,74 @@
                 role: "CoFounder - Head of Community Building and Outreach",
                 image: "assets/max-m.jpg",
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
-                depth: "Max McBride brings deep analytical rigor to the collective's research foundation. He focuses on post-fiat implications and systemic violence literature, helping build a robust evidentiary base for the community."
+                depth: "Max McBride brings deep analytical rigor to the collective's research foundation. He focuses on post-fiat implications and systemic violence literature."
             },
             {
                 name: "Arjun Gupta",
                 role: "CoFounder - Head of Lecture Creation & Debate Analysis",
                 image: "assets/arjun.png",
                 blurb: "Lead analyst for K-Aff argumentation and critical literature.",
-                depth: "Arjun Gupta manages high-level lecture creation, ensuring that complex critical theory is simplified for the broader community. He is currently building the 'Logos 2.0' platform."
+                depth: "Arjun Gupta manages high-level lecture creation, ensuring that complex critical theory is simplified for the community."
             }
         ];
 
         let chatHistoryRes = [];
         let chatHistoryFaq = [];
 
+        function initHub() {
+            const container = document.getElementById('resource-hub-container');
+            if (!container) return;
+            container.innerHTML = resourceCategories.map((cat) => `
+                <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-2 border-y border-gray-50">
+                    <h3 class="mck-serif text-lg text-[#051C2C] mb-2 border-b border-gray-200 pb-1">${cat.title}</h3>
+                    <div class="carousel-container">
+                        ${cat.resources.map(res => `
+                            <a href="${res.link}" target="${res.type === 'internal' ? '_self' : '_blank'}" class="carousel-card ${res.type === 'internal' ? 'accent-blue' : 'accent-gray'} resource-item-card resource-hub-card" data-title="${res.title}" data-desc="${res.desc}" data-keywords="${res.keywords || ''}" ${res.type === 'internal' ? `onclick="showPage('${res.link.replace('#','')}')"` : ''}>
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="res-label ${res.type === 'internal' ? 'label-internal' : 'label-external'}">${res.type}</span>
+                                        <span class="text-[11px] block mt-1 font-bold uppercase tracking-widest text-[#051C2C]">${res.title}</span>
+                                    </div>
+                                    <i class="${res.icon} text-blue-100 text-lg"></i>
+                                </div>
+                                <p class="text-[11px] text-gray-500 leading-tight mt-1 line-clamp-3">${res.desc}</p>
+                                <div class="flex justify-between items-center mt-auto">
+                                    <span class="text-[8px] font-bold uppercase tracking-widest text-gray-400">Access</span>
+                                    <i class="fas fa-arrow-right arrow-icon"></i>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterResources() {
+            const query = document.getElementById('resource-search').value.toLowerCase();
+            document.querySelectorAll('.resource-item-card').forEach(card => {
+                const searchStr = (card.getAttribute('data-title') + card.getAttribute('data-desc') + card.getAttribute('data-keywords')).toLowerCase();
+                card.style.display = searchStr.includes(query) ? 'flex' : 'none';
+            });
+            document.querySelectorAll('.resource-category-section').forEach(sec => {
+                sec.style.display = Array.from(sec.querySelectorAll('.resource-item-card')).some(c => c.style.display === 'flex') ? 'block' : 'none';
+            });
+        }
+
         function initFaq() {
             const list = document.getElementById('faq-list');
             if (!list) return;
-            list.innerHTML = faqData.map((item) => `
+            const faqContent = [
+                { q: "What is Lincoln-Douglas (LD) debate?", a: "LD is a one-on-one debate format focusing on philosophical values and criteria. It traditionally clashes on moral imperatives, though modern 'circuit' LD includes policy-style plans and kritiks." },
+                { q: "What is Policy debate?", a: "Policy debate involves two-on-two teams debating a government's course of action. It is highly technical, evidence-intensive, and focuses on pragmatism and structural outcomes." },
+                { q: "What is a 'flow' in debate?", a: "Flowing is the specialized form of note-taking used by debaters to track the evolution of every argument throughout a round, usually organized in columns by speech." }
+            ];
+            list.innerHTML = faqContent.map((item) => `
                 <div class="faq-item" onclick="this.classList.toggle('active')">
                     <div class="faq-question">
                         <span class="text-sm font-bold uppercase tracking-widest text-[#051C2C]">${item.q}</span>
                         <i class="fas fa-chevron-down faq-icon"></i>
                     </div>
-                    <div class="faq-answer">
-                        <p class="text-sm text-gray-600">${item.a}</p>
-                    </div>
+                    <div class="faq-answer"><p class="text-sm text-gray-600">${item.a}</p></div>
                 </div>
             `).join('');
         }
@@ -795,17 +922,15 @@
             const target = document.getElementById(`page-${pageId}`);
             if (target) {
                 target.classList.remove('hidden');
-                if (history.pushState) {
-                    history.pushState(null, null, '#' + pageId);
-                } else {
-                    location.hash = '#' + pageId;
-                }
+                if (history.pushState) history.pushState(null, null, '#' + pageId);
+                else location.hash = '#' + pageId;
             }
             const menuOverlay = document.getElementById('mobile-menu-overlay');
             if (menuOverlay.classList.contains('active')) toggleMobileMenu();
             window.scrollTo({top: 0, behavior: 'smooth'});
             if (pageId === 'team') initTeam();
             if (pageId === 'faq') initFaq();
+            if (pageId === 'hub') initHub();
         }
 
         window.onpopstate = function() {
@@ -813,167 +938,128 @@
             showPage(hash);
         };
 
-        function scrollToGoals() { showPage('home'); setTimeout(() => { document.getElementById('roadmap').scrollIntoView({ behavior: 'smooth' }); }, 300); }
-        function toggleMobileMenu() { const overlay = document.getElementById('mobile-menu-overlay'); overlay.classList.toggle('active'); document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : ''; }
-
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 40) nav.classList.add('nav-scrolled');
-            else nav.classList.remove('nav-scrolled');
-        });
-
-        // Fixed AI Logic using stable Gemini 2.5 Flash Preview with exponential backoff
         async function analyzeTopic(type) {
             const inputId = type === 'res' ? 'resolution-input' : 'faq-input';
             const msgId = type === 'res' ? 'chat-messages-res' : 'chat-messages-faq';
             const loadingId = type === 'res' ? 'chat-loading-res' : 'chat-loading-faq';
             const historyStore = type === 'res' ? chatHistoryRes : chatHistoryFaq;
-
             const inputField = document.getElementById(inputId);
             const rawInput = inputField.value.trim();
             if (!rawInput) return;
-
             const loading = document.getElementById(loadingId);
             const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
-            
             appendMessage(type === 'res' ? 'user' : 'user-faq', rawInput, msgId);
-            inputField.value = ""; 
-            loading.classList.remove('hidden');
-            
+            inputField.value = ""; loading.classList.remove('hidden');
             historyStore.push({ role: "user", parts: [{ text: rawInput }] });
-
-            const systemPrompt = type === 'res' 
-                ? "You are the Lead Strategist at Debate 101. Tone: professional, analytical, authoritative. Provide high-level strategic insights for resolutions. Use logical sections like '1. CLASH OVERVIEW'. Clean text only."
-                : "You are the Debate Mentor AI. Your purpose is to explain general debate terminology, theory, and mechanics to all debaters. You are a generic knowledge base. Do not analyze specific current resolutions; focus on educational fundamentals. Clean text only.";
-
-            const fetchWithRetry = async (url, options, retries = 5) => {
-                for (let i = 0; i < retries; i++) {
-                    try {
-                        const response = await fetch(url, options);
-                        if (response.ok) return await response.json();
-                    } catch (e) {
-                        if (i === retries - 1) throw e;
-                    }
-                    await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
-                }
-            };
-
+            const prompt = type === 'res' ? "Lead Strategist style." : "Debate Mentor style.";
             try {
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                const result = await fetchWithRetry(url, { 
-                    method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ 
-                        contents: historyStore, 
-                        systemInstruction: { parts: [{ text: systemPrompt }] } 
-                    }) 
-                });
-                
-                const aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
-                historyStore.push({ role: "model", parts: [{ text: aiResponseText }] });
-                if (historyStore.length > 10) historyStore.splice(0, 2);
-                
-                appendMessage(type === 'res' ? 'architect' : 'mentor', aiResponseText, msgId);
-            } catch (error) { 
-                appendMessage(type === 'res' ? 'architect' : 'mentor', "The strategic core is currently resetting. Please join our Discord for immediate human architect support.", msgId); 
-            } finally { 
-                loading.classList.add('hidden'); 
-            }
+                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: historyStore, systemInstruction: { parts: [{ text: prompt }] } }) });
+                const result = await response.json();
+                const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Error.";
+                historyStore.push({ role: "model", parts: [{ text: aiText }] });
+                appendMessage(type === 'res' ? 'architect' : 'mentor', aiText, msgId);
+            } catch (e) { appendMessage(type === 'res' ? 'architect' : 'mentor', "Connection Error.", msgId); }
+            finally { loading.classList.add('hidden'); }
         }
 
         function appendMessage(role, text, containerId) {
             const container = document.getElementById(containerId);
             const msgDiv = document.createElement('div');
             msgDiv.className = `message ${role.includes('user') ? 'message-user' : 'message-architect'}`;
-            
-            let label = "Direct Query";
-            if (role === 'architect') label = "Architect AI";
-            if (role === 'mentor') label = "Mentor AI";
-
-            msgDiv.innerHTML = `<p class="text-[10px] font-bold uppercase tracking-widest mb-2 opacity-60">${label}</p><div class="ai-content">${formatAiResponse(text)}</div>`;
-            container.appendChild(msgDiv); 
-            container.scrollTop = container.scrollHeight;
+            msgDiv.innerHTML = `<div class="ai-content">${text}</div>`;
+            container.appendChild(msgDiv); container.scrollTop = container.scrollHeight;
         }
 
-        function formatAiResponse(text) {
-            if (text.includes('<p>')) return text;
-            return text.split('\n\n').map(block => {
-                const lines = block.split('\n');
-                const firstLine = lines[0].trim();
-                if (firstLine.match(/^\d+\.?\s*[A-Z\s]+$/) || firstLine.match(/^[A-Z\s]{8,}$/)) {
-                    const h = lines.shift();
-                    return `<div class="mb-6"><h4>${h}</h4>${lines.join('\n').split('\n').map(l => `<p>${l}</p>`).join('')}</div>`;
-                }
-                return `<p>${block}</p>`;
-            }).join('');
-        }
-
-        // Auto Flow Generator Logic
+        // AUTO-FLOW LOGIC WITH NEG MODE TAB SPLITTING
         document.getElementById('docx-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
             const status = document.getElementById('flow-status');
+            const isNegMode = document.getElementById('flow-mode-switch').checked;
             status.innerText = "Extracting Verbatim protocols...";
 
             const reader = new FileReader();
             reader.onload = async (event) => {
                 try {
-                    const options = { styleMap: ["p[style-name='Heading 4'] => h4:fresh", "p[style-name='Tag'] => h4:fresh", "p[style-name='Cite'] => p.cite:fresh"] };
+                    const options = { styleMap: ["p[style-name='Heading 2'] => h2:fresh", "p[style-name='Heading 4'] => h4:fresh", "p[style-name='Tag'] => h4:fresh", "p[style-name='Cite'] => p.cite:fresh"] };
                     const result = await mammoth.convertToHtml({ arrayBuffer: event.target.result }, options);
-                    const parser = new DOMParser();
-                    const htmlDoc = parser.parseFromString(result.value, 'text/html');
+                    const htmlDoc = new DOMParser().parseFromString(result.value, 'text/html');
+                    const elements = Array.from(htmlDoc.querySelectorAll('h2, h4, p'));
+                    
                     const wb = XLSX.utils.book_new();
-                    const headers = ["1AC", "1NC", "1AR", "2NR", "2AR"];
-                    const wsData = [headers];
-                    const elements = Array.from(htmlDoc.querySelectorAll('h4, p'));
+                    const affHeaders = ["1AC", "1NC", "1AR", "2NR", "2AR"];
+                    const negHeaders = ["1NC", "1AR", "2NR", "2AR"];
+                    const headers = isNegMode ? negHeaders : affHeaders;
+
+                    let currentSheetData = [headers];
+                    let currentSheetName = "Flow";
+                    let usedSheetNames = new Set();
+
+                    function getUniqueName(name) {
+                        let clean = (name || "Sheet").trim().replace(/[:\\\/\?\*\[\]]/g, "").substring(0, 25);
+                        if (!clean) clean = "Argument";
+                        let finalName = clean;
+                        let count = 2;
+                        while (usedSheetNames.has(finalName)) {
+                            finalName = `${clean} (${count})`;
+                            count++;
+                        }
+                        usedSheetNames.add(finalName);
+                        return finalName;
+                    }
 
                     for (let i = 0; i < elements.length; i++) {
                         const el = elements[i];
-                        const text = el.innerText.trim();
-                        if (el.tagName === 'H4' && text) {
-                            let displayText = text;
-                            if (i + 1 < elements.length) {
-                                const nextEl = elements[i+1];
-                                const nextText = nextEl.innerText.trim();
-                                if (nextEl.classList.contains('cite') || nextText.match(/\b[A-Z][a-z]+.* (\d{2}|\d{4})\b/)) {
-                                    displayText = `${text} (${nextText})`;
-                                    i++; 
-                                }
+                        
+                        if (isNegMode && el.tagName === 'H2') {
+                            // If we have data, save previous sheet
+                            if (currentSheetData.length > 1) {
+                                const ws = XLSX.utils.aoa_to_sheet(currentSheetData);
+                                styleWorksheet(ws);
+                                XLSX.utils.book_append_sheet(wb, ws, getUniqueName(currentSheetName));
                             }
-                            wsData.push([displayText]);
-                            wsData.push([]); 
+                            currentSheetName = el.innerText.trim();
+                            currentSheetData = [headers];
+                            continue;
+                        }
+
+                        if (el.tagName === 'H4' && el.innerText.trim()) {
+                            let dt = el.innerText.trim();
+                            if (i + 1 < elements.length && (elements[i+1].classList.contains('cite') || elements[i+1].innerText.match(/\b[A-Z][a-z]+.* (\d{2}|\d{4})\b/))) {
+                                dt += ` (${elements[i+1].innerText.trim()})`; i++;
+                            }
+                            currentSheetData.push([dt]); currentSheetData.push([]);
                         }
                     }
 
-                    const ws = XLSX.utils.aoa_to_sheet(wsData);
-                    const headerStyle = { font: { bold: true }, fill: { fgColor: { rgb: "D3D3D3" } }, alignment: { horizontal: "center" } };
-                    const affStyle = { fill: { fgColor: { rgb: "E7F3FF" } }, alignment: { wrapText: true, vertical: "top" } };
-                    const negStyle = { alignment: { wrapText: true, vertical: "top" } };
-                    ws['!cols'] = [{ wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }];
+                    // Save final/only sheet
+                    const finalWs = XLSX.utils.aoa_to_sheet(currentSheetData);
+                    styleWorksheet(finalWs);
+                    XLSX.utils.book_append_sheet(wb, finalWs, getUniqueName(currentSheetName));
 
-                    for (let z in ws) {
-                        if (z[0] === '!') continue;
-                        const col = z[0];
-                        const row = parseInt(z.substring(1));
-                        if (row === 1) ws[z].s = headerStyle;
-                        else if (['A', 'C', 'E'].includes(col)) ws[z].s = affStyle;
-                        else ws[z].s = negStyle;
-                    }
-
-                    XLSX.utils.book_append_sheet(wb, ws, "Flow");
                     XLSX.writeFile(wb, file.name.replace('.docx', '_FLOW.xlsx'));
                     status.innerText = "Success: Flow generated.";
-                } catch (err) { status.innerText = "Error: File processing failed."; }
+                } catch (err) { status.innerText = "Error: Fail."; console.error(err); }
             };
             reader.readAsArrayBuffer(file);
         });
 
-        // Initialize Hash Route on Load Trying to Force a Push
+        function styleWorksheet(ws) {
+            ws['!cols'] = [{ wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }];
+            const hdrStyle = { font: { bold: true }, fill: { fgColor: { rgb: "D3D3D3" } }, alignment: { horizontal: "center" } };
+            const affStyle = { fill: { fgColor: { rgb: "E7F3FF" } }, alignment: { wrapText: true, vertical: "top" } };
+            for (let z in ws) {
+                if (z[0] === '!') continue;
+                if (z.substring(1) === '1') ws[z].s = hdrStyle;
+                else if (['A', 'C', 'E'].includes(z[0])) ws[z].s = affStyle;
+                else ws[z].s = { alignment: { wrapText: true, vertical: "top" } };
+            }
+        }
+
         window.onload = () => { 
             const initialHash = location.hash.replace('#', '') || 'home';
-            showPage(initialHash);
-            initTeam(); 
-            initFaq(); 
+            showPage(initialHash); initTeam(); initFaq(); initHub();
         };
     </script>
 </body>
