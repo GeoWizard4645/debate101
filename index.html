@@ -62,9 +62,11 @@
         }
 
         .nav-scrolled {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.98) !important;
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
         }
 
         /* Wavy Background Animation */
@@ -448,7 +450,7 @@
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[60] flex flex-col px-6 py-8">
         <div class="flex justify-between items-center mb-12">
             <div class="flex items-center space-x-3">
-                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
+                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'">
                 <span class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></span>
             </div>
             <button onclick="toggleMobileMenu()" class="text-[#051C2C] text-2xl"><i class="fas fa-times"></i></button>
@@ -456,13 +458,13 @@
         <div class="flex flex-col space-y-8 text-sm font-bold uppercase tracking-[0.2em] text-[#051C2C]">
             <button onclick="showPage('home')" class="text-left">Insights</button>
             <button onclick="showPage('team')" class="text-left">Our Team</button>
-            <button onclick="showPage('faq')" class="text-left">Resources</button>
+            <button onclick="showPage('hub')" class="text-left">Resources</button>
             <div class="flex flex-col space-y-4 ml-4">
                 <span class="text-[10px] text-gray-400">Tools</span>
                 <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
                 <button onclick="showPage('autoflow')" class="text-left">Auto Flow Generator</button>
             </div>
-            <button onclick="scrollToGoals()" class="text-left">Roadmap</button>
+            <button onclick="scrollToSection('roadmap')" class="text-left">Roadmap</button>
             <a href="https://discord.gg/Vgyt8MrW" target="_blank">Discord</a>
             <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank">Instagram</a>
         </div>
@@ -477,7 +479,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto">
+                    <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'">
                     <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
                         DEBATE<span class="font-light">101</span>
                     </button>
@@ -506,7 +508,7 @@
                         </div>
                     </div>
 
-                    <button onclick="scrollToGoals()" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
+                    <button onclick="scrollToSection('roadmap')" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
                     <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
                     <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
                 </div>
@@ -713,7 +715,7 @@
                 <p class="text-gray-500 max-w-2xl text-base font-light leading-relaxed">Collaborate with our strategic engine to break down resolutions and map offensive paths.</p>
             </div>
             <div class="chat-container max-w-5xl shadow-2xl rounded-sm overflow-hidden mx-auto">
-                <div id="chat-messages-res" class="chat-messages chat-scroll-hide">
+                <div id="chat-messages-res" class="chat-messages">
                     <div class="message message-architect">
                         <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>
                         <div class="ai-content"><p>Strategic protocols initialized. Provide a resolution below to begin analysis.</p></div>
@@ -725,7 +727,7 @@
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Architect is processing...</span>
                     </div>
                 </div>
-                <div class="chat-input-area">
+                <div class="p-4 bg-white border-t border-gray-100">
                     <div class="flex gap-4">
                         <input type="text" id="resolution-input" placeholder="Enter resolution..." onkeypress="if(event.key === 'Enter') analyzeTopic('res')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
                         <button onclick="analyzeTopic('res')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Send</button>
@@ -784,7 +786,7 @@
                 <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Debate Mentor AI</h1>
                 <p class="text-gray-500 text-base font-light leading-relaxed mb-12 italic">Generic Debate AI trained on broad theory and terminology.</p>
                 <div class="chat-container shadow-2xl rounded-sm overflow-hidden">
-                    <div id="chat-messages-faq" class="chat-messages chat-scroll-hide">
+                    <div id="chat-messages-faq" class="chat-messages">
                         <div class="message message-architect">
                             <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Mentor AI</p>
                             <div class="ai-content"><p>Ask me any general question about debate. For example: "What is a Kritik?" or "How do I flow more efficiently?"</p></div>
@@ -796,7 +798,7 @@
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Mentor is teaching...</span>
                         </div>
                     </div>
-                    <div class="chat-input-area">
+                    <div class="p-4 bg-white border-t border-gray-100">
                         <div class="flex gap-4">
                             <input type="text" id="faq-input" placeholder="Ask a general debate question..." onkeypress="if(event.key === 'Enter') analyzeTopic('faq')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
                             <button onclick="analyzeTopic('faq')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
@@ -819,7 +821,7 @@
     <footer class="bg-white border-t border-gray-100 py-20 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
             <div class="flex items-center space-x-3">
-                <img src="assets/logo.PNG" alt="Logo" class="h-8 w-auto">
+                <img src="assets/logo.PNG" alt="Logo" class="h-8 w-auto" onerror="this.style.display='none'">
                 <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
             </div>
             <div class="flex flex-col space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
@@ -834,66 +836,105 @@
     </footer>
 
     <script>
+        const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
         const resourceCategories = [
             {
-                title: "Infrastructure",
-                bgColor: "bg-pastel-blue",
+                title: "Core Infrastructure",
+                bgColor: "bg-blue-50",
                 resources: [
-                    { title: "Verbatim", desc: "The standard Word template for paperless debate. Features high-speed formatting macros, card organization, and automated case building used by almost every national circuit debater.", link: "https://paperlessdebate.com/", type: "external", icon: "fas fa-keyboard", keywords: "software, template, formatting, case building, word" },
-                    { title: "Tabroom", desc: "The official NSDA repository for tournament registration and balloting history. Essential for tracking circuit standings and research shifts.", link: "https://www.tabroom.com/", type: "external", icon: "fas fa-list", keywords: "registration, tournament, brackets, judging, nsda" },
-                    { title: "HS Policy Wiki", desc: "Meta-repository where teams disclose evidence. Research opponent strategies and find the latest offensive positions.", link: "https://hspolicy.debatecoaches.org/", type: "external", icon: "fas fa-globe", keywords: "disclosure, policy, evidence, scouting, history" },
-                    { title: "LD Wiki", desc: "National circuit LD evidence repository. View previous rounds and full citations from top-tier competitors.", link: "https://hsld.debatecoaches.org/", type: "external", icon: "fas fa-history", keywords: "ld wiki, lincoln douglas, scouting" }
+                    { title: "Tabroom", desc: "The official NSDA repository for tournament registration and balloting history. Essential for tracking standings and circuit shifts.", link: "https://www.tabroom.com/", type: "external", icon: "fas fa-list", keywords: "registration, tournament, brackets, judging, nsda" },
+                    { title: "Verbatim", desc: "The standard Word template for paperless debate. Features high-speed formatting macros and card organization used globally.", link: "http://paperlessdebate.com/", type: "external", icon: "fas fa-keyboard", keywords: "software, template, formatting, case building, word" },
+                    { title: "Open Caselist", desc: "The central wiki where teams disclose evidence. Essential for scouting opponent strategies and researching meta-trends.", link: "https://opencaselist.com/", type: "external", icon: "fas fa-globe", keywords: "disclosure, wiki, evidence, scouting, history" },
+                    { title: "NDCA Coaches Association", desc: "National Debate Coaches Association hub for coaches, open evidence archives, and administrative circuit protocols.", link: "https://www.debatecoaches.org/", type: "external", icon: "fas fa-archive", keywords: "ndca, open evidence, policy, ld" },
+                    { title: "Vanguard Debate", desc: "Innovative tournament management and tabulation software designed for modern high-speed circuit efficiency.", link: "https://vanguarddebate.com/", type: "external", icon: "fas fa-shield-alt", keywords: "vanguard, tab, tournament" }
                 ]
             },
             {
-                title: "Prep Tools",
-                bgColor: "bg-white-pure",
+                title: "Prep Tools & Logic",
+                bgColor: "bg-white",
                 resources: [
-                    { title: "Auto Flow Generator", desc: "proprietary Debate 101 tool for converting Cases into Excel Flow templates. Optimized for in-round speed and focus.", link: "#autoflow", type: "internal", icon: "fas fa-file-excel", keywords: "excel, flow, automated, spreadsheet" },
+                    { title: "Auto Flow Generator", desc: "Proprietary Debate 101 tool for converting Cases into Excel Flow templates. Optimized for speed and technical clarity.", link: "#autoflow", type: "internal", icon: "fas fa-file-excel", keywords: "excel, flow, automated, spreadsheet" },
                     { title: "Resolution AI", desc: "Elite synthesis engine for high-level resolution analysis. Map offensive paths and framework clashes instantly.", link: "#tools", type: "internal", icon: "fas fa-robot", keywords: "ai, strategist, analysis, resolution, intelligence" },
-                    { title: "Flow.tg", desc: "Cloud-based digital flowing platform. Supports collaborative notation and technical clarity.", link: "https://flow.tg/", type: "external", icon: "fas fa-feather", keywords: "digital flow, cloud, sync, collab" },
-                    { title: "Cardr", desc: "Powerful browser extension for automated card-cutting from scholarly sites into Verbatim.", link: "https://cardr.app/", type: "external", icon: "fas fa-scissors", keywords: "extension, carding, research" },
-                    { title: "Prepd", desc: "Evidence management system with offline support, ideal for teams working in high-bandwidth environments.", link: "https://prepd.in/", type: "external", icon: "fas fa-box", keywords: "file management, evidence vault" }
+                    { title: "Debate.cards", desc: "A precision search engine designed specifically for finding carded evidence across multiple national circuit archives.", link: "https://debate.cards/", type: "external", icon: "fas fa-search-plus", keywords: "evidence search, carding, preparation" },
+                    { title: "Logos Debate", desc: "A modern platform providing high-quality drills, evidence sets, and prep materials for LD and PF debaters.", link: "https://logos-debate.netlify.app/", type: "external", icon: "fas fa-bookmark", keywords: "prep, drills, logos" },
+                    { title: "Cardr (GitHub)", desc: "Open-source browser extension for automated card-cutting from scholarly sites directly into Verbatim. Essential for research speed.", link: "https://github.com/SohamGovande/cardr", type: "external", icon: "fas fa-scissors", keywords: "extension, carding, research, github" },
+                    { title: "Debate Flow (Vercel)", desc: "Cloud-based digital flowing platform. Supports collaborative notation and technical clarity in live rounds.", link: "https://debate-flow.vercel.app/", type: "external", icon: "fas fa-feather", keywords: "digital flow, cloud, sync, collab" }
                 ]
             },
             {
-                title: "Lectures & Strategy",
-                bgColor: "bg-pastel-navy",
+                title: "Technical Utilities",
+                bgColor: "bg-gray-50",
                 resources: [
-                    { title: "Mentor AI", desc: "Debate 101 AI mentor trained on fundamentals, terminology, and tournament mechanics.", link: "#faq", type: "internal", icon: "fas fa-graduation-cap", keywords: "mentor, education, learning, teacher" },
-                    { title: "Debate Drills YT", desc: "Premier archive for technical drills and mechanics masterclasses. Highly recommended for circuit readiness.", link: "https://www.youtube.com/@DebateDrills", type: "external", icon: "fab fa-youtube", keywords: "video, coaching, drills" },
-                    { title: "Billman Debate", desc: "Rigorous fundamentals for Policy and LD. Foundational concepts for novices and intermediate learners.", link: "https://www.billmandebate.com/", type: "external", icon: "fas fa-chalkboard-teacher", keywords: "policy basics, foundational" },
-                    { title: "Proteus Debate", desc: "Niche strategy lab focused on circuit meta-trends and conceptual edges.", link: "https://proteusdebate.com/", type: "external", icon: "fas fa-brain", keywords: "strategy, elite labs" }
+                    { title: "DebateKeeper", desc: "The most customizable Android timer for competitive debate, supporting custom bell signals and prep-time logic.", link: "https://github.com/czlee/debatekeeper", type: "external", icon: "fas fa-stopwatch", keywords: "timer, android, prep time" },
+                    { title: "DebTime", desc: "A minimalist, high-visibility web timer interface for tracking speech times on any device in-round.", link: "https://debti.me/", type: "external", icon: "fas fa-clock", keywords: "web timer, timing, debate" },
+                    { title: "DebateTimers.com", desc: "Professional-grade browser timers featuring multi-room synchronization and streamlined UX for tournament use.", link: "https://debatetimers.com/", type: "external", icon: "fas fa-hourglass-half", keywords: "timer, clock, web" },
+                    { title: "NCFCA Flow Sheets", desc: "Traditional flow sheet templates optimized for NCFCA Policy (Team Policy) and Lincoln Douglas formats.", link: "https://ncfca.org/resources/flow-sheets-policy-debate-tp/", type: "external", icon: "fas fa-table", keywords: "ncfca, template, flow" }
+                ]
+            },
+            {
+                title: "Calculators & Odds",
+                bgColor: "bg-blue-50",
+                resources: [
+                    { title: "DebateBreaker", desc: "Instant probability calculations for tournament breaks based on your current record and field power matching.", link: "https://www.debatebreaker.com/", type: "external", icon: "fas fa-calculator", keywords: "break calculator, odds, bracket" },
+                    { title: "CDA Break Calc", desc: "Specialized calculator for determining break points and seed probabilities in large-scale tournament brackets.", link: "https://www.cdadebate.com/debate-tournament-break-calculator", type: "external", icon: "fas fa-percent", keywords: "break, seed, seeds" },
+                    { title: "Circuit Debater Screw", desc: "Technical utility for calculating elimination round probabilities and ensuring fairness in bracket seeding.", link: "https://tools.circuitdebater.org/screw", type: "external", icon: "fas fa-tools", keywords: "screw calculator, bracket, circuit" }
+                ]
+            },
+            {
+                title: "Academy & Lectures",
+                bgColor: "bg-white",
+                resources: [
+                    { title: "Debate Drills YT", desc: "Premier archive for technical drills and mechanics masterclasses. Essential for circuit readiness.", link: "https://www.youtube.com/@DebateDrills", type: "external", icon: "fab fa-youtube", keywords: "video, coaching, drills" },
+                    { title: "Bill Batterman", desc: "Exhaustive lecture archive from one of the circuit's most respected minds, covering Policy and LD fundamentals.", link: "https://www.youtube.com/c/BillBatterman", type: "external", icon: "fas fa-chalkboard", keywords: "batterman, policy, lectures, theory" },
+                    { title: "Proteus Academy", desc: "Strategy lab focused on high-level circuit trends and conceptual edges in national competition.", link: "https://www.youtube.com/@proteusdebateacademy", type: "external", icon: "fas fa-brain", keywords: "strategy, elite labs, proteus" },
+                    { title: "NSDA Training", desc: "Official training and final round videos from the National Speech & Debate Association official archive.", link: "https://www.youtube.com/@nsdaspeechanddebate", type: "external", icon: "fas fa-video", keywords: "nsda, finals, official" },
+                    { title: "LD Debate Prep", desc: "A comprehensive repository of training materials specifically tailored for high-level Lincoln Douglas competition.", link: "https://lddebateprep.org/", type: "external", icon: "fas fa-graduation-cap", keywords: "ld prep, learning" },
+                    { title: "Argument Institute", desc: "Platform dedicated to the structural integrity of argumentation and high-level strategy and research methods.", link: "https://argumentinstitute.org/", type: "external", icon: "fas fa-university", keywords: "logic, structure, coaching" },
+                    { title: "The Debate Guru", desc: "Community-driven site providing introductory case ideas and fundamental concept breakdowns for novices.", link: "https://thedebateguru.weebly.com/", type: "external", icon: "fas fa-star", keywords: "guru, help, novice" }
                 ]
             },
             {
                 title: "Critical & Phil Hub",
-                bgColor: "bg-white-pure",
+                bgColor: "bg-gray-50",
                 resources: [
-                    { title: "Stanford Encyclopedia", desc: "The definitive standard for philosophical framework research. Peer-reviewed entries on every framework and critical concept used in forensics.", link: "https://plato.stanford.edu/", type: "external", icon: "fas fa-landmark", keywords: "phil, philosophy, SEP, scholar, framework, kant, ethics" },
-                    { title: "PhilPapers", desc: "Comprehensive directory of philosophical literature. Essential for finding niche primary sources for K-Aff or high-theory research.", link: "https://philpapers.org/", type: "external", icon: "fas fa-balance-scale", keywords: "phil, papers, critical research, scholarship, archive" },
-                    { title: "CTheory", desc: "Academic journal focusing on theory and technological accelerationism.", link: "https://ctheory.net/", type: "external", icon: "fas fa-bolt", keywords: "baudrillard, acceleration, theory" },
-                    { title: "Funambulist", desc: "Politics of space and bodies journal; essential for settler-colonialism and biopolitics research.", link: "https://thefunambulist.net/", type: "external", icon: "fas fa-walking", keywords: "colonialism, body politics, state" }
+                    { title: "Stanford Encyclopedia", desc: "The gold standard for philosophical framework research. Peer-reviewed entries on every core concept in forensics.", link: "https://plato.stanford.edu/", type: "external", icon: "fas fa-landmark", keywords: "phil, philosophy, SEP, framework, kant, ethics" },
+                    { title: "PhilPapers", desc: "Comprehensive directory of philosophical literature. Essential for finding niche primary sources for K-Aff research.", link: "https://philpapers.org/", type: "external", icon: "fas fa-balance-scale", keywords: "phil, papers, critical research, scholarship, archive" },
+                    { title: "CTheory", desc: "International journal of theory and technology. Research standard for accelerationism and digital postmodernism.", link: "https://journals.uvic.ca/index.php/ctheory/index", type: "external", icon: "fas fa-bolt", keywords: "baudrillard, acceleration, theory, digital" },
+                    { title: "The Funambulist", desc: "Magazine examining politics of space and bodies. Crucial for settler-colonialism and biopolitics research.", link: "https://thefunambulist.net/", type: "external", icon: "fas fa-walking", keywords: "colonialism, body politics, state, biopolitics" },
+                    { title: "Kritikal Discussions", desc: "A platform dedicated to exploring the intersection of critical pedagogy and competitive debate strategy.", link: "https://www.kritikaldiscussions.com/", type: "external", icon: "fas fa-comments", keywords: "k-debate, critical, pedagogy" }
                 ]
             },
             {
-                title: "Elite Camps",
-                bgColor: "bg-pastel-blue",
+                title: "Elite Camps & Orgs",
+                bgColor: "bg-white",
                 resources: [
-                    { title: "Harvard Debate", desc: "World-class summer workshop taught by Ivy League champions and national circuit coaches.", link: "https://www.harvarddebate.org/", type: "external", icon: "fas fa-university", keywords: "camp, harvard, summer" },
-                    { title: "Michigan 7-Week", desc: "Commonly cited as the most rigorous Policy intensive workshop in the world.", link: "https://michigandebate.org/", type: "external", icon: "fas fa-flask", keywords: "policy camp, michigan, summer" },
-                    { title: "VBI Institute", desc: "National circuit hub for LD and PF training with specialized technical labs.", link: "https://victorybriefsinstitute.com/", type: "external", icon: "fas fa-trophy", keywords: "camp, ld, pf, victory briefs" },
-                    { title: "GDS Symposium", desc: "Focuses on developing the total student via national circuit preparation.", link: "https://globaldebatesymposium.com/", type: "external", icon: "fas fa-star", keywords: "camp, gds, symposium" }
+                    { title: "Harvard Workshops", desc: "World-class summer workshops taught by Ivy League champions and national circuit coaches.", link: "https://hdcsw.org/", type: "external", icon: "fas fa-crown", keywords: "camp, harvard, summer" },
+                    { title: "Michigan Debate", desc: "The most rigorous Policy intensive workshop globally, known for its extreme research standards.", link: "https://michigandebate.com/", type: "external", icon: "fas fa-flask", keywords: "policy camp, michigan, summer" },
+                    { title: "Victory Briefs", desc: "National hub for LD and PF training, featuring specialized technical labs and leading publications.", link: "https://victorybriefs.com/", type: "external", icon: "fas fa-trophy", keywords: "camp, ld, pf, victory briefs" },
+                    { title: "Lumos Debate", desc: "Global debate camp and coaching initiative focused on public speaking and competitive success across all formats.", link: "https://www.lumosdebate.com/", type: "external", icon: "fas fa-lightbulb", keywords: "lumos, camp, coaching" },
+                    { title: "NS Debate Camp", desc: "Specialized training workshop with a renowned glossary for the Tournament of Champions (TOC).", link: "https://www.nsdebatecamp.com/glossary/tournament-of-champions", type: "external", icon: "fas fa-award", keywords: "toc, glossary, camp" },
+                    { title: "Outreach Debate", desc: "Initiative focused on expanding access to competitive discourse for under-resourced schools and communities.", link: "https://www.outreachdebate.com/", type: "external", icon: "fas fa-hands-helping", keywords: "outreach, inclusive" },
+                    { title: "PepTalk Debate", desc: "Mentorship-focused debate training designed to empower middle and high school students through discourse.", link: "https://www.peptalkdebate.org/", type: "external", icon: "fas fa-bullhorn", keywords: "mentorship, pep talk" }
+                ]
+            },
+            {
+                title: "Equity & Community",
+                bgColor: "bg-blue-50",
+                resources: [
+                    { title: "Women's Debate Inst.", desc: "Non-profit providing elite debate education for gender-marginalized students to bridge the equity gap.", link: "https://www.womensdebateinstitute.org/", type: "external", icon: "fas fa-female", keywords: "wdi, inclusive, equity" },
+                    { title: "W.I.N. Instagram", desc: "Women in National Debate platform focusing on representation, success stories, and community highlights.", link: "https://www.instagram.com/windebate/", type: "external", icon: "fab fa-instagram", keywords: "win, media, community" },
+                    { title: "r/Debate", desc: "The primary community hub for discussion on all competitive formats, including PF, LD, and Policy.", link: "https://www.reddit.com/r/Debate/", type: "external", icon: "fab fa-reddit-alien", keywords: "reddit, community, forum" },
+                    { title: "LD Docs (Email List)", desc: "The definitive LD debate email list for high-level technical discussion and evidence exchange.", link: "mailto:lddocs@groups.google.com", type: "external", icon: "fas fa-envelope-open-text", keywords: "email list, technical, ld" }
                 ]
             },
             {
                 title: "Primary Research",
-                bgColor: "bg-white-pure",
+                bgColor: "bg-white",
                 resources: [
-                    { title: "Google Scholar", desc: "Standard entry point for scholarly literature and case law mining.", link: "https://scholar.google.com/", type: "external", icon: "fas fa-search", keywords: "scholar, research, data" },
-                    { title: "JSTOR", desc: "Primary digital library for academic journals and social science archives.", link: "https://www.jstor.org/", type: "external", icon: "fas fa-book-reader", keywords: "research, journals, academic" },
-                    { title: "LexisNexis", desc: "Ultimate archive for news, legal records, and empirical government data.", link: "https://www.lexisnexis.com/", type: "external", icon: "fas fa-gavel", keywords: "legal, news, empirics" },
-                    { title: "Brookings", desc: "Non-partisan policy analysis white papers; great for internal link cards.", link: "https://www.brookings.edu/", type: "external", icon: "fas fa-building", keywords: "policy, white papers, stats" }
+                    { title: "Google Scholar", desc: "Standard entry point for scholarly literature, legal citations, and deep case law mining.", link: "https://scholar.google.com/", type: "external", icon: "fas fa-search", keywords: "scholar, research, data" },
+                    { title: "JSTOR", desc: "Primary digital library for academic journals and social science archives essential for K-aff prep.", link: "https://www.jstor.org/", type: "external", icon: "fas fa-book-reader", keywords: "research, journals, academic" },
+                    { title: "LexisNexis", desc: "Ultimate archive for news, legal records, and empirical government data used in high-level research.", link: "https://www.lexisnexis.com/en-us/gateway.page", type: "external", icon: "fas fa-gavel", keywords: "legal, news, empirics" },
+                    { title: "Brookings", desc: "Non-partisan policy analysis white papers; invaluable for internal link cards and DA impacts.", link: "https://www.brookings.edu/", type: "external", icon: "fas fa-building", keywords: "policy, white papers, stats" }
                 ]
             }
         ];
@@ -901,31 +942,31 @@
         const teamData = [
             {
                 name: "Vivaan Shahani",
-                role: "CoFounder - Head of Web Development & Tool Creation",
+                role: "Co-Founder - Head of Web Development & Tool Creation",
                 image: "assets/vivaan.png",
                 blurb: "Strategic visionary architecting the intersection of economics, technology, and competitive debate.",
-                depth: "Vivaan Shahani is a high-achieving scholar (Class of 2028) operating at the intersection of economics, technology, and strategic communication. With a 3.98 GPA and a rigorous academic profile including AP Computer Science and AP European History, Vivaan does not simply study complex systems—he analyzes and engineers them. His technical proficiency in Java, Python, and Swift is complemented by a sharp financial acumen, demonstrated through active technical analysis on TradingView and a deep engagement with macroeconomic theory. Beyond the classroom, Vivaan is a proven leader and entrepreneur. As a Varsity Representative for the Edgemont Debate Team and a National Quarterfinalist, he has mastered the art of synthesizing complex geopolitical data into persuasive arguments under extreme pressure—skills honed further as a Harvard Debate Council Summer Scholar. This strategic mindset extends to his business ventures; he co-founded Solarflare Robotics, leading critical outreach and fundraising efforts to build a sustainable organization, and established his own tutoring and retail businesses, proving his ability to execute ideas from concept to revenue. Vivaan’s drive is matched by a diverse range of creative and physical disciplines. He is a multifaceted creative—a jazz saxophonist competing at the National Jazz Festival, a professional DJ mixing Bollywood and Pop, and an independent journalist with over 15,000 reads on Medium. This versatility is grounded by the discipline of a Varsity Lacrosse defender and a Junior Black Belt in Taekwondo. Whether engineering a 3D printing curriculum for students or analyzing market trends, Vivaan brings a unique blend of logic, creativity, and relentless work ethic to every pursuit."
+                depth: "Vivaan Shahani is a high-achieving scholar (Class of 2028) operating at the intersection of economics, technology, and strategic communication. With a 3.98 GPA and technical proficiency in Java, Python, and Swift, he co-founded Solarflare Robotics and established various independent ventures. As a Varsity Representative for the Edgemont Debate Team and a National Quarterfinalist, he has mastered synthesizing complex geopolitical data into persuasive arguments."
             },
             {
                 name: "Max Feinstein",
-                role: "CoFounder - Head of Media Management and Analysis",
+                role: "Co-Founder - Head of Media Management and Analysis",
                 image: "assets/max-f.png",
-                blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through methodological rigor.",
-                depth: "About me: My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Debate is my primary academic interest, and I enjoy rounds where I learn new things. Subjectivity shift is real! Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and other literature such as The Picture of Dorian Gray or East of Eden etc, and am an avid NBA fan—especially of the San Antonio Spurs. I value collaborative learning environments and enjoy working with teammates and friends to create new arguments and strategies. Debate Background & Argument Interests: I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature. This season, my argument interests has been on Neoliberal logistics, Baudrillard, Nietzsche, Lacan, and Jung. I read planless affirmatives, though I am also comfortable in debating all styles. Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation, framing disputes, and real impact calculus with different weighing metric indicts rather than purely empirical cost-benefit analysis. Argument preferences (how I can best help teach you) (1 = most comfortable to teach // 5 = least comfortable to teach): 1—Kritiks, K affs, PIKs, Spark, Wipeout, K tricks (this is super underutilized), and other unconventional and unique arguments. 2—PICs, Phil, S/V, Tricks. 3—Counterplans (other), Policy, Disads. 4—Theory and procedurals. 5—Lay debate (I can assist, but others like Max M or Vivaan may be better suited). Email me at feinsteinm29@altamontschool.org"
+                blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through rigor.",
+                depth: "Max Feinstein is a Freshman at The Altamont School in Birmingham, Alabama. He specializes in Kritikal debate and postmodern literature (Neoliberal logistics, Baudrillard, Nietzsche, Lacan, and Jung). Max values collaborative learning and strategic argument creation."
             },
             {
                 name: "Max McBride",
-                role: "CoFounder - Head of Community Building and Outreach",
+                role: "Co-Founder - Head of Community Building and Outreach",
                 image: "assets/max-m.jpg",
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
-                depth: "Max McBride brings deep analytical rigor to the collective's research foundation. He focuses on post-fiat implications and systemic violence literature."
+                depth: "Max McBride brings deep analytical rigor to the collective's research foundation. He focuses on post-fiat implications and systemic violence literature, helping bridge the gap for community outreach."
             },
             {
                 name: "Arjun Gupta",
-                role: "CoFounder - Head of Lecture Creation & Debate Analysis",
+                role: "Co-Founder - Head of Lecture Creation & Debate Analysis",
                 image: "assets/arjun.png",
                 blurb: "Lead analyst for K-Aff argumentation and critical literature.",
-                depth: "Arjun Gupta manages high-level lecture creation, ensuring that complex critical theory is simplified for the community."
+                depth: "Arjun Gupta manages high-level lecture creation, ensuring that complex critical theory is simplified for the community through rigorous round analysis."
             }
         ];
 
@@ -936,9 +977,9 @@
             const container = document.getElementById('resource-hub-container');
             if (!container) return;
             container.innerHTML = resourceCategories.map((cat) => `
-                <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-2 border-y border-gray-50">
-                    <h3 class="mck-serif text-lg text-[#051C2C] mb-2 border-b border-gray-200 pb-1">${cat.title}</h3>
-                    <div class="carousel-container">
+                <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-8 border-y border-gray-100 mt-4">
+                    <h3 class="mck-serif text-xl text-[#051C2C] mb-6 pb-2 border-b border-gray-200">${cat.title}</h3>
+                    <div class="carousel-container pb-4">
                         ${cat.resources.map(res => `
                             <a href="${res.link}" target="${res.type === 'internal' ? '_self' : '_blank'}" class="carousel-card ${res.type === 'internal' ? 'accent-blue' : 'accent-gray'} resource-item-card resource-hub-card" data-title="${res.title}" data-desc="${res.desc}" data-keywords="${res.keywords || ''}" ${res.type === 'internal' ? `onclick="showPage('${res.link.replace('#','')}')"` : ''}>
                                 <div class="flex justify-between items-start">
@@ -967,7 +1008,8 @@
                 card.style.display = searchStr.includes(query) ? 'flex' : 'none';
             });
             document.querySelectorAll('.resource-category-section').forEach(sec => {
-                sec.style.display = Array.from(sec.querySelectorAll('.resource-item-card')).some(c => c.style.display === 'flex') ? 'block' : 'none';
+                const visible = Array.from(sec.querySelectorAll('.resource-item-card')).some(c => c.style.display === 'flex');
+                sec.style.display = visible ? 'block' : 'none';
             });
         }
 
@@ -1018,15 +1060,22 @@
             const menuOverlay = document.getElementById('mobile-menu-overlay');
             if (menuOverlay.classList.contains('active')) toggleMobileMenu();
             window.scrollTo({top: 0, behavior: 'smooth'});
-            if (pageId === 'team') initTeam();
-            if (pageId === 'faq') initFaq();
-            if (pageId === 'hub') initHub();
         }
 
-        window.onpopstate = function() {
-            const hash = location.hash.replace('#', '') || 'home';
-            showPage(hash);
-        };
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu-overlay');
+            menu.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            showPage('home');
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
 
         async function analyzeTopic(type) {
             const inputId = type === 'res' ? 'resolution-input' : 'faq-input';
@@ -1036,41 +1085,73 @@
             const inputField = document.getElementById(inputId);
             const rawInput = inputField.value.trim();
             if (!rawInput) return;
+            
             const loading = document.getElementById(loadingId);
-            const apiKey = "AIzaSyCBdioRfiPelbQi1tgBJQG6qt9fg3PdiJE"; 
-            appendMessage(type === 'res' ? 'user' : 'user-faq', rawInput, msgId);
-            inputField.value = ""; loading.classList.remove('hidden');
+            appendMessage(type === 'res' ? 'user' : 'user', rawInput, msgId);
+            inputField.value = ""; 
+            loading.classList.remove('hidden');
             historyStore.push({ role: "user", parts: [{ text: rawInput }] });
-            const prompt = type === 'res' ? "Lead Strategist style." : "Debate Mentor style.";
+            
+            const prompt = type === 'res' ? "You are a Lead Debate Strategist. Break down this resolution, suggesting 3 AFF paths and 3 NEG paths. Focus on LD or Policy context." : "You are a Debate Mentor. Answer this general question about debate technicalities or theory clearly.";
+            
+            const callGemini = async (retryCount = 0) => {
+                try {
+                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                    const response = await fetch(url, { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify({ 
+                            contents: historyStore, 
+                            systemInstruction: { parts: [{ text: prompt }] } 
+                        }) 
+                    });
+                    if (!response.ok) throw new Error("API Error");
+                    const result = await response.json();
+                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Protocol Error.";
+                } catch (e) {
+                    if (retryCount < 5) {
+                        const delay = Math.pow(2, retryCount) * 1000;
+                        await new Promise(res => setTimeout(res, delay));
+                        return callGemini(retryCount + 1);
+                    }
+                    throw e;
+                }
+            };
+
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: historyStore, systemInstruction: { parts: [{ text: prompt }] } }) });
-                const result = await response.json();
-                const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Error.";
+                const aiText = await callGemini();
                 historyStore.push({ role: "model", parts: [{ text: aiText }] });
-                appendMessage(type === 'res' ? 'architect' : 'mentor', aiText, msgId);
-            } catch (e) { appendMessage(type === 'res' ? 'architect' : 'mentor', "Connection Error.", msgId); }
-            finally { loading.classList.add('hidden'); }
+                appendMessage(type === 'res' ? 'architect' : 'architect', aiText, msgId);
+            } catch (e) { 
+                appendMessage(type === 'res' ? 'architect' : 'architect', "Communication failed. Check protocols and try again.", msgId); 
+            } finally { 
+                loading.classList.add('hidden'); 
+            }
         }
 
         function appendMessage(role, text, containerId) {
             const container = document.getElementById(containerId);
             const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${role.includes('user') ? 'message-user' : 'message-architect'}`;
-            msgDiv.innerHTML = `<div class="ai-content">${text}</div>`;
-            container.appendChild(msgDiv); container.scrollTop = container.scrollHeight;
+            msgDiv.className = `message ${role === 'user' ? 'message-user' : 'message-architect'}`;
+            msgDiv.innerHTML = `
+                ${role === 'architect' ? `<p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>` : ''}
+                <div class="ai-content">${formatAiResponse(text)}</div>
+            `;
+            container.appendChild(msgDiv); 
+            container.scrollTop = container.scrollHeight;
         }
 
         function formatAiResponse(text) {
-            if (text.includes('<p>')) return text;
             return text.split('\n\n').map(block => {
                 const lines = block.split('\n');
-                if (lines[0].match(/^\d+\.?\s*[A-Z\s]+$/)) return `<div class="mb-6"><h4>${lines.shift()}</h4>${lines.join('<br>')}</div>`;
-                return `<p>${block}</p>`;
+                if (lines[0].startsWith('###') || lines[0].match(/^\d+\./)) {
+                    return `<div class="mb-4"><h4>${lines.shift().replace(/#/g, '')}</h4><p class="text-sm">${lines.join('<br>')}</p></div>`;
+                }
+                return `<p class="mb-4">${block.replace(/\n/g, '<br>')}</p>`;
             }).join('');
         }
 
-        // AUTO-FLOW LOGIC WITH NEG MODE TAB SPLITTING
+        // AUTO-FLOW LOGIC
         document.getElementById('docx-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -1111,7 +1192,6 @@
 
                     for (let i = 0; i < elements.length; i++) {
                         const el = elements[i];
-                        
                         if (isNegMode && el.tagName === 'H2') {
                             if (currentSheetData.length > 1) {
                                 const ws = XLSX.utils.aoa_to_sheet(currentSheetData);
@@ -1138,15 +1218,15 @@
 
                     XLSX.writeFile(wb, file.name.replace('.docx', '_FLOW.xlsx'));
                     status.innerText = "Success: Flow generated.";
-                } catch (err) { status.innerText = "Error: Fail."; console.error(err); }
+                } catch (err) { status.innerText = "Processing Failed."; console.error(err); }
             };
             reader.readAsArrayBuffer(file);
         });
 
         function styleWorksheet(ws) {
-            ws['!cols'] = [{ wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }, { wch: 70 }];
+            ws['!cols'] = [{ wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }];
             const hdrStyle = { font: { bold: true }, fill: { fgColor: { rgb: "D3D3D3" } }, alignment: { horizontal: "center" } };
-            const affStyle = { fill: { fgColor: { rgb: "E7F3FF" } }, alignment: { wrapText: true, vertical: "top" } };
+            const affStyle = { fill: { fgColor: { rgb: "F0F9FF" } }, alignment: { wrapText: true, vertical: "top" } };
             for (let z in ws) {
                 if (z[0] === '!') continue;
                 if (z.substring(1) === '1') ws[z].s = hdrStyle;
@@ -1156,8 +1236,25 @@
         }
 
         window.onload = () => { 
-            const initialHash = location.hash.replace('#', '') || 'home';
-            showPage(initialHash); initTeam(); initFaq(); initHub();
+            const hash = location.hash.replace('#', '') || 'home';
+            showPage(hash); 
+            initHub();
+            initTeam();
+            initFaq();
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+        };
+
+        window.onpopstate = () => {
+            const hash = location.hash.replace('#', '') || 'home';
+            showPage(hash);
         };
     </script>
 </body>
