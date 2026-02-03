@@ -364,19 +364,19 @@
 
         /* Compact Hub Layout - 1/8th margins */
         .resource-category-section {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            margin-bottom: 4px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 2px;
         }
         .hub-title {
-            margin-bottom: 8px;
-            font-size: 1rem;
+            margin-bottom: 4px;
+            font-size: 0.875rem;
             font-weight: 700;
             letter-spacing: 0.05em;
         }
         .resource-hub-card {
-            min-height: 200px;
-            height: 200px;
+            min-height: 190px;
+            height: 190px;
         }
 
         /* Toggle Switch UI */
@@ -413,6 +413,33 @@
         }
         input:checked + .slider { background-color: var(--mck-accent); }
         input:checked + .slider:before { transform: translateX(26px); }
+
+        /* Search Styling */
+        .search-bar-container {
+            position: relative;
+            max-width: 400px;
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .search-input:focus {
+            border-color: var(--mck-accent);
+            box-shadow: 0 0 0 4px rgba(0, 114, 177, 0.05);
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -657,7 +684,7 @@
         </section>
     </main>
 
-    <!-- Page: Resource Hub -->
+    <!-- Page: Resource Hub (Highly Condensed) -->
     <main id="page-hub" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="mb-4 flex flex-col md:flex-row justify-between items-end gap-4">
@@ -751,6 +778,32 @@
                 <p class="text-gray-600 mb-8 max-w-md mx-auto">Our human architects and community members are active 24/7 in the Discord.</p>
                 <a href="https://discord.gg/Vgyt8MrW" target="_blank" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block">Join our Discord</a>
             </div>
+
+            <div class="mb-12 border-t pt-24">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Beta Prototype</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Debate Mentor AI</h1>
+                <p class="text-gray-500 text-base font-light leading-relaxed mb-12 italic">Generic Debate AI trained on broad theory and terminology.</p>
+                <div class="chat-container shadow-2xl rounded-sm overflow-hidden">
+                    <div id="chat-messages-faq" class="chat-messages chat-scroll-hide">
+                        <div class="message message-architect">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Mentor AI</p>
+                            <div class="ai-content"><p>Ask me any general question about debate. For example: "What is a Kritik?" or "How do I flow more efficiently?"</p></div>
+                        </div>
+                    </div>
+                    <div id="chat-loading-faq" class="px-8 py-4 hidden bg-white">
+                        <div class="flex items-center space-x-3">
+                            <div class="animate-pulse flex space-x-1"><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div></div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Mentor is teaching...</span>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="flex gap-4">
+                            <input type="text" id="faq-input" placeholder="Ask a general debate question..." onkeypress="if(event.key === 'Enter') analyzeTopic('faq')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
+                            <button onclick="analyzeTopic('faq')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -775,6 +828,9 @@
             </div>
         </div>
         <p class="mt-20 text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold text-center">© 2026 DEBATE 101 COLLECTIVE</p>
+        <p class="mt-4 text-[10px] text-gray-400 uppercase tracking-[0.1em] text-center">
+            If you wish to support our mission buy us a coffee: <a href="https://buymeacoffee.com/debate101" target="_blank" class="text-[#0072b1] hover:underline normal-case tracking-normal font-normal">buymeacoffee.com/debate101</a>
+        </p>
     </footer>
 
     <script>
@@ -971,6 +1027,15 @@
             container.appendChild(msgDiv); container.scrollTop = container.scrollHeight;
         }
 
+        function formatAiResponse(text) {
+            if (text.includes('<p>')) return text;
+            return text.split('\n\n').map(block => {
+                const lines = block.split('\n');
+                if (lines[0].match(/^\d+\.?\s*[A-Z\s]+$/)) return `<div class="mb-6"><h4>${lines.shift()}</h4>${lines.join('<br>')}</div>`;
+                return `<p>${block}</p>`;
+            }).join('');
+        }
+
         // AUTO-FLOW LOGIC WITH NEG MODE TAB SPLITTING
         document.getElementById('docx-input').addEventListener('change', async (e) => {
             const file = e.target.files[0];
@@ -984,7 +1049,8 @@
                 try {
                     const options = { styleMap: ["p[style-name='Heading 2'] => h2:fresh", "p[style-name='Heading 4'] => h4:fresh", "p[style-name='Tag'] => h4:fresh", "p[style-name='Cite'] => p.cite:fresh"] };
                     const result = await mammoth.convertToHtml({ arrayBuffer: event.target.result }, options);
-                    const htmlDoc = new DOMParser().parseFromString(result.value, 'text/html');
+                    const parser = new DOMParser();
+                    const htmlDoc = parser.parseFromString(result.value, 'text/html');
                     const elements = Array.from(htmlDoc.querySelectorAll('h2, h4, p'));
                     
                     const wb = XLSX.utils.book_new();
@@ -1013,7 +1079,6 @@
                         const el = elements[i];
                         
                         if (isNegMode && el.tagName === 'H2') {
-                            // If we have data, save previous sheet
                             if (currentSheetData.length > 1) {
                                 const ws = XLSX.utils.aoa_to_sheet(currentSheetData);
                                 styleWorksheet(ws);
@@ -1033,7 +1098,6 @@
                         }
                     }
 
-                    // Save final/only sheet
                     const finalWs = XLSX.utils.aoa_to_sheet(currentSheetData);
                     styleWorksheet(finalWs);
                     XLSX.utils.book_append_sheet(wb, finalWs, getUniqueName(currentSheetName));
