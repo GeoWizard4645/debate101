@@ -122,7 +122,6 @@
             gap: 16px;
             padding: 12px 0;
             scrollbar-width: none;
-            scroll-behavior: smooth;
         }
         .carousel-container::-webkit-scrollbar { display: none; }
 
@@ -774,10 +773,10 @@
                         Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We aren't just creating tools; we are architecting a sustainable learning ecosystem for the next generation of competitive thinkers.
                     </p>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 text-[#051C2C]">
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Vivaan Shahani</p><p class="text-[10px] text-gray-400 uppercase mt-1">Web & Tool Lead</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Max Feinstein</p><p class="text-[10px] text-gray-400 uppercase mt-1">Media & Analysis</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Max McBride</p><p class="text-[10px] text-gray-400 uppercase mt-1">Community Lead</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Arjun Gupta</p><p class="text-[10px] text-gray-400 uppercase mt-1">Lecture Lead</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Vivaan Shahani</p><p class="text-[10px] text-gray-400 uppercase mt-1">Lay/Trad & LARP Specialist</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Max Feinstein</p><p class="text-[10px] text-gray-400 uppercase mt-1">Strategy & Methodology</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Max McBride</p><p class="text-[10px] text-gray-400 uppercase mt-1">Phil & Trad Specialist</p></div>
+                        <div><p class="text-xs font-bold uppercase tracking-widest">Arjun Gupta</p><p class="text-[10px] text-gray-400 uppercase mt-1">Theory & K Specialist</p></div>
                     </div>
                     <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">Meet the team</button>
                 </div>
@@ -1244,15 +1243,15 @@
             },
             {
                 name: "Max Feinstein",
-                role: "Co-Founder - Head of Media Management and Analysis",
+                role: "Co-Founder - Head of Strategy & Critical Methodology",
                 image: "assets/max-f.png",
                 blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through rigor.",
-                depth: "Max Feinstein is a Freshman at The Altamont School in Birmingham, Alabama. He specializes in Kritikal debate and postmodern literature (Neoliberal logistics, Baudrillard, Nietzsche, Lacan, and Jung). Max values collaborative learning and strategic argument creation."
+                depth: "About me&nbsp;<br>My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Debate is my primary academic interest, and I enjoy rounds where I learn new things. Subjectivity shift is real!&nbsp;<br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and&nbsp;other&nbsp;literature&nbsp;such as The Picture of Dorian Gray&nbsp;or&nbsp;East of Eden&nbsp;etc, and am an avid NBA fan—especially of the San Antonio Spurs. I value collaborative learning environments and enjoy working with teammates and friends to create new arguments and strategies.&nbsp;<br>Debate Background&nbsp;&amp; Argument Interests<br>I specialize primarily in Kritikal debate and am most comfortable engaging with postmodern literature. This season, my argument interests has been on Neoliberal logistics, Baudrillard, Nietzsche, Lacan, and Jung. I read planless affirmatives, though I am also comfortable in debating all styles.&nbsp;<br>Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation, framing disputes, and real impact calculus with different weighing metric indicts rather than purely empirical cost-benefit analysis.<br>Argument preferences&nbsp;(how I can best help teach you)<br>(1 = most comfortable to teach // 5 =&nbsp;least comfortable to teach)<br>1—Kritiks, K affs, PIKs, Spark, Wipeout, K tricks (this is super underutilized), and other unconventional and unique arguments<br>2—PICs, Phil, S/V, Tricks<br>3—Counterplans (other), Policy, Disads<br>4—Theory and procedurals<br>5—Lay debate (I can assist, but others like Max M or Vivaan may be better suited)&nbsp;<br>Email me at feinsteinm29@altamontschool.org"
             },
             {
                 name: "Max McBride",
                 role: "Co-Founder - Head of Community Building and Outreach",
-                image: "assets/max-m.jpg",
+                image: "assets/max-m.png",
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
                 depth: "Max McBride is a freshman VLD debater at Isidore Newman School in New Orleans, Louisiana. He specializes in philosophical debate (Kant, Hobbes, Nietzsche, Mitleid arguments, Determinism and Skep, etc…) along with more traditional or lay debate, both locally and nationally. Max values personal ambition and contribution."
             },
@@ -1379,7 +1378,6 @@
             
             const amins = Math.floor(affPrepLeft / 60);
             const asecs = affPrepLeft % 60;
-            document.getElementById('prep-aff-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             document.getElementById('prep-aff-display').innerText = `${amins.toString().padStart(2, '0')}:${asecs.toString().padStart(2, '0')}`;
             document.getElementById('prep-aff-btn').innerText = prepActive === 'aff' ? 'Stop' : 'Start';
             
@@ -1556,17 +1554,17 @@
             }).join('');
         }
 
-        // CAROUSEL NAVIGATION
-        function scrollCarousel(id, offset) {
-            const el = document.getElementById(id);
-            if (el) el.scrollLeft += offset;
-        }
-
         function triggerGlobalSearch() {
             showPage('hub');
             setTimeout(() => {
                 document.getElementById('resource-search').focus();
             }, 100);
+        }
+
+        // CAROUSEL NAVIGATION
+        function scrollCarousel(id, offset) {
+            const el = document.getElementById(id);
+            if (el) el.scrollLeft += offset;
         }
 
         let chatHistoryRes = [];
