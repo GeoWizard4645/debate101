@@ -1,4 +1,4 @@
-These are just dev notes, ignore this, unless your just curious in which feel free to waste time reading my storage that's there to copy and paste incase gemini screws up while I vibe code. 
+These are just dev notes, ignore this, unless your just curious in which feel free to waste time reading my storage that's there to copy and paste incase gemini screws up while I vibe code. (ENTER CODE PREVIEW ON GITHUB TO SEE IT CLEARLY.)
 Table of Content - (Bios lines 3-32, resources, 34-197, index.html,199-2000) //Last updated 2-17
 ###BIOS###
 const teamData = [
