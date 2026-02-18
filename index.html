@@ -122,7 +122,6 @@
             gap: 16px;
             padding: 12px 0;
             scrollbar-width: none;
-            scroll-behavior: smooth;
         }
         .carousel-container::-webkit-scrollbar { display: none; }
 
@@ -532,6 +531,33 @@
         .screw-input-group input, .screw-input-group select {
             @apply w-full bg-transparent text-xl font-light outline-none text-[#051C2C];
         }
+        
+        /* Collaborator Section Styles */
+        .collab-table {
+            @apply w-full text-left border-collapse mt-8 overflow-hidden rounded-sm;
+            border: 1px solid #f1f5f9;
+        }
+        .collab-table thead {
+            @apply bg-gray-50;
+        }
+        .collab-table th {
+            @apply text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 py-4 px-6 border-b border-gray-200;
+        }
+        .collab-table tr {
+            @apply transition-colors;
+        }
+        .collab-table tr:hover {
+            @apply bg-blue-50/30;
+        }
+        .collab-table td {
+            @apply py-6 px-6 border-b border-gray-100 text-sm align-top;
+        }
+        .collab-name {
+            @apply mck-serif text-lg text-[#051C2C] font-bold block;
+        }
+        .collab-bio {
+            @apply text-gray-500 italic font-light leading-relaxed;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -558,7 +584,7 @@
             </div>
             <button onclick="scrollToSection('roadmap')" class="text-left">Roadmap</button>
             <a href="https://discord.debate101.org" target="_blank">Discord</a>
-            <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank">Instagram</a>
+            <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
         </div>
         <div class="mt-auto border-t pt-8">
             <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Lead Architects</p>
@@ -604,7 +630,7 @@
 
                     <button onclick="scrollToSection('roadmap')" class="hover:text-[#0072b1] transition-colors">Roadmap</button>
                     <a href="https://discord.debate101.org" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
-                    <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
+                    <a href="https://instagram.debate101.org" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
                     <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2"><i class="fas fa-search"></i></button>
                 </div>
                 <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
@@ -640,34 +666,69 @@
             </div>
         </section>
 
-        <!-- Roadmap -->
-        <section id="roadmap" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                    <h2 class="mck-serif text-4xl md:text-6xl">2026 Vision Map.</h2>
-                    <p class="text-gray-400 max-w-sm text-sm leading-relaxed border-l border-gray-700 pl-6">Advancing LD-focused roots into a broader high school debate circuit ecosystem.</p>
+        <!-- Global Resource Hub Section (CTA) -->
+        <section class="py-32 px-6 md:px-12 bg-white">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</h2>
+                    <h3 class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h3>
+                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
+                        Debate 101 is cataloging every essential tool, lecture, camp, and research asset in the international circuit. From specialized software like Verbatim to niche critical theory scholarly databases, our Global Hub provides debaters with an exhaustive ecosystem of strategic advantages.
+                    </p>
+                    <button onclick="showPage('hub')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all">Explore Global Collection</button>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-16">
-                    <div class="border-t border-gray-800 pt-10">
-                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">Global Repository</span>
-                        <h3 class="text-2xl font-light mt-6 mb-6">World's Largest Resource Collection</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Building a living, exhaustive library of every verified tool, course, and research asset in competitive debate. This is our core accessibility mission.</p>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-tools text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Strategic Tools</span>
                     </div>
-                    <div class="border-t border-gray-800 pt-10">
-                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">INFRASTRUCTURE</span>
-                        <h3 class="text-2xl font-light mt-6 mb-6">AI Wiki Mining</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Developing automated tools to mine circuit data for meta trends and argument patterns.</p>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-university text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Verified Camps</span>
                     </div>
-                    <div class="border-t border-gray-800 pt-10">
-                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">EDUCATION</span>
-                        <h3 class="text-2xl font-light mt-6 mb-6">The Lecture Lab</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">A digital archive hosting high-level round analysis and technical breakdowns.</p>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-book-open text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Research Bases</span>
                     </div>
-                    <div class="border-t border-gray-800 pt-10">
-                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">COMMUNITY</span>
-                        <h3 class="text-2xl font-light mt-6 mb-6">Real-time Support</h3>
-                        <p class="text-gray-400 leading-relaxed text-sm">Discord hub for practice rounds, collaborator matching, and circuit-wide community engagement.</p>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-video text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Lecture Vaults</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Become a Known Collaborator Section -->
+        <section class="py-32 px-6 md:px-12 bg-white border-y border-gray-50">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Open Source Collaboration</h2>
+                    <h3 class="mck-serif text-5xl text-[#051C2C] mb-8 leading-tight">Become a <span class="italic text-[#0072b1] font-normal">Known Collaborator.</span></h3>
+                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
+                        Join the collective of debaters helping scale competitive discourse. Known collaborators gain recognition on our platform and direct influence over our resource pipeline.
+                    </p>
+                    <button onclick="scrollToCollaborators()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">See other known collaborators</button>
+                </div>
+                <div class="md:w-1/2 bg-gray-50 p-12 border border-gray-100 rounded-sm shadow-sm">
+                    <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#051C2C] mb-8">Onboarding Protocol</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">1</span>
+                            <p class="text-sm text-gray-600">Audit our platform and analyze the currently indexed strategic assets.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">2</span>
+                            <p class="text-sm text-gray-600">Submit 3 resource suggestions via the <code class="bg-gray-200 px-1 rounded text-[11px]">#resource_suggestion</code> channel on Discord.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">3</span>
+                            <p class="text-sm text-gray-600">Follow our official analysis channel on Instagram at <a href="https://instagram.debate101.org" target="_blank" class="text-[#0072b1] underline">instagram.debate101.org</a>.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">4</span>
+                            <p class="text-sm text-gray-600">Submit your name and a brief biography in the <code class="bg-gray-200 px-1 rounded text-[11px]">#known_collabrator_request</code> channel.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -730,39 +791,7 @@
             </div>
         </section>
 
-        <!-- Global Resource Hub Homepage Section -->
-        <section class="py-32 px-6 md:px-12 bg-white">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-                <div class="md:w-1/2">
-                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</h2>
-                    <h3 class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h3>
-                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
-                        Debate 101 is cataloging every essential tool, lecture, camp, and research asset in the international circuit. From specialized software like Verbatim to niche critical theory scholarly databases, our Global Hub provides debaters with an exhaustive ecosystem of strategic advantages.
-                    </p>
-                    <button onclick="showPage('hub')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all">Explore Global Collection</button>
-                </div>
-                <div class="md:w-1/2 grid grid-cols-2 gap-4">
-                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
-                        <i class="fas fa-tools text-3xl text-blue-200 mb-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Strategic Tools</span>
-                    </div>
-                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
-                        <i class="fas fa-university text-3xl text-blue-200 mb-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Verified Camps</span>
-                    </div>
-                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
-                        <i class="fas fa-book-open text-3xl text-blue-200 mb-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Research Bases</span>
-                    </div>
-                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
-                        <i class="fas fa-video text-3xl text-blue-200 mb-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Lecture Vaults</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Who We Are -->
+        <!-- Who We Are (Team Overview) -->
         <section class="py-32 px-6 md:px-12 bg-white border-t border-gray-50">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-start">
                 <div class="md:w-1/3">
@@ -773,16 +802,60 @@
                     <p class="text-xl text-gray-600 mb-12 font-light leading-relaxed">
                         Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We aren't just creating tools; we are architecting a sustainable learning ecosystem for the next generation of competitive thinkers.
                     </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 text-[#051C2C]">
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Vivaan Shahani</p><p class="text-[10px] text-gray-400 uppercase mt-1">Lay/Trad & LARP Specialist</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Max Feinstein</p><p class="text-[10px] text-gray-400 uppercase mt-1">Strategy & Critical Methodology</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Max McBride</p><p class="text-[10px] text-gray-400 uppercase mt-1">Phil & Trad Specialist</p></div>
-                        <div><p class="text-xs font-bold uppercase tracking-widest">Arjun Gupta</p><p class="text-[10px] text-gray-400 uppercase mt-1">Theory & K Specialist</p></div>
-                    </div>
                     <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">Meet the team</button>
                 </div>
             </div>
         </section>
+
+        <!-- Roadmap (Mission) -->
+        <section id="roadmap" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <h2 class="mck-serif text-4xl md:text-6xl">2026 Vision Map.</h2>
+                    <p class="text-gray-400 max-w-sm text-sm leading-relaxed border-l border-gray-700 pl-6">Advancing LD-focused roots into a broader high school debate circuit ecosystem.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-16">
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">Global Repository</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">World's Largest Resource Collection</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Building a living, exhaustive library of every verified tool, course, and research asset in competitive debate. This is our core accessibility mission.</p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">INFRASTRUCTURE</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">AI Wiki Mining</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Developing automated tools to mine circuit data for meta trends and argument patterns.</p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">EDUCATION</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">The Lecture Lab</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">A digital archive hosting high-level round analysis and technical breakdowns.</p>
+                    </div>
+                    <div class="border-t border-gray-800 pt-10">
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest">COMMUNITY</span>
+                        <h3 class="text-2xl font-light mt-6 mb-6">Real-time Support</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Discord hub for practice rounds, collaborator matching, and circuit-wide community engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Page: Our Team -->
+    <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Leadership</h2>
+            <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C] mb-24">The Architects.</h1>
+            <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-20 mb-32"></div>
+
+            <!-- Collaborators Section -->
+            <div id="collaborators-section" class="border-t pt-24 mt-24">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Community Contribution</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-12">Known Collaborators.</h1>
+                <div id="collaborators-list" class="space-y-10 max-w-3xl">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Page: Architect Timer -->
@@ -1073,15 +1146,6 @@
         </div>
     </main>
 
-    <!-- Page: Team -->
-    <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Leadership</h2>
-            <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C] mb-24">The Architects.</h1>
-            <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-20"></div>
-        </div>
-    </main>
-
     <footer class="bg-white border-t border-gray-100 py-20 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
             <div class="flex items-center space-x-3">
@@ -1089,7 +1153,7 @@
                 <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
             </div>
             <div class="flex flex-col space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                <a href="https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Instagram</a>
+                <a href="https://instagram.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Instagram</a>
                 <a href="https://discord.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Discord</a>
             </div>
         </div>
@@ -1159,7 +1223,7 @@
                     { title: "DebateRounds", desc: "Comprehensive archive of high-level debate round recordings across various circuits, providing essential technical film study.", link: "https://debaterounds.com/", type: "external", icon: "fas fa-video", keywords: "rounds, recordings, film study, technical" },
                     { title: "Debate Drills YT", desc: "Premier archive for technical drills and mechanics masterclasses. Essential for circuit readiness.", link: "https://www.youtube.com/@DebateDrills", type: "external", icon: "fab fa-youtube", keywords: "video, coaching, drills" },
                     { title: "Bill Batterman", desc: "Exhaustive lecture archive from one of the circuit's most respected minds, covering Policy and LD fundamentals.", link: "https://www.youtube.com/c/BillBatterman", type: "external", icon: "fas fa-chalkboard", keywords: "batterman, policy, lectures, theory" },
-                    { title: "Proteus Academy", desc: "Strategy lab focused on high-level circuit trends and conceptual edges in national competition.", link: "https://www.youtube.com/@proteusdebateacademy", type: "external", icon: "fas fa-brain", keywords: "strategy, elite labs, proteus" },
+                    { title: "Proteus Academy", desc: "Strategy lab focused on high-level circuit trends and conceptual edges in national competition.", link: "https://www.youtube.com/@proteusdebateacademy", type: "fas fa-brain", keywords: "strategy, elite labs, proteus" },
                     { title: "One-World Debate", desc: "Technical analysis and instructional lectures on high-level argumentation and cross-ex mechanics.", link: "https://www.youtube.com/channel/UCYPPO78Q16D9p4_bX0rR2QQ", type: "external", icon: "fas fa-graduation-cap", keywords: "one world, lectures, analysis" },
                     { title: "Go Fight Win", desc: "Strategy hub focusing on LD mechanics, technical drilling, and round evaluation.", link: "https://www.youtube.com/channel/UC2gnLZUFVVhjTy4UL9MhvRg/featured", type: "external", icon: "fas fa-fist-raised", keywords: "go fight win, ld strategy" },
                     { title: "HSR Debate", desc: "Video archive specializing in Policy debate theory and technical breakdown of circuit-level rounds.", link: "https://www.youtube.com/channel/UCUae8CTGOPAsx-SXL61BnpQ", type: "external", icon: "fas fa-play", keywords: "hsr, policy, round review" },
@@ -1202,7 +1266,7 @@
                     { title: "Triumph Briefs", desc: "Modern evidence briefs provider known for quality research and high-utility carding in LD and PF.", link: "https://www.debateresources.com/lincoln-douglas", type: "external", icon: "fas fa-medal", keywords: "triumph, briefs, cards" },
                     { title: "Champion Briefs", desc: "Premier provider of monthly research briefs and prep materials for Public Forum and LD.", link: "https://championbriefs.com/", type: "external", icon: "fas fa-trophy", keywords: "champion, briefs, pf" },
                     { title: "Kankee Briefs", desc: "High-level K-focused briefs and strategy documents for national circuit LD competitors.", link: "https://www.patreon.com/kankeebriefs", type: "external", icon: "fas fa-skull", keywords: "briefs, kanke, kritikal" },
-                    { title: "Outreach Debate", desc: "Initiative focused on expanding access to competitive discourse for under-resourced schools and communities.", link: "https://www.outreachdebate.com/", type: "external", icon: "fas fa-hands-helping", keywords: "outreach, inclusive" },
+                    { title: "Outreach Debate", desc: "Initiative focused on expanding access to competitive discourse for under-resourced schools and communities.", link: "https://www. Peptalkdebate.org/", type: "external", icon: "fas fa-hands-helping", keywords: "outreach, inclusive" },
                     { title: "PepTalk Debate", desc: "Mentorship-focused debate training designed to empower middle and high school students through discourse.", link: "https://www.peptalkdebate.org/", type: "external", icon: "fas fa-bullhorn", keywords: "mentorship, pep talk" },
                     { title: "Vanguard Debate", desc: "Innovative tournament management and tabulation software designed for modern high-speed circuit efficiency.", link: "https://vanguarddebate.com/", type: "external", icon: "fas fa-shield-alt", keywords: "vanguard, tab, tournament" }
                 ]
@@ -1212,10 +1276,10 @@
                 bgColor: "bg-blue-50",
                 resources: [
                     { title: "Women's Debate Inst.", desc: "Non-profit providing elite debate education for gender-marginalized students to bridge the equity gap.", link: "https://www.womensdebateinstitute.org/", type: "external", icon: "fas fa-female", keywords: "wdi, inclusive, equity" },
-                    { title: "W.I.N. Instagram", desc: "Women in National Debate platform focusing on representation, success stories, and community highlights.", link: "https://www.instagram.com/windebate/", type: "external", icon: "fab fa-instagram", keywords: "win, media, community" },
+                    { title: "W.I.N. Instagram", desc: "Women in National Debate platform focusing on representation, success stories, and community highlights.", link: "https://instagram.debate101.org", type: "external", icon: "fab fa-instagram", keywords: "win, media, community" },
                     { title: "LD Docs (Email List)", desc: "Email to join the definitive LD debate google group for high-level technical discussion and evidence exchange.", link: "mailto:lddocs@groups.google.com?subject=Request%20to%20Join%20LD%20Docs%20Google%20Group&body=Hi%2C%20I've%20been%20suggested%20by%20debate101.org%20to%20ask%20if%20you%20could%20please%20add%20this%20email%20I'm%20writing%20from%3A%20%5Bfill%20email%20in%5D%20to%20the%20LD%20Docs%20Google%20Group%20please.%20Thanks%20a%20lot%2C", type: "external", icon: "fas fa-envelope-open-text", keywords: "email list, technical, ld" },
                     { title: "Architect Discord", desc: "Join our community hub for real-time round analysis, practice debates, and direct lead architect access.", link: "https://discord.debate101.org", type: "internal", icon: "fab fa-discord", keywords: "discord, community, chat, social" },
-                    { title: "Debate 101 Instagram", desc: "Follow for circuit news, round highlights, upcoming lecture series announcements, and community features.", link: "https://www.instagram.com/thedebate.101?igsh=MW9zaDQxeTEyNHZwOA==", type: "internal", icon: "fab fa-instagram", keywords: "instagram, social media, news" },
+                    { title: "Debate 101 Instagram", desc: "Follow for circuit news, round highlights, upcoming lecture series announcements, and community features.", link: "https://instagram.debate101.org", type: "internal", icon: "fab fa-instagram", keywords: "instagram, social media, news" },
                     { title: "CDA Financial Aid", desc: "Essential resource for high school debaters seeking financial support and accessibility grants for competition.", link: "https://www.cdadebate.com/financial-aid", type: "external", icon: "fas fa-hand-holding-usd", keywords: "aid, grants, scholarships" },
                     { title: "r/Debate", desc: "The primary community hub for discussion on all competitive formats, including PF, LD, and Policy.", link: "https://www.reddit.com/r/Debate/", type: "external", icon: "fab fa-reddit-alien", keywords: "reddit, community, forum" }
                 ]
@@ -1244,7 +1308,7 @@
             },
             {
                 name: "Max Feinstein",
-                role: "Co-Founder - Head of Strategy & Critical Methodology",
+                role: "Co-Founder - Lead Strategist & Methodologist",
                 image: "assets/max-f.png",
                 blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through rigor.",
                 depth: "About me&nbsp;<br>My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Debate is my primary academic interest, and I enjoy rounds where I learn new things. Subjectivity shift is real!&nbsp;<br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and&nbsp;other&nbsp;literature&nbsp;such as The Picture of Dorian Gray&nbsp;or&nbsp;East of Eden&nbsp;etc, and am an avid NBA fan—especially of the San Antonio Spurs. I value collaborative learning environments and enjoy working with teammates and friends to create new arguments and strategies.&nbsp;<br>Debate Background&nbsp;&amp; Argument Interests<br>I specialize primarily in Kritikal and Phil/trix debate. For the k I am most comfortable engaging with postmodern literature though fine for all k lit. I read planless affirmatives and nailbomb on occasion lol, but I am also comfortable in debating all styles.&nbsp;<br>Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation, framing disputes, and real impact calculus with different weighing metric indicts rather than purely empirical cost-benefit analysis.<br>Argument preferences&nbsp;(how I can best help teach you)<br>(1 = most comfortable to teach // 5 =&nbsp;least comfortable to teach)<br>1—Kritiks, K affs, PIKs, Spark, Wipeout, K tricks (this is super underutilized), trix and other unconventional and unique arguments<br>2—PICs, Phil, S/V<br>3—Counterplans (other), Policy, Disads<br>4—Theory and procedurals<br>5—Lay debate (I can assist, but others like Max M or Vivaan may be better suited)&nbsp;<br>Email me at feinsteinm29@altamontschool.org"
@@ -1262,6 +1326,17 @@
                 image: "assets/arjun.png",
                 blurb: "Lead analyst for K-Aff argumentation and critical literature.",
                 depth: "Arjun is a freshman at Edgemont Jr/Sr High School in NY, in his second year of debate. His debate interests mainly revolve around philosophy, theory, kritiks, and some tricks. He competes on the National Circuit, and has reached elimination rounds at tournaments like Emory and Stanford. Outside of debate, he likes hiking, skiing, playing golf, and coding, and he’s excited to work with Debate101."
+            }
+        ];
+
+        const collaboratorData = [
+            {
+                name: "Samrajay Singh",
+                bio: "A middleschool LDer at Edgemont."
+            },
+            {
+                name: "Yuvraj Arora",
+                bio: "A middleschool LDer at Edgemont."
             }
         ];
 
@@ -1567,6 +1642,14 @@
                 document.getElementById('resource-search').focus();
             }, 100);
         }
+        
+        function scrollToCollaborators() {
+            showPage('team');
+            setTimeout(() => {
+                const el = document.getElementById('collaborators-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
 
         let chatHistoryRes = [];
         let chatHistoryFaq = [];
@@ -1670,6 +1753,17 @@
                     <p class="text-gray-500 mb-8 leading-relaxed max-w-md italic">${member.blurb}</p>
                     <button onclick="toggleDepth(${index})" class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Full Profile +</button>
                     <div id="depth-${index}" class="expand-content"><div class="py-8 text-gray-600 text-sm leading-relaxed border-t mt-6">${member.depth}</div></div>
+                </div>
+            `).join('');
+        }
+
+        function initCollaborators() {
+            const list = document.getElementById('collaborators-list');
+            if (!list) return;
+            list.innerHTML = collaboratorData.map(c => `
+                <div class="pb-10">
+                    <span class="font-bold text-[#051C2C] text-lg block">${c.name}</span>
+                    <p class="text-xs text-gray-500 italic mt-1 leading-relaxed">${c.bio}</p>
                 </div>
             `).join('');
         }
@@ -1871,6 +1965,7 @@
             showPage(hash); 
             initHub();
             initTeam();
+            initCollaborators();
             initFaq();
             initAutoflow();
             setTimerFormat('LD');
