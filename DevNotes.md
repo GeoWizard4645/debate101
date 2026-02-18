@@ -1,7 +1,7 @@
 These are just dev notes, ignore this, unless your just curious in which feel free to waste time reading my storage that's there to copy and paste incase gemini screws up while I vibe code. (ENTER CODE PREVIEW ON GITHUB TO SEE IT CLEARLY.)
-Table of Content - (Bios lines 3-32, resources, 34-197, index.html,199-2000) //Last updated 2-17
+Table of Content - (Bios lines 3-32, resources, 34-197, index.html,199-2000) //Last updated 2-17 /// Ctrl/Cmd + F ###RESOURCES### to find
 ###BIOS###
-const teamData = [
+       const teamData = [
             {
                 name: "Vivaan Shahani",
                 role: "Co-Founder - Head of Web Development & Tool Creation",
@@ -11,15 +11,15 @@ const teamData = [
             },
             {
                 name: "Max Feinstein",
-                role: "Co-Founder - Head of Media Management and Analysis",
+                role: "Co-Founder - Head of Strategy & Critical Methodology",
                 image: "assets/max-f.png",
                 blurb: "A specialist in postmodern literature and critical methodology, redefining competitive discourse through rigor.",
-                depth: "Max Feinstein is a Freshman at The Altamont School in Birmingham, Alabama. He specializes in Kritikal debate and postmodern literature (Neoliberal logistics, Baudrillard, Nietzsche, Lacan, and Jung). Max values collaborative learning and strategic argument creation."
+                depth: "About me&nbsp;<br>My name is Max Feinstein, and I am a freshman at The Altamont School in Birmingham, Alabama. This is my third year of debate and my first year competing fully on the national-circuit. Debate is my primary academic interest, and I enjoy rounds where I learn new things. Subjectivity shift is real!&nbsp;<br>Outside of debate, I play ECNL and varsity soccer for Altamont (Go Knights!) and have been playing piano, electric guitar, and acoustic guitar for quite a while. I enjoy reading extensively in both philosophy and&nbsp;other&nbsp;literature&nbsp;such as The Picture of Dorian Gray&nbsp;or&nbsp;East of Eden&nbsp;etc, and am an avid NBA fan—especially of the San Antonio Spurs. I value collaborative learning environments and enjoy working with teammates and friends to create new arguments and strategies.&nbsp;<br>Debate Background&nbsp;&amp; Argument Interests<br>I specialize primarily in Kritikal and Phil/trix debate. For the k I am most comfortable engaging with postmodern literature though fine for all k lit. I read planless affirmatives and nailbomb on occasion lol, but I am also comfortable in debating all styles.&nbsp;<br>Strategically, I am drawn to arguments that emphasize methodological and ideological evaluation, framing disputes, and real impact calculus with different weighing metric indicts rather than purely empirical cost-benefit analysis.<br>Argument preferences&nbsp;(how I can best help teach you)<br>(1 = most comfortable to teach // 5 =&nbsp;least comfortable to teach)<br>1—Kritiks, K affs, PIKs, Spark, Wipeout, K tricks (this is super underutilized), trix and other unconventional and unique arguments<br>2—PICs, Phil, S/V<br>3—Counterplans (other), Policy, Disads<br>4—Theory and procedurals<br>5—Lay debate (I can assist, but others like Max M or Vivaan may be better suited)&nbsp;<br>Email me at feinsteinm29@altamontschool.org"
             },
             {
                 name: "Max McBride",
                 role: "Co-Founder - Head of Community Building and Outreach",
-                image: "assets/max-m.jpg",
+                image: "assets/max-m.png",
                 blurb: "Specialist in geopolitical resolutions and empirical evidence analysis.",
                 depth: "Max McBride is a freshman VLD debater at Isidore Newman School in New Orleans, Louisiana. He specializes in philosophical debate (Kant, Hobbes, Nietzsche, Mitleid arguments, Determinism and Skep, etc…) along with more traditional or lay debate, both locally and nationally. Max values personal ambition and contribution."
             },
