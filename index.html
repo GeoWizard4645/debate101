@@ -323,7 +323,7 @@
             display: block;
         }
 
-        .dropdown-content button {
+        .dropdown-content button, .dropdown-content a {
             color: var(--mck-blue);
             padding: 12px 16px;
             text-decoration: none;
@@ -337,7 +337,7 @@
             transition: background 0.2s;
         }
 
-        .dropdown-content button:hover {
+        .dropdown-content button:hover, .dropdown-content a:hover {
             background-color: #f1f1f1;
             color: var(--mck-accent);
         }
@@ -637,8 +637,12 @@
                 <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
                 <button onclick="showPage('autoflow')" class="text-left">Auto Flow Generator</button>
             </div>
-            <a href="https://discord.debate101.org" target="_blank">Discord</a>
-            <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
+            <div class="flex flex-col space-y-4 ml-4">
+                <span class="text-[10px] text-gray-400">Socials</span>
+                <a href="https://discord.debate101.org" target="_blank">Discord</a>
+                <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
+                <a href="https://youtube.debate101.org" target="_blank">YouTube</a>
+            </div>
         </div>
         <div class="mt-auto border-t pt-8">
             <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Lead Architects</p>
@@ -682,8 +686,18 @@
                             <button onclick="showPage('autoflow')">Auto Flow Generator</button>
                         </div>
                     </div>
-                    <a href="https://discord.debate101.org" target="_blank" class="hover:text-[#0072b1] transition-colors">Discord</a>
-                    <a href="https://instagram.debate101.org" target="_blank" class="hover:text-[#0072b1] transition-colors">Instagram</a>
+
+                    <div class="dropdown">
+                        <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
+                            Socials <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="https://discord.debate101.org" target="_blank">Discord</a>
+                            <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
+                            <a href="https://youtube.debate101.org" target="_blank">YouTube</a>
+                        </div>
+                    </div>
+                    
                     <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2"><i class="fas fa-search"></i></button>
                 </div>
                 <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
@@ -714,7 +728,10 @@
                 <div class="flex flex-col sm:flex-row gap-6">
                     <button onclick="showPage('autoflow')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Try Auto Flow Generator</button>
                     <button onclick="showPage('hub')" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:bg-[#051C2C] hover:text-white transition-all">Visit Global Resource Hub</button>
-                    <a href="https://discord.debate101.org" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://discord.debate101.org" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
+                        <a href="https://youtube.debate101.org" target="_blank" class="text-[9px] font-bold text-center text-gray-400 uppercase tracking-widest hover:text-[#0072b1]">Visit YouTube Lab</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -731,9 +748,14 @@
                         <p class="text-gray-400 text-xs font-light">Join 100+ debaters in our live analysis and strategy hub.</p>
                     </div>
                 </div>
-                <a href="https://discord.debate101.org" target="_blank" class="border border-blue-400/30 text-blue-400 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-blue-400 hover:text-white transition-all rounded-sm">
-                    Enter Official Discord
-                </a>
+                <div class="flex gap-4">
+                    <a href="https://discord.debate101.org" target="_blank" class="border border-blue-400/30 text-blue-400 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-blue-400 hover:text-white transition-all rounded-sm">
+                        Enter Official Discord
+                    </a>
+                    <a href="https://youtube.debate101.org" target="_blank" class="border border-red-500/30 text-red-500 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all rounded-sm">
+                        Subscribe on YouTube
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -798,6 +820,10 @@
                         <li class="flex gap-4">
                             <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">4</span>
                             <p class="text-sm text-gray-600">Submit your name and a brief biography in the <code class="bg-gray-200 px-1 rounded text-[11px]">#known_collabrator_request</code> channel.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">5</span>
+                            <p class="text-sm text-gray-600">Subscribe to our official YouTube channel at <a href="https://youtube.debate101.org" target="_blank" class="text-[#0072b1] underline">youtube.debate101.org</a>.</p>
                         </li>
                     </ul>
                 </div>
@@ -1159,7 +1185,7 @@
             <div class="mb-12 inline-flex items-center gap-3 bg-blue-50 border border-blue-200 px-6 py-4 rounded-sm shadow-sm w-full">
                 <i class="fas fa-info-circle text-blue-500"></i>
                 <p class="text-xs font-bold text-blue-900 uppercase tracking-wider leading-relaxed">
-                    Due to the recency of creating Debate 101, no lectures have been posted yet. Check the discord for updates and utilize the discord to ask any questions you may have.
+                    Due to the recency of creating Debate 101, some categories are still populating. Check the discord for updates and utilize the discord to ask any questions you may have.
                 </p>
             </div>
 
@@ -1251,7 +1277,10 @@
             <div class="bg-gray-50 p-12 border border-gray-100 text-center mb-24">
                 <h3 class="mck-serif text-3xl text-[#051C2C] mb-6">Still have questions?</h3>
                 <p class="text-gray-600 mb-8 max-w-md mx-auto">Our human architects and community members are active 24/7 in the Discord.</p>
-                <a href="https://discord.debate101.org" target="_blank" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block">Join our Discord</a>
+                <div class="flex justify-center gap-4">
+                    <a href="https://discord.debate101.org" target="_blank" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block">Join our Discord</a>
+                    <a href="https://youtube.debate101.org" target="_blank" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block hover:bg-gray-50">YouTube Lab</a>
+                </div>
             </div>
 
             <div class="mb-12 border-t pt-24">
@@ -1302,6 +1331,7 @@
             <div class="flex flex-col space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
                 <a href="https://instagram.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Instagram</a>
                 <a href="https://discord.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Discord</a>
+                <a href="https://youtube.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">YouTube</a>
             </div>
         </div>
         <p class="mt-20 text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold text-center">© 2026 DEBATE 101 COLLECTIVE</p>
@@ -1448,12 +1478,22 @@
         ];
 
         const lectureCategories = [
-            {
-                title: "Fundamental Theory",
-                bgColor: "bg-blue-50",
+            { title: "K Lectures", bgColor: "bg-blue-50", lectures: [] },
+            { title: "Phil Lectures", bgColor: "bg-white", lectures: [] },
+            { title: "LARP Lectures", bgColor: "bg-gray-50", lectures: [] },
+            { title: "Lay Lectures", bgColor: "bg-blue-50", lectures: [] },
+            { title: "Practice Rounds", bgColor: "bg-white", lectures: [] },
+            { 
+                title: "Tournament Rounds", 
+                bgColor: "bg-gray-50", 
                 lectures: [
-                    // Placeholder: No lectures posted yet warning is displayed on page
-                ]
+                    {
+                        title: "Featured Tournament Round",
+                        desc: "Analysis of a high-level competitive round.",
+                        youtubeId: "Y02tReMPM4A?si=raJIDP-scHsxAUSD",
+                        category: "Tournament Rounds"
+                    }
+                ] 
             }
         ];
 
@@ -1864,16 +1904,11 @@
             const total = lectureCategories.reduce((acc, cat) => acc + cat.lectures.length, 0);
             counter.innerText = total;
 
-            if (total === 0) {
-                container.innerHTML = `<div class="py-20 text-center"><p class="text-gray-400 mck-serif italic text-2xl">Digital archive pending population...</p></div>`;
-                return;
-            }
-
             container.innerHTML = lectureCategories.map((cat, idx) => `
                 <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-8 border-y border-gray-100 mt-4">
                     <h3 class="mck-serif text-xl text-[#051C2C] mb-6 pb-2 border-b border-gray-200">${cat.title}</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        ${cat.lectures.map(lec => `
+                        ${cat.lectures.length === 0 ? `<p class="text-gray-400 italic text-xs py-4">Category pending population...</p>` : cat.lectures.map(lec => `
                             <div class="video-card rounded-sm overflow-hidden flex flex-col lecture-item-card" data-title="${lec.title}" data-desc="${lec.desc}">
                                 <div class="video-embed-container">
                                     <iframe src="https://www.youtube.com/embed/${lec.youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
