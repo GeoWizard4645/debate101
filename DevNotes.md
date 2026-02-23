@@ -1,4 +1,4 @@
-These are just dev notes, ignore this, unless your just curious in which feel free to waste time reading my storage that's there to copy and paste incase gemini screws up while I vibe code. (ENTER CODE PREVIEW ON GITHUB TO SEE IT CLEARLY.)
+These are just dev notes, ignore this, unless your just curious in which feel free to waste time reading my storage that's there to copy and paste incase gemini screws up.UPDATE GEMINI is not working with this long of a code. I'm screwed. I might install claude code or something because IDK what else to do. (ENTER CODE PREVIEW ON GITHUB TO SEE IT CLEARLY.)
 Table of Content - (Bios lines 3-32, resources, 34-197, index.html,199-2000, ) //Last updated 2-17 /// Ctrl/Cmd + F ###RESOURCES### to find
 ###BIOS###
        const teamData = [
