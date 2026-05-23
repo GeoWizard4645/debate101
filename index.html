@@ -2054,23 +2054,32 @@
             }
         }
 
-        // --- Scroll-reveal animation for sections ---
-        const revealObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    revealObserver.unobserve(entry.target);
-                }
+        // --- Scroll-tied "lift away" effect for sections leaving the top of viewport.
+        // Sets a CSS var --past (0..1) on each section based on how far its top
+        // edge has scrolled above the viewport. CSS reads --past to apply a small
+        // translate + scale + opacity falloff. rAF-throttled so it stays smooth. ---
+        let _scrollRafPending = false;
+        function updateSectionPast() {
+            _scrollRafPending = false;
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                const r = sec.getBoundingClientRect();
+                // 0 while top of section is at/below viewport top;
+                // grows to 1 once the section has scrolled fully above the viewport.
+                const past = Math.max(0, Math.min(1, -r.top / Math.max(r.height, 1)));
+                if (past > 0) sec.style.setProperty('--past', past.toFixed(3));
+                else sec.style.removeProperty('--past');
             });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 }) : null;
-
-        function setupSectionReveals() {
-            document.querySelectorAll('section').forEach(el => {
-                if (el.classList.contains('reveal')) return;
-                el.classList.add('reveal');
-                if (revealObserver) revealObserver.observe(el);
-                else el.classList.add('is-visible');
-            });
+        }
+        function onScrollOrResize() {
+            if (_scrollRafPending) return;
+            _scrollRafPending = true;
+            requestAnimationFrame(updateSectionPast);
+        }
+        function setupSectionScrollFx() {
+            window.addEventListener('scroll', onScrollOrResize, { passive: true });
+            window.addEventListener('resize', onScrollOrResize);
+            updateSectionPast();
         }
 
         async function loadSiteContent() {
@@ -2101,7 +2110,7 @@
             initFaq();
             initAutoflow();
             setTimerFormat('LD');
-            setupSectionReveals();
+            setupSectionScrollFx();
 
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
