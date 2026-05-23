@@ -1,0 +1,71 @@
+name: Deploy to GitHub Pages
+
+# Builds the site and deploys to GitHub Pages, injecting the Gemini API key
+# from a repository secret named GEMINI_API_KEY at deploy time so the key
+# is never committed to source control.
+#
+# ONE-TIME SETUP (do this once in repo settings):
+#   1. Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+#   2. Confirm the repo secret named GEMINI_API_KEY exists under
+#      Settings -> Secrets and variables -> Actions.
+#   3. (Recommended) In Google Cloud Console, restrict the key by HTTP
+#      referrer to https://debate101.org/* and https://www.debate101.org/*
+#      so even though it ships to the browser, only your domain can use it.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent deployment; in-progress runs are cancelled.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject Gemini API key into config.js
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "${GEMINI_API_KEY}" ]; then
+            echo "::error::Repository secret GEMINI_API_KEY is not set."
+            echo "::error::Add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          cat > config.js <<EOF
+          // Auto-generated at deploy time by .github/workflows/deploy.yml
+          // from the GEMINI_API_KEY repository secret. Do not edit by hand.
+          window.GEMINI_API_KEY = "${GEMINI_API_KEY}";
+          EOF
+          echo "Wrote config.js ($(wc -c < config.js) bytes)"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the whole repo root as the static site.
+          path: '.'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

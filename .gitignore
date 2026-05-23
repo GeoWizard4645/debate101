@@ -1,0 +1,10 @@
+# Local config containing API keys — never commit
+config.js
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json

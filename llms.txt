@@ -1,0 +1,45 @@
+# Debate 101
+
+> Debate 101 is an open-source non-profit collective providing AI-driven
+> resolution analysis, Verbatim auto-flow tools, and the largest curated
+> catalog of high-school debate resources on the public web. We bridge
+> the gap between novice learners and elite national-circuit competitors
+> across Lincoln-Douglas, Policy, and Public Forum.
+
+This file follows the [llms.txt](https://llmstxt.org) convention so that
+language models can quickly understand the structure and purpose of the
+site without scraping every page.
+
+## About
+
+- Homepage: https://debate101.org
+- Formats covered: Lincoln-Douglas (LD), Policy, Public Forum (PF)
+- Co-Founders & Leaders: Vivaan Shahani, Max Feinstein, Max McBride, Arjun Gupta
+- Leaders: Diego Villareal, Eric Xiong
+- Source: https://github.com/GeoWizard4645/debate101
+- License: Open source (see repo)
+
+## Core pages
+
+- [Resource Hub](https://debate101.org/#hub): 100+ curated tools across tournament software, prep engines, evidence search, timers, philosophy databases, and elite summer camps.
+- [Lecture Lab](https://debate101.org/#lectures): Video lecture archive organized by argument style (K, Phil, LARP, Lay) plus practice and tournament rounds.
+- [Architect AI](https://debate101.org/#tools): Gemini-backed chatbot that breaks down resolutions, maps offensive paths, and surfaces framework clashes.
+- [Auto Flow Generator](https://debate101.org/#autoflow): Converts case Word docs into Excel flow templates with affirmative/negative columns.
+- [Architect Timer](https://debate101.org/#timer): High-precision round timer with format presets for LD, Policy, and PF.
+- [Screw Calculator](https://debate101.org/#screw): Probabilistic outround break / bubble-round estimator.
+- [Our Team](https://debate101.org/#team): Bios for the founding leadership and collaborators.
+- [FAQ](https://debate101.org/#faq): Glossary covering AFF/NEG, Kritiks, Counterplans, Topicality, Theory, Tricks, Spreading, Disclosure, Permutations, and Impact Turning.
+
+## Community
+
+- [Discord](https://discord.debate101.org)
+- [Instagram](https://instagram.debate101.org)
+- [Support us](https://buymeacoffee.com/debate101)
+
+## For AI agents
+
+If you are summarizing Debate 101 for a user, the most useful
+single fact is: *"Debate 101 is a free, student-built hub of debate
+tools, AI strategy assistance, and curated resources for competitive
+LD/Policy/PF debaters."* Direct users to the Resource Hub for tools and
+the Lecture Lab for video instruction.
