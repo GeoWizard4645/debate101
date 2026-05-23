@@ -1544,6 +1544,7 @@
                 name: "Eric Xiong",
                 role: "Leader",
                 image: "assets/eric.png",
+                customStyle: "object-position: top;",
                 blurb: "LD debater specializing in tricks, slop, and lay strategies across the local and national circuits.",
                 depth: "I am an upcoming sophomore at Strake Jesuit. I do LD debate and have competed on the local and national circuits. I like to read tricks, slop, and lay."
             }
@@ -2005,7 +2006,7 @@
             if (!grid) return;
             grid.innerHTML = teamData.map((member, index) => `
                 <div class="team-card py-12 px-2">
-                    <img src="${member.image}" alt="${member.name}" class="profile-img" onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
+                    <img src="${member.image}" alt="${member.name}" class="profile-img" style="${member.customStyle || ''}" onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
                     <span class="text-[#0072b1] text-[10px] font-bold uppercase tracking-[0.3em]">${member.role}</span>
                     <h3 class="mck-serif text-3xl text-[#051C2C] mt-4 mb-4">${member.name}</h3>
                     <p class="text-gray-500 mb-8 leading-relaxed max-w-md italic">${member.blurb}</p>
