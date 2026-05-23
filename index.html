@@ -253,6 +253,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            will-change: opacity, transform;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
         .profile-img {
             width: 100%;
             aspect-ratio: 1/1;
@@ -1537,6 +1551,7 @@
                 name: "Eric Xiong",
                 role: "Leader",
                 image: "assets/Eric.png",
+                imagePosition: "top",
                 blurb: "LD debater on the local and national circuits — reads tricks, slop, and lay.",
                 depth: "I am an upcoming sophomore at Strake Jesuit. I do LD debate and have competed on the local and national circuits. I like to read tricks, slop, and lay."
             },
@@ -2005,7 +2020,7 @@
             if (!grid) return;
             grid.innerHTML = teamData.map((member, index) => `
                 <div class="team-card py-12 px-2">
-                    <img src="${member.image}" alt="${member.name}" class="profile-img" onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
+                    <img src="${member.image}" alt="${member.name}" class="profile-img" ${member.imagePosition ? `style="object-position: ${member.imagePosition};"` : ''} onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
                     <span class="text-[#0072b1] text-[10px] font-bold uppercase tracking-[0.3em]">${member.role}</span>
                     <h3 class="mck-serif text-3xl text-[#051C2C] mt-4 mb-4">${member.name}</h3>
                     <p class="text-gray-500 mb-8 leading-relaxed max-w-md italic">${member.blurb}</p>
@@ -2027,6 +2042,24 @@
         }
 
         function toggleDepth(index) { document.getElementById(`depth-${index}`).classList.toggle('active'); }
+
+        const revealObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 }) : null;
+
+        function setupSectionReveals() {
+            document.querySelectorAll('section').forEach(el => {
+                if (el.classList.contains('reveal')) return;
+                el.classList.add('reveal');
+                if (revealObserver) revealObserver.observe(el);
+                else el.classList.add('is-visible');
+            });
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
@@ -2228,6 +2261,7 @@
             initFaq();
             initAutoflow();
             setTimerFormat('LD');
+            setupSectionReveals();
 
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
