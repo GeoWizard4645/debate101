@@ -351,9 +351,16 @@
         .message-architect { align-self: flex-start; background: white; border-left: 3px solid var(--mck-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
 
         .ai-content h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mck-accent); margin: 1.5rem 0 0.75rem 0; }
+        .ai-content h4:first-child { margin-top: 0; }
         .ai-content p { margin-bottom: 1rem; }
-        .ai-content li { list-style-type: none; padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; }
-        .ai-content li::before { content: "—"; position: absolute; left: 0; color: #ccc; }
+        .ai-content p:last-child { margin-bottom: 0; }
+        .ai-content strong { font-weight: 700; color: var(--mck-blue); }
+        .ai-content code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8em; background: #f1f5f9; padding: 0.1em 0.35em; border-radius: 3px; }
+        .ai-content ul, .ai-content ol { margin: 0 0 1rem 0; padding-left: 0; }
+        .ai-content ul li { list-style-type: none; padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; }
+        .ai-content ul li::before { content: "—"; position: absolute; left: 0; color: #ccc; }
+        .ai-content ol { list-style: decimal; padding-left: 1.5rem; }
+        .ai-content ol li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
 
         /* Dropdown Styling */
         .dropdown {
@@ -1952,13 +1959,57 @@
         }
 
         function formatAiResponse(text) {
-            return text.split('\n\n').map(block => {
-                const lines = block.split('\n');
-                if (lines[0].startsWith('###') || lines[0].match(/^\d+\./)) {
-                    return `<div class="mb-4"><h4>${lines.shift().replace(/#/g, '')}</h4><p class="text-sm">${lines.join('<br>')}</p></div>`;
+            // Escape HTML first so model output can never inject markup.
+            const escape = (s) => s
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Inline markdown: bold, italic, inline code.
+            const inline = (s) => escape(s)
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<em>$2</em>')
+                .replace(/`([^`]+?)`/g, '<code>$1</code>');
+
+            const lines = text.replace(/\r\n/g, '\n').split('\n');
+            const html = [];
+            let listType = null;       // 'ul' | 'ol' | null
+            let para = [];             // buffered plain-text lines for a paragraph
+
+            const flushPara = () => {
+                if (para.length) { html.push(`<p>${para.map(inline).join('<br>')}</p>`); para = []; }
+            };
+            const closeList = () => {
+                if (listType) { html.push(`</${listType}>`); listType = null; }
+            };
+            const openList = (type) => {
+                if (listType !== type) { closeList(); html.push(`<${type}>`); listType = type; }
+            };
+
+            for (const raw of lines) {
+                const line = raw.trim();
+                if (!line) { flushPara(); closeList(); continue; }
+
+                const header = line.match(/^#{1,6}\s+(.*)$/);
+                const bullet = line.match(/^[-*+]\s+(.*)$/);
+                const numbered = line.match(/^\d+\.\s+(.*)$/);
+
+                if (header) {
+                    flushPara(); closeList();
+                    html.push(`<h4>${inline(header[1])}</h4>`);
+                } else if (bullet) {
+                    flushPara(); openList('ul');
+                    html.push(`<li>${inline(bullet[1])}</li>`);
+                } else if (numbered) {
+                    flushPara(); openList('ol');
+                    html.push(`<li>${inline(numbered[1])}</li>`);
+                } else {
+                    closeList();
+                    para.push(line);
                 }
-                return `<p class="mb-4">${block.replace(/\n/g, '<br>')}</p>`;
-            }).join('');
+            }
+            flushPara(); closeList();
+            return html.join('');
         }
 
         // AUTO-FLOW LOGIC INITIALIZATION
