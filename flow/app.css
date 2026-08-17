@@ -1256,6 +1256,27 @@ input::placeholder, textarea::placeholder {
     flex: 1 1 0;
 }
 
+.start-desktop-link {
+    display: block;
+    width: 100%;
+    padding: 10px var(--space-4);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-2);
+    transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+
+.start-desktop-link:hover {
+    border-color: var(--d1-accent);
+    color: var(--d1-accent);
+    background: var(--bg-2);
+}
+
 .start-dropzone {
     display: flex;
     flex-direction: column;

@@ -14,8 +14,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Cascade — Debate 101</title>
-    <meta name="description" content="Cascade is Debate 101's keyboard-first debate flowing app. Flow a round, link answers, run speech and prep timers, and export .ebb files — fully offline, no account required.">
+    <title>Cascade — Free Debate Flowing App | Debate 101</title>
+    <meta name="description" content="Cascade is Debate 101's free, keyboard-first debate flowing app for LD, Policy, PF and Parli. Import Verbatim cases (.docx) and Excel templates (.xlsx), export .ebb files, run speech timers — fully offline, no account required.">
+    <meta name="keywords" content="debate flow, flowing app, cascade, ebb, verbatim, debate software, LD debate, policy debate, spreadsheet flow">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://debate101.org/flow/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debate101.org/flow/">
+    <meta property="og:title" content="Cascade — Free Debate Flowing App | Debate 101">
+    <meta property="og:description" content="Keyboard-first debate flowing for LD, Policy, PF and Parli. Import .docx and .xlsx, export .ebb — runs offline in the browser or as a desktop app.">
+    <meta property="og:image" content="https://debate101.org/assets/logo.PNG">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cascade — Free Debate Flowing App">
+    <meta name="twitter:description" content="Keyboard-first debate flowing. Import Verbatim cases and Excel templates. Free, offline, open source.">
     <meta name="theme-color" content="#051C2C">
     <meta name="color-scheme" content="dark light">
 
@@ -27,6 +38,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="app.css">
+
+    <!-- Verbatim .docx case import + .xlsx flow templates -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -100,18 +115,20 @@
                 </div>
             </div>
 
-            <p class="start-tagline">A keyboard-first flow, in your browser. Nothing leaves this machine.</p>
+            <p class="start-tagline">A keyboard-first flow, in your browser. Import Verbatim cases (.docx) or Excel templates (.xlsx).</p>
 
             <div class="start-actions">
                 <button id="start-new" class="btn btn-primary" type="button">New flow</button>
                 <button id="start-open" class="btn btn-ghost" type="button">Open .ebb&hellip;</button>
             </div>
 
+            <a href="download.html" class="start-desktop-link">Get Cascade for desktop &rarr;</a>
+
             <div id="start-dropzone" class="start-dropzone" tabindex="0" role="button" aria-label="Drop a flow file here, or click to browse">
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="start-dropzone-icon"><path d="M12 3v12M12 3l-4.5 4.5M12 3l4.5 4.5M4 16.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"></path></svg>
                 <p class="start-dropzone-text">Drag a flow here, or click to browse</p>
-                <p class="start-dropzone-sub">.ebb &middot; .json &middot; .csv &middot; .tsv &middot; .txt &middot; .md &middot; .docx</p>
-                <input id="start-file-input" type="file" accept=".ebb,.json,.csv,.tsv,.txt,.md,.docx" multiple hidden>
+                <p class="start-dropzone-sub">.ebb &middot; .json &middot; .csv &middot; .tsv &middot; .txt &middot; .md &middot; .docx &middot; .xlsx</p>
+                <input id="start-file-input" type="file" accept=".ebb,.json,.csv,.tsv,.txt,.md,.docx,.xlsx" multiple hidden>
             </div>
 
             <div class="start-config">

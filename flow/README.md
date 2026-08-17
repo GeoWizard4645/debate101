@@ -63,8 +63,8 @@ Every binding is rebindable from the keymap editor.
 
 **Import** (drag-and-drop anywhere, or the upload zone on the start screen — on
 the web version too, not just desktop): `.ebb`, legacy ebb JSON backups
-(`{kind: "backup"}`), `.csv`, `.tsv`, `.md`, `.txt`, and `.docx` where the
-browser can read it.
+(`{kind: "backup"}`), `.csv`, `.tsv`, `.md`, `.txt`, Verbatim cases (`.docx`),
+and Excel flow templates (`.xlsx`).
 
 **Export**: `.ebb` native, `.ebb` strict (Cascade's extensions stripped for
 maximum interop), `.json`, `.csv`, Markdown, plain text, a cite sheet, a

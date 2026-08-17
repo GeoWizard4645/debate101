@@ -49,7 +49,7 @@ site without scraping every page.
 - [Resource Hub](https://debate101.org/#hub): 100+ curated tools across tournament software, prep engines, evidence search, timers, philosophy databases, and elite summer camps.
 - [Lecture Lab](https://debate101.org/#lectures): Video lecture archive organized by argument style (K, Phil, LARP, Lay) plus practice and tournament rounds.
 - [Architect AI](https://debate101.org/#tools): Gemini-backed chatbot that breaks down resolutions, maps offensive paths, and surfaces framework clashes.
-- [Auto Flow Generator](https://debate101.org/#autoflow): Converts case Word docs into Excel flow templates with affirmative/negative columns.
+- [Cascade](https://debate101.org/flow/): Keyboard-first flowing app. Imports Verbatim cases (.docx) and Excel flow templates (.xlsx) with automatic tag and citation extraction.
 - [Architect Timer](https://debate101.org/#timer): High-precision round timer with format presets for LD, Policy, and PF.
 - [Screw Calculator](https://debate101.org/#screw): Probabilistic outround break / bubble-round estimator.
 - [Our Team](https://debate101.org/#team): Bios for the founding leadership and collaborators.

@@ -6,7 +6,7 @@
     
     <!-- PRIMARY SEO TAGS -->
     <title>Debate 101 | Cascade Flowing App, Card Cutter & Open Source Debate Tools</title>
-    <meta name="description" content="Debate 101 builds free, open-source tools for competitive debate: Cascade, a keyboard-first flowing app for web and desktop that reads and writes .ebb files, plus a card cutter, a speed trainer, a round tracker, and the largest curated collection of debate resources.">
+    <meta name="description" content="Debate 101 — free, open-source tools for LD, Policy, PF and Parli debate. Cascade is our keyboard-first flowing app (web and desktop) with .ebb, .docx and .xlsx import. Plus 100+ curated debate resources, lectures, and prep tools.">
     <meta name="keywords" content="debate, LD debate, Policy debate, Public Forum, Lincoln Douglas, debate flowing app, flowing software, ebb, cascade, card cutter, spreading practice, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
     <meta name="author" content="Debate 101 Collective">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -16,8 +16,8 @@
     <!-- OPEN GRAPH / SOCIAL MEDIA SEO -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://debate101.org/">
-    <meta property="og:title" content="Debate 101 | Architecting the Future of Discourse">
-    <meta property="og:description" content="Access elite AI-driven strategy, automated flow generators, and the world's largest collection of debate tools.">
+    <meta property="og:title" content="Debate 101 | Cascade Flowing App & Debate Resource Hub">
+    <meta property="og:description" content="Free debate flowing software, Verbatim case import, and the largest curated catalog of debate tools, camps, and research resources.">
     <meta property="og:image" content="https://debate101.org/assets/logo.PNG">
     <meta property="og:image:alt" content="Debate 101 logo">
     <meta property="og:site_name" content="Debate 101">
@@ -25,8 +25,8 @@
 
     <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Debate 101 | Architecting the Future of Discourse">
-    <meta name="twitter:description" content="Open-source AI debate strategy, flow tools, and the largest curated catalog of debate resources.">
+    <meta name="twitter:title" content="Debate 101 | Cascade Flowing App & Debate Resource Hub">
+    <meta name="twitter:description" content="Free debate flowing software, Verbatim case import, and 100+ curated debate resources for LD, Policy, PF and Parli.">
     <meta name="twitter:image" content="https://debate101.org/assets/logo.PNG">
     <meta name="twitter:image:alt" content="Debate 101 logo">
 
@@ -63,7 +63,7 @@
       "applicationSubCategory": "Debate flowing software",
       "operatingSystem": "Web, macOS, Windows, Linux",
       "url": "https://debate101.org/flow/",
-      "description": "A keyboard-first flowing app for Lincoln-Douglas, Policy, Public Forum and Parliamentary debate. Runs offline in the browser and as a desktop app, with speech and prep timers, dropped-argument detection, voice-assisted capture, a block library, round analytics, and an evidence tracker. Reads and writes ebb-compatible .ebb files.",
+      "description": "A keyboard-first flowing app for Lincoln-Douglas, Policy, Public Forum and Parliamentary debate. Runs offline in the browser and as a desktop app, with speech and prep timers, dropped-argument detection, voice-assisted capture, a block library, round analytics, and an evidence tracker. Imports Verbatim cases (.docx) and Excel flow templates (.xlsx). Reads and writes ebb-compatible .ebb files.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "isAccessibleForFree": true,
       "publisher": { "@type": "Organization", "name": "Debate 101", "url": "https://debate101.org" },
@@ -75,6 +75,7 @@
         "Block library with trigger expansion",
         "Round analytics and a printable post-round report",
         "Evidence tracker and cite-sheet export",
+        "Import Verbatim cases (.docx) and Excel flow templates (.xlsx)",
         "Import and export .ebb, CSV, Markdown, text and PDF"
       ]
     }
@@ -93,6 +94,18 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a flow in debate?", "acceptedAnswer": { "@type": "Answer", "text": "Flowing is the specialized form of note-taking used by debaters to track the evolution of every argument throughout a round, usually organized in columns by speech." }},
+        { "@type": "Question", "name": "What is Cascade?", "acceptedAnswer": { "@type": "Answer", "text": "Cascade is Debate 101's free, keyboard-first debate flowing app. It runs in the browser and as a desktop app, imports Verbatim cases and Excel templates, and reads and writes ebb-compatible .ebb files." }},
+        { "@type": "Question", "name": "What is Lincoln-Douglas (LD) debate?", "acceptedAnswer": { "@type": "Answer", "text": "LD is a one-on-one debate format focusing on philosophical values and criteria. It traditionally clashes on moral imperatives, though modern circuit LD includes policy-style plans and kritiks." }},
+        { "@type": "Question", "name": "What is Policy debate?", "acceptedAnswer": { "@type": "Answer", "text": "Policy debate involves two-on-two teams debating a government's course of action. It is highly technical, evidence-intensive, and focuses on pragmatism and structural outcomes." }}
+      ]
+    }
+    </script>
 
     <!-- Performance: preconnect for third-party fonts/CDNs -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,8 +117,6 @@
     <link rel="icon" type="image/png" href="assets/logo.PNG">
     <link rel="apple-touch-icon" href="assets/logo.PNG">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -467,48 +478,6 @@
             transform: translateY(-1px);
         }
 
-        /* Product cards on the home page tools rail. */
-        .tool-card {
-            display: flex;
-            flex-direction: column;
-            background: #fff;
-            border: 1px solid #e8eef2;
-            padding: 2.5rem 2rem;
-            text-decoration: none;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-        .tool-card:hover {
-            border-color: var(--mck-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px -24px rgba(5, 28, 44, 0.45);
-        }
-        .tool-card .tool-icon {
-            font-size: 20px;
-            color: var(--mck-accent);
-            margin-bottom: 1.5rem;
-        }
-        .tool-card .tool-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--mck-blue);
-            letter-spacing: -0.01em;
-            margin-bottom: 0.75rem;
-        }
-        .tool-card .tool-desc {
-            font-size: 14px;
-            line-height: 1.7;
-            color: #6b7a85;
-            flex-grow: 1;
-        }
-        .tool-card .tool-go {
-            margin-top: 1.75rem;
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--mck-accent);
-        }
-
         /* Keycap chips used in the Cascade section. */
         .kbd {
             display: inline-block;
@@ -611,41 +580,6 @@
             min-height: 190px;
             height: 190px;
         }
-
-        /* Toggle Switch UI */
-        .switch-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px; width: 18px;
-            left: 3px; bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--mck-accent); }
-        input:checked + .slider:before { transform: translateX(26px); }
 
         /* Search Styling */
         .search-bar-container {
@@ -837,7 +771,6 @@
                 <button onclick="showPage('timer')" class="text-left">Architect Timer</button>
                 <button onclick="showPage('screw')" class="text-left">Screw Calculator</button>
                 <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
-                <button onclick="showPage('autoflow')" class="text-left">Auto Flow Generator</button>
             </div>
             <div class="flex flex-col space-y-4 ml-4">
                 <span class="text-[10px] text-gray-400">Socials</span>
@@ -882,7 +815,7 @@
                             Tools <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
                         </button>
                         <div class="dropdown-content">
-                            <a href="flow/" class="dd-feature"><span class="dd-title">Cascade &mdash; Flowing App</span><span class="dd-sub">Web &amp; desktop &middot; .ebb files</span></a>
+                            <a href="flow/" class="dd-feature"><span class="dd-title">Cascade &mdash; Flowing App</span><span class="dd-sub">Web &amp; desktop &middot; .ebb, .docx, .xlsx</span></a>
                             <a href="tools/card-cutter/">Card Cutter</a>
                             <a href="tools/speed-trainer/">Speed Trainer</a>
                             <a href="tools/round-tracker/">Round Tracker</a>
@@ -890,7 +823,6 @@
                             <button onclick="showPage('timer')">Architect Timer</button>
                             <button onclick="showPage('screw')">Screw Calculator</button>
                             <button onclick="showPage('tools')">Resolution AI</button>
-                            <button onclick="showPage('autoflow')">Auto Flow Generator</button>
                         </div>
                     </div>
 
@@ -967,118 +899,12 @@
             </div>
         </section>
 
-        <!-- Cascade — the flagship product -->
-        <section id="cascade" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-20 items-start">
-                    <div>
-                        <h2 class="text-[#38bdf8] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Introducing Cascade</h2>
-                        <h3 class="mck-serif text-4xl md:text-6xl leading-[1.1] mb-8">
-                            The flow <span class="italic text-[#38bdf8]">follows</span> your hands.
-                        </h3>
-                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-xl">
-                            Cascade is our keyboard-first flowing app for Lincoln&ndash;Douglas, Policy,
-                            Public Forum and Parli. It runs in the browser and as a native desktop app,
-                            works completely offline, and reads and writes
-                            <code class="text-[#38bdf8] font-mono text-base">.ebb</code> files &mdash; so a flow
-                            moves between Cascade and <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="underline decoration-white/30 hover:text-white">ebb</a> without conversion.
-                        </p>
-                        <div class="flex flex-wrap gap-3 mb-10 text-gray-400 text-sm">
-                            <span><span class="kbd">Tab</span> answers an argument</span>
-                            <span class="text-white/20">&middot;</span>
-                            <span><span class="kbd">⌘</span><span class="kbd">L</span> links a response</span>
-                            <span class="text-white/20">&middot;</span>
-                            <span><span class="kbd">⌘</span><span class="kbd">⇧</span><span class="kbd">D</span> jumps to a drop</span>
-                        </div>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="flow/" class="bg-[#0072b1] text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white hover:text-[#051C2C] transition-all">Open Cascade in the browser</a>
-                            <a href="flow/download.html" class="border border-white/25 text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white/10 transition-all">Get the desktop app</a>
-                        </div>
-                        <p class="mt-6 text-[10px] uppercase tracking-[0.2em] text-gray-500">Free &middot; Open source &middot; Nothing leaves your machine</p>
-                    </div>
-
-                    <div class="grid sm:grid-cols-2 gap-x-10 gap-y-10">
-                        <div>
-                            <i class="fas fa-stopwatch text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Round Clock</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Speech, prep and cross-ex clocks on official times, counting over when a speech runs long. Ending a speech walks the grid to the next column on its own.</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-crosshairs text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Dropped-argument radar</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Cascade watches every row across every column and tells you exactly what the other team never answered &mdash; with a one-key jump to each drop.</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-microphone-lines text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Voice Flow</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Assisted capture listens for the words that start a new argument &mdash; &ldquo;next off&rdquo;, &ldquo;turn&rdquo;, &ldquo;extend&rdquo; &mdash; and lays them down as rows while you keep typing tags.</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-bolt text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Block library</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Type <code class="font-mono text-[#38bdf8]">;perm</code> and press Tab. Your shells, frontlines and frameworks expand in place, shared across a whole team as one JSON file.</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-chart-simple text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Round analytics</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Coverage by side, time against the limit, density per speech, and a printable post-round report you can hand a partner or a coach.</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-quote-right text-[#38bdf8] mb-4"></i>
-                            <h4 class="font-bold mb-2 text-sm">Evidence tracker</h4>
-                            <p class="text-gray-400 text-sm font-light leading-relaxed">Every card you mark becomes a cite entry with author, year and URL, exportable as a clean cite sheet for the post-round email.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-24 pt-12 border-t border-white/10 grid sm:grid-cols-3 gap-8 text-sm text-gray-400 font-light">
-                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Open anything</span>Upload <code class="font-mono">.ebb</code>, legacy ebb JSON backups, CSV, TSV, Markdown or plain text &mdash; on the web version too, not just on desktop.</p>
-                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Export anywhere</span><code class="font-mono">.ebb</code> (native and strict interop), CSV, Markdown, text, a cite sheet, and a landscape print layout for PDF.</p>
-                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Offline by design</span>No account, no server, no telemetry. Autosave keeps a copy in your browser so a dead laptop never costs you a round.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tools rail -->
-        <section id="tools-rail" class="py-32 px-6 md:px-12 bg-gray-50">
-            <div class="max-w-7xl mx-auto">
-                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">The Toolkit</h2>
-                <h3 class="mck-serif text-4xl md:text-5xl text-[#051C2C] leading-tight mb-6 max-w-3xl">
-                    Everything else a debater needs, in the browser.
-                </h3>
-                <p class="text-lg text-gray-500 font-light max-w-2xl mb-16">
-                    Free, open source, and entirely client-side. Nothing you type on these pages is uploaded anywhere.
-                </p>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <a href="tools/card-cutter/" class="tool-card">
-                        <i class="fas fa-scissors tool-icon"></i>
-                        <div class="tool-name">Card Cutter</div>
-                        <p class="tool-desc">Paste an article, highlight and underline what you read, and get a properly cited card that pastes into a speech doc with its formatting intact. Keeps a searchable library of everything you have cut.</p>
-                        <span class="tool-go">Cut a card &rarr;</span>
-                    </a>
-                    <a href="tools/speed-trainer/" class="tool-card">
-                        <i class="fas fa-gauge-high tool-icon"></i>
-                        <div class="tool-name">Speed Trainer</div>
-                        <p class="tool-desc">A live words-per-minute meter with a clarity score that checks whether you are still comprehensible at speed. Five drills, a pacing metronome, and a season-long record of every session.</p>
-                        <span class="tool-go">Start a drill &rarr;</span>
-                    </a>
-                    <a href="tools/round-tracker/" class="tool-card">
-                        <i class="fas fa-trophy tool-icon"></i>
-                        <div class="tool-name">Round Tracker</div>
-                        <p class="tool-desc">Log every round and get the numbers back: aff/neg split, speaks distribution, win rate by strategy, plus a judge book and a scouting book on everyone you have hit.</p>
-                        <span class="tool-go">Log a round &rarr;</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Global Resource Hub Section (CTA) -->
-        <section class="py-32 px-6 md:px-12 bg-white">
+        <section id="resource-hub" class="py-32 px-6 md:px-12 bg-white" aria-labelledby="resource-hub-heading">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
                 <div class="md:w-1/2">
-                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</h2>
-                    <h3 class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h3>
+                    <p class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</p>
+                    <h2 id="resource-hub-heading" class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h2>
                     <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
                         Debate 101 is cataloging every essential tool, lecture, camp, and research asset in the international circuit. From specialized software like Verbatim to niche critical theory scholarly databases, our Global Hub provides debaters with an ecosystem of strategic advantages.
                     </p>
@@ -1101,6 +927,78 @@
                         <i class="fas fa-video text-3xl text-blue-200 mb-4"></i>
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Lecture Vaults</span>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cascade — the flagship product -->
+        <section id="cascade" class="bg-[#051C2C] text-white py-32 px-6 md:px-12" aria-labelledby="cascade-heading">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-20 items-start">
+                    <div>
+                        <p class="text-[#38bdf8] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Introducing Cascade</p>
+                        <h2 id="cascade-heading" class="mck-serif text-4xl md:text-6xl leading-[1.1] mb-8">
+                            The flow <span class="italic text-[#38bdf8]">follows</span> your hands.
+                        </h2>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-xl">
+                            Cascade is Debate 101&rsquo;s keyboard-first <strong class="font-normal text-gray-300">debate flowing app</strong> for Lincoln&ndash;Douglas, Policy,
+                            Public Forum and Parli. It runs in the browser and as a native desktop app,
+                            works completely offline, imports Verbatim cases and Excel templates, and reads and writes
+                            <code class="text-[#38bdf8] font-mono text-base">.ebb</code> files &mdash; so a flow
+                            moves between Cascade and <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="underline decoration-white/30 hover:text-white">ebb</a> without conversion.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-10 text-gray-400 text-sm">
+                            <span><span class="kbd">Tab</span> answers an argument</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">L</span> links a response</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">⇧</span><span class="kbd">D</span> jumps to a drop</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="flow/" class="bg-[#0072b1] text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white hover:text-[#051C2C] transition-all">Open Cascade in the browser</a>
+                            <a href="flow/download.html" class="border border-white/25 text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white/10 transition-all">Get the desktop app</a>
+                        </div>
+                        <p class="mt-6 text-[10px] uppercase tracking-[0.2em] text-gray-500">Free &middot; Open source &middot; Nothing leaves your machine</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+                        <div>
+                            <i class="fas fa-stopwatch text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Round Clock</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Speech, prep and cross-ex clocks on official times, counting over when a speech runs long. Ending a speech walks the grid to the next column on its own.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-crosshairs text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Dropped-argument radar</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Cascade watches every row across every column and tells you exactly what the other team never answered &mdash; with a one-key jump to each drop.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-microphone-lines text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Voice Flow</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Assisted capture listens for the words that start a new argument &mdash; &ldquo;next off&rdquo;, &ldquo;turn&rdquo;, &ldquo;extend&rdquo; &mdash; and lays them down as rows while you keep typing tags.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-bolt text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Block library</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Type <code class="font-mono text-[#38bdf8]">;perm</code> and press Tab. Your shells, frontlines and frameworks expand in place, shared across a whole team as one JSON file.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-chart-simple text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Round analytics</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Coverage by side, time against the limit, density per speech, and a printable post-round report you can hand a partner or a coach.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-quote-right text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Evidence tracker</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Every card you mark becomes a cite entry with author, year and URL, exportable as a clean cite sheet for the post-round email.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-24 pt-12 border-t border-white/10 grid sm:grid-cols-3 gap-8 text-sm text-gray-400 font-light">
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Open anything</span>Upload <code class="font-mono">.ebb</code>, Verbatim cases (<code class="font-mono">.docx</code>), Excel flow templates (<code class="font-mono">.xlsx</code>), CSV, TSV, Markdown or plain text &mdash; on the web version too, not just on desktop.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Export anywhere</span><code class="font-mono">.ebb</code> (native and strict interop), CSV, Markdown, text, a cite sheet, and a landscape print layout for PDF.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Offline by design</span>No account, no server, no telemetry. Autosave keeps a copy in your browser so a dead laptop never costs you a round.</p>
                 </div>
             </div>
         </section>
@@ -1185,17 +1083,17 @@
                                 <i class="fas fa-arrow-right arrow-icon"></i>
                             </div>
                         </div>
-                        <div class="carousel-card accent-navy" onclick="showPage('autoflow')">
+                        <a href="flow/" class="carousel-card accent-navy">
                             <div class="flex justify-between items-start">
-                                <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Auto Flow Generator</span></div>
-                                <i class="fas fa-file-excel text-blue-100 text-2xl"></i>
+                                <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Cascade Case Import</span></div>
+                                <i class="fas fa-file-word text-blue-100 text-2xl"></i>
                             </div>
-                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Instantly convert Verbatim cases into Excel flow templates with pure tag extraction.</p>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Drop a Verbatim case (.docx) or Excel flow template (.xlsx) straight into Cascade — tags and citations extracted automatically.</p>
                             <div class="flex justify-between items-center mt-6">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Try Now</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Open Cascade</span>
                                 <i class="fas fa-arrow-right arrow-icon"></i>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('home-carousel', 320)"><i class="fas fa-chevron-right"></i></div>
                 </div>
@@ -1536,35 +1434,6 @@
                         <button onclick="analyzeTopic('res')" data-ai-send class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Send</button>
                     </div>
                     <p data-ai-quota class="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-gray-400"></p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Page: Auto Flow Generator -->
-    <main id="page-autoflow" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-12 text-center">
-                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Utility</h2>
-                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Auto Flow Generator</h1>
-                <p class="text-gray-500 max-w-2xl mx-auto text-base font-light leading-relaxed mb-8">
-                    Instantly convert Verbatim cases into Excel flow templates. Only tags and citations (Author + Date) are extracted.
-                </p>
-
-                <div class="switch-container">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">AFF Flow (5 Col)</span>
-                    <label class="switch">
-                        <input type="checkbox" id="flow-mode-switch">
-                        <span class="slider"></span>
-                    </label>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">NEG Flow (4 Col + Tabs)</span>
-                </div>
-
-                <div class="bg-white p-12 shadow-xl border border-gray-100 max-w-2xl mx-auto text-center rounded-sm">
-                    <i class="fas fa-file-excel text-6xl text-gray-200 mb-8 block"></i>
-                    <input type="file" id="docx-input" accept=".docx" class="hidden">
-                    <button onclick="document.getElementById('docx-input').click()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">Select Verbatim Case</button>
-                    <div id="flow-status" class="mt-8 text-xs font-bold uppercase tracking-widest text-gray-400"></div>
                 </div>
             </div>
         </div>
@@ -2156,6 +2025,52 @@
 
         function toggleDepth(index) { document.getElementById(`depth-${index}`).classList.toggle('active'); }
 
+        const PAGE_META = {
+            home: {
+                title: 'Debate 101 | Cascade Flowing App, Card Cutter & Open Source Debate Tools',
+                description: 'Debate 101 — free, open-source tools for LD, Policy, PF and Parli debate. Cascade is our keyboard-first flowing app (web and desktop) with .ebb, .docx and .xlsx import. Plus 100+ curated debate resources, lectures, and prep tools.',
+            },
+            hub: {
+                title: 'Global Debate Resource Hub | Debate 101',
+                description: 'Browse 100+ curated debate tools, camps, research databases, timers, and prep utilities for LD, Policy, PF and Parli — the largest open debate resource catalog.',
+            },
+            lectures: {
+                title: 'Debate101 Lectures | LD, Policy, K, Phil & LARP | Debate 101',
+                description: 'Free video lecture archive for competitive debate: Kritiks, philosophy, LARP, lay debate, practice rounds, and tournament footage.',
+            },
+            faq: {
+                title: 'Debate FAQ — AFF, NEG, Kritiks, Theory & More | Debate 101',
+                description: 'Answers to common debate questions: what is flowing, LD vs Policy, Kritiks, counterplans, topicality, theory, spreading, disclosure, and permutations.',
+            },
+            team: {
+                title: 'Our Team | Debate 101 Collective',
+                description: 'Meet the Debate 101 leadership and collaborators building open-source tools and resources for competitive debate.',
+            },
+            tools: {
+                title: 'Resolution AI | Debate 101',
+                description: 'AI-powered resolution analysis for competitive debate — map offensive paths, framework clashes, and strategic angles.',
+            },
+            timer: {
+                title: 'Architect Timer | Debate 101',
+                description: 'High-precision tournament timer for LD, Policy, and PF with automated speech sequences and prep tracking.',
+            },
+            screw: {
+                title: 'Screw Calculator | Debate 101',
+                description: 'Probabilistic outround break and bubble-round estimator for tournament debaters.',
+            },
+        };
+
+        function setPageMeta(pageId) {
+            const meta = PAGE_META[pageId] || PAGE_META.home;
+            document.title = meta.title;
+            const desc = document.querySelector('meta[name="description"]');
+            if (desc) desc.setAttribute('content', meta.description);
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', meta.title);
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', meta.description);
+        }
+
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(`page-${pageId}`);
@@ -2163,6 +2078,7 @@
                 target.classList.remove('hidden');
                 if (history.pushState) history.pushState(null, null, '#' + pageId);
                 else location.hash = '#' + pageId;
+                setPageMeta(pageId);
             }
             const menuOverlay = document.getElementById('mobile-menu-overlay');
             if (menuOverlay.classList.contains('active')) toggleMobileMenu();
@@ -2458,94 +2374,6 @@
             return html.join('');
         }
 
-        // AUTO-FLOW LOGIC INITIALIZATION
-        function initAutoflow() {
-            const input = document.getElementById('docx-input');
-            if(!input) return;
-            input.addEventListener('change', async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const status = document.getElementById('flow-status');
-                const isNegMode = document.getElementById('flow-mode-switch').checked;
-                status.innerText = "Extracting Verbatim protocols...";
-
-                const reader = new FileReader();
-                reader.onload = async (event) => {
-                    try {
-                        const options = { styleMap: ["p[style-name='Heading 2'] => h2:fresh", "p[style-name='Heading 4'] => h4:fresh", "p[style-name='Tag'] => h4:fresh", "p[style-name='Cite'] => p.cite:fresh"] };
-                        const result = await mammoth.convertToHtml({ arrayBuffer: event.target.result }, options);
-                        const parser = new DOMParser();
-                        const htmlDoc = parser.parseFromString(result.value, 'text/html');
-                        const elements = Array.from(htmlDoc.querySelectorAll('h2, h4, p'));
-                        
-                        const wb = XLSX.utils.book_new();
-                        const affHeaders = ["1AC", "1NC", "1AR", "2NR", "2AR"];
-                        const negHeaders = ["1NC", "1AR", "2NR", "2AR"];
-                        const headers = isNegMode ? negHeaders : affHeaders;
-
-                        let currentSheetData = [headers];
-                        let currentSheetName = "Flow";
-                        let usedSheetNames = new Set();
-
-                        function getUniqueName(name) {
-                            let clean = (name || "Sheet").trim().replace(/[:\\\/\?\*\[\]]/g, "").substring(0, 25);
-                            if (!clean) clean = "Argument";
-                            let finalName = clean;
-                            let count = 2;
-                            while (usedSheetNames.has(finalName)) {
-                                finalName = `${clean} (${count})`;
-                                count++;
-                            }
-                            usedSheetNames.add(finalName);
-                            return finalName;
-                        }
-
-                        for (let i = 0; i < elements.length; i++) {
-                            const el = elements[i];
-                            if (isNegMode && el.tagName === 'H2') {
-                                if (currentSheetData.length > 1) {
-                                    const ws = XLSX.utils.aoa_to_sheet(currentSheetData);
-                                    styleWorksheet(ws);
-                                    XLSX.utils.book_append_sheet(wb, ws, getUniqueName(currentSheetName));
-                                }
-                                currentSheetName = el.innerText.trim();
-                                currentSheetData = [headers];
-                                continue;
-                            }
-
-                            if (el.tagName === 'H4' && el.innerText.trim()) {
-                                let dt = el.innerText.trim();
-                                if (i + 1 < elements.length && (elements[i+1].classList.contains('cite') || elements[i+1].innerText.match(/\b[A-Z][a-z]+.* (\d{2}|\d{4})\b/))) {
-                                    dt += ` (${elements[i+1].innerText.trim()})`; i++;
-                                }
-                                currentSheetData.push([dt]); currentSheetData.push([]);
-                            }
-                        }
-
-                        const finalWs = XLSX.utils.aoa_to_sheet(currentSheetData);
-                        styleWorksheet(finalWs);
-                        XLSX.utils.book_append_sheet(wb, finalWs, getUniqueName(currentSheetName));
-
-                        XLSX.writeFile(wb, file.name.replace('.docx', '_FLOW.xlsx'));
-                        status.innerText = "Success: Flow generated.";
-                    } catch (err) { status.innerText = "Processing Failed."; console.error(err); }
-                };
-                reader.readAsArrayBuffer(file);
-            });
-        }
-
-        function styleWorksheet(ws) {
-            ws['!cols'] = [{ wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }, { wch: 60 }];
-            const hdrStyle = { font: { bold: true }, fill: { fgColor: { rgb: "D3D3D3" } }, alignment: { horizontal: "center" } };
-            const affStyle = { fill: { fgColor: { rgb: "F0F9FF" } }, alignment: { wrapText: true, vertical: "top" } };
-            for (let z in ws) {
-                if (z[0] === '!') continue;
-                if (z.substring(1) === '1') ws[z].s = hdrStyle;
-                else if (['A', 'C', 'E'].includes(z[0])) ws[z].s = affStyle;
-                else ws[z].s = { alignment: { wrapText: true, vertical: "top" } };
-            }
-        }
-
         // --- Scroll-tied "lift away" effect for sections leaving the top of viewport.
         // Sets a CSS var --past (0..1) on each section based on how far its top
         // edge has scrolled above the viewport. CSS reads --past to apply a small
@@ -2600,7 +2428,6 @@
             initTeam();
             initCollaborators();
             initFaq();
-            initAutoflow();
             setTimerFormat('LD');
             setupSectionScrollFx();
             renderAiQuota();

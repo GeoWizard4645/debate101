@@ -404,7 +404,7 @@ ipcMain.handle("cascade:showOpenDialog", async (event, options = {}) => {
         properties: ["openFile"],
         filters: [
             { name: "Debate flow", extensions: ["ebb"] },
-            { name: "Importable flows", extensions: ["ebb", "json", "csv", "tsv", "txt", "md"] },
+            { name: "Importable flows", extensions: ["ebb", "json", "csv", "tsv", "txt", "md", "docx", "xlsx"] },
             { name: "All files", extensions: ["*"] },
         ],
         ...options,

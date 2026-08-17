@@ -29,9 +29,17 @@ import { store } from "./store.js";
 import { ui } from "./ui.js";
 import { registerAll, run as runCommand } from "./registry.js";
 import { el, $, clear, download } from "./dom.js";
+import {
+    parseVerbatimDocx,
+    sectionsToFlowRound,
+    hasVerbatimContent,
+    parseXlsxBuffer,
+    detectFlowHeaders,
+    applyColumnMapping,
+} from "./caseflow.js";
 
 /** Extensions Cascade knows how to open, in the order they're offered to a picker. */
-const ACCEPTED_EXTENSIONS = [".ebb", ".json", ".csv", ".tsv", ".txt", ".md", ".docx"];
+const ACCEPTED_EXTENSIONS = [".ebb", ".json", ".csv", ".tsv", ".txt", ".md", ".docx", ".xlsx"];
 
 // --- Drag-and-drop overlay ---------------------------------------------------
 //
@@ -199,6 +207,7 @@ export async function importFiles(fileList) {
 async function importOneFile(file) {
     const ext = extOf(file.name);
     if (ext === ".docx") return importDocx(file);
+    if (ext === ".xlsx") return importXlsx(file);
 
     const text = await file.text();
     if (ext === ".ebb") return importEbbText(text, file.name);
@@ -534,18 +543,115 @@ async function importPlainText(text, name) {
     return { status: "opened", detail: name };
 }
 
-// --- .docx import --------------------------------------------------------------
+// --- .docx import (Verbatim case) ----------------------------------------------
+
+/** Ask whether this Verbatim case is an aff or neg flow before parsing. */
+async function pickCaseFlowMode(name) {
+    const body = el(
+        "div.case-flow-mode",
+        {},
+        el("p", {
+            text: `${name} looks like a Verbatim case. Import as an affirmative flow (5 columns) or a negative flow (4 columns, one sheet per argument)?`,
+        }),
+    );
+    const action = await ui.modal({
+        title: "Import Verbatim case",
+        body,
+        actions: [
+            { id: "cancel", label: "Cancel" },
+            { id: "aff", label: "Aff flow (5 col)" },
+            { id: "neg", label: "Neg flow (4 col + tabs)", primary: true },
+        ],
+        width: 480,
+    });
+    if (action === "aff" || action === "neg") return action;
+    return null;
+}
 
 async function importDocx(file) {
-    // No CDN dependency allowed: only use mammoth if the host page already
-    // loaded it (e.g. the desktop shell bundles it locally). Otherwise this
-    // is exactly the "paste the text instead" path the spec calls for.
-    if (typeof window !== "undefined" && typeof window.mammoth?.extractRawText === "function") {
+    // Only use mammoth if the host page already loaded it (flow/index.html or
+    // the desktop shell). Otherwise fall back to paste-the-text.
+    if (typeof window !== "undefined" && typeof window.mammoth?.convertToHtml === "function") {
+        const mode = await pickCaseFlowMode(file.name);
+        if (!mode) return { status: "cancelled", detail: file.name };
+
         const arrayBuffer = await file.arrayBuffer();
-        const result = await window.mammoth.extractRawText({ arrayBuffer });
-        return importPlainText(result.value ?? "", file.name);
+        try {
+            const sections = await parseVerbatimDocx(arrayBuffer, mode === "neg");
+            if (hasVerbatimContent(sections)) {
+                const round = sectionsToFlowRound(sections, {
+                    group: mode === "neg" ? "neg" : "aff",
+                });
+                store.setRound(round, { fileName: file.name });
+                return { status: "opened", detail: file.name };
+            }
+        } catch {
+            // Not a structured Verbatim case — fall through to plain text.
+        }
+
+        if (typeof window.mammoth.extractRawText === "function") {
+            const result = await window.mammoth.extractRawText({ arrayBuffer });
+            return importPlainText(result.value ?? "", file.name);
+        }
     }
     return offerDocxFallback(file.name);
+}
+
+// --- .xlsx import --------------------------------------------------------------
+
+async function importXlsx(file) {
+    if (typeof window === "undefined" || !window.XLSX) {
+        const err = new Error(
+            "Cascade can't read .xlsx on this page. Reload and try again, or use the desktop app.",
+        );
+        err.unsupportedType = true;
+        throw err;
+    }
+
+    const buf = await file.arrayBuffer();
+    const parsed = parseXlsxBuffer(buf);
+    if (!parsed.length) throw new Error(`${file.name} has no rows to import.`);
+
+    const round = makeFlowRound();
+    const cxSheets = round.sheets.filter((s) => s.kind === "cx");
+    const flowSheets = [];
+
+    for (let i = 0; i < parsed.length; i++) {
+        const { name, grid } = parsed[i];
+        const nonEmpty = grid.filter((r) => r.some((c) => String(c ?? "").trim() !== ""));
+        if (!nonEmpty.length) continue;
+
+        const sheet = makeFlowSheet({
+            title: parsed.length > 1 ? name : "1.",
+            group: "aff",
+            order: flowSheets.length,
+        });
+        const speeches = sheetColumns(round, sheet);
+        const colCount = nonEmpty.reduce((max, r) => Math.max(max, r.length), 0);
+        const width = Math.max(speeches.length, 1);
+
+        let dataGrid = nonEmpty;
+        let mapping = detectFlowHeaders(nonEmpty[0], speeches);
+        if (mapping) {
+            dataGrid = nonEmpty.slice(1);
+        } else {
+            mapping = await pickColumnMapping({
+                name: parsed.length > 1 ? `${file.name} — ${name}` : file.name,
+                grid: nonEmpty,
+                colCount,
+                speeches,
+            });
+            if (!mapping) return { status: "cancelled", detail: file.name };
+        }
+
+        sheet.data = applyColumnMapping(dataGrid, mapping, width);
+        flowSheets.push(sheet);
+    }
+
+    if (!flowSheets.length) throw new Error(`${file.name} has no importable rows.`);
+    round.sheets = [...cxSheets, ...flowSheets];
+    store.setRound(round, { fileName: file.name });
+    return { status: "opened", detail: file.name };
 }
 
 async function offerDocxFallback(name) {
