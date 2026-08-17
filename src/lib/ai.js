@@ -6,17 +6,29 @@
  *
  * ## Model
  *
- * Llama 3.2 1B Instruct at 4-bit with fp16 compute. The previous choice —
- * SmolLM2-135M — was picked to minimise download size, and it was genuinely
- * unusable: asked to analyse a resolution it replied "(sitting down in the
- * chair)". At 135M parameters there is not enough model to follow an
- * instruction, and no amount of prompt engineering fixes that. 1B is the
- * smallest size that reliably produces real argument text.
+ * SmolLM2-360M-Instruct at 4-bit with fp16 compute — 260 MB, one file.
  *
- * The cost is a much larger first download, which is why every caller now gets
- * detailed progress: a phase, a percentage, megabytes, elapsed time, and once
- * generation starts a live token count and tokens/sec. A long wait with a
- * visible number attached is tolerable; a long wait with a static "…" is not.
+ * This is the third choice and the settled one. SmolLM2-135M was too small to
+ * follow an instruction at all: asked to analyse a resolution it replied
+ * "(sitting down in the chair)". Llama-3.2-1B answered well but cost 1.6 GB
+ * and crashed browser tabs outright, and its weights live in a separate 1 GB
+ * external-data file that the Cache API refuses to store, so it re-downloaded.
+ * Qwen2.5-0.5B looked like the obvious middle and is not: measured on the same
+ * prompt it echoed the resolution back verbatim and ran at 5 tokens/sec.
+ *
+ * Measured, same prompt, same machine:
+ *
+ *   SmolLM2-135M    ~100 MB   word salad          unusable
+ *   SmolLM2-360M     260 MB   47.7 tok/s          coherent   <- chosen
+ *   Qwen2.5-0.5B     461 MB    5.3 tok/s          echoes the prompt
+ *   Llama-3.2-1B    1625 MB   19.9 tok/s          best prose, crashes tabs
+ *
+ * 360M is weaker than 1B on open-ended prose, and that is an acceptable trade
+ * because it is no longer doing most of the work: the deterministic engine in
+ * debateEngine.js answers the majority of questions exactly and instantly, and
+ * the model only handles what falls through. Being a single file also means it
+ * actually fits in the Cache API, so it is downloaded once rather than every
+ * visit.
  *
  * ## Backends
  *
@@ -29,21 +41,21 @@
 const LIB = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.1";
 const BACKEND_KEY = "d1.ai.backend";
 
-export const MODEL_LABEL = "Llama 3.2 1B Instruct";
+export const MODEL_LABEL = "SmolLM2 360M Instruct";
 
 export const VARIANTS = {
     gpu: {
-        repo: "onnx-community/Llama-3.2-1B-Instruct",
+        repo: "HuggingFaceTB/SmolLM2-360M-Instruct",
         dtype: "q4f16",
         device: "webgpu",
-        approxMB: 1625,
+        approxMB: 260,
         name: "WebGPU",
     },
     cpu: {
-        repo: "onnx-community/Llama-3.2-1B-Instruct",
-        dtype: "q4",
+        repo: "HuggingFaceTB/SmolLM2-360M-Instruct",
+        dtype: "q8",
         device: "wasm",
-        approxMB: 1500,
+        approxMB: 380,
         name: "CPU",
     },
 };
@@ -98,19 +110,23 @@ export function activeBackend() {
     return pipelineRef?.__backend ?? null;
 }
 
-/** True once the weights are in Cache Storage, so a reload is instant. */
+/**
+ * Whether the weights are cached.
+ *
+ * This model ships as one file, which is part of why it was chosen: the
+ * previous 1B model kept its gigabyte in a separate `.onnx_data` file that the
+ * browser refused to store in the Cache API, so it re-downloaded on every
+ * visit. Here a single `onnx/model*` entry for the repo means the whole thing
+ * is present.
+ */
 export async function isCached() {
     try {
         if (!("caches" in window)) return false;
-        const keys = await caches.keys();
-        for (const key of keys) {
+        const repo = variant().repo.split("/").pop();
+        for (const key of await caches.keys()) {
             const cache = await caches.open(key);
-            const reqs = await cache.keys();
-            if (reqs.some((r) => r.url.includes("Llama-3.2-1B") && r.url.endsWith(".onnx_data"))) {
-                return true;
-            }
-            if (reqs.some((r) => r.url.includes("Llama-3.2-1B") && r.url.includes("model"))) {
-                return true;
+            for (const req of await cache.keys()) {
+                if (req.url.includes(repo) && /\/onnx\/model/.test(req.url)) return true;
             }
         }
     } catch (e) {

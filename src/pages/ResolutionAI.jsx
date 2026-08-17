@@ -26,15 +26,17 @@ export default function ResolutionAI() {
                 />
 
                 <p className="fine">
-                    First use downloads about 1 GB of model weights into your browser's cache — a few
-                    minutes on a normal connection, once. After that it loads in seconds and works
-                    offline. Generation runs around 20 tokens a second on WebGPU, and the strip above
-                    the input shows exactly what it is doing at every point.
+                    The model is about 260 MB and starts downloading in the background as soon as you
+                    open the site, so by the time you ask something it is usually ready. It runs near
+                    50 tokens a second on WebGPU, and the strip above the input shows exactly what it
+                    is doing at every point. Most questions never reach it at all — the debate engine
+                    answers those instantly and exactly.
                 </p>
                 <p className="fine">
-                    On a machine without WebGPU it falls back to the CPU, which is considerably slower.
-                    If answers ever look like nonsense rather than merely wrong, switch backends with
-                    the link under the chat — some GPU drivers mis-run quantised models.
+                    It is a small model, chosen so it loads fast and does not exhaust a browser tab.
+                    On a machine without WebGPU it falls back to the CPU, which is slower. If answers
+                    ever look like nonsense rather than merely thin, switch backends with the link
+                    under the chat — some GPU drivers mis-run quantised models.
                 </p>
             </div>
         </div>

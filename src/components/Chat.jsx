@@ -191,7 +191,7 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
 
             let firstToken = true;
             const final = await ai.generate(payload, {
-                maxTokens: kind === "res" ? 380 : 260,
+                maxTokens: kind === "res" ? 300 : 200,
                 onToken: (text) => {
                     if (firstToken) {
                         firstToken = false;
@@ -326,7 +326,7 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
                 ) : (
                     <>
                         {ai.MODEL_LABEL} runs in your browser · ~{v.approxMB} MB,{" "}
-                        {cached ? "already cached — loads in seconds" : "downloaded once, then offline forever"} · {v.name}
+                        {cached ? "already downloaded — loads in seconds" : "downloading in the background"} · {v.name}
                         {modelState === "idle" && (
                             <>
                                 {" · "}
