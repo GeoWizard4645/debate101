@@ -22,6 +22,9 @@
 
 const path = require("node:path");
 const fs = require("node:fs/promises");
+const { execFile } = require("node:child_process");
+const { promisify } = require("node:util");
+const execFileAsync = promisify(execFile);
 const {
     app,
     BrowserWindow,
@@ -412,6 +415,46 @@ ipcMain.handle("cascade:showOpenDialog", async (event, options = {}) => {
     if (result.canceled || result.filePaths.length === 0) return null;
     result.filePaths.forEach(allow);
     return result.filePaths;
+});
+
+async function findGitRoot(startDir) {
+    let dir = startDir;
+    for (;;) {
+        const gitDir = path.join(dir, ".git");
+        const stat = await statSafe(gitDir);
+        if (stat && (stat.isDirectory() || stat.isFile())) return dir;
+        const parent = path.dirname(dir);
+        if (parent === dir) return null;
+        dir = parent;
+    }
+}
+
+async function statSafe(p) {
+    try {
+        return await fs.stat(p);
+    } catch {
+        return null;
+    }
+}
+
+ipcMain.handle("cascade:gitPush", async (_event, { path: filePath, message } = {}) => {
+    if (typeof filePath !== "string" || !isAllowed(filePath)) {
+        throw new Error("cascade:gitPush — path not allowed");
+    }
+    const msg = String(message ?? "").trim() || "Update flow";
+    const root = await findGitRoot(path.dirname(filePath));
+    if (!root) throw new Error("This file is not inside a git repository.");
+
+    const rel = path.relative(root, filePath);
+    await execFileAsync("git", ["add", "--", rel], { cwd: root });
+    try {
+        await execFileAsync("git", ["commit", "-m", msg, "--", rel], { cwd: root });
+    } catch (err) {
+        const out = `${err.stdout ?? ""}${err.stderr ?? ""}`;
+        if (!/nothing to commit|no changes added/i.test(out)) throw err;
+    }
+    const { stdout } = await execFileAsync("git", ["push"], { cwd: root });
+    return { ok: true, output: stdout?.trim?.() ?? "" };
 });
 
 ipcMain.on("cascade:setDirty", (event, dirty) => {

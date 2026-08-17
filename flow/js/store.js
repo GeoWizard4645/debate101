@@ -55,6 +55,7 @@ let activeSheetId = firstFlowSheetId(round);
 let selection = { row: 0, col: 0, anchorRow: 0, anchorCol: 0 };
 let dirty = false;
 let fileName = null;
+let filePath = null;
 let savedAt = null;
 /** @type {FileSystemFileHandle | null} */
 let fileHandle = null;
@@ -287,6 +288,7 @@ function getState() {
         selection,
         dirty,
         fileName,
+        filePath,
         canUndo: undoStack.length > 0,
         canRedo: redoStack.length > 0,
         cascade: ensureCascade(round),
@@ -369,6 +371,27 @@ function redo() {
     return true;
 }
 
+function getDisplayName() {
+    if (fileName) return fileName.replace(/\.ebb$/i, "");
+    return round.scouting?.tournament?.trim() || "Untitled round";
+}
+
+/** Set the human-readable flow title and sync scouting + filename. */
+function renameFlow(name) {
+    const trimmed = String(name ?? "").trim();
+    if (!trimmed) return false;
+    commit(
+        (r) => {
+            if (!r.scouting) r.scouting = emptyScouting();
+            r.scouting.tournament = trimmed;
+        },
+        { label: "Rename flow", coalesce: "flow-rename" },
+    );
+    fileName = suggestFilename(round);
+    bus.emit("save:state", { dirty, fileName, savedAt, filePath });
+    return true;
+}
+
 /**
  * Replace the whole round wholesale — open / new / import all funnel here so
  * undo history, selection, and the active sheet always reset consistently.
@@ -376,7 +399,7 @@ function redo() {
  * @param {{fileName?: string|null, markClean?: boolean}} [opts]
  */
 function setRound(nextRound, opts = {}) {
-    const { fileName: nextFileName = null, markClean = true } = opts;
+    const { fileName: nextFileName = null, markClean = true, path = null } = opts;
     round = normalizeFlow(nextRound);
     ensureCascade(round);
     activeSheetId = firstFlowSheetId(round);
@@ -385,6 +408,7 @@ function setRound(nextRound, opts = {}) {
     redoStack = [];
     lastCommit = null;
     fileName = nextFileName;
+    filePath = path;
     dirty = !markClean;
     savedAt = markClean ? Date.now() : savedAt;
 
@@ -420,8 +444,9 @@ function setSelection(sel) {
 function markSaved(name, extra = {}) {
     dirty = false;
     if (name !== undefined) fileName = name;
+    if (extra.path) filePath = extra.path;
     savedAt = Date.now();
-    bus.emit("save:state", { dirty, fileName, savedAt, ...extra });
+    bus.emit("save:state", { dirty, fileName, savedAt, filePath, ...extra });
     persistRoundNow().catch((err) => console.error("[store] persist after save failed", err));
 }
 
@@ -475,7 +500,7 @@ async function saveAs() {
 
 /** Read a File/Blob (drag-drop, upload flow, or from open()) into the store. */
 async function openFile(file, opts = {}) {
-    const { handle = null } = opts;
+    const { handle = null, path = null } = opts;
     let text;
     try {
         text = await file.text();
@@ -502,7 +527,7 @@ async function openFile(file, opts = {}) {
         }
     }
 
-    setRound(nextRound, { fileName: file.name, markClean: true });
+    setRound(nextRound, { fileName: file.name, markClean: true, path });
     fileHandle = handle;
     if (handle) await dbPut(STORE_HANDLES, { id: round.id, handle }).catch(() => {});
     return true;
@@ -556,6 +581,7 @@ async function open() {
 /** @param {{event?: string, firstSide?: string}} [opts] */
 function newRound(opts = {}) {
     fileHandle = null;
+    filePath = null;
     const fresh = makeFlowRound(opts);
     setRound(fresh, { fileName: null, markClean: true });
     return fresh;
@@ -623,6 +649,9 @@ export const store = {
     get fileName() {
         return fileName;
     },
+    get filePath() {
+        return filePath;
+    },
     get canUndo() {
         return undoStack.length > 0;
     },
@@ -640,6 +669,8 @@ export const store = {
     setActiveSheet,
     setSelection,
     markSaved,
+    getDisplayName,
+    renameFlow,
 
     save,
     saveAs,

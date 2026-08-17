@@ -1,31 +1,23 @@
 /*
- * Copy this file to `config.js` and paste your Gemini API key below.
- * `config.js` is gitignored so your key is never committed.
+ * Optional local configuration.
  *
- * ⚠ THIS KEY SHIPS TO THE BROWSER.
+ * ⚠ You almost certainly do not need this file any more.
  *
- * debate101.org is a static site, so whatever key ends up in config.js is
- * readable by anyone who opens devtools. The site rate-limits its own AI
- * features in index.html (see AI_LIMITS: a 6-second cooldown, 15 questions
- * per hour and 60 per rolling day, one request in flight at a time, and a
- * trimmed conversation history so a long chat does not cost quadratically
- * more tokens). Those limits protect the quota from ordinary use and from an
- * impatient visitor — they are NOT a security control, because someone can
- * lift the key out of the page and skip them entirely.
+ * The site's AI features (Resolution AI and the FAQ Mentor) now run a language
+ * model inside the visitor's own browser via Transformers.js — SmolLM2-135M-
+ * Instruct at 4-bit, roughly 100 MB fetched once into Cache Storage and then
+ * available offline. There is no API call, no key, no quota, and no per-question
+ * cost, which is why the old client-side rate limiting is gone too.
  *
- * The protections that actually bind live in Google Cloud Console, and you
- * should set all three on a personal key:
+ * See the "ON-DEVICE AI" block in index.html.
  *
- *   1. Application restriction → HTTP referrers:
- *        https://debate101.org/*
- *        https://www.debate101.org/*
- *   2. API restriction → Generative Language API only.
- *   3. A quota cap and a budget alert on the project, so a leaked key costs
- *      you a capped amount rather than an open-ended one.
+ * This file is kept only so that:
+ *   - an existing config.js keeps loading without a 404, and
+ *   - a future server-backed feature has an obvious place to read a key from.
  *
- * Rotate the key if it ever appears outside those referrers.
- *
- * In production this file is generated at deploy time by
- * .github/workflows/deploy.yml from the GEMINI_API_KEY repository secret.
+ * If you ever do reintroduce a hosted model on a static site, remember the key
+ * ships to the browser. Restrict it in the provider's console — by HTTP
+ * referrer to debate101.org, to the single API it needs, and with a hard quota
+ * or budget cap — because nothing in client-side JavaScript can protect it.
  */
-window.GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+window.GEMINI_API_KEY = "";

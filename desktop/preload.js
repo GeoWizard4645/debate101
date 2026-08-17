@@ -71,6 +71,13 @@ const cascadeDesktop = {
     showOpenDialog: (options) => ipcRenderer.invoke("cascade:showOpenDialog", options),
 
     /**
+     * Stage, commit, and push a file that already lives in a git checkout.
+     * @param {{ path: string, message?: string }} payload
+     * @returns {Promise<{ ok: boolean, output?: string }>}
+     */
+    gitPush: (payload) => ipcRenderer.invoke("cascade:gitPush", payload),
+
+    /**
      * Tell the shell whether the round has unsaved changes. Drives the
      * macOS traffic-light "unsaved" dot (documentEdited) and the
      * save-before-close confirmation prompt.

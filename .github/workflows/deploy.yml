@@ -34,18 +34,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject Gemini API key into config.js
+      # The AI features run on-device now (Transformers.js in the visitor's
+      # browser), so no key is required and a missing secret is no longer a
+      # deploy failure. config.js is still written because index.html loads it;
+      # an absent file would just be a 404 in every visitor's console.
+      - name: Write config.js
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           if [ -z "${GEMINI_API_KEY}" ]; then
-            echo "::error::Repository secret GEMINI_API_KEY is not set."
-            echo "::error::Add it under Settings -> Secrets and variables -> Actions."
-            exit 1
+            echo "::notice::No GEMINI_API_KEY secret set — writing an empty config.js."
+            echo "::notice::This is expected: the site's AI runs locally in the browser."
           fi
           cat > config.js <<EOF
-          // Auto-generated at deploy time by .github/workflows/deploy.yml
-          // from the GEMINI_API_KEY repository secret. Do not edit by hand.
+          // Auto-generated at deploy time by .github/workflows/deploy.yml.
+          // The site's AI features run on-device and do not read this value.
           window.GEMINI_API_KEY = "${GEMINI_API_KEY}";
           EOF
           echo "Wrote config.js ($(wc -c < config.js) bytes)"

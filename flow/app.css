@@ -376,6 +376,26 @@ kbd {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 42vw;
+    cursor: text;
+    border-radius: var(--radius-sm);
+    padding: 1px 4px;
+    margin: -1px -4px;
+}
+
+.topbar-round-name:hover {
+    background: var(--bg-3);
+}
+
+.topbar-round-name-input {
+    font: inherit;
+    font-weight: 600;
+    color: var(--text-0);
+    background: var(--bg-2);
+    border: 1px solid var(--d1-accent);
+    border-radius: var(--radius-sm);
+    padding: 1px 6px;
+    max-width: 42vw;
+    min-width: 8rem;
 }
 
 .topbar-round-meta {

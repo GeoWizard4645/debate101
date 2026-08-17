@@ -12,7 +12,7 @@
  */
 
 import bus from "./bus.js";
-import { $ } from "./dom.js";
+import { $, el } from "./dom.js";
 import registry from "./registry.js";
 
 const VERSION = "1.0.0";
@@ -117,6 +117,7 @@ async function boot() {
         ["./voice.js", "Voice Flow"],
         ["./insights.js", "Analytics & evidence"],
         ["./exports.js", "Import & export"],
+        ["./gitpush.js", "Push to Git"],
     ];
     for (const [path, label] of features) start(await optional(path, label), label);
 
@@ -161,7 +162,7 @@ function wireDesktop(store, ui) {
     desktop.onOpenPath?.(async ({ path, text }) => {
         try {
             const file = new File([text], path.split(/[\\/]/).pop(), { type: "application/json" });
-            await store?.openFile?.(file);
+            await store?.openFile?.(file, { path });
         } catch (err) {
             ui.toast?.(`Could not open that flow: ${err.message}`, { type: "error", ms: 6000 });
         }
@@ -187,6 +188,7 @@ const MENU_ALIASES = {
     "file.openRecent": "app.startScreen",
     "file.save": "flow.save",
     "file.saveAs": "flow.saveAs",
+    "file.pushGit": "flow.pushGit",
     "file.exportCiteSheet": "file.exportCites",
     "voice.panel": "voice.openPanel",
     "links.dropped": "links.openPanel",
@@ -226,16 +228,39 @@ function resolveCommand(id) {
  * about a change first.
  */
 function wireTitle(store) {
-    const nameEl = $("#topbar-round-name");
+    const titleHost = $("#topbar-title");
     const metaEl = $("#topbar-round-meta");
+    let editing = false;
 
-    const render = () => {
+    const displayName = () => store.getDisplayName?.() ?? "Untitled round";
+
+    const renderName = () => {
+        if (!titleHost || editing) return;
         const round = store.round;
         if (!round) return;
+
         const sc = round.scouting ?? {};
-        const name = store.fileName?.replace(/\.ebb$/i, "") || sc.tournament || "Untitled round";
+        const name = displayName();
         const dirtyMark = store.dirty ? " •" : "";
-        if (nameEl) nameEl.textContent = name + dirtyMark;
+
+        let nameEl = titleHost.querySelector(".topbar-round-name");
+        if (!nameEl) {
+            nameEl = el("span.topbar-round-name", {
+                role: "button",
+                tabindex: "0",
+                title: "Click to rename this flow",
+            });
+            titleHost.prepend(nameEl);
+        }
+        nameEl.textContent = name + dirtyMark;
+        nameEl.onclick = beginEdit;
+        nameEl.onkeydown = (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                beginEdit();
+            }
+        };
+
         if (metaEl) {
             metaEl.textContent = [
                 round.event?.toUpperCase(),
@@ -249,10 +274,48 @@ function wireTitle(store) {
         document.title = `${name}${dirtyMark} — Cascade`;
     };
 
-    bus.on("round:change", render);
-    bus.on("save:state", render);
-    bus.on("file:opened", render);
-    render();
+    const beginEdit = () => {
+        if (editing || !titleHost) return;
+        editing = true;
+        const initial = displayName();
+        const input = el("input.topbar-round-name-input", {
+            type: "text",
+            value: displayName(),
+            "aria-label": "Flow title",
+        });
+        const existing = titleHost.querySelector(".topbar-round-name");
+        existing?.replaceWith(input);
+        queueMicrotask(() => {
+            input.focus();
+            input.select();
+        });
+        const finish = (save) => {
+            if (!editing) return;
+            editing = false;
+            if (save) {
+                const next = input.value.trim();
+                if (next && next !== initial) store.renameFlow?.(next);
+            }
+            renderName();
+        };
+        input.addEventListener("keydown", (e) => {
+            e.stopPropagation();
+            if (e.key === "Enter") {
+                e.preventDefault();
+                finish(true);
+            } else if (e.key === "Escape") {
+                e.preventDefault();
+                finish(false);
+            }
+        });
+        input.addEventListener("blur", () => finish(true));
+        input.addEventListener("click", (e) => e.stopPropagation());
+    };
+
+    bus.on("round:change", renderName);
+    bus.on("save:state", renderName);
+    bus.on("file:opened", renderName);
+    renderName();
 }
 
 /** Start screen: new / open / recents, and the hand-off into the editor. */

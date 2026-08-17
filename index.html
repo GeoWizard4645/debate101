@@ -743,6 +743,461 @@
             color: var(--mck-accent);
         }
     </style>
+
+    <!-- ==================================================================
+         UI LAYER — theme, motion, command palette, and micro-interactions.
+
+         Additive on purpose: this block and the matching script at the end of
+         <body> add the whole interface layer without editing the markup above,
+         so the page's structure and its Tailwind classes stay exactly as they
+         are. Dark mode is retrofitted by overriding the handful of Tailwind
+         surface utilities this page actually uses rather than rewriting four
+         hundred class attributes.
+         ================================================================== -->
+    <style id="d1-ui">
+        :root {
+            /* Light surface ramp. Dark mode swaps these and nothing else. */
+            --sf-0: #ffffff;   /* page */
+            --sf-1: #ffffff;   /* cards */
+            --sf-2: #f7f9fb;   /* raised / muted bands */
+            --sf-3: #eef3f7;   /* wells */
+            --sf-deep: #051C2C;/* the navy bands */
+            --ink-0: #051C2C;
+            --ink-1: #55636e;
+            --ink-2: #8a97a3;
+            --line: #e8eef2;
+            --line-soft: #f1f5f8;
+            --glass: rgba(255, 255, 255, 0.82);
+            --scrim: rgba(5, 28, 44, 0.55);
+            --accent: #0072b1;
+            --accent-2: #38bdf8;
+            --shadow-card: 0 18px 40px -28px rgba(5, 28, 44, 0.45);
+            --shadow-pop: 0 24px 70px -20px rgba(5, 28, 44, 0.35);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            color-scheme: light;
+        }
+
+        [data-theme="dark"] {
+            --sf-0: #060f18;
+            --sf-1: #0b1a28;
+            --sf-2: #0e2032;
+            --sf-3: #13293d;
+            --sf-deep: #030b13;
+            --ink-0: #eef5fa;
+            --ink-1: #a6b8c6;
+            --ink-2: #6c8092;
+            --line: rgba(226, 240, 250, 0.10);
+            --line-soft: rgba(226, 240, 250, 0.06);
+            --glass: rgba(6, 15, 24, 0.78);
+            --scrim: rgba(0, 0, 0, 0.68);
+            --accent: #38bdf8;
+            --accent-2: #7dd3fc;
+            --shadow-card: 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+            --shadow-pop: 0 24px 70px -20px rgba(0, 0, 0, 0.75);
+            color-scheme: dark;
+        }
+
+        /* --- Dark mode retrofit over the Tailwind utilities in use --------- */
+        [data-theme="dark"] body,
+        [data-theme="dark"] .bg-white { background-color: var(--sf-1) !important; }
+        [data-theme="dark"] body { background-color: var(--sf-0) !important; }
+        [data-theme="dark"] .bg-gray-50 { background-color: var(--sf-2) !important; }
+        [data-theme="dark"] .bg-gray-100 { background-color: var(--sf-3) !important; }
+        [data-theme="dark"] .bg-\[\#051C2C\] { background-color: var(--sf-deep) !important; }
+        [data-theme="dark"] .text-\[\#051C2C\] { color: var(--ink-0) !important; }
+        [data-theme="dark"] .text-gray-500,
+        [data-theme="dark"] .text-gray-600,
+        [data-theme="dark"] .text-gray-700 { color: var(--ink-1) !important; }
+        [data-theme="dark"] .text-gray-400 { color: var(--ink-2) !important; }
+        [data-theme="dark"] .border-gray-100,
+        [data-theme="dark"] .border-gray-200,
+        [data-theme="dark"] .border-t,
+        [data-theme="dark"] .border-b,
+        [data-theme="dark"] .border-y { border-color: var(--line) !important; }
+        [data-theme="dark"] .text-\[\#0072b1\] { color: var(--accent) !important; }
+        [data-theme="dark"] .border-\[\#051C2C\] { border-color: var(--line) !important; }
+        [data-theme="dark"] .hero-section { background-color: var(--sf-0) !important; }
+        [data-theme="dark"] .nav-scrolled {
+            background: var(--glass) !important;
+            box-shadow: 0 1px 0 var(--line), 0 10px 30px -20px rgba(0, 0, 0, 0.9);
+        }
+        [data-theme="dark"] .dropdown-content { background-color: var(--sf-2); }
+        [data-theme="dark"] .dropdown-content button:hover,
+        [data-theme="dark"] .dropdown-content a:hover { background-color: var(--sf-3); }
+        [data-theme="dark"] .dropdown-content a.dd-feature { background: var(--sf-3); border-bottom-color: var(--line); }
+        [data-theme="dark"] .carousel-card,
+        [data-theme="dark"] .resource-category-section,
+        [data-theme="dark"] .chat-messages,
+        [data-theme="dark"] .message { background-color: var(--sf-1) !important; }
+        [data-theme="dark"] .resource-category-section { background-color: var(--sf-2) !important; }
+        [data-theme="dark"] #mobile-menu-overlay { background: var(--sf-0) !important; }
+        [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select {
+            background-color: var(--sf-2) !important;
+            border-color: var(--line) !important;
+            color: var(--ink-0) !important;
+        }
+        [data-theme="dark"] input::placeholder, [data-theme="dark"] textarea::placeholder { color: var(--ink-2); }
+        [data-theme="dark"] .wave { opacity: 0.25; }
+
+        /* The primary button is navy, which disappears against a navy page.
+           On dark it takes the accent instead so the main call to action is
+           still the loudest thing in the hero. */
+        [data-theme="dark"] .btn-mck {
+            background-color: var(--accent) !important;
+            color: #04121f !important;
+        }
+        [data-theme="dark"] .btn-mck:hover { background-color: var(--accent-2) !important; }
+
+        /* Outline buttons pick up the accent edge rather than an invisible
+           navy one. */
+        [data-theme="dark"] .border-\[\#051C2C\]:not(.bg-\[\#051C2C\]) {
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            color: var(--ink-0) !important;
+        }
+        [data-theme="dark"] .hover\:bg-\[\#051C2C\]:hover {
+            background-color: var(--accent) !important;
+            color: #04121f !important;
+        }
+
+        /* The wordmark art ships with a white plate baked in; on a dark page a
+           soft rounded backing reads as intentional instead of as a bug. */
+        [data-theme="dark"] #navbar img[alt="Logo"],
+        [data-theme="dark"] #mobile-menu-overlay img,
+        [data-theme="dark"] footer img {
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 2px;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 320ms var(--ease-out), color 320ms var(--ease-out); }
+
+        /* --- Scroll progress ---------------------------------------------- */
+        #d1-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            width: 100%;
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            z-index: 90;
+            pointer-events: none;
+        }
+
+        /* --- Nav polish ---------------------------------------------------- */
+        #navbar { backdrop-filter: saturate(140%) blur(0px); }
+        .nav-scrolled { backdrop-filter: saturate(160%) blur(14px) !important; }
+        .d1-navlink { position: relative; }
+        .d1-navlink::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -6px;
+            height: 1.5px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 260ms var(--ease-out);
+        }
+        .d1-navlink:hover::after, .d1-navlink[aria-current="page"]::after { transform: scaleX(1); }
+
+        /* --- Icon buttons in the nav (theme, palette) ---------------------- */
+        .d1-iconbtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 32px;
+            min-width: 32px;
+            padding: 0 9px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--ink-0);
+            background: transparent;
+            transition: background 200ms var(--ease-out), border-color 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+        .d1-iconbtn:hover { background: var(--sf-2); border-color: var(--accent); transform: translateY(-1px); }
+        .d1-kbd {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0;
+            padding: 1px 5px;
+            border: 1px solid var(--line);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            color: var(--ink-1);
+            background: var(--sf-2);
+        }
+
+        /* --- Hero canvas + mesh -------------------------------------------- */
+        #d1-hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.55;
+        }
+        [data-theme="dark"] #d1-hero-canvas { opacity: 0.8; }
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 50% at 12% 8%, rgba(0, 114, 177, 0.10), transparent 70%),
+                radial-gradient(45% 45% at 92% 22%, rgba(56, 189, 248, 0.10), transparent 70%);
+        }
+        [data-theme="dark"] .hero-section::after {
+            background:
+                radial-gradient(60% 50% at 12% 8%, rgba(56, 189, 248, 0.14), transparent 70%),
+                radial-gradient(45% 45% at 92% 22%, rgba(0, 114, 177, 0.18), transparent 70%);
+        }
+        .hero-section > .max-w-5xl { position: relative; z-index: 2; }
+
+        /* --- Scroll reveal -------------------------------------------------- */
+        .d1-reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+            transition-delay: var(--d1-delay, 0ms);
+        }
+        .d1-reveal.is-in { opacity: 1; transform: none; }
+
+        /* --- Spotlight cards ------------------------------------------------ */
+        .d1-spot { position: relative; isolation: isolate; }
+        .d1-spot::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 260ms var(--ease-out);
+            background: radial-gradient(
+                220px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(0, 114, 177, 0.13),
+                transparent 70%
+            );
+        }
+        [data-theme="dark"] .d1-spot::before {
+            background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(56, 189, 248, 0.16), transparent 70%);
+        }
+        .d1-spot:hover::before { opacity: 1; }
+
+        /* --- Command palette ------------------------------------------------ */
+        #d1-palette {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12vh 1rem 1rem;
+            background: var(--scrim);
+            backdrop-filter: blur(6px);
+        }
+        #d1-palette.is-open { display: flex; }
+        .d1-pal-box {
+            width: min(640px, 100%);
+            background: var(--sf-1);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: var(--shadow-pop);
+            overflow: hidden;
+            animation: d1-pop 240ms var(--ease-out);
+        }
+        @keyframes d1-pop {
+            from { opacity: 0; transform: translateY(-10px) scale(0.985); }
+            to { opacity: 1; transform: none; }
+        }
+        .d1-pal-input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 15px;
+            background: transparent;
+            color: var(--ink-0);
+            outline: none;
+        }
+        .d1-pal-list { max-height: 52vh; overflow-y: auto; padding: 6px; }
+        .d1-pal-group {
+            padding: 10px 14px 4px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-2);
+        }
+        .d1-pal-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 9px 14px;
+            border-radius: 8px;
+            text-align: left;
+            color: var(--ink-0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .d1-pal-item[aria-selected="true"] { background: var(--sf-3); }
+        .d1-pal-item .d1-pal-icon { width: 18px; color: var(--accent); font-size: 12px; text-align: center; }
+        .d1-pal-item .d1-pal-sub { color: var(--ink-2); font-size: 11px; }
+        .d1-pal-item mark { background: transparent; color: var(--accent); font-weight: 700; }
+        .d1-pal-foot {
+            display: flex;
+            gap: 14px;
+            padding: 9px 16px;
+            border-top: 1px solid var(--line);
+            font-size: 10px;
+            color: var(--ink-2);
+        }
+        .d1-pal-empty { padding: 28px 16px; text-align: center; color: var(--ink-2); font-size: 13px; }
+
+        /* --- Section rail (home) -------------------------------------------- */
+        #d1-rail {
+            position: fixed;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (min-width: 1280px) { #d1-rail.is-on { display: flex; } }
+        .d1-rail-dot {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid var(--ink-2);
+            background: transparent;
+            transition: all 260ms var(--ease-out);
+        }
+        .d1-rail-dot[aria-current="true"] { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+        .d1-rail-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%) translateX(6px);
+            white-space: nowrap;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-1);
+            background: var(--sf-1);
+            border: 1px solid var(--line);
+            padding: 4px 8px;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+        .d1-rail-dot:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+        /* --- Back to top ----------------------------------------------------- */
+        #d1-top {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 45;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--sf-deep);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: var(--shadow-card);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out), background 200ms;
+        }
+        #d1-top.is-on { opacity: 1; transform: none; pointer-events: auto; }
+        #d1-top:hover { background: var(--accent); }
+
+        /* --- Toasts ----------------------------------------------------------- */
+        #d1-toasts {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            z-index: 210;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            pointer-events: none;
+        }
+        .d1-toast {
+            background: var(--sf-deep);
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            box-shadow: var(--shadow-pop);
+            animation: d1-toast-in 260ms var(--ease-out);
+        }
+        [data-theme="dark"] .d1-toast { background: var(--sf-3); border: 1px solid var(--line); }
+        @keyframes d1-toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* --- Page transition --------------------------------------------------- */
+        .page-view.d1-enter { animation: d1-page 420ms var(--ease-out); }
+        @keyframes d1-page { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* --- Counters ----------------------------------------------------------- */
+        .d1-count { font-variant-numeric: tabular-nums; }
+
+        /* --- Button shine --------------------------------------------------------- */
+        .btn-mck, .d1-shine { position: relative; overflow: hidden; }
+        .btn-mck::after, .d1-shine::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transition: left 620ms var(--ease-out);
+        }
+        .btn-mck:hover::after, .d1-shine:hover::after { left: 130%; }
+
+        /* --- Shortcut sheet -------------------------------------------------------- */
+        .d1-sheet-grid { display: grid; grid-template-columns: 1fr auto; gap: 10px 20px; font-size: 13px; }
+        .d1-sheet-grid dt { color: var(--ink-1); }
+        .d1-sheet-grid dd { margin: 0; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .d1-reveal { opacity: 1; transform: none; transition: none; }
+            #d1-hero-canvas { display: none; }
+            .btn-mck::after, .d1-shine::after { display: none; }
+            .page-view.d1-enter { animation: none; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+
+    <script>
+        /* Theme bootstrap. Runs before first paint so a reader who chose dark
+           never sees a white flash on reload. Deliberately tiny and inline —
+           any deferred script is already too late for this. */
+        (function () {
+            try {
+                var stored = localStorage.getItem("d1.theme");
+                var system = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                document.documentElement.setAttribute("data-theme", stored || system);
+            } catch (e) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
 </head>
 <body class="bg-white">
 
@@ -1548,12 +2003,13 @@
         </p>
     </footer>
 
-    <!-- Local config (API keys). See config.example.js for setup. -->
+    <!-- Local config. Retained for compatibility; no AI feature reads it. -->
     <script src="config.js"></script>
     <script>
-        // API key is loaded from config.js (gitignored). Falls back to empty string
-        // so the rest of the site keeps working even if config.js is missing.
-        // ⚠ Static site = key is visible in the browser. See config.js for mitigations.
+        // The AI features moved on-device (see the ON-DEVICE AI block below), so
+        // nothing here calls a hosted model and no API key is required. This is
+        // kept only so an existing config.js keeps loading harmlessly, and so a
+        // future server-backed feature has somewhere to read a key from.
         const apiKey = (typeof window !== 'undefined' && window.GEMINI_API_KEY) ? window.GEMINI_API_KEY : "";
 
         // Content data is loaded asynchronously from data/content.json on window.onload.
@@ -2101,82 +2557,199 @@
         }
 
         /* ------------------------------------------------------------------
-           AI RATE LIMITING
+           ON-DEVICE AI
 
-           The Gemini key is served to the browser (static site), so it is a
-           personal key that anyone can read out of the page. These limits are
-           therefore about protecting the quota from ordinary use and from an
-           impatient visitor hammering Enter — they are NOT a security control,
-           because a determined person can lift the key and skip this code
-           entirely. The load-bearing protections live in Google Cloud Console:
-             1. Restrict the key by HTTP referrer to debate101.org.
-             2. Restrict it to the Generative Language API only.
-             3. Set a hard quota / budget alert on the project.
-           See config.js for the same note.
+           Every AI feature on this site runs a language model inside the
+           visitor's own browser. Nothing is sent to a server, there is no API
+           key, and there is no per-question cost or quota — which is why the
+           rate limiting this block used to hold is gone.
+
+           The model is SmolLM2-135M-Instruct at 4-bit quantization, chosen for
+           being about the smallest instruction-tuned model that still answers
+           in sentences: roughly 100 MB downloaded once into Cache Storage, and
+           in the low hundreds of MB of RAM while it runs. It is small enough
+           that it will be confidently wrong on occasion, so the UI says so
+           rather than dressing its output up as authoritative.
+
+           It loads lazily and only on an explicit click. A visitor who never
+           touches the AI pages never downloads a byte of it.
            ------------------------------------------------------------------ */
-        const AI_LIMITS = {
-            cooldownMs: 6000,      // between two requests, so Enter-mashing costs nothing
-            perHour: 15,
-            perDay: 60,
-            maxHistoryTurns: 12,   // messages kept per conversation; the whole history
-                                   // is re-sent every turn, so an unbounded chat costs
-                                   // quadratically more tokens as it grows
-        };
-        const AI_USAGE_KEY = 'd101.ai.usage';
-        let aiInFlight = false;
+        /*
+           Backend choice, measured rather than assumed. Same model, same
+           prompt, 100 tokens, this machine:
 
-        /** Timestamps of past requests in the last 24h, oldest first. */
-        function aiHistory() {
-            try {
-                const raw = JSON.parse(localStorage.getItem(AI_USAGE_KEY) || '[]');
-                const cutoff = Date.now() - 86400000;
-                return Array.isArray(raw) ? raw.filter(t => typeof t === 'number' && t > cutoff) : [];
-            } catch (e) {
-                return [];
-            }
+             q4    + wasm     3.5 tok/s   coherent   (the slow original)
+             q8    + wasm    27.8 tok/s   coherent
+             fp16  + webgpu  55.1 tok/s   coherent
+             fp32  + webgpu  62.6 tok/s   coherent
+             q4f16 + webgpu  84.6 tok/s   coherent   <- chosen
+
+           Two things worth knowing. First, plain `q4` is a WASM-oriented
+           quantization; asking WebGPU to run it produced fluent-looking token
+           soup, which is what made WebGPU look broken. `q4f16` — 4-bit weights
+           with fp16 compute — is the variant the GPU path actually wants, and
+           it is both the fastest and the smallest download. Second, `q4` is
+           *slower* than `q8` on WASM, because 4-bit weights are dequantized on
+           every operation, so the smallest file was also the slowest run.
+        */
+        const AI_MODEL = {
+            repo: 'HuggingFaceTB/SmolLM2-135M-Instruct',
+            label: 'SmolLM2 135M Instruct',
+            lib: 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.1',
+            gpu: { dtype: 'q4f16', device: 'webgpu', approxMB: 100, name: 'WebGPU' },
+            cpu: { dtype: 'q8', device: 'wasm', approxMB: 135, name: 'CPU' }
+        };
+        const AI_BACKEND_KEY = 'd1.ai.backend';
+
+        /** The backend to use: the user's override, else WebGPU when present. */
+        function aiVariant() {
+            let forced = null;
+            try { forced = localStorage.getItem(AI_BACKEND_KEY); } catch (e) { /* private mode */ }
+            if (forced === 'cpu') return AI_MODEL.cpu;
+            if (forced === 'gpu') return AI_MODEL.gpu;
+            return ('gpu' in navigator) ? AI_MODEL.gpu : AI_MODEL.cpu;
         }
 
-        /** Record one request against the budget. */
-        function aiSpend() {
-            try {
-                const stamps = aiHistory();
-                stamps.push(Date.now());
-                localStorage.setItem(AI_USAGE_KEY, JSON.stringify(stamps));
-            } catch (e) {
-                /* Private browsing or a full quota: the in-flight guard and the
-                   cooldown still apply, they just do not survive a reload. */
+        let aiPipelinePromise = null;   // set once loading starts
+        let aiPipeline = null;          // set once ready
+        let aiBusy = false;
+        let aiStopFlag = false;
+
+        function aiState() {
+            if (aiPipeline) return 'ready';
+            if (aiPipelinePromise) return 'loading';
+            return 'idle';
+        }
+
+        const AI_LINK_STYLE = 'text-decoration:underline;text-transform:none;letter-spacing:0;font-weight:700;color:var(--accent)';
+
+        function aiLink(label, onClick) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = label;
+            btn.style.cssText = AI_LINK_STYLE;
+            btn.addEventListener('click', onClick);
+            return btn;
+        }
+
+        /** Paint every model-status strip on the page. */
+        function renderAiStatus(detail) {
+            const variant = aiVariant();
+            document.querySelectorAll('[data-ai-quota]').forEach(node => {
+                const state = aiState();
+                node.textContent = '';
+
+                if (state === 'ready') {
+                    const dot = document.createElement('span');
+                    dot.style.color = 'var(--accent)';
+                    dot.textContent = '● ';
+                    node.append(dot, AI_MODEL.label + ' · ' + (aiPipeline.__backend || variant.name) +
+                        ' — runs on your device, nothing uploaded. It is a very small model, ' +
+                        'so check anything it tells you. ');
+                    // GPU drivers vary, and a bad one shows up as fluent
+                    // nonsense rather than an error. Give the reader the switch
+                    // rather than making them guess what went wrong.
+                    if ((aiPipeline.__backend || variant.name) === 'WebGPU') {
+                        node.append(aiLink('Answers look wrong? Use CPU mode', () => setAiBackend('cpu')));
+                    } else if ('gpu' in navigator) {
+                        node.append(aiLink('Try GPU mode (faster)', () => setAiBackend('gpu')));
+                    }
+                } else if (state === 'loading') {
+                    node.append(detail || 'Loading the model…');
+                } else {
+                    node.append('Runs a small AI model in your browser · ~' + variant.approxMB +
+                        ' MB, downloaded once · ' + variant.name + ' · ');
+                    node.append(aiLink('Load it now', preloadModel));
+                }
+            });
+        }
+
+        /** Switch backend and rebuild the pipeline against the new one. */
+        function setAiBackend(which) {
+            try { localStorage.setItem(AI_BACKEND_KEY, which); } catch (e) { /* private mode */ }
+            aiPipeline = null;
+            aiPipelinePromise = null;
+            renderAiStatus();
+            if (window.d1) {
+                window.d1.toast(which === 'cpu'
+                    ? 'Switched to CPU mode — slower, but the most compatible'
+                    : 'Switched to GPU mode');
             }
+            preloadModel();
+        }
+
+        /** Fetch the weights ahead of the first question. */
+        async function preloadModel() {
+            if (aiPipelinePromise) return;
+            try {
+                await ensureModel((pct, mb, device) =>
+                    renderAiStatus('Downloading — ' + pct + '% (' + mb + ' MB) · ' + device.toUpperCase()));
+                if (window.d1) window.d1.toast('Model ready — it runs offline from now on');
+            } catch (e) {
+                console.error('[local-ai] preload failed', e);
+                renderAiStatus('Could not load the model. Everything else on the site still works.');
+            }
+            renderAiStatus();
         }
 
         /**
-         * Whether another request is allowed right now.
-         * @returns {{ok: boolean, message?: string, remaining?: number}}
+         * Load the model, reporting progress. Resolves to a text-generation
+         * pipeline. Concurrent callers share one download.
          */
-        function aiBudget() {
-            if (aiInFlight) {
-                return { ok: false, message: "Still working on the last question — one at a time." };
-            }
-            const stamps = aiHistory();
-            const now = Date.now();
-            const last = stamps[stamps.length - 1] ?? 0;
-            const sinceLast = now - last;
-            if (sinceLast < AI_LIMITS.cooldownMs) {
-                const wait = Math.ceil((AI_LIMITS.cooldownMs - sinceLast) / 1000);
-                return { ok: false, message: `Give it ${wait} second${wait === 1 ? '' : 's'} — this runs on a personal API key.` };
-            }
-            const thisHour = stamps.filter(t => t > now - 3600000).length;
-            if (thisHour >= AI_LIMITS.perHour) {
-                return { ok: false, message: `That's ${AI_LIMITS.perHour} questions this hour, which is the cap. Try again a little later — the Resource Hub and Lectures are open in the meantime.` };
-            }
-            if (stamps.length >= AI_LIMITS.perDay) {
-                return { ok: false, message: `You've used today's ${AI_LIMITS.perDay} questions. The cap resets on a rolling 24-hour window. Ask in our Discord if you need more.` };
-            }
-            return { ok: true, remaining: Math.min(AI_LIMITS.perHour - thisHour, AI_LIMITS.perDay - stamps.length) };
+        function ensureModel(onProgress) {
+            if (aiPipelinePromise) return aiPipelinePromise;
+
+            aiPipelinePromise = (async () => {
+                const { pipeline, TextStreamer } = await import(AI_MODEL.lib);
+                window.__aiTextStreamer = TextStreamer;
+
+                const variant = aiVariant();
+                const device = variant.device;
+
+                const files = new Map();
+                const generator = await pipeline('text-generation', AI_MODEL.repo, {
+                    dtype: variant.dtype,
+                    device,
+                    progress_callback: (p) => {
+                        if (!p || !p.file) return;
+                        if (p.status === 'progress' && typeof p.loaded === 'number') {
+                            files.set(p.file, { loaded: p.loaded, total: p.total || 0 });
+                        } else if (p.status === 'done') {
+                            const f = files.get(p.file);
+                            if (f) f.loaded = f.total;
+                        }
+                        let loaded = 0, total = 0;
+                        files.forEach(f => { loaded += f.loaded; total += f.total; });
+                        const pct = total ? Math.min(99, Math.round((loaded / total) * 100)) : 0;
+                        const mb = (loaded / 1048576).toFixed(0);
+                        onProgress && onProgress(pct, mb, device);
+                    }
+                });
+
+                aiPipeline = generator;
+                aiPipeline.__device = device;
+                aiPipeline.__backend = variant.name;
+                return generator;
+            })();
+
+            aiPipelinePromise.catch(() => {
+                // A failed load must not poison every later attempt.
+                aiPipelinePromise = null;
+            });
+
+            return aiPipelinePromise;
         }
 
-        /** Trim a conversation to the most recent turns, keeping user/model pairing. */
-        function trimHistory(store) {
-            const overflow = store.length - AI_LIMITS.maxHistoryTurns;
+        const AI_SYSTEM = {
+            res: 'You are a debate coach. Given a resolution, give a short, concrete breakdown: ' +
+                 '2-3 affirmative arguments and 2-3 negative arguments. Be brief and use short bullet points.',
+            faq: 'You are a debate coach answering a question from a high school debater. ' +
+                 'Answer in 2-4 short sentences. Be concrete and plain-spoken.'
+        };
+
+        /** Trim a conversation so a long chat cannot blow up the context window. */
+        function trimHistory(store, keep = 6) {
+            const overflow = store.length - keep;
             if (overflow > 0) store.splice(0, overflow);
             return store;
         }
@@ -2190,98 +2763,97 @@
             const rawInput = inputField.value.trim();
             if (!rawInput) return;
 
-            if (!apiKey) {
-                appendMessage('architect', "The AI tools aren't configured on this build. Everything else on the site works — try the Resource Hub or the Lectures.", msgId);
-                return;
-            }
-
-            // Check the budget before echoing the question into the transcript,
-            // so a refused turn does not leave a dangling user message that the
-            // next real request would then re-send as context.
-            const budget = aiBudget();
-            if (!budget.ok) {
-                appendMessage('architect', budget.message, msgId);
+            if (aiBusy) {
+                appendMessage('architect', 'Still thinking about the last one — one at a time.', msgId);
                 return;
             }
 
             const loading = document.getElementById(loadingId);
             appendMessage('user', rawInput, msgId);
-            inputField.value = "";
-            loading.classList.remove('hidden');
-            historyStore.push({ role: "user", parts: [{ text: rawInput }] });
-            trimHistory(historyStore);
-
-            aiInFlight = true;
-            aiSpend();
+            inputField.value = '';
+            aiBusy = true;
             setAiControlsEnabled(false);
+            loading.classList.remove('hidden');
 
-            const prompt = type === 'res' ? "You are a Lead Debate Strategist. Break down this resolution, suggesting 3 AFF paths and 3 NEG paths. Focus on LD or Policy context." : "You are a Debate Mentor. Answer this general question about debate technicalities or theory clearly.";
-
-            /**
-             * One request, retried only for failures a retry can actually fix.
-             * The old loop retried five times on any error including a 429,
-             * which turned one rate-limited question into six calls against the
-             * same personal quota — exactly backwards.
-             */
-            const callGemini = async (retryCount = 0) => {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-                let response;
-                try {
-                    response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: historyStore,
-                            systemInstruction: { parts: [{ text: prompt }] }
-                        })
-                    });
-                } catch (networkError) {
-                    // No response at all — the one case where retrying is right.
-                    if (retryCount < 2) {
-                        await new Promise(res => setTimeout(res, 1200 * (retryCount + 1)));
-                        return callGemini(retryCount + 1);
-                    }
-                    throw new Error("offline");
-                }
-
-                if (response.status === 429) throw new Error("quota");
-                if (response.status === 403) throw new Error("forbidden");
-                if (response.status >= 500 && retryCount < 1) {
-                    await new Promise(res => setTimeout(res, 1500));
-                    return callGemini(retryCount + 1);
-                }
-                if (!response.ok) throw new Error("api");
-
-                const result = await response.json();
-                return result.candidates?.[0]?.content?.parts?.[0]?.text
-                    || "That came back empty. Try rephrasing the question.";
-            };
+            // The reply element is created up front so tokens can stream into
+            // it as they are produced — on a small model on WASM that is the
+            // difference between "responsive" and "frozen".
+            const replyEl = appendMessage('architect', '', msgId);
+            const body = replyEl ? replyEl.querySelector('.ai-content') : null;
+            if (body) body.textContent = '…';
 
             try {
-                const aiText = await callGemini();
-                historyStore.push({ role: "model", parts: [{ text: aiText }] });
+                if (!aiPipeline) {
+                    if (body) body.textContent = 'Downloading the model (about ' + aiVariant().approxMB + ' MB). This happens once — after that it works offline.';
+                    await ensureModel((pct, mb, device) => {
+                        renderAiStatus('Loading the model — ' + pct + '% (' + mb + ' MB) · ' + device.toUpperCase());
+                        if (body) body.textContent = 'Downloading the model — ' + pct + '% (' + mb + ' MB read). One time only.';
+                    });
+                    renderAiStatus();
+                }
+
+                historyStore.push({ role: 'user', content: rawInput });
                 trimHistory(historyStore);
-                appendMessage('architect', aiText, msgId);
+
+                const messages = [{ role: 'system', content: AI_SYSTEM[type] || AI_SYSTEM.faq }]
+                    .concat(historyStore);
+
+                let text = '';
+                if (body) body.textContent = '';
+                const Streamer = window.__aiTextStreamer;
+                const streamer = Streamer ? new Streamer(aiPipeline.tokenizer, {
+                    skip_prompt: true,
+                    skip_special_tokens: true,
+                    callback_function: (chunk) => {
+                        if (aiStopFlag) return;
+                        text += chunk;
+                        if (body) body.textContent = text;
+                        const container = document.getElementById(msgId);
+                        if (container) container.scrollTop = container.scrollHeight;
+                    }
+                }) : null;
+
+                // Greedy decoding. Sampling at any temperature this model can
+                // hold turned coherent answers into word salad — at 135M
+                // parameters there is no probability mass to spare.
+                const out = await aiPipeline(messages, {
+                    max_new_tokens: type === 'res' ? 200 : 140,
+                    do_sample: false,
+                    repetition_penalty: 1.1,
+                    streamer
+                });
+
+                // The streamer already painted the text; this is the
+                // authoritative copy and the fallback when streaming is absent.
+                let final = text;
+                try {
+                    const generated = out[0].generated_text;
+                    if (Array.isArray(generated)) final = generated.at(-1).content || text;
+                    else if (typeof generated === 'string' && !text) final = generated;
+                } catch (e) { /* keep the streamed text */ }
+
+                final = (final || '').trim() || 'That came back empty — try rephrasing the question.';
+                historyStore.push({ role: 'assistant', content: final });
+                trimHistory(historyStore);
+                if (body) body.innerHTML = formatAiResponse(final);
             } catch (e) {
-                const reasons = {
-                    quota: "The shared API quota for today is used up — this runs on one personal key, not a subscription. It resets on Google's clock; the Resource Hub and Lectures don't need it.",
-                    forbidden: "The API key isn't authorized from here. If you're seeing this on debate101.org, let us know in the Discord.",
-                    offline: "Couldn't reach the model — check your connection and try again.",
-                };
-                appendMessage('architect', reasons[e.message] || "Something went wrong on that request. Try again in a moment.", msgId);
-                // A failed turn leaves an unanswered user message at the end of
-                // the history; drop it so the next question isn't sent with a
-                // dangling turn Gemini would reject.
-                if (historyStore[historyStore.length - 1]?.role === "user") historyStore.pop();
+                console.error('[local-ai]', e);
+                const offline = !navigator.onLine;
+                if (body) {
+                    body.textContent = offline
+                        ? 'The model has not been downloaded yet and you are offline. Reconnect once to fetch it, then it works offline forever.'
+                        : 'The model could not run in this browser. It needs a recent Chrome, Edge, Firefox or Safari with enough memory — everything else on the site works without it.';
+                }
             } finally {
                 loading.classList.add('hidden');
-                aiInFlight = false;
+                aiBusy = false;
+                aiStopFlag = false;
                 setAiControlsEnabled(true);
-                renderAiQuota();
+                renderAiStatus();
             }
         }
 
-        /** Grey out both chat inputs while a request is in flight. */
+        /** Grey out both chat inputs while a generation is in flight. */
         function setAiControlsEnabled(enabled) {
             ['resolution-input', 'faq-input'].forEach(id => {
                 const field = document.getElementById(id);
@@ -2294,18 +2866,9 @@
             });
         }
 
-        /** Show what is left of the budget, so the cap is never a surprise. */
+        /** Kept under its old name so existing callers keep working. */
         function renderAiQuota() {
-            const stamps = aiHistory();
-            const now = Date.now();
-            const hourLeft = AI_LIMITS.perHour - stamps.filter(t => t > now - 3600000).length;
-            const dayLeft = AI_LIMITS.perDay - stamps.length;
-            const left = Math.max(0, Math.min(hourLeft, dayLeft));
-            document.querySelectorAll('[data-ai-quota]').forEach(node => {
-                node.textContent = left > 0
-                    ? `${left} question${left === 1 ? '' : 's'} left · runs on a personal API key`
-                    : 'Question limit reached — try again later';
-            });
+            renderAiStatus();
         }
 
         function appendMessage(role, text, containerId) {
@@ -2316,8 +2879,11 @@
                 ${role === 'architect' ? `<p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>` : ''}
                 <div class="ai-content">${formatAiResponse(text)}</div>
             `;
-            container.appendChild(msgDiv); 
+            container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
+            // Returned so a caller can stream tokens into this exact bubble
+            // instead of appending a new one per chunk.
+            return msgDiv;
         }
 
         function formatAiResponse(text) {
@@ -2446,6 +3012,713 @@
             const hash = location.hash.replace('#', '') || 'home';
             showPage(hash);
         };
+    </script>
+
+    <!-- ==================================================================
+         UI LAYER — behaviour.
+
+         Everything here builds its own DOM and wraps existing functions
+         rather than editing the markup above, so the page keeps working
+         exactly as before if this script is removed. Each block bails out
+         quietly when the element it wants is absent.
+         ================================================================== -->
+    <script>
+    (function () {
+        "use strict";
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /**
+         * Run an update inside a View Transition when the browser can, and
+         * plainly when it cannot. The API rejects its `finished` promise if a
+         * transition is superseded or the document is hidden — both are normal,
+         * neither is an error worth surfacing, and an uncaught rejection in the
+         * console is noise a real bug would then hide behind.
+         */
+        function withTransition(update) {
+            if (!document.startViewTransition || reduceMotion || document.hidden) return update();
+            let transition;
+            try {
+                transition = document.startViewTransition(update);
+            } catch (e) {
+                return update();
+            }
+            if (transition && transition.finished) transition.finished.catch(() => {});
+            if (transition && transition.updateCallbackDone) transition.updateCallbackDone.catch(() => {});
+            if (transition && transition.ready) transition.ready.catch(() => {});
+        }
+        const el = (tag, props = {}, ...kids) => {
+            const n = document.createElement(tag);
+            for (const [k, v] of Object.entries(props)) {
+                if (k === "class") n.className = v;
+                else if (k === "html") n.innerHTML = v;
+                else if (k === "text") n.textContent = v;
+                else if (k.startsWith("on")) n.addEventListener(k.slice(2).toLowerCase(), v);
+                else if (v !== null && v !== false) n.setAttribute(k, v);
+            }
+            kids.flat().forEach(c => c && n.append(c instanceof Node ? c : document.createTextNode(c)));
+            return n;
+        };
+
+        /* ---------------------------------------------------------------
+           Theme. Applied before first paint by the inline bootstrap below,
+           so there is no flash of the wrong theme on reload.
+           --------------------------------------------------------------- */
+        const THEME_KEY = "d1.theme";
+        function currentTheme() {
+            return document.documentElement.getAttribute("data-theme") || "light";
+        }
+        function setTheme(name, announce) {
+            document.documentElement.setAttribute("data-theme", name);
+            try { localStorage.setItem(THEME_KEY, name); } catch (e) { /* private mode */ }
+            document.querySelectorAll("[data-theme-icon]").forEach(i => {
+                i.className = name === "dark" ? "fas fa-sun" : "fas fa-moon";
+            });
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", name === "dark" ? "#060f18" : "#051C2C");
+            if (announce) toast(name === "dark" ? "Dark mode" : "Light mode");
+        }
+        function toggleTheme() {
+            const next = currentTheme() === "dark" ? "light" : "dark";
+            // View Transitions turn the swap into one clean cross-fade instead
+            // of a hundred individual property transitions racing each other.
+            withTransition(() => setTheme(next, true));
+        }
+
+        /* --- Toasts ---------------------------------------------------- */
+        const toastHost = el("div", { id: "d1-toasts" });
+        function toast(message, ms = 2200) {
+            const t = el("div", { class: "d1-toast", text: message });
+            toastHost.append(t);
+            setTimeout(() => {
+                t.style.transition = "opacity 240ms, transform 240ms";
+                t.style.opacity = "0";
+                t.style.transform = "translateY(8px)";
+                setTimeout(() => t.remove(), 260);
+            }, ms);
+        }
+
+        /* --- Scroll progress + back to top ------------------------------ */
+        const progress = el("div", { id: "d1-progress" });
+        const topBtn = el("button", {
+            id: "d1-top",
+            type: "button",
+            "aria-label": "Back to top",
+            onclick: () => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })
+        }, el("i", { class: "fas fa-arrow-up" }));
+
+        let ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                ticking = false;
+                const doc = document.documentElement;
+                const max = doc.scrollHeight - window.innerHeight;
+                progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+                topBtn.classList.toggle("is-on", window.scrollY > 700);
+                updateRail();
+            });
+        }
+
+        /* ---------------------------------------------------------------
+           Hero canvas — columns of light falling like a flow being written
+           down the page. Cheap: a few dozen streaks on a 2D context, paused
+           whenever the hero is offscreen or the tab is hidden.
+           --------------------------------------------------------------- */
+        function mountHero() {
+            const hero = document.querySelector(".hero-section");
+            if (!hero || reduceMotion) return;
+            const canvas = el("canvas", { id: "d1-hero-canvas", "aria-hidden": "true" });
+            hero.prepend(canvas);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+
+            let w = 0, h = 0, streaks = [], running = true, raf = 0;
+            const COLS = 26;
+
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = hero.clientWidth;
+                h = hero.clientHeight;
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = w + "px";
+                canvas.style.height = h + "px";
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                streaks = Array.from({ length: COLS }, (_, i) => ({
+                    x: (i + 0.5) * (w / COLS),
+                    y: Math.random() * h,
+                    len: 60 + Math.random() * 160,
+                    speed: 0.25 + Math.random() * 0.9,
+                    alpha: 0.06 + Math.random() * 0.16
+                }));
+            }
+
+            function frame() {
+                if (!running) return;
+                ctx.clearRect(0, 0, w, h);
+                const dark = currentTheme() === "dark";
+                for (const s of streaks) {
+                    const grad = ctx.createLinearGradient(s.x, s.y - s.len, s.x, s.y);
+                    const rgb = dark ? "56, 189, 248" : "0, 114, 177";
+                    grad.addColorStop(0, `rgba(${rgb}, 0)`);
+                    grad.addColorStop(1, `rgba(${rgb}, ${s.alpha})`);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y - s.len);
+                    ctx.lineTo(s.x, s.y);
+                    ctx.stroke();
+                    s.y += s.speed;
+                    if (s.y - s.len > h) {
+                        s.y = -Math.random() * 120;
+                        s.len = 60 + Math.random() * 160;
+                        s.speed = 0.25 + Math.random() * 0.9;
+                        s.alpha = 0.06 + Math.random() * 0.16;
+                    }
+                }
+                raf = requestAnimationFrame(frame);
+            }
+
+            function start() { if (!running) { running = true; frame(); } }
+            function stop() { running = false; cancelAnimationFrame(raf); }
+
+            resize();
+            frame();
+            window.addEventListener("resize", resize);
+            document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+            new IntersectionObserver(entries => {
+                entries[0].isIntersecting ? start() : stop();
+            }, { threshold: 0 }).observe(hero);
+        }
+
+        /* --- Scroll reveal, staggered per container --------------------- */
+        function mountReveal() {
+            if (reduceMotion || !("IntersectionObserver" in window)) return;
+            const io = new IntersectionObserver(entries => {
+                for (const e of entries) {
+                    if (!e.isIntersecting) continue;
+                    e.target.classList.add("is-in");
+                    io.unobserve(e.target);
+                }
+            }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+
+            const mark = root => {
+                root.querySelectorAll("section > div > h2, section > div > h3, section h2 + p, .carousel-card, .tool-card, [data-reveal]")
+                    .forEach((n, i) => {
+                        if (n.classList.contains("d1-reveal")) return;
+                        n.classList.add("d1-reveal");
+                        n.style.setProperty("--d1-delay", Math.min(i % 8, 7) * 55 + "ms");
+                        io.observe(n);
+                    });
+            };
+            mark(document);
+            window.d1MarkReveal = mark;
+        }
+
+        /* --- Cursor spotlight on cards ---------------------------------- */
+        function mountSpotlight() {
+            document.addEventListener("pointermove", e => {
+                const card = e.target.closest && e.target.closest(".carousel-card, .tool-card, .d1-spot");
+                if (!card) return;
+                if (!card.classList.contains("d1-spot")) card.classList.add("d1-spot");
+                const r = card.getBoundingClientRect();
+                card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+                card.style.setProperty("--my", `${e.clientY - r.top}px`);
+            }, { passive: true });
+        }
+
+        /* ---------------------------------------------------------------
+           Animated counters.
+
+           These write into elements that hold a real figure the page computed
+           from its own data, so the animation is only ever allowed to borrow
+           the number briefly and must always hand back the true one. Two rules
+           follow from that: never start until the data has actually loaded
+           (the markup ships a "0" placeholder, and animating toward a
+           placeholder would freeze a wrong total on screen), and never leave a
+           partial value behind if frames stop — a background tab throttles rAF,
+           and "17 Strategic Assets" is worse than no animation at all.
+           --------------------------------------------------------------- */
+        function mountCounters() {
+            const targets = ["resource-counter", "lecture-counter"]
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+            if (!targets.length || !("IntersectionObserver" in window)) return;
+
+            /** Resolve once the element holds a real (non-zero) figure. */
+            function whenPopulated(node, cb, tries = 0) {
+                const value = parseInt(String(node.textContent).replace(/\D/g, ""), 10);
+                if (value > 0) return cb(value);
+                if (tries > 60) return; // ~6s — leave whatever the page wrote alone
+                setTimeout(() => whenPopulated(node, cb, tries + 1), 100);
+            }
+
+            const io = new IntersectionObserver(entries => {
+                for (const e of entries) {
+                    if (!e.isIntersecting) continue;
+                    const node = e.target;
+                    io.unobserve(node);
+                    if (reduceMotion) continue;
+                    whenPopulated(node, end => animateCount(node, end));
+                }
+            }, { threshold: 0.5 });
+            targets.forEach(t => io.observe(t));
+        }
+
+        /** Count up to `end`, and land exactly on it however frames behave. */
+        function animateCount(node, end) {
+            node.classList.add("d1-count");
+            const dur = 900;
+            const t0 = performance.now();
+            let done = false;
+            const finish = () => {
+                if (done) return;
+                done = true;
+                node.textContent = end;
+            };
+            const step = now => {
+                if (done) return;
+                const p = Math.min(1, (now - t0) / dur);
+                // easeOutCubic — quick off the line, settles onto the real value
+                node.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+                if (p < 1) requestAnimationFrame(step);
+                else finish();
+            };
+            requestAnimationFrame(step);
+            // rAF stops in a background tab; this timer is the guarantee that
+            // the true figure lands whatever the compositor decides to do.
+            setTimeout(finish, dur + 500);
+        }
+
+        /* ---------------------------------------------------------------
+           Command palette. The index is built from the page's own data, so
+           a resource added to content.json is searchable here for free.
+           --------------------------------------------------------------- */
+        const PAGES = [
+            { label: "Home", sub: "Overview", icon: "fas fa-house", page: "home" },
+            { label: "Resource Hub", sub: "100+ curated debate tools", icon: "fas fa-layer-group", page: "hub" },
+            { label: "Lectures", sub: "Video archive by argument style", icon: "fas fa-graduation-cap", page: "lectures" },
+            { label: "Our Team", sub: "Founders and collaborators", icon: "fas fa-users", page: "team" },
+            { label: "Architect Timer", sub: "Round timer with format presets", icon: "fas fa-stopwatch", page: "timer" },
+            { label: "Screw Calculator", sub: "Break / bubble-round estimator", icon: "fas fa-calculator", page: "screw" },
+            { label: "Resolution AI", sub: "Break down a resolution", icon: "fas fa-wand-magic-sparkles", page: "tools" },
+            { label: "FAQ & Mentor", sub: "Glossary and Q&A", icon: "fas fa-circle-question", page: "faq" }
+        ];
+        const APPS = [
+            { label: "Cascade", sub: "Our flowing app — web & desktop", icon: "fas fa-water", href: "flow/" },
+            { label: "Get Cascade for desktop", sub: "macOS, Windows, Linux", icon: "fas fa-download", href: "flow/download.html" },
+            { label: "Card Cutter", sub: "Cut and format evidence", icon: "fas fa-scissors", href: "tools/card-cutter/" },
+            { label: "Speed Trainer", sub: "Spreading practice with a WPM meter", icon: "fas fa-gauge-high", href: "tools/speed-trainer/" },
+            { label: "Round Tracker", sub: "Record, judge book, scouting book", icon: "fas fa-trophy", href: "tools/round-tracker/" }
+        ];
+        const LINKS = [
+            { label: "Discord", sub: "discord.debate101.org", icon: "fab fa-discord", href: "https://discord.debate101.org" },
+            { label: "Instagram", sub: "instagram.debate101.org", icon: "fab fa-instagram", href: "https://instagram.debate101.org" },
+            { label: "YouTube", sub: "youtube.debate101.org", icon: "fab fa-youtube", href: "https://youtube.debate101.org" },
+            { label: "GitHub", sub: "Source for everything we build", icon: "fab fa-github", href: "https://github.com/GeoWizard4645/debate101" }
+        ];
+        const ACTIONS = [
+            { label: "Toggle dark mode", sub: "Switch the whole site", icon: "fas fa-circle-half-stroke", run: toggleTheme },
+            { label: "Keyboard shortcuts", sub: "Everything you can press", icon: "fas fa-keyboard", run: () => openSheet() }
+        ];
+
+        function buildIndex() {
+            const items = [];
+            PAGES.forEach(p => items.push({ ...p, group: "Pages" }));
+            APPS.forEach(a => items.push({ ...a, group: "Apps" }));
+
+            // The page's own data, if it has loaded. `resourceCategories` and
+            // `lectureCategories` are top-level `let` bindings, which are NOT
+            // properties of `window` — reading them off `window` silently found
+            // nothing and quietly cost the palette its best 100+ results.
+            const resources = typeof resourceCategories !== "undefined" ? resourceCategories : null;
+            if (Array.isArray(resources)) {
+                resources.forEach(cat => {
+                    (cat.resources || []).forEach(r => items.push({
+                        label: r.title,
+                        sub: cat.title,
+                        icon: r.icon || "fas fa-link",
+                        keywords: r.keywords || "",
+                        href: r.type === "internal" ? null : r.link,
+                        page: r.type === "internal" ? String(r.link).replace("#", "") : null,
+                        group: "Resources"
+                    }));
+                });
+            }
+
+            const lectures = typeof lectureCategories !== "undefined" ? lectureCategories : null;
+            if (Array.isArray(lectures)) {
+                lectures.forEach(cat => {
+                    (cat.lectures || cat.resources || []).forEach(l => items.push({
+                        label: l.title,
+                        sub: cat.title,
+                        icon: l.icon || "fas fa-play",
+                        keywords: l.keywords || "",
+                        href: l.link || null,
+                        group: "Lectures"
+                    }));
+                });
+            }
+            LINKS.forEach(l => items.push({ ...l, group: "Community" }));
+            ACTIONS.forEach(a => items.push({ ...a, group: "Actions" }));
+            return items;
+        }
+
+        /** Subsequence match with a bonus for prefixes and word starts. */
+        function score(query, text) {
+            const q = query.toLowerCase();
+            const t = text.toLowerCase();
+            if (!q) return 1;
+            if (t.startsWith(q)) return 1000 - t.length;
+            const direct = t.indexOf(q);
+            if (direct >= 0) return 600 - direct - t.length * 0.1;
+            let qi = 0, s = 0, streak = 0;
+            for (let i = 0; i < t.length && qi < q.length; i++) {
+                if (t[i] === q[qi]) {
+                    streak += 1;
+                    s += 8 + streak * 3 + (i === 0 || /[\s\-—·&]/.test(t[i - 1]) ? 12 : 0);
+                    qi += 1;
+                } else streak = 0;
+            }
+            return qi === q.length ? s : -1;
+        }
+
+        function highlight(text, query) {
+            const frag = document.createDocumentFragment();
+            const i = query ? text.toLowerCase().indexOf(query.toLowerCase()) : -1;
+            if (i < 0) { frag.append(text); return frag; }
+            frag.append(text.slice(0, i));
+            frag.append(el("mark", { text: text.slice(i, i + query.length) }));
+            frag.append(text.slice(i + query.length));
+            return frag;
+        }
+
+        let palette, palInput, palList, palItems = [], palIndex = 0, palIndexCache = null;
+
+        function mountPalette() {
+            palInput = el("input", {
+                class: "d1-pal-input",
+                type: "text",
+                placeholder: "Search pages, tools, resources…",
+                "aria-label": "Search Debate 101",
+                autocomplete: "off",
+                spellcheck: "false"
+            });
+            palList = el("div", { class: "d1-pal-list", role: "listbox" });
+            const box = el("div", { class: "d1-pal-box", role: "dialog", "aria-modal": "true", "aria-label": "Command palette" },
+                palInput,
+                palList,
+                el("div", { class: "d1-pal-foot" },
+                    el("span", { html: '<span class="d1-kbd">↑↓</span> navigate' }),
+                    el("span", { html: '<span class="d1-kbd">↵</span> open' }),
+                    el("span", { html: '<span class="d1-kbd">esc</span> close' })
+                )
+            );
+            palette = el("div", { id: "d1-palette", onclick: e => { if (e.target === palette) closePalette(); } }, box);
+            document.body.append(palette);
+
+            palInput.addEventListener("input", () => renderPalette(palInput.value));
+            palInput.addEventListener("keydown", e => {
+                if (e.key === "ArrowDown") { movePal(1); e.preventDefault(); }
+                else if (e.key === "ArrowUp") { movePal(-1); e.preventDefault(); }
+                else if (e.key === "Enter") { runPal(palItems[palIndex]); e.preventDefault(); }
+                else if (e.key === "Escape") { closePalette(); e.preventDefault(); }
+            });
+        }
+
+        function renderPalette(query) {
+            if (!palIndexCache) palIndexCache = buildIndex();
+            const q = (query || "").trim();
+            const scored = palIndexCache
+                .map(item => ({ item, s: Math.max(score(q, item.label), score(q, item.sub || "") * 0.6, score(q, item.keywords || "") * 0.4) }))
+                .filter(x => x.s > (q ? 0 : -1))
+                .sort((a, b) => b.s - a.s)
+                .slice(0, q ? 40 : 14);
+
+            palList.textContent = "";
+            palItems = [];
+            if (!scored.length) {
+                palList.append(el("div", { class: "d1-pal-empty", text: `Nothing matches “${q}”.` }));
+                return;
+            }
+            let group = null;
+            scored.forEach(({ item }) => {
+                if (item.group !== group) {
+                    group = item.group;
+                    palList.append(el("div", { class: "d1-pal-group", text: group }));
+                }
+                const row = el("div", { class: "d1-pal-item", role: "option", tabindex: "-1" },
+                    el("i", { class: "d1-pal-icon " + (item.icon || "fas fa-circle") }),
+                    el("span", {}, highlight(item.label, q)),
+                    el("span", { class: "d1-pal-sub", text: item.sub || "" })
+                );
+                row.addEventListener("click", () => runPal(item));
+                row.addEventListener("pointermove", () => {
+                    palIndex = palItems.indexOf(item);
+                    paintPal();
+                });
+                palList.append(row);
+                palItems.push(item);
+                item._el = row;
+            });
+            palIndex = 0;
+            paintPal();
+        }
+
+        function paintPal() {
+            palItems.forEach((it, i) => it._el && it._el.setAttribute("aria-selected", i === palIndex ? "true" : "false"));
+            const active = palItems[palIndex] && palItems[palIndex]._el;
+            if (active) active.scrollIntoView({ block: "nearest" });
+        }
+
+        function movePal(delta) {
+            if (!palItems.length) return;
+            palIndex = (palIndex + delta + palItems.length) % palItems.length;
+            paintPal();
+        }
+
+        function runPal(item) {
+            if (!item) return;
+            closePalette();
+            if (item.run) return item.run();
+            if (item.page && typeof window.showPage === "function") return window.showPage(item.page);
+            if (item.href) window.open(item.href, item.href.startsWith("http") ? "_blank" : "_self");
+        }
+
+        function openPalette() {
+            palIndexCache = null; // resources may have loaded since last time
+            palette.classList.add("is-open");
+            palInput.value = "";
+            renderPalette("");
+            setTimeout(() => palInput.focus(), 10);
+        }
+        function closePalette() { palette.classList.remove("is-open"); }
+
+        /* --- Keyboard shortcut sheet ------------------------------------- */
+        function openSheet() {
+            const rows = [
+                ["Open the command palette", "⌘K / Ctrl K"],
+                ["Search resources", "/"],
+                ["Toggle dark mode", "⇧D"],
+                ["Go home", "G then H"],
+                ["Go to the Resource Hub", "G then R"],
+                ["Go to Lectures", "G then L"],
+                ["Open Cascade", "G then C"],
+                ["Back to top", "T"],
+                ["This sheet", "?"]
+            ];
+            const dl = el("dl", { class: "d1-sheet-grid" });
+            rows.forEach(([what, key]) => {
+                dl.append(el("dt", { text: what }));
+                dl.append(el("dd", {}, el("span", { class: "d1-kbd", text: key })));
+            });
+            const box = el("div", { class: "d1-pal-box", style: "padding:28px", role: "dialog", "aria-modal": "true", "aria-label": "Keyboard shortcuts" },
+                el("h2", { style: "font-family:'Playfair Display',serif;font-size:26px;margin:0 0 18px;color:var(--ink-0)", text: "Keyboard shortcuts" }),
+                dl
+            );
+            const overlay = el("div", {
+                id: "d1-sheet",
+                style: "position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--scrim);backdrop-filter:blur(6px)",
+                onclick: e => { if (e.target === overlay) overlay.remove(); }
+            }, box);
+            document.body.append(overlay);
+            const onKey = e => {
+                if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", onKey); }
+            };
+            document.addEventListener("keydown", onKey);
+        }
+
+        /* --- Global keyboard ---------------------------------------------- */
+        let chordTimer = null, awaitingG = false;
+        function mountKeys() {
+            document.addEventListener("keydown", e => {
+                const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
+                const mod = e.metaKey || e.ctrlKey;
+
+                if (mod && e.key.toLowerCase() === "k") {
+                    e.preventDefault();
+                    palette.classList.contains("is-open") ? closePalette() : openPalette();
+                    return;
+                }
+                if (typing) return;
+
+                if (awaitingG) {
+                    awaitingG = false;
+                    clearTimeout(chordTimer);
+                    const map = { h: "home", r: "hub", l: "lectures", t: "team", f: "faq" };
+                    const k = e.key.toLowerCase();
+                    if (k === "c") { window.location.href = "flow/"; return e.preventDefault(); }
+                    if (map[k] && typeof window.showPage === "function") {
+                        window.showPage(map[k]);
+                        return e.preventDefault();
+                    }
+                    return;
+                }
+
+                if (e.key === "g" && !mod) {
+                    awaitingG = true;
+                    chordTimer = setTimeout(() => { awaitingG = false; }, 1200);
+                    return;
+                }
+                if (e.key === "/" && !mod) {
+                    e.preventDefault();
+                    openPalette();
+                } else if (e.key === "?" ) {
+                    e.preventDefault();
+                    openSheet();
+                } else if (e.key === "D" && e.shiftKey && !mod) {
+                    e.preventDefault();
+                    toggleTheme();
+                } else if (e.key === "t" && !mod) {
+                    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+                }
+            });
+        }
+
+        /* --- Nav additions: theme toggle + palette trigger ---------------- */
+        function mountNavControls() {
+            const desktop = document.querySelector("#navbar .hidden.lg\\:flex");
+            if (desktop) {
+                const search = el("button", {
+                    class: "d1-iconbtn",
+                    type: "button",
+                    "aria-label": "Search — press Command K",
+                    title: "Search (⌘K)",
+                    onclick: openPalette
+                }, el("i", { class: "fas fa-magnifying-glass" }), el("span", { class: "d1-kbd", text: "⌘K" }));
+
+                const theme = el("button", {
+                    class: "d1-iconbtn",
+                    type: "button",
+                    "aria-label": "Toggle dark mode",
+                    title: "Toggle dark mode (Shift D)",
+                    onclick: toggleTheme
+                }, el("i", { class: "fas fa-moon", "data-theme-icon": "" }));
+
+                const cta = desktop.querySelector(".nav-cta");
+                // The old magnifying-glass button opened the hub's own search;
+                // the palette supersedes it, so it steps aside rather than
+                // sitting next to a second search icon.
+                const legacy = desktop.querySelector('button[aria-label="Search the site"]');
+                if (legacy) legacy.remove();
+                if (cta) { desktop.insertBefore(search, cta); desktop.insertBefore(theme, cta); }
+                else desktop.append(search, theme);
+
+                desktop.querySelectorAll(":scope > button").forEach(b => {
+                    if (!b.classList.contains("d1-iconbtn")) b.classList.add("d1-navlink");
+                });
+            }
+
+            const mobile = document.querySelector("#mobile-menu-overlay .flex.flex-col.space-y-8");
+            if (mobile) {
+                mobile.prepend(el("button", {
+                    class: "text-left",
+                    type: "button",
+                    onclick: () => { openPalette(); }
+                }, "Search everything"));
+                mobile.append(el("button", {
+                    class: "text-left",
+                    type: "button",
+                    onclick: toggleTheme
+                }, el("i", { class: "fas fa-moon", "data-theme-icon": "", style: "margin-right:10px" }), "Toggle theme"));
+            }
+        }
+
+        /* --- Section rail on the home page -------------------------------- */
+        let railDots = [], railTargets = [];
+        function mountRail() {
+            const home = document.getElementById("page-home");
+            if (!home) return;
+            const sections = [...home.querySelectorAll("section")];
+            if (sections.length < 3) return;
+            const labels = ["Top", "Community", "Resource Hub", "Cascade", "Collaborate", "Ecosystem", "Team", "Lectures", "More", "More"];
+            const rail = el("nav", { id: "d1-rail", "aria-label": "Page sections" });
+            sections.forEach((sec, i) => {
+                const label = (sec.querySelector("h2, h3, h4") || {}).textContent || labels[i] || `Section ${i + 1}`;
+                const dot = el("button", {
+                    class: "d1-rail-dot",
+                    type: "button",
+                    "data-label": label.trim().slice(0, 26),
+                    "aria-label": `Jump to ${label.trim().slice(0, 40)}`,
+                    onclick: () => sec.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" })
+                });
+                rail.append(dot);
+                railDots.push(dot);
+                railTargets.push(sec);
+            });
+            document.body.append(rail);
+            updateRailVisibility();
+        }
+
+        function updateRail() {
+            if (!railDots.length) return;
+            const mid = window.scrollY + window.innerHeight * 0.35;
+            let active = 0;
+            railTargets.forEach((sec, i) => {
+                if (sec.offsetTop <= mid) active = i;
+            });
+            railDots.forEach((d, i) => d.setAttribute("aria-current", i === active ? "true" : "false"));
+        }
+
+        function updateRailVisibility() {
+            const rail = document.getElementById("d1-rail");
+            if (!rail) return;
+            const home = document.getElementById("page-home");
+            rail.classList.toggle("is-on", !!home && !home.classList.contains("hidden"));
+        }
+
+        /* --- Page transitions --------------------------------------------- */
+        function wrapShowPage() {
+            const original = window.showPage;
+            if (typeof original !== "function") return;
+            window.showPage = function (pageId) {
+                const run = () => {
+                    original.apply(this, arguments);
+                    const target = document.getElementById("page-" + pageId);
+                    if (target && !reduceMotion) {
+                        target.classList.remove("d1-enter");
+                        void target.offsetWidth; // restart the animation
+                        target.classList.add("d1-enter");
+                    }
+                    updateRailVisibility();
+                    if (window.d1MarkReveal && target) window.d1MarkReveal(target);
+                    document.querySelectorAll("#navbar .d1-navlink").forEach(b => b.removeAttribute("aria-current"));
+                };
+                withTransition(run);
+            };
+        }
+
+        /* --- Boot ----------------------------------------------------------- */
+        function boot() {
+            document.body.append(progress, topBtn, toastHost);
+            mountPalette();
+            mountNavControls();
+            mountHero();
+            mountReveal();
+            mountSpotlight();
+            mountCounters();
+            mountRail();
+            mountKeys();
+            wrapShowPage();
+            setTheme(currentTheme(), false);
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
+
+            // Resources render asynchronously; re-mark reveal targets and drop
+            // the palette's cached index once they exist.
+            setTimeout(() => {
+                palIndexCache = null;
+                if (window.d1MarkReveal) window.d1MarkReveal(document);
+            }, 1200);
+        }
+
+        if (document.readyState === "complete") boot();
+        else window.addEventListener("load", boot);
+
+        window.d1 = { toast, toggleTheme, openPalette, openSheet };
+    })();
     </script>
 </body>
 </html>

@@ -70,6 +70,7 @@ function buildMenu(sendCommand) {
                 { type: "separator" },
                 { label: "Save", accelerator: "CmdOrCtrl+S", click: cmd("file.save") },
                 { label: "Save As…", accelerator: "CmdOrCtrl+Shift+S", click: cmd("file.saveAs") },
+                { label: "Push to Git…", accelerator: "CmdOrCtrl+Shift+G", click: cmd("flow.pushGit") },
                 // Matches flow/js/exports.js's Mod+Shift+I import chord exactly.
                 { label: "Import…", accelerator: "CmdOrCtrl+Shift+I", click: cmd("file.import") },
                 {
