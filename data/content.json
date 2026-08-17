@@ -19,7 +19,7 @@
       "role": "Co-Founder & Leader",
       "image": "assets/max-m.png",
       "blurb": "Specialist in nieche philosophies and empirical evidence analysis.",
-      "depth": "Max McBride is a sophomore VLD debater at Isidore Newman School in New Orleans, Louisiana. He specializes in philosophical debate (Kant, Hobbes, Nietzsche, Mitleid arguments, Determinism and Skep, etc\u2026) along with more traditional or lay debate, both locally and nationally. Max values personal ambition and contribution."
+      "depth": "Max McBride is a sophomore at Isidore Newman School in New Orleans, Louisiana, going into his fifth year of Lincoln-Douglas debate. His interests are centered around policy and K debate, particularly counterplan competition, the Cap K, and the Nietzsche K. A frequent competitor both on the national circuit and locally, Max enjoys exploring the intersection of philosophical argumentation and more traditional policy-oriented debate. Outside of debate, Max plays the trumpet, works both as a student ambassador and at a snowball stand, and also enjoys biking and watching football—Go Pack Go!"
     },
     {
       "name": "Arjun Gupta",
@@ -328,6 +328,14 @@
           "keywords": "evidence search, carding, preparation"
         },
         {
+          "title": "Haku",
+          "desc": "Card search engine indexing 3.5 million openCaselist cards (2013–2026) across high school and college policy, LD, PF, and NFA-LD. Filter by year, event, school, team, side, tournament, and round.",
+          "link": "https://haku.cards/",
+          "type": "external",
+          "icon": "fas fa-search",
+          "keywords": "haku, search, cards, evidence, opencaselist, logos"
+        },
+        {
           "title": "Logos Debate",
           "desc": "A modern platform providing high-quality drills, evidence sets, and prep materials for LD and PF debaters.",
           "link": "https://logos-debate.netlify.app/",
@@ -370,26 +378,42 @@
         {
           "title": "High School PF Caselist",
           "desc": "Dedicated Public Forum disclosure wiki tracking team positions and citations nationally.",
-          "link": "https://hspf.opencaselist.com/",
+          "link": "https://opencaselist.com/hspf",
           "type": "external",
           "icon": "fas fa-link",
           "keywords": "pf, caselist, disclosure, opencaselist"
         },
         {
-          "title": "College Policy Caselist",
-          "desc": "Historical and active disclosure wiki for intercollegiate policy teams (NDT/CEDA).",
-          "link": "https://caselist.opencaselist.com/",
+          "title": "High School LD Caselist",
+          "desc": "High school Lincoln-Douglas disclosure wiki for cites, round reports, and open-source files.",
+          "link": "https://opencaselist.com/hsld",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "policy, caselist, college, disclosure"
+          "keywords": "ld, caselist, disclosure, opencaselist"
+        },
+        {
+          "title": "High School Policy Caselist",
+          "desc": "High school policy (CX) disclosure wiki — the main place to download camp and team files.",
+          "link": "https://opencaselist.com/hspolicy",
+          "type": "external",
+          "icon": "fas fa-link",
+          "keywords": "policy, caselist, disclosure, opencaselist, cx"
+        },
+        {
+          "title": "College Policy Caselist",
+          "desc": "NDT/CEDA college policy disclosure wiki. This is where high schoolers download college files.",
+          "link": "https://opencaselist.com/ndtceda",
+          "type": "external",
+          "icon": "fas fa-link",
+          "keywords": "policy, caselist, college, disclosure, ndt, ceda, files"
         },
         {
           "title": "College LD Caselist",
-          "desc": "Intercollegiate NFA-LD disclosure platform for single-affirmative policy-style debate.",
-          "link": "https://ld.opencaselist.com/",
+          "desc": "NFA-LD college disclosure wiki for single-affirmative policy-style Lincoln-Douglas files.",
+          "link": "https://opencaselist.com/nfald",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "ld, caselist, college, disclosure"
+          "keywords": "ld, caselist, college, disclosure, nfa, files"
         },
         {
           "title": "Cross-X.com Archives",
@@ -409,107 +433,107 @@
         },
         {
           "title": "Harvard Debate Case Archive",
-          "desc": "Public repository of historical demonstration cases and educational evidence sets.",
-          "link": "https://harvarddebate.org/cases",
+          "desc": "Harvard's NDT/CEDA disclosure page on openCaselist — download college round files and cites.",
+          "link": "https://opencaselist.com/ndtceda/Harvard",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "harvard, cases, archive, policy"
+          "keywords": "harvard, cases, archive, policy, college files"
         },
         {
           "title": "Northwestern Debate File Archive",
-          "desc": "University-hosted public archive of policy debate research and topic analysis files.",
-          "link": "https://www.northwestern.edu/debate/files",
+          "desc": "Northwestern's college policy disclosure page on openCaselist. Camp files also go through Open Evidence.",
+          "link": "https://opencaselist.com/ndtceda/Northwestern",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "northwestern, files, policy, archive"
+          "keywords": "northwestern, files, policy, archive, college files"
         },
         {
           "title": "Michigan State Debate File Vault",
-          "desc": "Open repository distributing high school policy topic starter packs and evidence files.",
-          "link": "https://msudebate.com/files",
+          "desc": "Michigan State's college policy disclosure page. SDI camp files are released through Open Evidence.",
+          "link": "https://opencaselist.com/ndtceda/MichiganState",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "msu, files, policy, evidence"
+          "keywords": "msu, files, policy, evidence, college files"
         },
         {
           "title": "Emory Debate File Repository",
-          "desc": "Collegiate policy archive providing accessible research guides and historical case logs.",
-          "link": "https://www.emory.edu/debate/research",
+          "desc": "Emory's NDT/CEDA disclosure page on openCaselist — Barkley Forum college files and cites.",
+          "link": "https://opencaselist.com/ndtceda/Emory",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "emory, files, policy, research"
+          "keywords": "emory, files, policy, research, college files"
         },
         {
           "title": "Kentucky Debate File Portal",
-          "desc": "Research distribution hub maintained by the University of Kentucky debate program.",
-          "link": "https://ci.uky.edu/debate/files",
+          "desc": "University of Kentucky's college policy disclosure page on openCaselist.",
+          "link": "https://opencaselist.com/ndtceda/Kentucky",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "kentucky, files, policy, toc"
+          "keywords": "kentucky, files, policy, toc, college files"
         },
         {
           "title": "Berkeley Debate Case Library",
-          "desc": "Curated archive of West Coast policy and parliamentary debate case outlines.",
-          "link": "https://berkeleydebate.com/library",
+          "desc": "Cal Berkeley's college policy disclosure page on openCaselist.",
+          "link": "https://opencaselist.com/ndtceda/Berkeley",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "berkeley, cases, policy, archive"
+          "keywords": "berkeley, cases, policy, archive, college files"
         },
         {
           "title": "Dartmouth Debate Open Research",
-          "desc": "Summer institute evidence archive and policy research documentation portal.",
-          "link": "https://dartmouth.edu/~debate/research",
+          "desc": "Dartmouth's college policy disclosure page. DDI camp files are released through Open Evidence.",
+          "link": "https://opencaselist.com/ndtceda/Dartmouth",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "dartmouth, research, policy, archive"
+          "keywords": "dartmouth, research, policy, archive, college files"
         },
         {
           "title": "Texas Debate Research Archive",
-          "desc": "High school and college policy debate evidence database hosted by UT Austin.",
-          "link": "https://utdebate.com/research",
+          "desc": "UT Austin's college policy disclosure page on openCaselist.",
+          "link": "https://opencaselist.com/ndtceda/Texas",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "texas, ut, policy, research"
+          "keywords": "texas, ut, policy, research, college files"
         },
         {
           "title": "Cornell Debate Evidence Base",
-          "desc": "International parliamentary and British Parliamentary motion background briefs.",
-          "link": "https://speechanddebate.cornell.edu/files",
+          "desc": "Cornell's college policy disclosure page on openCaselist.",
+          "link": "https://opencaselist.com/ndtceda/Cornell",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "cornell, bp, parliamentary, briefs"
+          "keywords": "cornell, policy, college files, disclosure"
         },
         {
           "title": "Vermont Debate Central",
-          "desc": "Historical portal providing evidence sets, videos, and research guides across formats.",
-          "link": "https://uvm.edu/~debate/central",
+          "desc": "UVM Lawrence Debate Union homepage. College files live on the NDT/CEDA openCaselist.",
+          "link": "https://www.uvm.edu/cas/english/lawrence-debate-union",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "vermont, evidence, research, archive"
+          "keywords": "vermont, uvm, evidence, research, archive"
         },
         {
           "title": "Stanford Forensic Institute Archives",
-          "desc": "Archives of evidence files produced during summer SNFI research labs.",
-          "link": "https://snfi.stanford.edu/archive",
+          "desc": "Stanford National Forensic Institute (SNFI). Camp files are released through the NDCA Open Evidence project.",
+          "link": "https://snfi.stanford.edu/",
           "type": "external",
           "icon": "fas fa-link",
           "keywords": "snfi, stanford, camp files, archive"
         },
         {
           "title": "George Mason Debate File Vault",
-          "desc": "Public policy research files focusing on urban development, environmental, and defense topics.",
-          "link": "https://gmu.edu/org/debate/files",
+          "desc": "George Mason's college policy disclosure page on openCaselist.",
+          "link": "https://opencaselist.com/ndtceda/GeorgeMason",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "gmu, policy, files, research"
+          "keywords": "gmu, policy, files, research, college files"
         },
         {
           "title": "Weber State Debate Files",
-          "desc": "Intercollegiate NFA-LD and policy debate research distribution platform.",
-          "link": "https://weber.edu/debate/files",
+          "desc": "Weber State's NFA-LD disclosure page on openCaselist — college LD files and cites.",
+          "link": "https://opencaselist.com/nfald/WeberState",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "weber, ld, policy, files"
+          "keywords": "weber, ld, policy, files, college files, nfa"
         },
         {
           "title": "Cardr Search Platform",
@@ -521,11 +545,11 @@
         },
         {
           "title": "OpenEv Search Engine",
-          "desc": "Raw index of downloadable file archives from summer camps spanning 2005 to the present.",
-          "link": "https://openev.s3.amazonaws.com/",
+          "desc": "NDCA Open Evidence — downloadable camp files from summer institutes, hosted on openCaselist.",
+          "link": "https://opencaselist.com/openev",
           "type": "external",
           "icon": "fas fa-link",
-          "keywords": "open evidence, search, camp files"
+          "keywords": "open evidence, search, camp files, ndca, openev"
         },
         {
           "title": "Ideastream Debate Search",
@@ -1423,6 +1447,38 @@
           "type": "internal",
           "icon": "fab fa-discord",
           "keywords": "discord, community, chat, social"
+        },
+        {
+          "title": "Forensics Debate Discord",
+          "desc": "The main multi-event debate Discord covering Policy, LD, and PF — practice rounds, strategy, and circuit chat.",
+          "link": "https://discord.gg/forensics",
+          "type": "external",
+          "icon": "fab fa-discord",
+          "keywords": "discord, policy, ld, pf, community, practice rounds, forensics"
+        },
+        {
+          "title": "Public Forum Debate Discord",
+          "desc": "The largest PF Discord (8,000+ members) for sharing prep, running practice rounds, and talking the circuit.",
+          "link": "https://discord.gg/D2GTN7B",
+          "type": "external",
+          "icon": "fab fa-discord",
+          "keywords": "discord, pf, public forum, community, practice rounds"
+        },
+        {
+          "title": "Equality in Forensics Discord",
+          "desc": "Student-run nonprofit Discord for free tournaments, coaching, and an accessible speech and debate community.",
+          "link": "https://discord.gg/hJVweXuWgS",
+          "type": "external",
+          "icon": "fab fa-discord",
+          "keywords": "discord, equality in forensics, community, tournaments, equity"
+        },
+        {
+          "title": "Congressional Debate Discord",
+          "desc": "Community Discord for high school Congressional Debate — chambers, legislation, and practice.",
+          "link": "https://discord.gg/PPWSyZ3meR",
+          "type": "external",
+          "icon": "fab fa-discord",
+          "keywords": "discord, congress, congressional debate, community"
         },
         {
           "title": "CDA Financial Aid",
@@ -2987,7 +3043,7 @@
         {
           "title": "NDCA Open Evidence Project",
           "desc": "Free annual repository of evidence files produced by major summer debate institutes.",
-          "link": "https://openev.debatecoaches.org/",
+          "link": "https://opencaselist.com/openev",
           "type": "external",
           "icon": "fas fa-link",
           "keywords": "open evidence, ndca, camp files"
