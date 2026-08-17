@@ -4,6 +4,8 @@
 
 User-agent: *
 Allow: /
+# Electron source for the Cascade desktop app — not a web page.
+Disallow: /desktop/
 
 # Major search engines (default behavior — listed for clarity)
 User-agent: Googlebot

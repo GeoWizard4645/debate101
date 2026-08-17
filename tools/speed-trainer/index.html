@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speed Trainer | Debate 101</title>
+<meta name="description" content="Spreading practice and delivery drills with a live WPM meter, clarity scoring, and progress tracking — a free tool from Debate 101.">
+<meta name="theme-color" content="#051C2C">
+<link rel="icon" type="image/png" href="../../assets/logo.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+    :root{
+        --navy:#051C2C;
+        --accent:#0072b1;
+        --hairline:#e5e5e5;
+        --paper:#fcfcfc;
+        --miss:#b3261e;
+        --miss-bg:#fdecea;
+        --good:#1a7f4b;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+        margin:0;
+        font-family:'Inter',sans-serif;
+        color:#1a1a1a;
+        background:#fff;
+        -webkit-font-smoothing:antialiased;
+    }
+    a{ color:inherit; }
+    button{ font-family:inherit; }
+
+    .serif{ font-family:'Playfair Display',serif; }
+
+    .eyebrow{
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:.2em;
+        text-transform:uppercase;
+        color:var(--accent);
+        margin:0 0 .6rem 0;
+    }
+    .eyebrow.muted{ color:#9aa3ab; }
+
+    .wrap{ max-width:1180px; margin:0 auto; padding:0 1.5rem; }
+
+    /* ---------- header ---------- */
+    header.site-header{
+        border-bottom:1px solid var(--hairline);
+        padding:1.1rem 0;
+        position:sticky; top:0; background:rgba(255,255,255,.97);
+        backdrop-filter:blur(8px);
+        z-index:40;
+    }
+    header.site-header .wrap{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .wordmark{
+        display:flex; align-items:center; gap:.6rem;
+        text-decoration:none; color:var(--navy);
+        font-weight:700; font-size:1.25rem; letter-spacing:-.03em;
+    }
+    .wordmark img{ height:28px; width:auto; }
+    .wordmark span.light{ font-weight:300; }
+    .crumb{
+        font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.18em; color:#9aa3ab;
+    }
+    .crumb strong{ color:var(--navy); }
+    .back-link{
+        font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.15em;
+        text-decoration:none; color:var(--navy); border:1px solid var(--hairline); padding:.55rem 1rem;
+        transition:all .2s ease; white-space:nowrap;
+    }
+    .back-link:hover{ border-color:var(--accent); color:var(--accent); }
+
+    /* ---------- intro ---------- */
+    .intro{ padding:3.2rem 0 2rem; border-bottom:1px solid var(--hairline); }
+    .intro h1{ font-size:clamp(2rem,4.5vw,3rem); margin:0 0 .9rem; color:var(--navy); font-weight:700; }
+    .intro .lede{ max-width:62ch; color:#4a5560; font-size:1.02rem; line-height:1.7; margin:0 0 1.4rem; }
+
+    .notice{
+        border:1px solid var(--hairline); border-left:3px solid var(--accent);
+        background:var(--paper); padding:1rem 1.2rem; font-size:.83rem; line-height:1.6; color:#3a4652;
+        max-width:72ch;
+    }
+    .notice strong{ color:var(--navy); }
+    .notice.warn{ border-left-color:var(--miss); }
+    .notice code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85em; background:#f1f5f9; padding:.1em .35em; }
+
+    /* ---------- workspace layout ---------- */
+    .workspace{ display:grid; grid-template-columns:1fr 320px; gap:2.2rem; padding:2.4rem 0; align-items:start; }
+    @media (max-width:980px){ .workspace{ grid-template-columns:1fr; } }
+
+    .panel{
+        border:1px solid var(--hairline); background:#fff; padding:1.4rem;
+    }
+    .panel + .panel{ margin-top:1.2rem; }
+
+    label.field{ display:block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.15em; color:var(--navy); margin-bottom:.4rem; }
+    select, textarea, input[type="text"], input[type="number"]{
+        font-family:'Inter',sans-serif; border:1px solid var(--hairline); padding:.6rem .7rem;
+        font-size:.9rem; color:#1a1a1a; background:#fff; width:100%;
+    }
+    select:focus, textarea:focus, input:focus, button:focus, [tabindex]:focus{
+        outline:2px solid var(--accent); outline-offset:2px;
+    }
+    textarea{ resize:vertical; min-height:110px; line-height:1.55; }
+
+    .controls-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    @media (max-width:560px){ .controls-row{ grid-template-columns:1fr; } }
+
+    .drill-instructions{
+        margin:1rem 0 0; padding:.85rem 1rem; background:var(--paper); border:1px solid var(--hairline);
+        font-size:.85rem; line-height:1.6; color:#3a4652;
+    }
+    .drill-instructions strong{ color:var(--navy); }
+
+    /* ---------- reading pane ---------- */
+    .reading-pane-wrap{ position:relative; margin-top:1.2rem; }
+    .reading-pane{
+        border:1px solid var(--hairline); background:#fff;
+        height:340px; overflow-y:auto; padding:1.6rem 1.8rem;
+        font-family:'Playfair Display',serif; font-size:1.5rem; line-height:1.9; color:#1a1a1a;
+        scroll-behavior:auto;
+    }
+    .reading-pane .w{ transition:background-color .2s ease, color .2s ease; padding:.02em .06em; border-radius:2px; }
+    .reading-pane .w.word-missed{ background:var(--miss-bg); color:var(--miss); text-decoration:underline; text-decoration-color:var(--miss); text-decoration-thickness:2px; }
+    .reading-pane .w.word-cursor{ background:#fff3cd; }
+    .reading-pane .twister-line{ display:block; margin-bottom:.5em; }
+
+    .breath-overlay{
+        position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+        background:rgba(255,255,255,.94); flex-direction:column; gap:1rem;
+    }
+    .breath-overlay[hidden]{ display:none; }
+    .breath-circle{
+        width:120px; height:120px; border-radius:50%; border:2px solid var(--accent);
+        display:flex; align-items:center; justify-content:center; background:#eaf4fa;
+        transition:transform 3s ease-in-out; font-size:.72rem; font-weight:800; text-transform:uppercase;
+        letter-spacing:.12em; color:var(--navy);
+    }
+    .breath-circle.expand{ transform:scale(1.5); }
+    .breath-overlay p{ font-size:.8rem; color:#4a5560; max-width:34ch; text-align:center; margin:0; }
+
+    .ladder-banner{
+        position:absolute; top:.6rem; left:.6rem; right:.6rem;
+        background:var(--navy); color:#fff; font-size:.72rem; font-weight:700; letter-spacing:.05em;
+        padding:.5rem .8rem; display:flex; justify-content:space-between; gap:.6rem; flex-wrap:wrap;
+    }
+    .ladder-banner .broke{ color:#ff9d8a; }
+
+    .twister-banner{
+        position:absolute; top:.6rem; right:.6rem;
+        background:var(--accent); color:#fff; font-size:.72rem; font-weight:700;
+        padding:.4rem .7rem;
+    }
+
+    /* ---------- transport ---------- */
+    .transport{ display:flex; flex-wrap:wrap; align-items:center; gap:.8rem; margin-top:1.2rem; }
+    .btn{
+        border:1px solid var(--navy); background:var(--navy); color:#fff; padding:.7rem 1.3rem;
+        font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.14em; cursor:pointer;
+        transition:all .2s ease; display:inline-flex; align-items:center; gap:.5rem;
+    }
+    .btn:hover:not(:disabled){ background:var(--accent); border-color:var(--accent); }
+    .btn:disabled{ opacity:.35; cursor:not-allowed; }
+    .btn.ghost{ background:#fff; color:var(--navy); }
+    .btn.ghost:hover:not(:disabled){ background:var(--navy); color:#fff; }
+    .btn.small{ padding:.5rem .9rem; font-size:.65rem; }
+    .btn.danger{ border-color:var(--miss); background:#fff; color:var(--miss); }
+    .btn.danger:hover:not(:disabled){ background:var(--miss); color:#fff; }
+
+    .mode-toggle{ display:flex; gap:1rem; font-size:.78rem; color:#3a4652; align-items:center; }
+    .mode-toggle label{ display:flex; align-items:center; gap:.4rem; cursor:pointer; }
+    .teleprompter-check{ display:flex; align-items:center; gap:.4rem; font-size:.78rem; color:#3a4652; cursor:pointer; }
+
+    .status-line{ margin-top:.7rem; font-size:.78rem; color:#6b7680; min-height:1.2em; }
+    .status-line strong{ color:var(--navy); }
+    .status-line.error{ color:var(--miss); }
+
+    /* ---------- meter cards ---------- */
+    .wpm-big{ font-family:'Playfair Display',serif; font-size:3.4rem; font-weight:700; color:var(--navy); margin:0; line-height:1; }
+    .wpm-sub{ font-size:.75rem; color:#6b7680; margin:.3rem 0 1rem; }
+    svg.sparkline{ width:100%; height:auto; display:block; }
+
+    .band-inputs{ display:flex; gap:.8rem; margin-top:1rem; }
+    .band-inputs label{ font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#6b7680; display:block; }
+    .band-inputs input{ margin-top:.3rem; width:100%; }
+
+    .clarity-big{ font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:700; color:var(--navy); margin:0; }
+    .clarity-note{ font-size:.75rem; color:#6b7680; margin:.4rem 0 0; line-height:1.5; }
+
+    .volume-bar{ height:12px; border:1px solid var(--hairline); background:#f4f4f4; overflow:hidden; margin-top:.4rem; }
+    .volume-fill{ height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--navy)); transition:width .08s linear; }
+    .pause-badge{ display:inline-block; margin-top:.6rem; font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:var(--miss); background:var(--miss-bg); padding:.3rem .6rem; }
+    .pause-badge[hidden]{ display:none; }
+
+    .metronome-card label{ font-size:.75rem; color:#3a4652; display:flex; align-items:center; gap:.6rem; }
+    .metronome-card input[type="range"]{ flex:1; }
+    .metronome-card #bpmValue{ font-weight:700; color:var(--navy); width:3ch; text-align:right; }
+    .metronome-card .btn{ margin-top:.9rem; width:100%; justify-content:center; }
+
+    /* ---------- history ---------- */
+    .history-section{ border-top:1px solid var(--hairline); padding:3rem 0; }
+    .history-section h2{ font-size:1.6rem; color:var(--navy); margin:0 0 .3rem; }
+    .history-section .lede{ color:#6b7680; font-size:.9rem; margin:0 0 1.6rem; max-width:60ch; }
+
+    .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.6rem; }
+    @media (max-width:760px){ .stat-grid{ grid-template-columns:repeat(2,1fr); } }
+    .stat-card{ border:1px solid var(--hairline); padding:1.1rem; text-align:left; }
+    .stat-card .num{ font-family:'Playfair Display',serif; font-size:1.9rem; color:var(--navy); font-weight:700; }
+    .stat-card .lbl{ font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; color:#9aa3ab; margin-top:.3rem; }
+
+    .chart-panel{ border:1px solid var(--hairline); padding:1.4rem; margin-bottom:1.6rem; }
+    .chart-legend{ display:flex; gap:1.4rem; font-size:.72rem; color:#4a5560; margin-top:.6rem; }
+    .chart-legend span{ display:inline-flex; align-items:center; gap:.4rem; }
+    .swatch{ width:10px; height:10px; display:inline-block; }
+
+    table.history-table{ width:100%; border-collapse:collapse; font-size:.82rem; }
+    table.history-table th, table.history-table td{ text-align:left; padding:.6rem .7rem; border-bottom:1px solid var(--hairline); }
+    table.history-table th{ font-size:9px; text-transform:uppercase; letter-spacing:.1em; color:#9aa3ab; font-weight:800; }
+    .table-wrap{ overflow-x:auto; border:1px solid var(--hairline); }
+    .history-actions{ display:flex; gap:.8rem; margin-top:1.2rem; flex-wrap:wrap; }
+    .empty-note{ font-size:.85rem; color:#9aa3ab; padding:1.4rem; text-align:center; border:1px dashed var(--hairline); }
+
+    /* ---------- footer ---------- */
+    footer{ border-top:1px solid var(--hairline); padding:3rem 0 2.4rem; margin-top:1rem; }
+    footer .wrap{ display:flex; flex-direction:column; gap:1.2rem; align-items:flex-start; }
+    footer .wordmark{ font-size:1.1rem; }
+    footer .foot-links{ display:flex; gap:1.2rem; flex-wrap:wrap; font-size:.8rem; }
+    footer .foot-links a{ text-decoration:none; color:#6b7680; }
+    footer .foot-links a:hover{ color:var(--accent); }
+    footer .copy{ font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.18em; color:#9aa3ab; }
+
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    .pill{ display:inline-block; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; padding:.25rem .55rem; border:1px solid var(--hairline); color:#6b7680; }
+    .pill.on{ border-color:var(--good); color:var(--good); }
+    .pill.off{ border-color:var(--miss); color:var(--miss); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="wrap">
+        <a class="wordmark" href="../../index.html">
+            <img src="../../assets/logo.PNG" alt="" onerror="this.style.display='none'">
+            DEBATE<span class="light">101</span>
+        </a>
+        <span class="crumb">Tools / <strong>Speed Trainer</strong></span>
+        <a class="back-link" href="../../index.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Debate 101</a>
+    </div>
+</header>
+
+<main>
+    <section class="intro">
+        <div class="wrap">
+            <p class="eyebrow">Delivery Lab</p>
+            <h1 class="serif">Speed Trainer</h1>
+            <p class="lede">Spreading practice with a live words-per-minute meter, an honest clarity score, five timed drills, and a session history that tracks your progress. Everything runs in this browser tab.</p>
+            <div class="notice" id="supportNotice">
+                <strong>How this works.</strong> Microphone mode uses your browser's built-in speech recognition (the Web Speech API) to count recognized words and score clarity. In Chrome and Edge, that means your audio is sent to the browser vendor's speech service for transcription — the same thing that happens when you use voice search — <strong>this page itself never uploads, transmits, or stores your audio anywhere.</strong> Scores and history stay in this browser's local storage only. If speech recognition isn't available, Manual mode (tap Space at each line break) always works, no microphone required.
+            </div>
+        </div>
+    </section>
+
+    <section class="workspace">
+        <div class="wrap" style="display:contents;">
+        <div class="reading-column">
+
+            <div class="panel">
+                <div class="controls-row">
+                    <div>
+                        <label class="field" for="passageSelect">Passage</label>
+                        <select id="passageSelect">
+                            <option value="philosophical">Dense — Philosophical</option>
+                            <option value="policy">Dense — Policy Card (numbers &amp; names)</option>
+                            <option value="narrative">Plain — Narrative</option>
+                            <option value="twisters">Tongue Twister Set</option>
+                            <option value="custom">Paste your own…</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="field" for="drillSelect">Drill</label>
+                        <select id="drillSelect">
+                            <option value="free">Free Practice</option>
+                            <option value="backwards">Backwards Words</option>
+                            <option value="overenunciation">Overenunciation</option>
+                            <option value="doublebreath">Double-Breath Pacing</option>
+                            <option value="ladder">Ladder (escalating WPM)</option>
+                            <option value="pendrill">Pen Drill / Tongue Twisters</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="customPassage" hidden aria-label="Your own passage" placeholder="Paste or type a passage to practice with…"></textarea>
+                <p class="drill-instructions" id="drillInstructions"></p>
+            </div>
+
+            <div class="reading-pane-wrap">
+                <div class="reading-pane" id="readingPane" tabindex="0" aria-label="Practice passage text" aria-live="off"></div>
+                <div class="breath-overlay" id="breathOverlay" hidden>
+                    <div class="breath-circle" id="breathCircle"><span id="breathLabel">Inhale</span></div>
+                    <p id="breathHint">Breathe in for the low, ride it out through the tag line.</p>
+                </div>
+            </div>
+
+            <div class="panel" style="margin-top:1.2rem;">
+                <div class="transport">
+                    <button class="btn" id="startBtn"><i class="fas fa-play" aria-hidden="true"></i> Start <span class="sr-only">(or press Space)</span></button>
+                    <button class="btn ghost" id="stopBtn" disabled><i class="fas fa-stop" aria-hidden="true"></i> Stop</button>
+                    <button class="btn ghost" id="resetBtn"><i class="fas fa-rotate-left" aria-hidden="true"></i> Reset <span class="sr-only">(or press Esc)</span></button>
+                    <div class="mode-toggle" role="radiogroup" aria-label="Measurement mode">
+                        <label><input type="radio" name="mode" value="mic" id="modeMic" checked> Microphone</label>
+                        <label><input type="radio" name="mode" value="manual" id="modeManual"> Manual (tap Space)</label>
+                    </div>
+                    <label class="teleprompter-check"><input type="checkbox" id="teleprompterToggle"> Teleprompter scroll</label>
+                </div>
+                <p class="status-line" id="statusLine" aria-live="polite">Ready. Press <strong>Start</strong> or the spacebar to begin.</p>
+            </div>
+        </div>
+
+        <aside class="meter-column">
+            <div class="panel">
+                <p class="eyebrow">Live WPM</p>
+                <p class="wpm-big" id="wpmBig" aria-live="polite">0</p>
+                <p class="wpm-sub" id="wpmSub">0 words · 00:00 elapsed</p>
+                <svg class="sparkline" id="sparkline" viewBox="0 0 600 160" preserveAspectRatio="none" role="img" aria-label="Rolling words-per-minute over the session"></svg>
+                <div class="band-inputs">
+                    <label>Target low
+                        <input type="number" id="targetLow" value="250" min="50" max="600">
+                    </label>
+                    <label>Target high
+                        <input type="number" id="targetHigh" value="320" min="50" max="700">
+                    </label>
+                </div>
+            </div>
+
+            <div class="panel">
+                <p class="eyebrow">Clarity Score</p>
+                <p class="clarity-big" id="clarityBig" aria-live="polite">—</p>
+                <p class="clarity-note" id="clarityNote">Available in microphone mode once you stop a session — compares what was recognized against the source passage.</p>
+            </div>
+
+            <div class="panel">
+                <p class="eyebrow">Volume &amp; Pauses</p>
+                <div class="volume-bar"><div class="volume-fill" id="volumeFill"></div></div>
+                <p class="pause-badge" id="pauseBadge" hidden>Paused</p>
+            </div>
+
+            <div class="panel metronome-card">
+                <p class="eyebrow">Metronome</p>
+                <label>BPM <input type="range" id="bpmRange" min="60" max="400" value="260" step="2"> <span id="bpmValue">260</span></label>
+                <button class="btn ghost" id="metronomeToggle"><i class="fas fa-drum" aria-hidden="true"></i> Start Metronome</button>
+            </div>
+        </aside>
+        </div>
+    </section>
+
+    <section class="history-section">
+        <div class="wrap">
+            <h2 class="serif">Progress</h2>
+            <p class="lede">Every completed session is logged to this browser's local storage under <code>d101.speed</code> — nothing leaves your device.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card"><div class="num" id="statBestWpm">—</div><div class="lbl">Best Avg WPM</div></div>
+                <div class="stat-card"><div class="num" id="statBestPeak">—</div><div class="lbl">Best Peak WPM</div></div>
+                <div class="stat-card"><div class="num" id="statBestClarity">—</div><div class="lbl">Best Clarity</div></div>
+                <div class="stat-card"><div class="num" id="statStreak">—</div><div class="lbl">Current Streak</div></div>
+            </div>
+
+            <div class="chart-panel">
+                <p class="eyebrow muted">WPM &amp; Clarity Over Time</p>
+                <svg class="sparkline" id="historyChart" viewBox="0 0 900 220" preserveAspectRatio="none" role="img" aria-label="Line chart of average WPM and clarity score across past sessions"></svg>
+                <div class="chart-legend">
+                    <span><i class="swatch" style="background:#0072b1;"></i> Avg WPM</span>
+                    <span><i class="swatch" style="background:#051C2C;"></i> Clarity %</span>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr><th>Date</th><th>Drill</th><th>Peak WPM</th><th>Avg WPM</th><th>Clarity</th><th>Duration</th></tr>
+                    </thead>
+                    <tbody id="historyTbody"></tbody>
+                </table>
+                <p class="empty-note" id="historyEmpty">No sessions logged yet. Finish a Start → Stop session to see it here.</p>
+            </div>
+
+            <div class="history-actions">
+                <button class="btn ghost small" id="exportBtn"><i class="fas fa-download" aria-hidden="true"></i> Export JSON</button>
+                <button class="btn danger small" id="clearBtn"><i class="fas fa-trash" aria-hidden="true"></i> Clear History</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="wrap">
+        <a class="wordmark" href="../../index.html">
+            <img src="../../assets/logo.PNG" alt="" onerror="this.style.display='none'" style="height:22px;">
+            DEBATE<span class="light">101</span>
+        </a>
+        <div class="foot-links">
+            <a href="../../index.html">Debate 101 Home</a>
+            <a href="https://discord.debate101.org" target="_blank" rel="noopener">Discord</a>
+            <a href="https://instagram.debate101.org" target="_blank" rel="noopener">Instagram</a>
+        </div>
+        <p class="copy">© 2026 DEBATE 101 COLLECTIVE — SPEED TRAINER RUNS ENTIRELY IN YOUR BROWSER</p>
+    </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================================
+   PASSAGE LIBRARY — original / public-domain practice text only.
+   ========================================================================= */
+var PASSAGES = {
+    philosophical:
+        "Consider the peculiar burden carried by any claim to certainty. To assert that a " +
+        "proposition is true is already to have staged a small courtroom inside the mind, in which " +
+        "evidence is weighed, alternatives dismissed, and a verdict rendered before the assertion " +
+        "ever reaches the lips. Yet the courtroom is rarely fair. It is staffed by habits of thought " +
+        "inherited long before the question was posed, and its rules of evidence bend, almost " +
+        "imperceptibly, toward whatever conclusion feels most comfortable to reach. The task, then, " +
+        "is not merely to gather better evidence, but to interrogate the courtroom itself: to ask who " +
+        "appointed its judge, who wrote its rules, and whether the verdict was decided before the " +
+        "trial began. This is uncomfortable work, because it requires holding one's own convictions " +
+        "at arm's length long enough to see them as contingent rather than necessary, as products of " +
+        "a particular history rather than eternal truths handed down from nowhere. Most people, most " +
+        "of the time, decline this discomfort. They mistake the fluency of a belief, the ease with " +
+        "which it comes to mind, for the truth of that belief, and they mistake the confidence with " +
+        "which a claim is delivered for evidence that the claim has earned its confidence. Genuine " +
+        "inquiry moves in the opposite direction: it treats fluency and confidence as suspects to be " +
+        "interrogated, not witnesses to be trusted, and it asks, again and again, what would have to " +
+        "be true for this conclusion to be wrong.",
+    policy:
+        "Practice card. Figures below are illustrative and invented for reading-speed drills, not " +
+        "evidence for any real debate round. The Global Infrastructure Council estimates that, across " +
+        "the forty-one countries it tracks, publicly financed transit projects begun after 2010 have " +
+        "run over budget by an average of 37 percent, with the largest overruns concentrated in the " +
+        "Hallstrom Corridor project in Denmark, the Meridian Line extension in Ontario, and the " +
+        "Tarrasch Bridge in Uruguay, each of which exceeded its original budget by more than 60 " +
+        "percent before completion. A 2019 review by the Larkspur Institute, drawing on data from the " +
+        "International Transit Authority, found that of 214 major projects surveyed, only 58, or " +
+        "roughly 27 percent, were delivered within 10 percent of their original timeline, and that " +
+        "delays beyond eighteen months correlated with a 4.2-fold increase in the likelihood of " +
+        "subsequent cost overruns exceeding 50 percent. Senator Elena Voss, testifying before the " +
+        "Subcommittee on Infrastructure Finance in March of 2021, argued that these figures understate " +
+        "the true cost, since they exclude financing charges, which a separate estimate placed at an " +
+        "additional 12 to 18 percent of total project cost across the sample period from 2005 to 2020.",
+    narrative:
+        "The morning fog sat low over the harbor, thick enough that the fishing boats seemed to float " +
+        "on nothing at all. Mara walked the length of the dock with her coffee going cold in her hands, " +
+        "counting the boats out of habit more than need. Fourteen this morning, same as yesterday, " +
+        "same as most mornings since the shipyard closed. She liked the quiet before the town woke up, " +
+        "the way sound traveled strangely through the mist, voices arriving before the people who " +
+        "spoke them. Somewhere behind her a gull complained about something only gulls understood, and " +
+        "further off a bell buoy rang out of time with the swell. She had grown up on this dock, had " +
+        "learned to tie knots before she learned to tie her shoes, and even now, older and mostly " +
+        "indoors, she came back most mornings just to stand here and watch the water do what it had " +
+        "always done. It did not care whether the shipyard was open. It did not care whether she had " +
+        "somewhere else to be. That, she thought, was probably the whole point of coming.",
+    twisters: null /* built from TWISTERS below */
+};
+
+var TWISTERS = [
+    "Peter Piper picked a peck of pickled peppers.",
+    "She sells seashells by the seashore.",
+    "How much wood would a woodchuck chuck if a woodchuck could chuck wood?",
+    "Red leather, yellow leather, red leather, yellow leather.",
+    "Unique New York, unique New York, unique New York.",
+    "The sixth sick sheikh's sixth sheep's sick.",
+    "Betty Botter bought some butter, but she said the butter's bitter.",
+    "Fuzzy Wuzzy was a bear, Fuzzy Wuzzy had no hair.",
+    "Six slippery snails slid slowly seaward.",
+    "A proper copper coffee pot."
+];
+PASSAGES.twisters = TWISTERS.join(" ");
+
+var DRILLS = {
+    free: {
+        name: "Free Practice",
+        instructions: "Read the passage at your own pace. Watch the live WPM meter and try to stay inside your target band."
+    },
+    backwards: {
+        name: "Backwards Words",
+        instructions: "The passage below is reversed word-by-word. Read it exactly as shown, right to left in meaning but left to right on the page. This breaks the habit of reading ahead on autopilot and forces real word-by-word control."
+    },
+    overenunciation: {
+        name: "Overenunciation",
+        instructions: "Exaggerate every consonant — pen-in-mouth if you have one handy. Speed doesn't matter this round; clarity does. Aim for a clarity score of 95% or higher when you stop."
+    },
+    doublebreath: {
+        name: "Double-Breath Pacing",
+        instructions: "Follow the breathing circle: inhale as it expands, exhale as it contracts. Time your reading so a full breath carries you through one line before you draw the next."
+    },
+    ladder: {
+        name: "Ladder",
+        instructions: "The target band escalates by 20 WPM every 30 seconds. Keep pace with each rung. The tool will tell you the moment you fall behind — that's your ceiling for today."
+    },
+    pendrill: {
+        name: "Pen Drill / Tongue Twisters",
+        instructions: "A rotating set of classic spreading warm-ups. Keep a pen crosswise in your mouth if you have one. Each twister rotates automatically; hit Next to cycle manually."
+    }
+};
+
+/* =========================================================================
+   DOM refs
+   ========================================================================= */
+var $ = function(id){ return document.getElementById(id); };
+var passageSelect = $('passageSelect');
+var customPassage = $('customPassage');
+var drillSelect = $('drillSelect');
+var drillInstructions = $('drillInstructions');
+var readingPane = $('readingPane');
+var breathOverlay = $('breathOverlay');
+var breathCircle = $('breathCircle');
+var breathLabel = $('breathLabel');
+var startBtn = $('startBtn');
+var stopBtn = $('stopBtn');
+var resetBtn = $('resetBtn');
+var modeMic = $('modeMic');
+var modeManual = $('modeManual');
+var teleprompterToggle = $('teleprompterToggle');
+var statusLine = $('statusLine');
+var wpmBig = $('wpmBig');
+var wpmSub = $('wpmSub');
+var sparkline = $('sparkline');
+var targetLowInput = $('targetLow');
+var targetHighInput = $('targetHigh');
+var clarityBig = $('clarityBig');
+var clarityNote = $('clarityNote');
+var volumeFill = $('volumeFill');
+var pauseBadge = $('pauseBadge');
+var bpmRange = $('bpmRange');
+var bpmValue = $('bpmValue');
+var metronomeToggle = $('metronomeToggle');
+var supportNotice = $('supportNotice');
+
+var statBestWpm = $('statBestWpm');
+var statBestPeak = $('statBestPeak');
+var statBestClarity = $('statBestClarity');
+var statStreak = $('statStreak');
+var historyChart = $('historyChart');
+var historyTbody = $('historyTbody');
+var historyEmpty = $('historyEmpty');
+var exportBtn = $('exportBtn');
+var clearBtn = $('clearBtn');
+
+/* =========================================================================
+   Feature detection
+   ========================================================================= */
+var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+var micSupported = !!SpeechRecognitionCtor;
+var hasGetUserMedia = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+var hasAudioContext = !!(window.AudioContext || window.webkitAudioContext);
+
+if (!micSupported) {
+    modeMic.disabled = true;
+    modeMic.checked = false;
+    modeManual.checked = true;
+    supportNotice.classList.add('warn');
+    supportNotice.innerHTML = '<strong>Heads up.</strong> This browser does not support the Web Speech API ' +
+        '(<code>SpeechRecognition</code>), so Microphone mode is unavailable here — try Chrome or Edge on desktop ' +
+        'for mic-based WPM and clarity scoring. <strong>Manual mode works in every browser:</strong> press ' +
+        'Start, tap Space at each line break as you read, and press Stop when you finish — nothing is ever ' +
+        'uploaded by this page either way.';
+}
+
+/* =========================================================================
+   State
+   ========================================================================= */
+var state = {
+    active: false,
+    mode: micSupported ? 'mic' : 'manual',
+    drill: 'free',
+    sourceWords: [],       // raw tokens as typed in the source passage (drill-adjusted order)
+    startTime: 0,
+    wordEvents: [],        // timestamps (ms since epoch) of each recognized/tapped word, for rolling WPM
+    lastCountedTotal: 0,
+    finalTranscript: '',
+    interimWordCount: 0,
+    wpmSamples: [],        // {t, wpm}
+    peakWpm: 0,
+    manualLineIdx: 0,
+    manualLineCumWords: [],
+    tickTimer: null,
+    ladderBrokeAt: null,
+    twisterIdx: 0,
+    twisterTimer: null,
+    breathTimer: null,
+    teleprompterRAF: null,
+    rmsPauseSince: null
+};
+
+var recognition = null;
+var audioCtx = null;
+var analyser = null;
+var micStream = null;
+var micRAF = null;
+
+var metronomeCtx = null;
+var metronomeOn = false;
+var metronomeTimer = null;
+var metronomeNextNoteTime = 0;
+
+/* =========================================================================
+   Helpers
+   ========================================================================= */
+function normalizeWord(w){
+    return (w || '').toLowerCase().replace(/[^a-z0-9']/g, '');
+}
+function tokenize(text){
+    return (text || '').trim().split(/\s+/).filter(Boolean);
+}
+function fmtTime(sec){
+    sec = Math.max(0, Math.round(sec));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+function fmtDate(iso){
+    var d = new Date(iso);
+    return d.toLocaleDateString(undefined, { month:'short', day:'numeric', year:'numeric' });
+}
+
+/* Word-level LCS alignment: returns Set of matched indices in `a` (source). */
+function lcsAlign(a, b){
+    var n = a.length, m = b.length;
+    if (n === 0 || m === 0) return new Set();
+    // Guard pathological sizes (very long free-run mic sessions).
+    if (m > 1200) b = b.slice(m - 1200), m = 1200;
+    var dp = [];
+    for (var i = 0; i <= n; i++) dp.push(new Uint16Array(m + 1));
+    for (i = 1; i <= n; i++){
+        for (var j = 1; j <= m; j++){
+            if (a[i-1] && a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1] + 1;
+            else dp[i][j] = dp[i-1][j] >= dp[i][j-1] ? dp[i-1][j] : dp[i][j-1];
+        }
+    }
+    var matched = new Set();
+    i = n; var j = m;
+    while (i > 0 && j > 0){
+        if (a[i-1] === b[j-1]){ matched.add(i-1); i--; j--; }
+        else if (dp[i-1][j] >= dp[i][j-1]) i--; else j--;
+    }
+    return matched;
+}
+
+/* =========================================================================
+   Passage / drill wiring
+   ========================================================================= */
+function currentBasePassageText(){
+    if (passageSelect.value === 'custom') return customPassage.value || '';
+    return PASSAGES[passageSelect.value] || '';
+}
+
+function buildDisplayWords(){
+    var drill = state.drill;
+    if (drill === 'pendrill'){
+        return tokenize(TWISTERS[state.twisterIdx % TWISTERS.length]);
+    }
+    var base = tokenize(currentBasePassageText());
+    if (drill === 'backwards') return base.slice().reverse();
+    return base;
+}
+
+function renderPassage(){
+    state.sourceWords = buildDisplayWords();
+    var frag = document.createDocumentFragment();
+    state.sourceWords.forEach(function(word, idx){
+        var span = document.createElement('span');
+        span.className = 'w';
+        span.id = 'w-' + idx;
+        span.textContent = word;
+        frag.appendChild(document.createTextNode(idx === 0 ? '' : ' '));
+        frag.appendChild(span);
+    });
+    readingPane.innerHTML = '';
+    readingPane.appendChild(frag);
+    readingPane.scrollTop = 0;
+}
+
+function updateDrillInstructions(){
+    var d = DRILLS[state.drill];
+    drillInstructions.innerHTML = '<strong>' + d.name + '.</strong> ' + d.instructions;
+}
+
+function refreshPassageAndDrillUI(){
+    customPassage.hidden = passageSelect.value !== 'custom';
+    updateDrillInstructions();
+    breathOverlay.hidden = state.drill !== 'doublebreath' || !state.active;
+    renderPassage();
+}
+
+passageSelect.addEventListener('change', function(){
+    if (state.active) stopSession(true);
+    refreshPassageAndDrillUI();
+});
+customPassage.addEventListener('input', function(){
+    if (passageSelect.value === 'custom' && !state.active) renderPassage();
+});
+drillSelect.addEventListener('change', function(){
+    if (state.active) stopSession(true);
+    state.drill = drillSelect.value;
+    refreshPassageAndDrillUI();
+});
+
+modeMic.addEventListener('change', function(){ if (modeMic.checked) state.mode = 'mic'; });
+modeManual.addEventListener('change', function(){ if (modeManual.checked) state.mode = 'manual'; });
+
+/* =========================================================================
+   Sparkline (session) — hand-drawn inline SVG
+   ========================================================================= */
+function drawSparkline(){
+    var samples = state.wpmSamples.slice(-180);
+    var W = 600, H = 160, pad = 6;
+    var maxScale = Math.max(500, state.peakWpm + 60);
+    var tLow = parseFloat(targetLowInput.value) || 0;
+    var tHigh = parseFloat(targetHighInput.value) || 0;
+
+    function y(v){ return H - pad - (Math.min(v, maxScale) / maxScale) * (H - pad * 2); }
+
+    var svg = '';
+    // target band
+    if (tHigh > tLow){
+        svg += '<rect x="0" y="' + y(tHigh) + '" width="' + W + '" height="' + (y(tLow) - y(tHigh)) +
+               '" fill="#0072b1" fill-opacity="0.08"></rect>';
+        svg += '<line x1="0" y1="' + y(tLow) + '" x2="' + W + '" y2="' + y(tLow) + '" stroke="#0072b1" stroke-opacity="0.35" stroke-dasharray="4 4"></line>';
+        svg += '<line x1="0" y1="' + y(tHigh) + '" x2="' + W + '" y2="' + y(tHigh) + '" stroke="#0072b1" stroke-opacity="0.35" stroke-dasharray="4 4"></line>';
+    }
+
+    if (samples.length > 1){
+        var minT = samples[0].t, maxT = samples[samples.length-1].t;
+        var span = Math.max(1, maxT - minT);
+        var pts = samples.map(function(s){
+            var x = ((s.t - minT) / span) * W;
+            return x.toFixed(1) + ',' + y(s.wpm).toFixed(1);
+        }).join(' ');
+        svg += '<polyline points="' + pts + '" fill="none" stroke="#051C2C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>';
+        var last = samples[samples.length-1];
+        var lx = W, ly = y(last.wpm);
+        svg += '<circle cx="' + lx + '" cy="' + ly + '" r="4" fill="#0072b1"></circle>';
+    } else {
+        svg += '<text x="10" y="' + (H/2) + '" font-size="12" fill="#9aa3ab">Start a session to see your live pace…</text>';
+    }
+    sparkline.innerHTML = svg;
+}
+drawSparkline();
+
+/* =========================================================================
+   Session tick — rolling WPM, ladder, teleprompter refresh point
+   ========================================================================= */
+function pushWordEventsForTotal(newTotal){
+    if (newTotal > state.lastCountedTotal){
+        var now = Date.now();
+        var delta = newTotal - state.lastCountedTotal;
+        for (var k = 0; k < delta; k++) state.wordEvents.push(now);
+    }
+    state.lastCountedTotal = Math.max(state.lastCountedTotal, newTotal);
+}
+
+function rollingWpm(){
+    var now = Date.now();
+    var windowMs = Math.min(10000, Math.max(1, now - state.startTime));
+    var count = 0;
+    for (var i = state.wordEvents.length - 1; i >= 0; i--){
+        if (now - state.wordEvents[i] <= windowMs) count++; else break;
+    }
+    return Math.round(count * (60000 / windowMs));
+}
+
+function currentLadderTargets(){
+    var baseLow = parseFloat(targetLowInput.value) || 250;
+    var baseHigh = parseFloat(targetHighInput.value) || 320;
+    if (state.drill !== 'ladder') return { low: baseLow, high: baseHigh, rung: 0 };
+    var elapsed = (Date.now() - state.startTime) / 1000;
+    var rung = state.ladderBrokeAt !== null ? state.ladderBrokeAt.rung : Math.floor(elapsed / 30);
+    return { low: baseLow + rung * 20, high: baseHigh + rung * 20, rung: rung };
+}
+
+function tick(){
+    if (!state.active) return;
+    var now = Date.now();
+    var elapsedSec = (now - state.startTime) / 1000;
+    var wpm = rollingWpm();
+    state.peakWpm = Math.max(state.peakWpm, wpm);
+    state.wpmSamples.push({ t: now, wpm: wpm });
+
+    wpmBig.textContent = String(wpm);
+    wpmSub.textContent = state.lastCountedTotal + ' words · ' + fmtTime(elapsedSec) + ' elapsed';
+    drawSparkline();
+
+    if (state.drill === 'ladder'){
+        var lt = currentLadderTargets();
+        var tol = lt.low * 0.85;
+        if (state.ladderBrokeAt === null && elapsedSec > 6 && wpm > 0 && wpm < tol){
+            state.ladderBrokeAt = { rung: lt.rung, targetLow: lt.low, wpm: wpm, at: elapsedSec };
+            statusLine.textContent = 'You broke at rung ' + (lt.rung + 1) + ' — target was ~' + Math.round(lt.low) + ' WPM, your pace was ' + wpm + ' WPM.';
+        }
+        renderLadderBanner(lt);
+    }
+
+    if (state.drill === 'pendrill'){
+        // handled by its own countdown timer; nothing here.
+    }
+}
+
+function renderLadderBanner(lt){
+    var existing = document.getElementById('ladderBanner');
+    if (!existing){
+        existing = document.createElement('div');
+        existing.id = 'ladderBanner';
+        existing.className = 'ladder-banner';
+        readingPane.parentElement.appendChild(existing);
+    }
+    var brokeTxt = state.ladderBrokeAt
+        ? '<span class="broke">Broke at rung ' + (state.ladderBrokeAt.rung + 1) + ' (' + Math.round(state.ladderBrokeAt.targetLow) + ' WPM target)</span>'
+        : '<span>Holding</span>';
+    existing.innerHTML = '<span>Rung ' + (lt.rung + 1) + ' — target ' + Math.round(lt.low) + '–' + Math.round(lt.high) + ' WPM</span>' + brokeTxt;
+}
+
+/* =========================================================================
+   Manual mode
+   ========================================================================= */
+function buildManualLineMap(){
+    // Group words into ~10-word "lines" for space-tap checkpoints.
+    var words = state.sourceWords;
+    var lines = [];
+    var cum = [];
+    var running = 0;
+    for (var i = 0; i < words.length; i += 10){
+        var count = Math.min(10, words.length - i);
+        running += count;
+        lines.push(words.slice(i, i + count));
+        cum.push(running);
+    }
+    state.manualLineCumWords = cum;
+    state.manualLineIdx = 0;
+}
+
+function manualTap(){
+    if (!state.active || state.mode !== 'manual') return;
+    if (state.manualLineIdx >= state.manualLineCumWords.length){
+        statusLine.textContent = 'Passage complete — press Stop to finish.';
+        return;
+    }
+    var cumWords = state.manualLineCumWords[state.manualLineIdx];
+    pushWordEventsForTotal(cumWords);
+    state.manualLineIdx++;
+    statusLine.textContent = 'Marked line ' + state.manualLineIdx + ' of ' + state.manualLineCumWords.length + '.';
+}
+
+/* =========================================================================
+   Mic mode — Speech Recognition + Analyser volume/pause meter
+   ========================================================================= */
+function startRecognition(){
+    if (!micSupported) return;
+    try{
+        recognition = new SpeechRecognitionCtor();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onresult = function(event){
+            var finalChunk = '';
+            var interimChunk = '';
+            for (var i = event.resultIndex; i < event.results.length; i++){
+                var res = event.results[i];
+                if (res.isFinal) finalChunk += res[0].transcript + ' ';
+                else interimChunk += res[0].transcript + ' ';
+            }
+            if (finalChunk){
+                state.finalTranscript += finalChunk;
+            }
+            state.interimWordCount = tokenize(interimChunk).length;
+            var finalWordCount = tokenize(state.finalTranscript).length;
+            pushWordEventsForTotal(finalWordCount + state.interimWordCount);
+        };
+
+        recognition.onerror = function(event){
+            var msg = event.error === 'not-allowed' || event.error === 'permission-denied'
+                ? 'Microphone permission was denied — allow mic access, or switch to Manual mode.'
+                : event.error === 'no-speech'
+                ? 'No speech detected — keep going, or check your mic input.'
+                : 'Speech recognition error (' + event.error + ') — continuing where possible.';
+            statusLine.textContent = msg;
+            statusLine.classList.add('error');
+        };
+
+        recognition.onend = function(){
+            if (state.active && state.mode === 'mic'){
+                try{ recognition.start(); } catch(e){ /* already starting; ignore */ }
+            }
+        };
+
+        recognition.start();
+    } catch(e){
+        statusLine.textContent = 'Could not start speech recognition — falling back to Manual mode.';
+        statusLine.classList.add('error');
+        modeManual.checked = true;
+        state.mode = 'manual';
+    }
+}
+
+function stopRecognition(){
+    if (recognition){
+        recognition.onend = null;
+        try{ recognition.stop(); } catch(e){}
+        recognition = null;
+    }
+}
+
+function startAudioMeter(){
+    if (!hasGetUserMedia || !hasAudioContext) return;
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+        micStream = stream;
+        var Ctor = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new Ctor();
+        var source = audioCtx.createMediaStreamSource(stream);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 1024;
+        source.connect(analyser);
+        var data = new Uint8Array(analyser.fftSize);
+
+        function loop(){
+            if (!state.active || state.mode !== 'mic') return;
+            analyser.getByteTimeDomainData(data);
+            var sumSq = 0;
+            for (var i = 0; i < data.length; i++){
+                var v = (data[i] - 128) / 128;
+                sumSq += v * v;
+            }
+            var rms = Math.sqrt(sumSq / data.length);
+            var pct = Math.min(100, Math.round(rms * 320));
+            volumeFill.style.width = pct + '%';
+
+            if (rms < 0.02){
+                if (!state.rmsPauseSince) state.rmsPauseSince = Date.now();
+                else if (Date.now() - state.rmsPauseSince > 1200) pauseBadge.hidden = false;
+            } else {
+                state.rmsPauseSince = null;
+                pauseBadge.hidden = true;
+            }
+            micRAF = requestAnimationFrame(loop);
+        }
+        micRAF = requestAnimationFrame(loop);
+    }).catch(function(){
+        // Volume meter is a bonus feature — degrade silently, mic recognition still works.
+        volumeFill.parentElement.parentElement.querySelector('.eyebrow').textContent = 'Volume & Pauses (unavailable)';
+    });
+}
+
+function stopAudioMeter(){
+    if (micRAF) cancelAnimationFrame(micRAF);
+    micRAF = null;
+    if (micStream){ micStream.getTracks().forEach(function(t){ t.stop(); }); micStream = null; }
+    if (audioCtx){ try{ audioCtx.close(); } catch(e){} audioCtx = null; }
+    analyser = null;
+    volumeFill.style.width = '0%';
+    pauseBadge.hidden = true;
+    state.rmsPauseSince = null;
+}
+
+/* =========================================================================
+   Double-breath overlay
+   ========================================================================= */
+function startBreathCycle(){
+    breathOverlay.hidden = false;
+    var expanded = false;
+    function toggle(){
+        expanded = !expanded;
+        breathCircle.classList.toggle('expand', expanded);
+        breathLabel.textContent = expanded ? 'Inhale' : 'Exhale';
+    }
+    toggle();
+    state.breathTimer = setInterval(toggle, 3000);
+}
+function stopBreathCycle(){
+    if (state.breathTimer) clearInterval(state.breathTimer);
+    state.breathTimer = null;
+    breathOverlay.hidden = true;
+    breathCircle.classList.remove('expand');
+}
+
+/* =========================================================================
+   Pen drill / tongue-twister rotation
+   ========================================================================= */
+function startTwisterRotation(){
+    var banner = document.createElement('div');
+    banner.id = 'twisterBanner';
+    banner.className = 'twister-banner';
+    readingPane.parentElement.appendChild(banner);
+    var remaining = 15;
+    function paint(){
+        banner.textContent = 'Twister ' + ((state.twisterIdx % TWISTERS.length) + 1) + '/' + TWISTERS.length + ' · next in ' + remaining + 's';
+    }
+    paint();
+    state.twisterTimer = setInterval(function(){
+        remaining--;
+        if (remaining <= 0){
+            state.twisterIdx++;
+            renderPassage();
+            remaining = 15;
+        }
+        paint();
+    }, 1000);
+}
+function stopTwisterRotation(){
+    if (state.twisterTimer) clearInterval(state.twisterTimer);
+    state.twisterTimer = null;
+    var banner = document.getElementById('twisterBanner');
+    if (banner) banner.remove();
+}
+
+/* =========================================================================
+   Teleprompter
+   ========================================================================= */
+function startTeleprompter(){
+    var targetMid = ((parseFloat(targetLowInput.value) || 250) + (parseFloat(targetHighInput.value) || 320)) / 2;
+    var wordCount = Math.max(1, state.sourceWords.length);
+    var durationSec = Math.max(4, (wordCount / Math.max(60, targetMid)) * 60);
+    var startAt = performance.now();
+    var maxScroll = Math.max(0, readingPane.scrollHeight - readingPane.clientHeight);
+
+    function frame(now){
+        if (!state.active || !teleprompterToggle.checked) return;
+        var elapsed = (now - startAt) / 1000;
+        var frac = Math.min(1, elapsed / durationSec);
+        readingPane.scrollTop = frac * maxScroll;
+        if (frac < 1) state.teleprompterRAF = requestAnimationFrame(frame);
+    }
+    state.teleprompterRAF = requestAnimationFrame(frame);
+}
+function stopTeleprompter(){
+    if (state.teleprompterRAF) cancelAnimationFrame(state.teleprompterRAF);
+    state.teleprompterRAF = null;
+}
+
+/* =========================================================================
+   Start / Stop / Reset
+   ========================================================================= */
+function resetLiveUI(){
+    wpmBig.textContent = '0';
+    wpmSub.textContent = '0 words · 00:00 elapsed';
+    clarityBig.textContent = '—';
+    clarityNote.textContent = 'Available in microphone mode once you stop a session — compares what was recognized against the source passage.';
+    state.wpmSamples = [];
+    state.peakWpm = 0;
+    drawSparkline();
+    var banner = document.getElementById('ladderBanner');
+    if (banner) banner.remove();
+}
+
+function startSession(){
+    if (state.active) return;
+    if (passageSelect.value === 'custom' && !customPassage.value.trim()){
+        statusLine.textContent = 'Paste a passage first, or pick one from the library.';
+        return;
+    }
+    renderPassage();
+    if (!state.sourceWords.length){
+        statusLine.textContent = 'Nothing to read — choose a passage.';
+        return;
+    }
+
+    state.active = true;
+    state.startTime = Date.now();
+    state.wordEvents = [];
+    state.lastCountedTotal = 0;
+    state.finalTranscript = '';
+    state.interimWordCount = 0;
+    state.ladderBrokeAt = null;
+    resetLiveUI();
+    statusLine.classList.remove('error');
+
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    passageSelect.disabled = true;
+    drillSelect.disabled = true;
+
+    if (state.mode === 'manual'){
+        buildManualLineMap();
+        statusLine.textContent = 'Manual mode — tap Space at each line break, or press Stop when done.';
+    } else {
+        statusLine.textContent = 'Listening… read the passage aloud.';
+        startRecognition();
+        startAudioMeter();
+    }
+
+    if (state.drill === 'doublebreath') startBreathCycle();
+    if (state.drill === 'pendrill') startTwisterRotation();
+    if (teleprompterToggle.checked) startTeleprompter();
+
+    state.tickTimer = setInterval(tick, 250);
+}
+
+function computeClarity(){
+    if (state.mode !== 'mic') return null;
+    var sourceNorm = state.sourceWords.map(normalizeWord);
+    var recognizedNorm = tokenize(state.finalTranscript).map(normalizeWord).filter(Boolean);
+    if (!sourceNorm.length || !recognizedNorm.length) return null;
+    var matched = lcsAlign(sourceNorm, recognizedNorm);
+    var pct = Math.round((matched.size / sourceNorm.length) * 100);
+    return { pct: pct, matched: matched };
+}
+
+function applyClarityHighlighting(matched){
+    state.sourceWords.forEach(function(word, idx){
+        var el = document.getElementById('w-' + idx);
+        if (!el) return;
+        el.classList.toggle('word-missed', matched && !matched.has(idx));
+    });
+}
+
+function stopSession(silent){
+    if (!state.active) return;
+    state.active = false;
+
+    if (state.tickTimer) clearInterval(state.tickTimer);
+    state.tickTimer = null;
+    stopRecognition();
+    stopAudioMeter();
+    stopBreathCycle();
+    stopTwisterRotation();
+    stopTeleprompter();
+    var banner = document.getElementById('ladderBanner');
+    if (banner) banner.remove();
+
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    passageSelect.disabled = false;
+    drillSelect.disabled = false;
+
+    var durationSec = (Date.now() - state.startTime) / 1000;
+    var wordCount = state.lastCountedTotal > 0 ? state.lastCountedTotal : state.sourceWords.length;
+    var avgWpm = durationSec > 0 ? Math.round(wordCount / (durationSec / 60)) : 0;
+
+    var clarity = computeClarity();
+    if (clarity){
+        clarityBig.textContent = clarity.pct + '%';
+        clarityNote.textContent = clarity.pct >= 90
+            ? 'Strong — the recognizer caught nearly everything you said.'
+            : 'Missed words are highlighted in the passage above.';
+        applyClarityHighlighting(clarity.matched);
+    } else if (state.mode === 'manual'){
+        clarityBig.textContent = '—';
+        clarityNote.textContent = 'Manual mode does not score clarity — switch to Microphone mode for that.';
+    }
+
+    if (!silent && durationSec >= 4){
+        logSession({
+            date: new Date().toISOString(),
+            drill: DRILLS[state.drill].name,
+            peakWpm: state.peakWpm,
+            avgWpm: avgWpm,
+            clarity: clarity ? clarity.pct : null,
+            duration: Math.round(durationSec)
+        });
+        var breakNote = state.ladderBrokeAt ? ' Broke at rung ' + (state.ladderBrokeAt.rung + 1) + '.' : '';
+        statusLine.textContent = 'Session logged — peak ' + state.peakWpm + ' WPM, avg ' + avgWpm + ' WPM' +
+            (clarity ? ', clarity ' + clarity.pct + '%' : '') + '.' + breakNote;
+    } else if (silent) {
+        statusLine.textContent = 'Session stopped.';
+    } else {
+        statusLine.textContent = 'Session too short to log (under 4 seconds).';
+    }
+}
+
+function resetSession(){
+    if (state.active) stopSession(true);
+    resetLiveUI();
+    passageSelect.disabled = false;
+    drillSelect.disabled = false;
+    statusLine.classList.remove('error');
+    statusLine.textContent = 'Ready. Press Start or the spacebar to begin.';
+    renderPassage();
+}
+
+startBtn.addEventListener('click', startSession);
+stopBtn.addEventListener('click', function(){ stopSession(false); });
+resetBtn.addEventListener('click', resetSession);
+
+document.addEventListener('keydown', function(e){
+    var active = document.activeElement;
+    var tag = active ? active.tagName : '';
+    var typing = tag === 'INPUT' || tag === 'TEXTAREA' || (active && active.isContentEditable);
+    if (typing) return;
+
+    if (e.code === 'Space'){
+        e.preventDefault();
+        if (!state.active) startSession();
+        else if (state.mode === 'manual') manualTap();
+        else stopSession(false);
+    } else if (e.code === 'Escape'){
+        e.preventDefault();
+        resetSession();
+    }
+});
+
+targetLowInput.addEventListener('input', drawSparkline);
+targetHighInput.addEventListener('input', drawSparkline);
+
+/* =========================================================================
+   Metronome — Web Audio oscillator clicks, lookahead scheduler
+   ========================================================================= */
+bpmRange.addEventListener('input', function(){ bpmValue.textContent = bpmRange.value; });
+
+function scheduleClick(time){
+    var osc = metronomeCtx.createOscillator();
+    var gain = metronomeCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 1000;
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.exponentialRampToValueAtTime(0.35, time + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.04);
+    osc.connect(gain).connect(metronomeCtx.destination);
+    osc.start(time);
+    osc.stop(time + 0.05);
+}
+
+function metronomeSchedulerLoop(){
+    if (!metronomeOn) return;
+    var lookahead = 0.1;
+    while (metronomeNextNoteTime < metronomeCtx.currentTime + lookahead){
+        scheduleClick(metronomeNextNoteTime);
+        var bpm = parseFloat(bpmRange.value) || 260;
+        metronomeNextNoteTime += 60 / bpm;
+    }
+    metronomeTimer = setTimeout(metronomeSchedulerLoop, 25);
+}
+
+metronomeToggle.addEventListener('click', function(){
+    if (!hasAudioContext){
+        statusLine.textContent = 'Web Audio is not supported in this browser — metronome unavailable.';
+        return;
+    }
+    metronomeOn = !metronomeOn;
+    if (metronomeOn){
+        if (!metronomeCtx) metronomeCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (metronomeCtx.state === 'suspended') metronomeCtx.resume();
+        metronomeNextNoteTime = metronomeCtx.currentTime + 0.05;
+        metronomeSchedulerLoop();
+        metronomeToggle.innerHTML = '<i class="fas fa-stop" aria-hidden="true"></i> Stop Metronome';
+    } else {
+        if (metronomeTimer) clearTimeout(metronomeTimer);
+        metronomeToggle.innerHTML = '<i class="fas fa-drum" aria-hidden="true"></i> Start Metronome';
+    }
+});
+
+/* =========================================================================
+   History (localStorage: d101.speed)
+   ========================================================================= */
+var HISTORY_KEY = 'd101.speed';
+
+function loadHistory(){
+    try{
+        var raw = localStorage.getItem(HISTORY_KEY);
+        var arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+    } catch(e){ return []; }
+}
+function saveHistory(arr){
+    try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch(e){}
+}
+function logSession(entry){
+    var arr = loadHistory();
+    arr.push(entry);
+    saveHistory(arr);
+    renderHistory();
+}
+
+function computeStreak(arr){
+    if (!arr.length) return 0;
+    var days = {};
+    arr.forEach(function(s){ days[new Date(s.date).toDateString()] = true; });
+    var streak = 0;
+    var cursor = new Date();
+    // allow today to be "not yet practiced" without breaking the streak
+    if (!days[cursor.toDateString()]) cursor.setDate(cursor.getDate() - 1);
+    while (days[cursor.toDateString()]){
+        streak++;
+        cursor.setDate(cursor.getDate() - 1);
+    }
+    return streak;
+}
+
+function drawHistoryChart(arr){
+    var W = 900, H = 220, pad = 24;
+    if (!arr.length){
+        historyChart.innerHTML = '<text x="10" y="' + (H/2) + '" font-size="13" fill="#9aa3ab">No sessions yet — your WPM and clarity trend will appear here.</text>';
+        return;
+    }
+    var maxWpm = Math.max(320, Math.max.apply(null, arr.map(function(s){ return s.avgWpm || 0; })) + 40);
+    function x(i){ return arr.length > 1 ? pad + (i / (arr.length - 1)) * (W - pad * 2) : W / 2; }
+    function yWpm(v){ return H - pad - (v / maxWpm) * (H - pad * 2); }
+    function yClarity(v){ return H - pad - ((v || 0) / 100) * (H - pad * 2); }
+
+    var wpmPts = arr.map(function(s, i){ return x(i).toFixed(1) + ',' + yWpm(s.avgWpm || 0).toFixed(1); }).join(' ');
+    var clarityPts = arr.filter(function(s){ return s.clarity != null; })
+        .map(function(s){ var i = arr.indexOf(s); return x(i).toFixed(1) + ',' + yClarity(s.clarity).toFixed(1); }).join(' ');
+
+    var svg = '';
+    svg += '<line x1="' + pad + '" y1="' + (H-pad) + '" x2="' + (W-pad) + '" y2="' + (H-pad) + '" stroke="#e5e5e5"></line>';
+    svg += '<polyline points="' + wpmPts + '" fill="none" stroke="#0072b1" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>';
+    if (clarityPts) svg += '<polyline points="' + clarityPts + '" fill="none" stroke="#051C2C" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></polyline>';
+    arr.forEach(function(s, i){
+        svg += '<circle cx="' + x(i).toFixed(1) + '" cy="' + yWpm(s.avgWpm || 0).toFixed(1) + '" r="3" fill="#0072b1"></circle>';
+    });
+    historyChart.innerHTML = svg;
+}
+
+function renderHistory(){
+    var arr = loadHistory();
+    var table = document.getElementById('historyTable');
+    if (!arr.length){
+        historyTbody.innerHTML = '';
+        historyEmpty.style.display = 'block';
+        table.style.display = 'none';
+    } else {
+        historyEmpty.style.display = 'none';
+        table.style.display = 'table';
+        historyTbody.innerHTML = arr.slice().reverse().map(function(s){
+            return '<tr><td>' + fmtDate(s.date) + '</td><td>' + s.drill + '</td><td>' + s.peakWpm +
+                '</td><td>' + s.avgWpm + '</td><td>' + (s.clarity != null ? s.clarity + '%' : '—') +
+                '</td><td>' + fmtTime(s.duration) + '</td></tr>';
+        }).join('');
+    }
+
+    var bestWpm = arr.reduce(function(m,s){ return Math.max(m, s.avgWpm || 0); }, 0);
+    var bestPeak = arr.reduce(function(m,s){ return Math.max(m, s.peakWpm || 0); }, 0);
+    var bestClarity = arr.reduce(function(m,s){ return s.clarity != null ? Math.max(m, s.clarity) : m; }, 0);
+    statBestWpm.textContent = bestWpm || '—';
+    statBestPeak.textContent = bestPeak || '—';
+    statBestClarity.textContent = bestClarity ? bestClarity + '%' : '—';
+    statStreak.textContent = computeStreak(arr) + (computeStreak(arr) === 1 ? ' day' : ' days');
+
+    drawHistoryChart(arr);
+}
+
+exportBtn.addEventListener('click', function(){
+    var arr = loadHistory();
+    var blob = new Blob([JSON.stringify(arr, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'debate101-speed-trainer-history.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+});
+
+clearBtn.addEventListener('click', function(){
+    if (!confirm('Clear all saved Speed Trainer history? This cannot be undone.')) return;
+    localStorage.removeItem(HISTORY_KEY);
+    renderHistory();
+});
+
+/* =========================================================================
+   Init
+   ========================================================================= */
+refreshPassageAndDrillUI();
+renderHistory();
+
+})();
+</script>
+</body>
+</html>

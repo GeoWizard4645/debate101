@@ -1,0 +1,177 @@
+<!doctype html>
+<!--
+    Cascade — app shell markup.
+
+    This is the one HTML file in the app: a static skeleton that satisfies the
+    DOM contract every other module relies on (see ARCHITECTURE.md). It owns no
+    behavior — main.js wires everything up after the modules import — but it
+    does own the start screen's structure, because that is the first thing a
+    debater sees before a round is open and it has to exist before any script
+    runs. Every interactive element carries an id so main.js / exports.js can
+    attach listeners without guessing at markup.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Cascade — Debate 101</title>
+    <meta name="description" content="Cascade is Debate 101's keyboard-first debate flowing app. Flow a round, link answers, run speech and prep timers, and export .ebb files — fully offline, no account required.">
+    <meta name="theme-color" content="#051C2C">
+    <meta name="color-scheme" content="dark light">
+
+    <link rel="icon" type="image/png" href="../assets/logo.PNG">
+    <link rel="apple-touch-icon" href="../assets/logo.PNG">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- App shell — hidden behind the start screen until a round opens -->
+    <!-- ============================================================ -->
+    <div id="app">
+
+        <header id="topbar" role="banner">
+            <div class="slot-left">
+                <a id="brand-link" class="brand-link" href="https://debate101.org" target="_blank" rel="noopener">
+                    <img class="brand-mark" src="../assets/logo.PNG" alt="" width="20" height="20">
+                    <span class="brand-word">Cascade</span>
+                </a>
+                <button id="sidebar-toggle" class="icon-btn" type="button" title="Toggle sheet sidebar" aria-label="Toggle sheet sidebar" aria-pressed="true">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"></rect><line x1="6" y1="2.5" x2="6" y2="13.5"></line></svg>
+                </button>
+            </div>
+            <div class="slot-center">
+                <div id="topbar-title" class="topbar-title">
+                    <span id="topbar-round-name" class="topbar-round-name">Untitled round</span>
+                    <span id="topbar-round-meta" class="topbar-round-meta"></span>
+                </div>
+            </div>
+            <div class="slot-right">
+                <button id="theme-toggle" class="icon-btn" type="button" title="Toggle light / dark theme" aria-label="Toggle light / dark theme">
+                    <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.25"></circle><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.4 1.4M11.55 11.55l1.4 1.4M3.05 12.95l1.4-1.4M11.55 4.45l1.4-1.4"></path></svg>
+                    <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A6 6 0 1 1 6.5 2.5 4.8 4.8 0 0 0 13.5 9.5Z"></path></svg>
+                </button>
+                <button id="dock-collapse-toggle" class="icon-btn" type="button" title="Toggle panel dock" aria-label="Toggle panel dock" aria-pressed="true">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"></rect><line x1="10" y1="2.5" x2="10" y2="13.5"></line></svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="workspace">
+            <aside id="sidebar" aria-label="Sheets"></aside>
+
+            <main id="grid-host" aria-label="Flow grid">
+                <div id="hud" aria-live="polite"></div>
+            </main>
+
+            <aside id="dock" aria-label="Panels" style="--dock-w: 340px;">
+                <div id="dock-resizer" role="separator" aria-orientation="vertical" aria-label="Resize panel dock" tabindex="0"></div>
+                <div id="dock-tabs" role="tablist" aria-label="Panels"></div>
+                <div id="dock-body"></div>
+            </aside>
+        </div>
+
+        <footer id="statusbar" role="contentinfo">
+            <div class="status-left">
+                <span class="status-brand">Cascade</span>
+                <span class="status-sep" aria-hidden="true">·</span>
+                <span class="status-hint">Press <kbd>?</kbd> for shortcuts</span>
+            </div>
+            <div id="statusbar-segments" class="status-right"></div>
+        </footer>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- Start screen — shown until a round is open (ui.showStartScreen) -->
+    <!-- ============================================================ -->
+    <div id="start-screen">
+        <div class="start-card">
+            <div class="start-wordmark">
+                <img class="start-logo" src="../assets/logo.PNG" alt="" width="40" height="40">
+                <div class="start-wordmark-text">
+                    <h1>Cascade</h1>
+                    <p class="start-byline">by Debate 101</p>
+                </div>
+            </div>
+
+            <p class="start-tagline">A keyboard-first flow, in your browser. Nothing leaves this machine.</p>
+
+            <div class="start-actions">
+                <button id="start-new" class="btn btn-primary" type="button">New flow</button>
+                <button id="start-open" class="btn btn-ghost" type="button">Open .ebb&hellip;</button>
+            </div>
+
+            <div id="start-dropzone" class="start-dropzone" tabindex="0" role="button" aria-label="Drop a flow file here, or click to browse">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="start-dropzone-icon"><path d="M12 3v12M12 3l-4.5 4.5M12 3l4.5 4.5M4 16.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5"></path></svg>
+                <p class="start-dropzone-text">Drag a flow here, or click to browse</p>
+                <p class="start-dropzone-sub">.ebb &middot; .json &middot; .csv &middot; .tsv &middot; .txt &middot; .md &middot; .docx</p>
+                <input id="start-file-input" type="file" accept=".ebb,.json,.csv,.tsv,.txt,.md,.docx" multiple hidden>
+            </div>
+
+            <div class="start-config">
+                <fieldset id="start-event-picker" class="start-fieldset">
+                    <legend>Event</legend>
+                    <div class="segmented" role="radiogroup" aria-label="Debate event">
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-event-radio" id="start-event-policy" value="policy" checked>
+                            <span>Policy</span>
+                        </label>
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-event-radio" id="start-event-ld" value="ld">
+                            <span>LD</span>
+                        </label>
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-event-radio" id="start-event-pf" value="pf">
+                            <span>PF</span>
+                        </label>
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-event-radio" id="start-event-parli" value="parli">
+                            <span>Parli</span>
+                        </label>
+                    </div>
+                    <!-- main.js reads a single #start-event element's .value; the visual
+                         control above is a radio group (no one element carries "the"
+                         value), so this hidden proxy mirrors whichever radio is checked.
+                         Kept in sync by ui.js. -->
+                    <input type="hidden" id="start-event" value="policy">
+                </fieldset>
+
+                <fieldset class="start-fieldset">
+                    <legend>First speaker</legend>
+                    <div class="segmented segmented-2" role="radiogroup" aria-label="First speaking side">
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-first-radio" id="start-first-aff" value="aff" checked>
+                            <span>Aff</span>
+                        </label>
+                        <label class="segmented-opt">
+                            <input type="radio" name="start-first-radio" id="start-first-neg" value="neg">
+                            <span>Neg</span>
+                        </label>
+                    </div>
+                    <input type="hidden" id="start-first-side" value="aff">
+                </fieldset>
+            </div>
+
+            <div class="start-recents-wrap">
+                <h2 class="start-recents-title">Recent flows</h2>
+                <ul id="start-recents" class="start-recents">
+                    <li class="start-recents-empty">Nothing yet — your last few rounds will show up here.</li>
+                </ul>
+            </div>
+        </div>
+        <div id="start-drop-overlay" class="start-drop-overlay" aria-hidden="true">
+            <p>Drop to import</p>
+        </div>
+    </div>
+
+    <div id="modal-root" aria-live="polite"></div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

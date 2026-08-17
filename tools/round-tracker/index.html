@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Round Tracker | Debate 101</title>
+<meta name="description" content="Round Tracker — a competition record, judge book, and scouting book for competitive debaters. Log rounds, track stats, and scout opponents. Runs entirely in your browser.">
+<meta name="theme-color" content="#051C2C">
+<link rel="icon" type="image/png" href="../../assets/logo.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+    :root {
+        --navy: #051C2C;
+        --accent: #0072b1;
+        --accent-soft: #e0f2fe;
+        --border: #e5e7eb;
+        --border-soft: #f1f5f9;
+        --muted: #64748b;
+        --bg-soft: #f8fafc;
+        --win-bg: #ecfdf5; --win-fg: #047857; --win-border: #047857;
+        --loss-bg: #fef2f2; --loss-fg: #b91c1c; --loss-border: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        color: #1a1a1a;
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+    }
+    .serif { font-family: 'Playfair Display', serif; }
+    .u-label {
+        font-size: 10px; font-weight: 800; text-transform: uppercase;
+        letter-spacing: 0.18em; color: var(--muted);
+    }
+    a { color: inherit; }
+
+    .skip-link {
+        position: absolute; left: -999px; top: 0; background: var(--navy); color: #fff;
+        padding: 10px 16px; z-index: 200; font-size: 12px; text-transform: uppercase;
+        letter-spacing: 0.1em; font-weight: 700;
+    }
+    .skip-link:focus { left: 8px; top: 8px; }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 1px;
+    }
+
+    /* ---------- Header ---------- */
+    header.site-header {
+        border-bottom: 1px solid var(--border);
+        padding: 18px 20px;
+        position: sticky; top: 0; background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(8px);
+        z-index: 50;
+    }
+    .header-inner {
+        max-width: 1180px; margin: 0 auto;
+        display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .wordmark-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .wordmark-link img { height: 32px; width: auto; }
+    .wordmark-text { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; color: var(--navy); }
+    .wordmark-text .light { font-weight: 300; }
+    .tool-title-block { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+    .tool-title { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); }
+    .tool-sub { font-size: 11px; color: var(--muted); }
+
+    nav.tabs {
+        max-width: 1180px; margin: 14px auto 0; display: flex; gap: 4px; flex-wrap: wrap;
+        border-top: 1px solid var(--border-soft); padding-top: 12px;
+    }
+    .tab-btn {
+        background: none; border: none; cursor: pointer;
+        font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.14em; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid transparent;
+        display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn[aria-selected="true"] { color: var(--navy); border-bottom-color: var(--accent); }
+
+    main { max-width: 1180px; margin: 0 auto; padding: 24px 20px 80px; }
+
+    /* ---------- Filter bar ---------- */
+    .filter-bar {
+        display: flex; flex-wrap: wrap; gap: 14px; align-items: end;
+        background: var(--bg-soft); border: 1px solid var(--border); padding: 16px; margin-bottom: 28px;
+    }
+    .filter-field { display: flex; flex-direction: column; gap: 4px; min-width: 130px; flex: 1 1 130px; }
+    .filter-field label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+    .filter-actions { display:flex; gap:8px; align-items:center; }
+    #filterSummary { font-size: 11px; color: var(--muted); margin-left: auto; align-self: center; }
+
+    /* ---------- Form elements ---------- */
+    input[type=text], input[type=date], input[type=number], select, textarea {
+        font-family: inherit; font-size: 13.5px; color: var(--navy);
+        border: 1px solid var(--border); background: #fff; padding: 8px 10px;
+        width: 100%; transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,114,177,0.1); outline: none;
+    }
+    textarea { resize: vertical; min-height: 60px; font-family: inherit; }
+    label { font-size: 11px; font-weight: 700; color: var(--navy); }
+
+    .btn {
+        font-family: inherit; font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+        letter-spacing: 0.14em; padding: 11px 20px; cursor: pointer; border: 1px solid var(--navy);
+        background: var(--navy); color: #fff; transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-outline { background: #fff; color: var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: #fff; }
+    .btn-danger { border-color: var(--loss-border); color: var(--loss-fg); background:#fff; }
+    .btn-danger:hover { background: var(--loss-border); color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 9.5px; }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-ghost { background:none; border:1px solid var(--border); color:var(--muted); }
+    .btn-ghost:hover { border-color: var(--navy); color: var(--navy); background:none; }
+
+    /* ---------- Cards / layout ---------- */
+    .card { border: 1px solid var(--border); background: #fff; padding: 20px; }
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .section-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 0 0 4px; }
+    .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 16px; }
+    section.tab-panel { display: none; }
+    section.tab-panel.active { display: block; animation: fadeIn .35s ease-out; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+    h2.block-heading {
+        font-size: 1.5rem; font-weight: 700; color: var(--navy); margin: 0 0 20px;
+        padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+
+    /* ---------- Stat tiles ---------- */
+    .stat-tile { border: 1px solid var(--border); padding: 16px; background: #fff; }
+    .stat-value { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 2rem; color: var(--navy); line-height: 1; margin: 6px 0 4px; }
+    .stat-label { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+    .stat-note { font-size: 11px; color: var(--muted); }
+    .stat-accent { color: var(--accent); }
+
+    /* ---------- Badges ---------- */
+    .badge { display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 2px; text-transform: uppercase; }
+    .badge-w { background: var(--win-bg); color: var(--win-fg); border: 1px solid var(--win-border); }
+    .badge-l { background: var(--loss-bg); color: var(--loss-fg); border: 1px solid var(--loss-border); }
+    .badge-sample { background: #fffbeb; color: #92400e; border: 1px solid #92400e; }
+    .badge-elim { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+    .badge-bid { background: var(--navy); color: #fff; border: 1px solid var(--navy); }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; border: 1px solid var(--border-soft); }
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px; }
+    table.data-table thead { background: var(--bg-soft); }
+    table.data-table th {
+        text-align: left; font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+        color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    table.data-table th.sortable { cursor: pointer; user-select: none; }
+    table.data-table th.sortable:hover { color: var(--navy); }
+    table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+    table.data-table tbody tr:hover { background: #fafcff; cursor: pointer; }
+    table.data-table tbody tr.expanded { background: var(--accent-soft); }
+    .row-actions { display: flex; gap: 6px; }
+    .text-muted { color: var(--muted); }
+    .empty-note { padding: 30px 16px; text-align: center; color: var(--muted); font-size: 13px; }
+
+    /* ---------- Round form ---------- */
+    #roundForm { border: 1px solid var(--border); padding: 20px; background: var(--bg-soft); margin-bottom: 24px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+    .form-field { display: flex; flex-direction: column; gap: 5px; }
+    .form-field.span-2 { grid-column: span 2; }
+    .form-field.span-full { grid-column: 1 / -1; }
+    @media (max-width: 640px) { .form-field.span-2 { grid-column: span 1; } }
+    .form-footer { display: flex; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .required-mark { color: var(--loss-fg); }
+
+    /* ---------- Detail brief panel ---------- */
+    .brief-panel { border: 1px solid var(--accent); background: var(--accent-soft); padding: 20px; margin-top: 14px; }
+    .brief-panel h3 { margin: 0 0 4px; color: var(--navy); font-size: 1.1rem; }
+    .brief-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin: 14px 0; }
+    .brief-stat-val { font-weight: 700; color: var(--navy); font-size: 1.15rem; }
+    .brief-stat-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+    .notes-box { background: #fff; border: 1px solid var(--border); padding: 12px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+
+    /* ---------- Charts ---------- */
+    .chart-card { border: 1px solid var(--border); padding: 18px; }
+    .chart-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin: 0 0 2px; }
+    .chart-card p.chart-desc { font-size: 11px; color: var(--muted); margin: 0 0 12px; }
+    .chart-card svg { width: 100%; height: auto; display: block; }
+
+    /* ---------- Tournament cards ---------- */
+    .tournament-card { border: 1px solid var(--border); margin-bottom: 14px; }
+    .tournament-head { padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; cursor: pointer; background: var(--bg-soft); }
+    .tournament-head h3 { margin: 0; font-size: 1.05rem; color: var(--navy); }
+    .tournament-body { padding: 0 18px 18px; display: none; }
+    .tournament-body.open { display: block; }
+    .tournament-meta { font-size: 11px; color: var(--muted); }
+
+    /* ---------- Goal progress ---------- */
+    .goal-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .goal-label { width: 150px; font-size: 11px; font-weight: 700; color: var(--navy); flex-shrink: 0; }
+    .goal-bar-track { flex: 1; height: 10px; background: var(--border-soft); border: 1px solid var(--border); position: relative; }
+    .goal-bar-fill { height: 100%; background: var(--accent); transition: width .5s ease; }
+    .goal-bar-fill.goal-met { background: var(--win-fg); }
+    .goal-val { font-size: 11px; color: var(--muted); width: 110px; text-align: right; flex-shrink: 0; }
+
+    /* ---------- Modal ---------- */
+    .modal-overlay {
+        position: fixed; inset: 0; background: rgba(5,28,44,0.55); display: none;
+        align-items: center; justify-content: center; z-index: 100; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: #fff; max-width: 480px; width: 100%; padding: 24px; border-top: 3px solid var(--accent); max-height: 86vh; overflow-y: auto; }
+    .modal-box h3 { margin: 0 0 10px; color: var(--navy); }
+    .modal-box p { font-size: 13px; line-height: 1.6; color: #333; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+
+    /* ---------- Toast / aria-live ---------- */
+    #toast {
+        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+        background: var(--navy); color: #fff; font-size: 12px; font-weight: 600;
+        padding: 12px 20px; border-radius: 2px; z-index: 300; opacity: 0; pointer-events: none;
+        transition: opacity .3s, transform .3s; display: flex; align-items: center; gap: 10px;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.err { background: var(--loss-fg); }
+
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+    /* ---------- Footer ---------- */
+    footer.site-footer { border-top: 1px solid var(--border); padding: 40px 20px; margin-top: 40px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-inner .wordmark-text { font-size: 1.1rem; }
+    footer.site-footer .fine-print { font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: var(--muted); text-align: center; margin-top: 24px; }
+
+    /* ---------- Data tab ---------- */
+    .data-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+    /* ---------- Print report ---------- */
+    #printReport { display: none; }
+    @media print {
+        .no-print { display: none !important; }
+        header.site-header { position: static; }
+        main { padding: 0; max-width: 100%; }
+        #printReport { display: block !important; padding: 10px; }
+        #printReport table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 11px; }
+        #printReport th, #printReport td { border: 1px solid #999; padding: 5px 8px; text-align: left; }
+        #printReport h1 { font-family: 'Playfair Display', serif; color: #051C2C; }
+        #printReport h2 { color: #051C2C; border-bottom: 1px solid #051C2C; padding-bottom: 4px; margin-top: 28px; }
+        section.tab-panel { display: none !important; }
+    }
+
+    @media (max-width: 700px) {
+        .filter-bar { flex-direction: column; align-items: stretch; }
+        #filterSummary { margin-left: 0; }
+        .header-inner { flex-direction: column; align-items: flex-start; }
+        table.data-table { min-width: 640px; }
+    }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<header class="site-header no-print">
+    <div class="header-inner">
+        <a href="../../index.html" class="wordmark-link" aria-label="Debate 101 home">
+            <img src="../../assets/logo.PNG" alt="" onerror="this.style.display='none'">
+            <span class="wordmark-text">DEBATE<span class="light">101</span></span>
+        </a>
+        <div class="tool-title-block">
+            <span class="tool-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Round Tracker</span>
+            <span class="tool-sub">Competition record &middot; judge book &middot; scouting book</span>
+        </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Round Tracker sections" id="tabNav">
+        <button class="tab-btn" role="tab" data-tab="dashboard" aria-selected="true"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Dashboard</button>
+        <button class="tab-btn" role="tab" data-tab="rounds" aria-selected="false"><i class="fa-solid fa-plus" aria-hidden="true"></i> Log &amp; Rounds</button>
+        <button class="tab-btn" role="tab" data-tab="tournaments" aria-selected="false"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Tournaments</button>
+        <button class="tab-btn" role="tab" data-tab="judges" aria-selected="false"><i class="fa-solid fa-gavel" aria-hidden="true"></i> Judge Book</button>
+        <button class="tab-btn" role="tab" data-tab="opponents" aria-selected="false"><i class="fa-solid fa-binoculars" aria-hidden="true"></i> Scouting Book</button>
+        <button class="tab-btn" role="tab" data-tab="data" aria-selected="false"><i class="fa-solid fa-database" aria-hidden="true"></i> Data</button>
+    </nav>
+</header>
+
+<main id="main-content">
+
+    <div class="filter-bar no-print" role="search" aria-label="Filter rounds">
+        <div class="filter-field">
+            <label for="fFrom">From</label>
+            <input type="date" id="fFrom">
+        </div>
+        <div class="filter-field">
+            <label for="fTo">To</label>
+            <input type="date" id="fTo">
+        </div>
+        <div class="filter-field">
+            <label for="fEvent">Event</label>
+            <select id="fEvent">
+                <option value="">All events</option>
+                <option>LD</option><option>PF</option><option>Policy</option><option>Parli</option><option>Congress</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label for="fTournament">Tournament</label>
+            <select id="fTournament"><option value="">All tournaments</option></select>
+        </div>
+        <div class="filter-field">
+            <label for="fSide">Side</label>
+            <select id="fSide">
+                <option value="">All sides</option>
+                <option value="aff">Aff</option>
+                <option value="neg">Neg</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-ghost btn-sm" id="clearFiltersBtn" type="button">Clear filters</button>
+        </div>
+        <div id="filterSummary" aria-live="polite"></div>
+    </div>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="tab-panel active" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+        <h2 class="block-heading">Season Dashboard</h2>
+
+        <div class="card" style="margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+                <div>
+                    <h3 class="section-title" style="margin-bottom:2px;">Season goals</h3>
+                    <p class="section-sub" style="margin-bottom:0;">Set targets and track progress against the filtered record.</p>
+                </div>
+                <button class="btn btn-outline btn-sm no-print" id="editGoalsBtn" type="button"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> Edit goals</button>
+            </div>
+            <div id="goalProgress"></div>
+        </div>
+
+        <div class="grid grid-4" id="statTiles" style="margin-bottom:24px;"></div>
+
+        <div class="grid grid-3" style="margin-bottom:24px;">
+            <div class="card">
+                <h3 class="section-title">Record by event</h3>
+                <div id="statByEvent"></div>
+            </div>
+            <div class="card">
+                <h3 class="section-title">Win rate by strategy read</h3>
+                <div id="statByStrategy"></div>
+            </div>
+            <div class="card">
+                <h3 class="section-title">Record vs. each school</h3>
+                <div id="statBySchool"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="chart-card">
+                <h3>Win / loss by side</h3>
+                <p class="chart-desc">Aff vs. neg performance — the split every debater wants to see.</p>
+                <div id="chartSideWL"></div>
+            </div>
+            <div class="chart-card">
+                <h3>Speaker point distribution</h3>
+                <p class="chart-desc">Frequency of speaker points across logged rounds.</p>
+                <div id="chartSpeaks"></div>
+            </div>
+        </div>
+        <div class="chart-card" style="margin-top:16px;">
+            <h3>Cumulative record over the season</h3>
+            <p class="chart-desc">Running win/loss differential, round by round, in chronological order.</p>
+            <div id="chartCumulative"></div>
+        </div>
+    </section>
+
+    <!-- ============ ROUNDS ============ -->
+    <section class="tab-panel" id="panel-rounds" role="tabpanel" aria-labelledby="tab-rounds">
+        <h2 class="block-heading">Log a Round</h2>
+
+        <form id="roundForm" class="no-print" novalidate>
+            <input type="hidden" id="roundId">
+            <div class="form-grid">
+                <div class="form-field span-2">
+                    <label for="rTournament">Tournament <span class="required-mark">*</span></label>
+                    <input type="text" id="rTournament" list="tournamentList" required autocomplete="off">
+                    <datalist id="tournamentList"></datalist>
+                </div>
+                <div class="form-field">
+                    <label for="rDate">Date <span class="required-mark">*</span></label>
+                    <input type="date" id="rDate" required>
+                </div>
+                <div class="form-field">
+                    <label for="rRoundLabel">Round <span class="required-mark">*</span></label>
+                    <input type="text" id="rRoundLabel" list="roundLabelList" required placeholder="R1, Octos…" autocomplete="off">
+                    <datalist id="roundLabelList">
+                        <option>R1</option><option>R2</option><option>R3</option><option>R4</option><option>R5</option><option>R6</option>
+                        <option>Doubles</option><option>Octos</option><option>Quarters</option><option>Semis</option><option>Finals</option>
+                    </datalist>
+                </div>
+                <div class="form-field">
+                    <label for="rDivision">Division</label>
+                    <input type="text" id="rDivision" placeholder="Varsity, JV…" list="divisionList" autocomplete="off">
+                    <datalist id="divisionList"></datalist>
+                </div>
+                <div class="form-field">
+                    <label for="rEvent">Event <span class="required-mark">*</span></label>
+                    <select id="rEvent" required>
+                        <option value="">Select…</option>
+                        <option>LD</option><option>PF</option><option>Policy</option><option>Parli</option><option>Congress</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="rSide">Side</label>
+                    <select id="rSide">
+                        <option value="">N/A</option>
+                        <option value="aff">Aff</option>
+                        <option value="neg">Neg</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="rResult">Result <span class="required-mark">*</span></label>
+                    <select id="rResult" required>
+                        <option value="">Select…</option>
+                        <option value="W">Win</option>
+                        <option value="L">Loss</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="rSpeaks">Speaker points</label>
+                    <input type="number" id="rSpeaks" step="0.1" min="0" max="100" inputmode="decimal">
+                </div>
+                <div class="form-field">
+                    <label for="rOppName">Opponent name</label>
+                    <input type="text" id="rOppName" list="opponentNameList" autocomplete="off">
+                    <datalist id="opponentNameList"></datalist>
+                </div>
+                <div class="form-field">
+                    <label for="rOppSchool">Opponent school</label>
+                    <input type="text" id="rOppSchool" list="opponentSchoolList" autocomplete="off">
+                    <datalist id="opponentSchoolList"></datalist>
+                </div>
+                <div class="form-field">
+                    <label for="rJudge">Judge</label>
+                    <input type="text" id="rJudge" list="judgeList" autocomplete="off">
+                    <datalist id="judgeList"></datalist>
+                </div>
+                <div class="form-field" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:20px;">
+                    <input type="checkbox" id="rBid" style="width:auto;">
+                    <label for="rBid" style="margin:0;">Bid earned this round</label>
+                </div>
+                <div class="form-field span-2">
+                    <label for="rMyStrategy">Strategy you read</label>
+                    <input type="text" id="rMyStrategy" list="strategyList" autocomplete="off">
+                </div>
+                <div class="form-field span-2">
+                    <label for="rTheirStrategy">Strategy they read</label>
+                    <input type="text" id="rTheirStrategy" list="strategyList" autocomplete="off">
+                    <datalist id="strategyList"></datalist>
+                </div>
+                <div class="form-field span-full">
+                    <label for="rReason">What won or lost the round</label>
+                    <input type="text" id="rReason" placeholder="e.g. dropped a turn in the 2NR, won weighing on the flow…">
+                </div>
+                <div class="form-field span-full">
+                    <label for="rNotes">Notes</label>
+                    <textarea id="rNotes" placeholder="Anything else worth remembering about this round."></textarea>
+                </div>
+            </div>
+            <div class="form-footer">
+                <button type="submit" class="btn" id="roundSubmitBtn"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save round</button>
+                <button type="button" class="btn btn-ghost" id="cancelEditBtn" style="display:none;">Cancel edit</button>
+                <span id="formStatus" class="stat-note" aria-live="polite"></span>
+            </div>
+        </form>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <h3 class="section-title" style="margin:0;">All rounds <span id="roundsCount" class="text-muted"></span></h3>
+        </div>
+        <div class="table-scroll">
+            <table class="data-table" id="roundsTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-sort="date">Date</th>
+                        <th class="sortable" data-sort="tournament">Tournament</th>
+                        <th class="sortable" data-sort="roundLabel">Rd</th>
+                        <th class="sortable" data-sort="event">Event</th>
+                        <th class="sortable" data-sort="side">Side</th>
+                        <th class="sortable" data-sort="oppName">Opponent</th>
+                        <th class="sortable" data-sort="judge">Judge</th>
+                        <th class="sortable" data-sort="result">Result</th>
+                        <th class="sortable" data-sort="speaks">Speaks</th>
+                        <th class="no-print">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="roundsTbody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============ TOURNAMENTS ============ -->
+    <section class="tab-panel" id="panel-tournaments" role="tabpanel" aria-labelledby="tab-tournaments">
+        <h2 class="block-heading">Tournament Runs</h2>
+        <p class="section-sub">Prelim record → elimination results, grouped by tournament.</p>
+        <div id="tournamentsList"></div>
+    </section>
+
+    <!-- ============ JUDGES ============ -->
+    <section class="tab-panel" id="panel-judges" role="tabpanel" aria-labelledby="tab-judges">
+        <h2 class="block-heading">Judge Book</h2>
+        <div class="filter-field" style="max-width:360px; margin-bottom:18px;">
+            <label for="judgeSearch">Before the round — look up a judge</label>
+            <input type="text" id="judgeSearch" placeholder="Search judges by name…">
+        </div>
+        <div class="table-scroll">
+            <table class="data-table" id="judgesTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-sort="name">Judge</th>
+                        <th class="sortable" data-sort="w">Record</th>
+                        <th class="sortable" data-sort="winRate">Win %</th>
+                        <th class="sortable" data-sort="avgSpeaks">Avg. speaks given</th>
+                        <th class="sortable" data-sort="rounds">Rounds</th>
+                    </tr>
+                </thead>
+                <tbody id="judgesTbody"></tbody>
+            </table>
+        </div>
+        <div id="judgeBrief"></div>
+    </section>
+
+    <!-- ============ OPPONENTS ============ -->
+    <section class="tab-panel" id="panel-opponents" role="tabpanel" aria-labelledby="tab-opponents">
+        <h2 class="block-heading">Scouting Book</h2>
+        <div class="filter-field" style="max-width:360px; margin-bottom:18px;">
+            <label for="oppSearch">Search opponents / schools</label>
+            <input type="text" id="oppSearch" placeholder="Search by name or school…">
+        </div>
+        <div class="table-scroll">
+            <table class="data-table" id="oppTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" data-sort="name">Opponent</th>
+                        <th class="sortable" data-sort="school">School</th>
+                        <th class="sortable" data-sort="w">Head-to-head</th>
+                        <th class="sortable" data-sort="winRate">Win %</th>
+                        <th>Last strategy they read</th>
+                    </tr>
+                </thead>
+                <tbody id="oppTbody"></tbody>
+            </table>
+        </div>
+        <div id="oppBrief"></div>
+    </section>
+
+    <!-- ============ DATA ============ -->
+    <section class="tab-panel" id="panel-data" role="tabpanel" aria-labelledby="tab-data">
+        <h2 class="block-heading">Data &amp; Portability</h2>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <h3 class="section-title">Export</h3>
+                <p class="section-sub">Nothing here is ever uploaded — everything lives in this browser's local storage. Export regularly to back up your record.</p>
+                <div class="data-actions">
+                    <button class="btn btn-outline" id="exportJsonBtn" type="button"><i class="fa-solid fa-file-code" aria-hidden="true"></i> Export JSON</button>
+                    <button class="btn btn-outline" id="exportCsvBtn" type="button"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Export CSV</button>
+                    <button class="btn btn-outline" id="printBtn" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> Print / save season report</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="section-title">Import</h3>
+                <p class="section-sub">Import a previously exported JSON file. New records merge in; anything sharing an ID with existing data will ask for confirmation before it is overwritten.</p>
+                <div class="data-actions">
+                    <input type="file" id="importFile" accept="application/json" class="visually-hidden">
+                    <button class="btn btn-outline" id="importBtn" type="button"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Import JSON</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top:16px;">
+            <div class="card">
+                <h3 class="section-title">Sample data</h3>
+                <p class="section-sub">Round Tracker seeds a few clearly-labeled sample rounds on first run so the dashboard isn't empty. Remove them any time.</p>
+                <div class="data-actions">
+                    <button class="btn btn-outline" id="clearSampleBtn" type="button"><i class="fa-solid fa-broom" aria-hidden="true"></i> Clear sample data</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="section-title">Danger zone</h3>
+                <p class="section-sub">Permanently erase every round, tournament, judge, and opponent record stored by this tool.</p>
+                <div class="data-actions">
+                    <button class="btn btn-danger" id="clearAllBtn" type="button"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Clear all data</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+            <h3 class="section-title">Storage</h3>
+            <p class="section-sub" id="storageInfo"></p>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer no-print">
+    <div class="footer-inner">
+        <a href="../../index.html" class="wordmark-link" aria-label="Debate 101 home">
+            <img src="../../assets/logo.PNG" alt="" onerror="this.style.display='none'" style="height:24px;">
+            <span class="wordmark-text">DEBATE<span class="light">101</span></span>
+        </a>
+        <div class="u-label">Round Tracker &middot; local-only &middot; open source</div>
+    </div>
+    <p class="fine-print">&copy; 2026 Debate 101 Collective — data stored only in your browser</p>
+</footer>
+
+<!-- ============ Modals ============ -->
+<div class="modal-overlay no-print" id="goalsModal" role="dialog" aria-modal="true" aria-labelledby="goalsModalTitle">
+    <div class="modal-box">
+        <h3 id="goalsModalTitle">Season goals</h3>
+        <div class="form-field" style="margin-bottom:12px;">
+            <label for="goalWinRate">Win rate target (%)</label>
+            <input type="number" id="goalWinRate" min="0" max="100" step="1">
+        </div>
+        <div class="form-field" style="margin-bottom:12px;">
+            <label for="goalBids">Bids target</label>
+            <input type="number" id="goalBids" min="0" step="1">
+        </div>
+        <div class="form-field">
+            <label for="goalSpeaks">Average speaks target</label>
+            <input type="number" id="goalSpeaks" min="0" max="100" step="0.1">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" id="goalsCancelBtn" type="button">Cancel</button>
+            <button class="btn" id="goalsSaveBtn" type="button">Save goals</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay no-print" id="importModal" role="dialog" aria-modal="true" aria-labelledby="importModalTitle">
+    <div class="modal-box">
+        <h3 id="importModalTitle">Confirm import</h3>
+        <p id="importSummary"></p>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" id="importCancelBtn" type="button">Cancel</button>
+            <button class="btn" id="importConfirmBtn" type="button">Import &amp; merge</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay no-print" id="clearAllModal" role="dialog" aria-modal="true" aria-labelledby="clearAllModalTitle">
+    <div class="modal-box">
+        <h3 id="clearAllModalTitle">Clear all data</h3>
+        <p>This permanently deletes every round, tournament, judge, and opponent record from this browser. This cannot be undone. Type <strong>DELETE ALL</strong> below to confirm.</p>
+        <div class="form-field">
+            <label for="clearAllInput" class="visually-hidden">Type DELETE ALL to confirm</label>
+            <input type="text" id="clearAllInput" autocomplete="off" placeholder="DELETE ALL">
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" id="clearAllCancelBtn" type="button">Cancel</button>
+            <button class="btn btn-danger" id="clearAllConfirmBtn" type="button" disabled>Delete everything</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="printReport"></div>
+
+<script>
+(function () {
+"use strict";
+
+/* =========================================================================
+   CONSTANTS & STORAGE
+   ========================================================================= */
+var LS = {
+    rounds: 'd101.rounds',
+    tournaments: 'd101.tournaments',
+    opponents: 'd101.opponents',
+    judges: 'd101.judges',
+    goals: 'd101.goals',
+    meta: 'd101.meta'
+};
+var ELIM_RANK = { doubles: 1, octos: 2, quarters: 3, semis: 4, finals: 5 };
+var EVENTS = ['LD', 'PF', 'Policy', 'Parli', 'Congress'];
+
+function uid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+}
+function nowIso() { return new Date().toISOString(); }
+function esc(s) {
+    s = (s === null || s === undefined) ? '' : String(s);
+    return s.replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+}
+function fmtDate(d) {
+    if (!d) return '';
+    var parts = d.split('-');
+    if (parts.length !== 3) return d;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var m = parseInt(parts[1], 10) - 1;
+    return months[m] + ' ' + parseInt(parts[2], 10) + ', ' + parts[0];
+}
+function pct(n) { return (isFinite(n) ? n : 0).toFixed(1) + '%'; }
+function round1(n) { return Math.round(n * 10) / 10; }
+
+function safeLoad(key, fallback) {
+    var raw;
+    try { raw = localStorage.getItem(key); } catch (e) { return fallback; }
+    if (raw === null) return fallback;
+    try {
+        return JSON.parse(raw);
+    } catch (e) {
+        try {
+            var bak = localStorage.getItem(key + '.bak');
+            if (bak) {
+                var parsed = JSON.parse(bak);
+                toast('Recovered ' + key.replace('d101.', '') + ' from backup after a data error.', true);
+                return parsed;
+            }
+        } catch (e2) { /* fall through */ }
+        toast('Stored data for ' + key.replace('d101.', '') + ' was corrupted and could not be recovered.', true);
+        return fallback;
+    }
+}
+function safeSave(key, value) {
+    try {
+        var prev = localStorage.getItem(key);
+        if (prev !== null) localStorage.setItem(key + '.bak', prev);
+    } catch (e) { /* backup best-effort */ }
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (e) {
+        if (e && (e.name === 'QuotaExceededError' || e.code === 22)) {
+            toast('Storage is full — this change was NOT saved. Export your data as a backup.', true);
+        } else {
+            toast('Could not save data: ' + (e && e.message ? e.message : 'unknown error'), true);
+        }
+        return false;
+    }
+}
+
+/* =========================================================================
+   STATE
+   ========================================================================= */
+var state = {
+    rounds: [],
+    tournaments: [],
+    opponents: [],
+    judges: [],
+    goals: { winRate: null, bids: null, speaks: null },
+    meta: { seeded: false }
+};
+var filters = { from: '', to: '', event: '', tournament: '', side: '' };
+var editingRoundId = null;
+var sortState = { rounds: { key: 'date', dir: -1 }, judges: { key: 'name', dir: 1 }, opp: { key: 'name', dir: 1 } };
+var expandedJudge = null;
+var expandedOpp = null;
+var expandedTournaments = {};
+
+function loadAll() {
+    state.rounds = safeLoad(LS.rounds, null);
+    var firstRun = state.rounds === null;
+    state.rounds = state.rounds || [];
+    state.tournaments = safeLoad(LS.tournaments, []);
+    state.opponents = safeLoad(LS.opponents, []);
+    state.judges = safeLoad(LS.judges, []);
+    state.goals = safeLoad(LS.goals, { winRate: null, bids: null, speaks: null });
+    state.meta = safeLoad(LS.meta, { seeded: false });
+
+    if (firstRun && !state.meta.seeded) {
+        seedSampleData();
+        state.meta.seeded = true;
+        saveAll();
+    }
+}
+function saveAll() {
+    safeSave(LS.rounds, state.rounds);
+    safeSave(LS.tournaments, state.tournaments);
+    safeSave(LS.opponents, state.opponents);
+    safeSave(LS.judges, state.judges);
+    safeSave(LS.goals, state.goals);
+    safeSave(LS.meta, state.meta);
+}
+
+function upsertTournament(name, sample) {
+    name = (name || '').trim();
+    if (!name) return;
+    var existing = state.tournaments.find(function (t) { return t.name.toLowerCase() === name.toLowerCase(); });
+    if (!existing) state.tournaments.push({ id: uid(), name: name, sample: !!sample });
+}
+function upsertOpponent(name, school, sample) {
+    name = (name || '').trim();
+    if (!name) return null;
+    school = (school || '').trim();
+    var existing = state.opponents.find(function (o) {
+        return o.name.toLowerCase() === name.toLowerCase() && (o.school || '').toLowerCase() === school.toLowerCase();
+    });
+    if (existing) return existing;
+    var opp = { id: uid(), name: name, school: school, notes: '', sample: !!sample, updatedAt: nowIso() };
+    state.opponents.push(opp);
+    return opp;
+}
+function upsertJudge(name, sample) {
+    name = (name || '').trim();
+    if (!name) return null;
+    var existing = state.judges.find(function (j) { return j.name.toLowerCase() === name.toLowerCase(); });
+    if (existing) return existing;
+    var judge = { id: uid(), name: name, notes: '', sample: !!sample, updatedAt: nowIso() };
+    state.judges.push(judge);
+    return judge;
+}
+
+/* =========================================================================
+   SEED DATA
+   ========================================================================= */
+function seedSampleData() {
+    var seedRounds = [
+        {
+            tournament: 'Sample Invitational', date: '2026-07-18', roundLabel: 'R1', division: 'Varsity',
+            event: 'LD', side: 'aff', oppName: 'Jordan Lee', oppSchool: 'Lincoln Prep', judge: 'M. Alvarez',
+            result: 'W', speaks: 28.5, myStrategy: 'Util NC — phil spec', theirStrategy: 'Structural violence K aff',
+            reason: 'Won the framework debate; they conceded util offense on the flow.',
+            notes: 'Judge liked technical debating — flow closely, extend clearly.'
+        },
+        {
+            tournament: 'Sample Invitational', date: '2026-07-18', roundLabel: 'R3', division: 'Varsity',
+            event: 'LD', side: 'neg', oppName: 'Priya Nair', oppSchool: 'Westview Academy', judge: 'D. Okafor',
+            result: 'L', speaks: 27.0, myStrategy: 'Skep NC', theirStrategy: 'Set col aff',
+            reason: 'Dropped a turn on the skepticism block in the 2NR.',
+            notes: 'Judge prefers a slower, line-by-line 2NR over big-picture weighing.'
+        },
+        {
+            tournament: 'Sample Invitational', date: '2026-07-19', roundLabel: 'Octos', division: 'Varsity',
+            event: 'LD', side: 'aff', oppName: 'Priya Nair', oppSchool: 'Westview Academy', judge: 'R. Kim',
+            result: 'W', speaks: 29.0, myStrategy: 'Util NC — phil spec', theirStrategy: 'Set col aff',
+            reason: 'Better time allocation in the 1AR and 2AR; pre-empted their set col turns.',
+            notes: 'Rematch from R3 — adjusted 1AR pre-empts on set col this time.', bid: true
+        },
+        {
+            tournament: 'Fall Classic', date: '2026-08-09', roundLabel: 'R2', division: 'Varsity',
+            event: 'PF', side: 'aff', oppName: 'Sam Torres', oppSchool: 'Brookline HS', judge: 'J. Feldman',
+            result: 'L', speaks: 28.0, myStrategy: 'Case: AI regulation good', theirStrategy: 'Innovation DA',
+            reason: 'Lost the impact calculus and weighing in the final focus.',
+            notes: 'Judge is a flow judge who explicitly values weighing — front-load it.'
+        }
+    ];
+    seedRounds.forEach(function (r) {
+        var round = {
+            id: uid(), sample: true, tournament: r.tournament, date: r.date, roundLabel: r.roundLabel,
+            division: r.division, event: r.event, side: r.side, oppName: r.oppName, oppSchool: r.oppSchool,
+            judge: r.judge, result: r.result, speaks: r.speaks, myStrategy: r.myStrategy, theirStrategy: r.theirStrategy,
+            reason: r.reason, notes: r.notes, bid: !!r.bid, createdAt: nowIso(), updatedAt: nowIso()
+        };
+        state.rounds.push(round);
+        upsertTournament(r.tournament, true);
+        upsertOpponent(r.oppName, r.oppSchool, true);
+        upsertJudge(r.judge, true);
+    });
+}
+
+/* =========================================================================
+   FILTERING
+   ========================================================================= */
+function filteredRounds() {
+    return state.rounds.filter(function (r) {
+        if (filters.from && r.date && r.date < filters.from) return false;
+        if (filters.to && r.date && r.date > filters.to) return false;
+        if (filters.event && r.event !== filters.event) return false;
+        if (filters.tournament && r.tournament !== filters.tournament) return false;
+        if (filters.side && r.side !== filters.side) return false;
+        return true;
+    });
+}
+function isElimLabel(label) {
+    return !!ELIM_RANK[(label || '').trim().toLowerCase()];
+}
+
+/* =========================================================================
+   STATS
+   ========================================================================= */
+function computeStats(rounds) {
+    var total = rounds.length;
+    var wins = rounds.filter(function (r) { return r.result === 'W'; }).length;
+    var losses = total - wins;
+    var winRate = total ? (wins / total) * 100 : 0;
+
+    var bySide = { aff: { w: 0, l: 0 }, neg: { w: 0, l: 0 } };
+    rounds.forEach(function (r) {
+        if (r.side === 'aff' || r.side === 'neg') bySide[r.side][r.result === 'W' ? 'w' : 'l']++;
+    });
+
+    var speaksVals = rounds.map(function (r) { return r.speaks; }).filter(function (v) { return typeof v === 'number' && !isNaN(v); });
+    var avgSpeaks = speaksVals.length ? speaksVals.reduce(function (a, b) { return a + b; }, 0) / speaksVals.length : null;
+    var highSpeaks = speaksVals.length ? Math.max.apply(null, speaksVals) : null;
+    var lowSpeaks = speaksVals.length ? Math.min.apply(null, speaksVals) : null;
+
+    function grouped(keyFn, fallback) {
+        var g = {};
+        rounds.forEach(function (r) {
+            var k = (keyFn(r) || '').trim() || fallback;
+            g[k] = g[k] || { w: 0, l: 0 };
+            g[k][r.result === 'W' ? 'w' : 'l']++;
+        });
+        return g;
+    }
+    var byEvent = grouped(function (r) { return r.event; }, 'Unspecified');
+    var byStrategy = grouped(function (r) { return r.myStrategy; }, 'Unspecified');
+    var bySchool = grouped(function (r) { return r.oppSchool; }, 'Unknown school');
+
+    var tournamentsSet = {};
+    rounds.forEach(function (r) { if (r.tournament) tournamentsSet[r.tournament.trim().toLowerCase()] = true; });
+    var elimRounds = rounds.filter(function (r) { return isElimLabel(r.roundLabel); });
+    var bids = rounds.filter(function (r) { return !!r.bid; }).length;
+
+    return {
+        total: total, wins: wins, losses: losses, winRate: winRate, bySide: bySide,
+        avgSpeaks: avgSpeaks, highSpeaks: highSpeaks, lowSpeaks: lowSpeaks,
+        byEvent: byEvent, byStrategy: byStrategy, bySchool: bySchool,
+        tournamentsCount: Object.keys(tournamentsSet).length, elimCount: elimRounds.length, bids: bids
+    };
+}
+
+function groupRowsHtml(g) {
+    var keys = Object.keys(g).sort(function (a, b) {
+        return (g[b].w + g[b].l) - (g[a].w + g[a].l);
+    });
+    if (!keys.length) return '<p class="empty-note">No rounds logged yet.</p>';
+    return '<table class="data-table" style="min-width:0;"><tbody>' + keys.map(function (k) {
+        var row = g[k]; var t = row.w + row.l; var wr = t ? (row.w / t) * 100 : 0;
+        return '<tr><td>' + esc(k) + '</td><td style="white-space:nowrap;">' + row.w + '-' + row.l + '</td><td style="white-space:nowrap;">' + pct(wr) + '</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+/* =========================================================================
+   CHARTS (hand-drawn inline SVG)
+   ========================================================================= */
+function emptyChart(msg) {
+    return '<svg viewBox="0 0 560 220" role="img" aria-label="' + esc(msg) + '"><title>' + esc(msg) + '</title>' +
+        '<text x="280" y="110" text-anchor="middle" font-size="13" fill="#64748b" font-family="Inter, sans-serif">' + esc(msg) + '</text></svg>';
+}
+
+function chartSideWL(stats) {
+    var groups = [
+        { label: 'Aff', w: stats.bySide.aff.w, l: stats.bySide.aff.l },
+        { label: 'Neg', w: stats.bySide.neg.w, l: stats.bySide.neg.l }
+    ];
+    if (groups[0].w + groups[0].l + groups[1].w + groups[1].l === 0) return emptyChart('No side data logged yet.');
+
+    var W = 560, H = 260, padL = 44, padR = 20, padT = 20, padB = 46;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var maxVal = Math.max(1, groups[0].w, groups[0].l, groups[1].w, groups[1].l);
+    var niceMax = Math.ceil(maxVal / 4) * 4 || 4;
+    var groupW = plotW / groups.length;
+    var barW = Math.min(56, groupW * 0.28);
+
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="swlTitle swlDesc">' +
+        '<title id="swlTitle">Win/loss record by side</title>' +
+        '<desc id="swlDesc">Aff: ' + groups[0].w + ' wins, ' + groups[0].l + ' losses. Neg: ' + groups[1].w + ' wins, ' + groups[1].l + ' losses.</desc>';
+
+    var ticks = 4, i, val, y;
+    for (i = 0; i <= ticks; i++) {
+        val = Math.round((niceMax * i) / ticks);
+        y = padT + plotH - (val / niceMax) * plotH;
+        svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#e5e7eb" stroke-width="1"/>';
+        svg += '<text x="' + (padL - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="10" fill="#64748b" font-family="Inter, sans-serif">' + val + '</text>';
+    }
+    svg += '<line x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (padT + plotH) + '" stroke="#051C2C" stroke-width="1"/>';
+    svg += '<line x1="' + padL + '" y1="' + (padT + plotH) + '" x2="' + (W - padR) + '" y2="' + (padT + plotH) + '" stroke="#051C2C" stroke-width="1"/>';
+
+    groups.forEach(function (g, idx) {
+        var gx = padL + idx * groupW + groupW / 2;
+        var wx = gx - barW - 5, lx = gx + 5;
+        var wh = (g.w / niceMax) * plotH, lh = (g.l / niceMax) * plotH;
+        var wy = padT + plotH - wh, ly = padT + plotH - lh;
+        svg += '<rect x="' + wx + '" y="' + wy + '" width="' + barW + '" height="' + wh + '" fill="#0072b1"><title>' + g.label + ' wins: ' + g.w + '</title></rect>';
+        svg += '<rect x="' + lx + '" y="' + ly + '" width="' + barW + '" height="' + lh + '" fill="#cbd5e1"><title>' + g.label + ' losses: ' + g.l + '</title></rect>';
+        svg += '<text x="' + (wx + barW / 2) + '" y="' + (wy - 6) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#051C2C" font-family="Inter, sans-serif">' + g.w + '</text>';
+        svg += '<text x="' + (lx + barW / 2) + '" y="' + (ly - 6) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#051C2C" font-family="Inter, sans-serif">' + g.l + '</text>';
+        svg += '<text x="' + gx + '" y="' + (padT + plotH + 20) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#051C2C" font-family="Inter, sans-serif">' + g.label + '</text>';
+    });
+    svg += '<g transform="translate(' + (W - 132) + ', ' + (padT - 4) + ')" font-family="Inter, sans-serif">' +
+        '<rect width="10" height="10" fill="#0072b1"/><text x="16" y="9" font-size="10" fill="#051C2C">Wins</text>' +
+        '<rect x="60" width="10" height="10" fill="#cbd5e1"/><text x="76" y="9" font-size="10" fill="#051C2C">Losses</text></g>';
+    svg += '</svg>';
+    return svg;
+}
+
+function chartSpeaksHistogram(rounds) {
+    var values = rounds.map(function (r) { return r.speaks; }).filter(function (v) { return typeof v === 'number' && !isNaN(v); });
+    if (!values.length) return emptyChart('No speaker points logged yet.');
+
+    var lo = Math.floor(Math.min.apply(null, values));
+    var hi = Math.ceil(Math.max.apply(null, values));
+    if (hi <= lo) hi = lo + 1;
+    var binW = 1;
+    var bins = [];
+    for (var b = lo; b < hi; b += binW) bins.push({ start: b, end: b + binW, count: 0 });
+    if (!bins.length) bins.push({ start: lo, end: lo + 1, count: 0 });
+    values.forEach(function (v) {
+        var idx = Math.floor((v - lo) / binW);
+        if (idx < 0) idx = 0;
+        if (idx >= bins.length) idx = bins.length - 1;
+        bins[idx].count++;
+    });
+    var maxCount = Math.max.apply(null, bins.map(function (bn) { return bn.count; }).concat([1]));
+    var niceMax = Math.ceil(maxCount);
+
+    var W = 560, H = 260, padL = 40, padR = 16, padT = 20, padB = 50;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var slot = plotW / bins.length;
+    var barW = Math.max(6, slot * 0.72);
+
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="hstTitle hstDesc">' +
+        '<title id="hstTitle">Speaker point distribution</title>' +
+        '<desc id="hstDesc">Histogram of ' + values.length + ' speaker point entries ranging from ' + lo + ' to ' + hi + '.</desc>';
+
+    var ticks = Math.min(4, niceMax), i, val, y;
+    for (i = 0; i <= ticks; i++) {
+        val = Math.round((niceMax * i) / ticks);
+        y = padT + plotH - (val / niceMax) * plotH;
+        svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#e5e7eb" stroke-width="1"/>';
+        svg += '<text x="' + (padL - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="10" fill="#64748b" font-family="Inter, sans-serif">' + val + '</text>';
+    }
+    svg += '<line x1="' + padL + '" y1="' + (padT + plotH) + '" x2="' + (W - padR) + '" y2="' + (padT + plotH) + '" stroke="#051C2C" stroke-width="1"/>';
+
+    bins.forEach(function (bn, idx) {
+        var cx = padL + idx * slot + slot / 2;
+        var bh = (bn.count / niceMax) * plotH;
+        var by = padT + plotH - bh;
+        svg += '<rect x="' + (cx - barW / 2) + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="#0072b1"><title>' + bn.start + '–' + bn.end + ': ' + bn.count + ' round(s)</title></rect>';
+        if (bn.count > 0) svg += '<text x="' + cx + '" y="' + (by - 6) + '" text-anchor="middle" font-size="10" font-weight="700" fill="#051C2C" font-family="Inter, sans-serif">' + bn.count + '</text>';
+        svg += '<text x="' + cx + '" y="' + (padT + plotH + 16) + '" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">' + bn.start + '</text>';
+    });
+    svg += '</svg>';
+    return svg;
+}
+
+function chartCumulative(rounds) {
+    if (!rounds.length) return emptyChart('No rounds logged yet.');
+    var sorted = rounds.slice().sort(function (a, b) {
+        if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+        return (a.createdAt || '').localeCompare(b.createdAt || '');
+    });
+    var net = 0;
+    var points = sorted.map(function (r, idx) {
+        net += r.result === 'W' ? 1 : -1;
+        return { x: idx, y: net, date: r.date };
+    });
+    var maxAbs = Math.max(1, Math.max.apply(null, points.map(function (p) { return Math.abs(p.y); })));
+
+    var W = 560, H = 260, padL = 40, padR = 20, padT = 20, padB = 34;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var n = points.length;
+    var xScale = function (i) { return n <= 1 ? plotW / 2 : (i / (n - 1)) * plotW; };
+    var yScale = function (v) { return plotH / 2 - (v / maxAbs) * (plotH / 2); };
+
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="cumTitle cumDesc">' +
+        '<title id="cumTitle">Cumulative record over the season</title>' +
+        '<desc id="cumDesc">Running win/loss differential across ' + n + ' rounds, ending at net ' + (net > 0 ? '+' : '') + net + '.</desc>';
+
+    [maxAbs, Math.round(maxAbs / 2), 0, -Math.round(maxAbs / 2), -maxAbs].forEach(function (v) {
+        var y = padT + yScale(v);
+        svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="' + (v === 0 ? '#051C2C' : '#e5e7eb') + '" stroke-width="1"/>';
+        svg += '<text x="' + (padL - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="10" fill="#64748b" font-family="Inter, sans-serif">' + (v > 0 ? '+' : '') + v + '</text>';
+    });
+
+    var path = points.map(function (p, i) {
+        return (i === 0 ? 'M' : 'L') + ' ' + round1(padL + xScale(i)) + ' ' + round1(padT + yScale(p.y));
+    }).join(' ');
+    svg += '<path d="' + path + '" fill="none" stroke="#0072b1" stroke-width="2"/>';
+
+    points.forEach(function (p, i) {
+        if (i === n - 1 || i === 0 || n <= 20 || i % Math.ceil(n / 20) === 0) {
+            svg += '<circle cx="' + round1(padL + xScale(i)) + '" cy="' + round1(padT + yScale(p.y)) + '" r="3" fill="#0072b1"><title>Round ' + (i + 1) + ' (' + esc(p.date) + '): net ' + (p.y > 0 ? '+' : '') + p.y + '</title></circle>';
+        }
+    });
+    svg += '<text x="' + padL + '" y="' + (H - 6) + '" font-size="10" fill="#64748b" font-family="Inter, sans-serif">Round 1</text>';
+    svg += '<text x="' + (W - padR) + '" y="' + (H - 6) + '" text-anchor="end" font-size="10" fill="#64748b" font-family="Inter, sans-serif">Round ' + n + '</text>';
+    svg += '</svg>';
+    return svg;
+}
+
+/* =========================================================================
+   RENDER: DASHBOARD
+   ========================================================================= */
+function renderDashboard() {
+    var rounds = filteredRounds();
+    var stats = computeStats(rounds);
+
+    var tiles = [
+        { label: 'Overall record', value: stats.wins + '-' + stats.losses, note: pct(stats.winRate) + ' win rate' },
+        { label: 'Aff win rate', value: pct(stats.bySide.aff.w + stats.bySide.aff.l ? (stats.bySide.aff.w / (stats.bySide.aff.w + stats.bySide.aff.l)) * 100 : 0), note: stats.bySide.aff.w + '-' + stats.bySide.aff.l + ' on aff' },
+        { label: 'Neg win rate', value: pct(stats.bySide.neg.w + stats.bySide.neg.l ? (stats.bySide.neg.w / (stats.bySide.neg.w + stats.bySide.neg.l)) * 100 : 0), note: stats.bySide.neg.w + '-' + stats.bySide.neg.l + ' on neg' },
+        { label: 'Average speaks', value: stats.avgSpeaks !== null ? round1(stats.avgSpeaks) : '—', note: stats.avgSpeaks !== null ? ('High ' + stats.highSpeaks + ' / Low ' + stats.lowSpeaks) : 'No speaks logged' },
+        { label: 'Tournaments', value: stats.tournamentsCount, note: 'attended this range' },
+        { label: 'Elim appearances', value: stats.elimCount, note: 'doubles or later' },
+        { label: 'Bids earned', value: stats.bids, note: 'marked bid rounds' },
+        { label: 'Rounds logged', value: stats.total, note: 'in current filter' }
+    ];
+    document.getElementById('statTiles').innerHTML = tiles.map(function (t) {
+        return '<div class="stat-tile"><div class="stat-label">' + esc(t.label) + '</div><div class="stat-value">' + esc(t.value) + '</div><div class="stat-note">' + esc(t.note) + '</div></div>';
+    }).join('');
+
+    document.getElementById('statByEvent').innerHTML = groupRowsHtml(stats.byEvent);
+    document.getElementById('statByStrategy').innerHTML = groupRowsHtml(stats.byStrategy);
+    document.getElementById('statBySchool').innerHTML = groupRowsHtml(stats.bySchool);
+
+    document.getElementById('chartSideWL').innerHTML = chartSideWL(stats);
+    document.getElementById('chartSpeaks').innerHTML = chartSpeaksHistogram(rounds);
+    document.getElementById('chartCumulative').innerHTML = chartCumulative(rounds);
+
+    renderGoalProgress(stats);
+}
+
+function renderGoalProgress(stats) {
+    var g = state.goals || {};
+    var rows = [];
+    if (g.winRate !== null && g.winRate !== undefined && g.winRate !== '') {
+        var wrPct = Math.min(100, (stats.winRate / g.winRate) * 100 || 0);
+        rows.push({ label: 'Win rate', val: pct(stats.winRate) + ' of ' + g.winRate + '%', p: wrPct, met: stats.winRate >= g.winRate });
+    }
+    if (g.bids !== null && g.bids !== undefined && g.bids !== '') {
+        var bidsP = Math.min(100, (stats.bids / g.bids) * 100 || (g.bids === 0 ? 100 : 0));
+        rows.push({ label: 'Bids', val: stats.bids + ' of ' + g.bids, p: bidsP, met: stats.bids >= g.bids });
+    }
+    if (g.speaks !== null && g.speaks !== undefined && g.speaks !== '') {
+        var avg = stats.avgSpeaks || 0;
+        var spP = Math.min(100, (avg / g.speaks) * 100 || 0);
+        rows.push({ label: 'Avg. speaks', val: round1(avg) + ' of ' + g.speaks, p: spP, met: avg >= g.speaks });
+    }
+    var el = document.getElementById('goalProgress');
+    if (!rows.length) {
+        el.innerHTML = '<p class="empty-note" style="padding:8px 0;">No goals set yet. Click "Edit goals" to set a win rate, bid count, or speaks target for the season.</p>';
+        return;
+    }
+    el.innerHTML = rows.map(function (r) {
+        return '<div class="goal-row"><div class="goal-label">' + esc(r.label) + '</div>' +
+            '<div class="goal-bar-track"><div class="goal-bar-fill' + (r.met ? ' goal-met' : '') + '" style="width:' + Math.max(2, r.p) + '%;"></div></div>' +
+            '<div class="goal-val">' + esc(r.val) + (r.met ? ' ✓' : '') + '</div></div>';
+    }).join('');
+}
+
+/* =========================================================================
+   RENDER: ROUNDS TAB
+   ========================================================================= */
+function renderRoundsTable() {
+    var rounds = filteredRounds();
+    var s = sortState.rounds;
+    rounds = rounds.slice().sort(function (a, b) {
+        var av = a[s.key], bv = b[s.key];
+        if (s.key === 'speaks') { av = av || -Infinity; bv = bv || -Infinity; }
+        av = (av === undefined || av === null) ? '' : av;
+        bv = (bv === undefined || bv === null) ? '' : bv;
+        if (av < bv) return -1 * s.dir;
+        if (av > bv) return 1 * s.dir;
+        return 0;
+    });
+
+    document.getElementById('roundsCount').textContent = '(' + rounds.length + ')';
+    var tbody = document.getElementById('roundsTbody');
+    if (!rounds.length) {
+        tbody.innerHTML = '<tr><td colspan="10" class="empty-note">No rounds match the current filters. Log one above.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = rounds.map(function (r) {
+        return '<tr>' +
+            '<td>' + esc(fmtDate(r.date)) + '</td>' +
+            '<td>' + esc(r.tournament) + (r.sample ? ' <span class="badge badge-sample">Sample</span>' : '') + '</td>' +
+            '<td>' + esc(r.roundLabel) + (isElimLabel(r.roundLabel) ? ' <span class="badge badge-elim">Elim</span>' : '') + (r.bid ? ' <span class="badge badge-bid">Bid</span>' : '') + '</td>' +
+            '<td>' + esc(r.event) + '</td>' +
+            '<td>' + (r.side ? esc(r.side.toUpperCase()) : '—') + '</td>' +
+            '<td>' + esc(r.oppName || '—') + (r.oppSchool ? '<br><span class="text-muted" style="font-size:11px;">' + esc(r.oppSchool) + '</span>' : '') + '</td>' +
+            '<td>' + esc(r.judge || '—') + '</td>' +
+            '<td>' + (r.result === 'W' ? '<span class="badge badge-w">Win</span>' : '<span class="badge badge-l">Loss</span>') + '</td>' +
+            '<td>' + (typeof r.speaks === 'number' ? r.speaks : '—') + '</td>' +
+            '<td class="no-print"><div class="row-actions">' +
+                '<button class="btn btn-ghost btn-sm" type="button" data-edit="' + esc(r.id) + '">Edit</button>' +
+                '<button class="btn btn-ghost btn-sm" type="button" data-delete="' + esc(r.id) + '">Delete</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+function refreshDatalists() {
+    var tNames = state.tournaments.map(function (t) { return t.name; }).sort();
+    document.getElementById('tournamentList').innerHTML = tNames.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+    document.getElementById('fTournament').innerHTML = '<option value="">All tournaments</option>' + tNames.map(function (n) { return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join('');
+    if (tNames.indexOf(filters.tournament) === -1) filters.tournament = '';
+    document.getElementById('fTournament').value = filters.tournament;
+
+    var judgeNames = state.judges.map(function (j) { return j.name; }).sort();
+    document.getElementById('judgeList').innerHTML = judgeNames.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+
+    var oppNames = Array.from(new Set(state.opponents.map(function (o) { return o.name; }))).sort();
+    document.getElementById('opponentNameList').innerHTML = oppNames.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+    var oppSchools = Array.from(new Set(state.opponents.map(function (o) { return o.school; }).filter(Boolean))).sort();
+    document.getElementById('opponentSchoolList').innerHTML = oppSchools.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+
+    var divisions = Array.from(new Set(state.rounds.map(function (r) { return r.division; }).filter(Boolean))).sort();
+    document.getElementById('divisionList').innerHTML = divisions.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+
+    var strategies = Array.from(new Set(state.rounds.flatMap(function (r) { return [r.myStrategy, r.theirStrategy]; }).filter(Boolean))).sort();
+    document.getElementById('strategyList').innerHTML = strategies.map(function (n) { return '<option value="' + esc(n) + '">'; }).join('');
+}
+
+/* =========================================================================
+   RENDER: TOURNAMENTS TAB
+   ========================================================================= */
+function renderTournaments() {
+    var rounds = filteredRounds();
+    var byT = {};
+    rounds.forEach(function (r) {
+        var key = (r.tournament || 'Unnamed').trim();
+        byT[key] = byT[key] || [];
+        byT[key].push(r);
+    });
+    var names = Object.keys(byT).sort(function (a, b) {
+        var da = byT[a].reduce(function (m, r) { return r.date > m ? r.date : m; }, '');
+        var db = byT[b].reduce(function (m, r) { return r.date > m ? r.date : m; }, '');
+        return db.localeCompare(da);
+    });
+    var el = document.getElementById('tournamentsList');
+    if (!names.length) {
+        el.innerHTML = '<p class="empty-note">No tournaments match the current filters.</p>';
+        return;
+    }
+    el.innerHTML = names.map(function (name) {
+        var trounds = byT[name].slice().sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); });
+        var dates = trounds.map(function (r) { return r.date; }).filter(Boolean).sort();
+        var dateRange = dates.length ? (dates[0] === dates[dates.length - 1] ? fmtDate(dates[0]) : fmtDate(dates[0]) + ' – ' + fmtDate(dates[dates.length - 1])) : 'Undated';
+        var prelims = trounds.filter(function (r) { return !isElimLabel(r.roundLabel); });
+        var elims = trounds.filter(function (r) { return isElimLabel(r.roundLabel); });
+        var pw = prelims.filter(function (r) { return r.result === 'W'; }).length;
+        var pl = prelims.length - pw;
+        var deepest = null, deepestRank = -1;
+        elims.forEach(function (r) {
+            var rank = ELIM_RANK[(r.roundLabel || '').trim().toLowerCase()] || 0;
+            if (rank > deepestRank) { deepestRank = rank; deepest = r; }
+        });
+        var isSample = trounds.some(function (r) { return r.sample; });
+        var isOpen = !!expandedTournaments[name];
+        var bidCount = trounds.filter(function (r) { return r.bid; }).length;
+
+        var elimList = elims.length ? '<ul style="margin:8px 0 0; padding-left:18px;">' + elims.map(function (r) {
+            return '<li style="margin-bottom:4px;">' + esc(r.roundLabel) + ' vs. ' + esc(r.oppName || 'unknown') + (r.oppSchool ? ' (' + esc(r.oppSchool) + ')' : '') + ' — ' + (r.result === 'W' ? '<span class="badge badge-w">Win</span>' : '<span class="badge badge-l">Loss</span>') + '</li>';
+        }).join('') + '</ul>' : '<p class="text-muted" style="margin:8px 0 0; font-size:12px;">No elimination rounds logged.</p>';
+
+        return '<div class="tournament-card">' +
+            '<div class="tournament-head" data-toggle-tournament="' + esc(name) + '">' +
+                '<div><h3>' + esc(name) + (isSample ? ' <span class="badge badge-sample">Sample</span>' : '') + '</h3>' +
+                '<div class="tournament-meta">' + esc(dateRange) + ' &middot; ' + trounds.length + ' round(s)' + '</div></div>' +
+                '<div style="display:flex; gap:10px; align-items:center;">' +
+                    (deepest ? '<span class="badge badge-elim">Reached ' + esc(deepest.roundLabel) + '</span>' : '') +
+                    (bidCount ? '<span class="badge badge-bid">' + bidCount + ' bid' + (bidCount > 1 ? 's' : '') + '</span>' : '') +
+                    '<span class="stat-note">Prelims ' + pw + '-' + pl + '</span>' +
+                    '<i class="fa-solid fa-chevron-' + (isOpen ? 'up' : 'down') + '" aria-hidden="true"></i>' +
+                '</div>' +
+            '</div>' +
+            '<div class="tournament-body' + (isOpen ? ' open' : '') + '">' +
+                '<h4 style="margin:14px 0 4px; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:#64748b;">Elimination results</h4>' +
+                elimList +
+                '<h4 style="margin:16px 0 4px; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:#64748b;">Full round-by-round</h4>' +
+                '<div class="table-scroll"><table class="data-table" style="min-width:0;"><thead><tr><th>Rd</th><th>Side</th><th>Opponent</th><th>Judge</th><th>Result</th><th>Speaks</th></tr></thead><tbody>' +
+                trounds.map(function (r) {
+                    return '<tr><td>' + esc(r.roundLabel) + '</td><td>' + (r.side ? esc(r.side.toUpperCase()) : '—') + '</td><td>' + esc(r.oppName || '—') + '</td><td>' + esc(r.judge || '—') + '</td><td>' + (r.result === 'W' ? '<span class="badge badge-w">Win</span>' : '<span class="badge badge-l">Loss</span>') + '</td><td>' + (typeof r.speaks === 'number' ? r.speaks : '—') + '</td></tr>';
+                }).join('') +
+                '</tbody></table></div>' +
+            '</div>' +
+        '</div>';
+    }).join('');
+}
+
+/* =========================================================================
+   RENDER: JUDGES TAB
+   ========================================================================= */
+function judgeStatsList() {
+    var rounds = filteredRounds();
+    var search = (document.getElementById('judgeSearch').value || '').toLowerCase().trim();
+    var list = state.judges.map(function (j) {
+        var jr = rounds.filter(function (r) { return (r.judge || '').trim().toLowerCase() === j.name.toLowerCase(); });
+        var w = jr.filter(function (r) { return r.result === 'W'; }).length;
+        var l = jr.length - w;
+        var speaksVals = jr.map(function (r) { return r.speaks; }).filter(function (v) { return typeof v === 'number' && !isNaN(v); });
+        var avgSpeaks = speaksVals.length ? speaksVals.reduce(function (a, b) { return a + b; }, 0) / speaksVals.length : null;
+        return { id: j.id, name: j.name, notes: j.notes, sample: j.sample, w: w, l: l, rounds: jr.length, winRate: jr.length ? (w / jr.length) * 100 : 0, avgSpeaks: avgSpeaks, roundsData: jr };
+    }).filter(function (j) { return !search || j.name.toLowerCase().indexOf(search) !== -1; });
+
+    var s = sortState.judges;
+    list.sort(function (a, b) {
+        var av = a[s.key], bv = b[s.key];
+        av = (av === null || av === undefined) ? -Infinity : av;
+        bv = (bv === null || bv === undefined) ? -Infinity : bv;
+        if (av < bv) return -1 * s.dir;
+        if (av > bv) return 1 * s.dir;
+        return 0;
+    });
+    return list;
+}
+function renderJudges() {
+    var list = judgeStatsList();
+    var tbody = document.getElementById('judgesTbody');
+    if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-note">No judges yet. They\'ll appear here once you log a round.</td></tr>';
+    } else {
+        tbody.innerHTML = list.map(function (j) {
+            return '<tr data-judge-row="' + esc(j.id) + '"' + (expandedJudge === j.id ? ' class="expanded"' : '') + '>' +
+                '<td>' + esc(j.name) + (j.sample ? ' <span class="badge badge-sample">Sample</span>' : '') + '</td>' +
+                '<td>' + j.w + '-' + j.l + '</td>' +
+                '<td>' + pct(j.winRate) + '</td>' +
+                '<td>' + (j.avgSpeaks !== null ? round1(j.avgSpeaks) : '—') + '</td>' +
+                '<td>' + j.rounds + '</td>' +
+            '</tr>';
+        }).join('');
+    }
+    var brief = document.getElementById('judgeBrief');
+    var current = list.find(function (j) { return j.id === expandedJudge; });
+    if (!current) { brief.innerHTML = ''; return; }
+    brief.innerHTML = '<div class="brief-panel">' +
+        '<h3><i class="fa-solid fa-gavel" aria-hidden="true"></i> ' + esc(current.name) + ' — before the round</h3>' +
+        '<div class="brief-grid">' +
+            '<div><div class="brief-stat-val">' + current.w + '-' + current.l + '</div><div class="brief-stat-lbl">Record with you</div></div>' +
+            '<div><div class="brief-stat-val">' + pct(current.winRate) + '</div><div class="brief-stat-lbl">Win rate</div></div>' +
+            '<div><div class="brief-stat-val">' + (current.avgSpeaks !== null ? round1(current.avgSpeaks) : '—') + '</div><div class="brief-stat-lbl">Avg. speaks given</div></div>' +
+            '<div><div class="brief-stat-val">' + current.rounds + '</div><div class="brief-stat-lbl">Rounds judged</div></div>' +
+        '</div>' +
+        '<label for="judgeNotes">Paradigm notes</label>' +
+        '<textarea id="judgeNotes" style="min-height:100px; margin:8px 0 12px;" placeholder="Flow judge, values weighing, dislikes spreading…">' + esc(current.notes) + '</textarea>' +
+        '<button class="btn btn-sm no-print" id="saveJudgeNotesBtn" type="button">Save notes</button>' +
+        (current.roundsData.length ? '<h4 style="margin:18px 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:#64748b;">Rounds together</h4>' +
+        '<div class="table-scroll"><table class="data-table" style="min-width:0;"><thead><tr><th>Date</th><th>Tournament</th><th>Result</th><th>Speaks</th></tr></thead><tbody>' +
+        current.roundsData.slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).map(function (r) {
+            return '<tr><td>' + esc(fmtDate(r.date)) + '</td><td>' + esc(r.tournament) + '</td><td>' + (r.result === 'W' ? '<span class="badge badge-w">Win</span>' : '<span class="badge badge-l">Loss</span>') + '</td><td>' + (typeof r.speaks === 'number' ? r.speaks : '—') + '</td></tr>';
+        }).join('') + '</tbody></table></div>' : '') +
+    '</div>';
+}
+
+/* =========================================================================
+   RENDER: OPPONENTS TAB
+   ========================================================================= */
+function oppStatsList() {
+    var rounds = filteredRounds();
+    var search = (document.getElementById('oppSearch').value || '').toLowerCase().trim();
+    var list = state.opponents.map(function (o) {
+        var orr = rounds.filter(function (r) {
+            return (r.oppName || '').trim().toLowerCase() === o.name.toLowerCase() && (r.oppSchool || '').trim().toLowerCase() === (o.school || '').toLowerCase();
+        }).sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+        var w = orr.filter(function (r) { return r.result === 'W'; }).length;
+        var l = orr.length - w;
+        var lastStrat = orr.length ? orr[0].theirStrategy : '';
+        return { id: o.id, name: o.name, school: o.school, notes: o.notes, sample: o.sample, w: w, l: l, rounds: orr.length, winRate: orr.length ? (w / orr.length) * 100 : 0, lastStrat: lastStrat, roundsData: orr };
+    }).filter(function (o) {
+        return !search || o.name.toLowerCase().indexOf(search) !== -1 || (o.school || '').toLowerCase().indexOf(search) !== -1;
+    });
+    var s = sortState.opp;
+    list.sort(function (a, b) {
+        var av = a[s.key], bv = b[s.key];
+        av = (av === null || av === undefined) ? -Infinity : av;
+        bv = (bv === null || bv === undefined) ? -Infinity : bv;
+        if (av < bv) return -1 * s.dir;
+        if (av > bv) return 1 * s.dir;
+        return 0;
+    });
+    return list;
+}
+function renderOpponents() {
+    var list = oppStatsList();
+    var tbody = document.getElementById('oppTbody');
+    if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-note">No opponents yet. They\'ll appear here once you log a round.</td></tr>';
+    } else {
+        tbody.innerHTML = list.map(function (o) {
+            return '<tr data-opp-row="' + esc(o.id) + '"' + (expandedOpp === o.id ? ' class="expanded"' : '') + '>' +
+                '<td>' + esc(o.name) + (o.sample ? ' <span class="badge badge-sample">Sample</span>' : '') + '</td>' +
+                '<td>' + esc(o.school || '—') + '</td>' +
+                '<td>' + o.w + '-' + o.l + '</td>' +
+                '<td>' + pct(o.winRate) + '</td>' +
+                '<td>' + esc(o.lastStrat || '—') + '</td>' +
+            '</tr>';
+        }).join('');
+    }
+    var brief = document.getElementById('oppBrief');
+    var current = list.find(function (o) { return o.id === expandedOpp; });
+    if (!current) { brief.innerHTML = ''; return; }
+    brief.innerHTML = '<div class="brief-panel">' +
+        '<h3><i class="fa-solid fa-binoculars" aria-hidden="true"></i> ' + esc(current.name) + (current.school ? ' — ' + esc(current.school) : '') + '</h3>' +
+        '<div class="brief-grid">' +
+            '<div><div class="brief-stat-val">' + current.w + '-' + current.l + '</div><div class="brief-stat-lbl">Head-to-head</div></div>' +
+            '<div><div class="brief-stat-val">' + pct(current.winRate) + '</div><div class="brief-stat-lbl">Win rate vs. them</div></div>' +
+            '<div><div class="brief-stat-val">' + current.rounds + '</div><div class="brief-stat-lbl">Times faced</div></div>' +
+        '</div>' +
+        '<label for="oppNotes">Scouting notes</label>' +
+        '<textarea id="oppNotes" style="min-height:100px; margin:8px 0 12px;" placeholder="What they read, tendencies, how to beat them…">' + esc(current.notes) + '</textarea>' +
+        '<button class="btn btn-sm no-print" id="saveOppNotesBtn" type="button">Save notes</button>' +
+        (current.roundsData.length ? '<h4 style="margin:18px 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:#64748b;">Round history</h4>' +
+        '<div class="table-scroll"><table class="data-table" style="min-width:0;"><thead><tr><th>Date</th><th>Tournament</th><th>Side</th><th>They read</th><th>You read</th><th>Result</th></tr></thead><tbody>' +
+        current.roundsData.map(function (r) {
+            return '<tr><td>' + esc(fmtDate(r.date)) + '</td><td>' + esc(r.tournament) + '</td><td>' + (r.side ? esc(r.side.toUpperCase()) : '—') + '</td><td>' + esc(r.theirStrategy || '—') + '</td><td>' + esc(r.myStrategy || '—') + '</td><td>' + (r.result === 'W' ? '<span class="badge badge-w">Win</span>' : '<span class="badge badge-l">Loss</span>') + '</td></tr>';
+        }).join('') + '</tbody></table></div>' : '') +
+    '</div>';
+}
+
+/* =========================================================================
+   TOAST / A11Y ANNOUNCEMENTS
+   ========================================================================= */
+var toastTimer = null;
+function toast(msg, isErr) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.toggle('err', !!isErr);
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove('show'); }, 3600);
+}
+
+/* =========================================================================
+   FORM: ADD / EDIT ROUND
+   ========================================================================= */
+function resetRoundFormPartial() {
+    editingRoundId = null;
+    document.getElementById('roundId').value = '';
+    document.getElementById('roundSubmitBtn').innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save round';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+    ['rResult', 'rSpeaks', 'rOppName', 'rOppSchool', 'rJudge', 'rMyStrategy', 'rTheirStrategy', 'rReason', 'rNotes'].forEach(function (id) {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('rBid').checked = false;
+    var labelInput = document.getElementById('rRoundLabel');
+    var m = /^R(\d+)$/i.exec(labelInput.value.trim());
+    if (m) labelInput.value = 'R' + (parseInt(m[1], 10) + 1);
+}
+function fillRoundForm(r) {
+    editingRoundId = r.id;
+    document.getElementById('roundId').value = r.id;
+    document.getElementById('rTournament').value = r.tournament || '';
+    document.getElementById('rDate').value = r.date || '';
+    document.getElementById('rRoundLabel').value = r.roundLabel || '';
+    document.getElementById('rDivision').value = r.division || '';
+    document.getElementById('rEvent').value = r.event || '';
+    document.getElementById('rSide').value = r.side || '';
+    document.getElementById('rResult').value = r.result || '';
+    document.getElementById('rSpeaks').value = (typeof r.speaks === 'number') ? r.speaks : '';
+    document.getElementById('rOppName').value = r.oppName || '';
+    document.getElementById('rOppSchool').value = r.oppSchool || '';
+    document.getElementById('rJudge').value = r.judge || '';
+    document.getElementById('rBid').checked = !!r.bid;
+    document.getElementById('rMyStrategy').value = r.myStrategy || '';
+    document.getElementById('rTheirStrategy').value = r.theirStrategy || '';
+    document.getElementById('rReason').value = r.reason || '';
+    document.getElementById('rNotes').value = r.notes || '';
+    document.getElementById('roundSubmitBtn').innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Update round';
+    document.getElementById('cancelEditBtn').style.display = '';
+    document.getElementById('roundId').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function handleRoundSubmit(e) {
+    e.preventDefault();
+    var tournament = document.getElementById('rTournament').value.trim();
+    var date = document.getElementById('rDate').value;
+    var roundLabel = document.getElementById('rRoundLabel').value.trim();
+    var event = document.getElementById('rEvent').value;
+    var result = document.getElementById('rResult').value;
+
+    if (!tournament || !date || !roundLabel || !event || !result) {
+        document.getElementById('formStatus').textContent = 'Please fill in tournament, date, round, event, and result.';
+        toast('Missing required fields.', true);
+        return;
+    }
+    var speaksRaw = document.getElementById('rSpeaks').value;
+    var speaks = speaksRaw === '' ? null : parseFloat(speaksRaw);
+
+    var data = {
+        tournament: tournament, date: date, roundLabel: roundLabel,
+        division: document.getElementById('rDivision').value.trim(),
+        event: event, side: document.getElementById('rSide').value,
+        oppName: document.getElementById('rOppName').value.trim(),
+        oppSchool: document.getElementById('rOppSchool').value.trim(),
+        judge: document.getElementById('rJudge').value.trim(),
+        result: result, speaks: (speaks !== null && !isNaN(speaks)) ? speaks : null,
+        myStrategy: document.getElementById('rMyStrategy').value.trim(),
+        theirStrategy: document.getElementById('rTheirStrategy').value.trim(),
+        reason: document.getElementById('rReason').value.trim(),
+        notes: document.getElementById('rNotes').value.trim(),
+        bid: document.getElementById('rBid').checked
+    };
+
+    if (editingRoundId) {
+        var idx = state.rounds.findIndex(function (r) { return r.id === editingRoundId; });
+        if (idx !== -1) {
+            state.rounds[idx] = Object.assign({}, state.rounds[idx], data, { updatedAt: nowIso() });
+        }
+    } else {
+        data.id = uid();
+        data.sample = false;
+        data.createdAt = nowIso();
+        data.updatedAt = nowIso();
+        state.rounds.push(data);
+    }
+    upsertTournament(data.tournament, false);
+    if (data.oppName) upsertOpponent(data.oppName, data.oppSchool, false);
+    if (data.judge) upsertJudge(data.judge, false);
+
+    saveAll();
+    var wasEditing = !!editingRoundId;
+    resetRoundFormPartial();
+    document.getElementById('formStatus').textContent = wasEditing ? 'Round updated.' : 'Round saved.';
+    toast(wasEditing ? 'Round updated.' : 'Round saved — nice work.');
+    refreshDatalists();
+    renderActiveTab(true);
+    document.getElementById('rTournament').focus();
+}
+
+/* =========================================================================
+   TAB MANAGEMENT
+   ========================================================================= */
+var currentTab = 'dashboard';
+function renderActiveTab() {
+    updateFilterSummary();
+    if (currentTab === 'dashboard') renderDashboard();
+    else if (currentTab === 'rounds') renderRoundsTable();
+    else if (currentTab === 'tournaments') renderTournaments();
+    else if (currentTab === 'judges') renderJudges();
+    else if (currentTab === 'opponents') renderOpponents();
+    else if (currentTab === 'data') renderDataTab();
+}
+function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        var sel = btn.getAttribute('data-tab') === tab;
+        btn.setAttribute('aria-selected', sel ? 'true' : 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(function (panel) {
+        panel.classList.toggle('active', panel.id === 'panel-' + tab);
+    });
+    renderActiveTab();
+}
+
+/* =========================================================================
+   DATA TAB: EXPORT / IMPORT / CLEAR
+   ========================================================================= */
+function renderDataTab() {
+    var used = 0;
+    try {
+        Object.keys(localStorage).forEach(function (k) {
+            if (k.indexOf('d101.') === 0) used += (localStorage.getItem(k) || '').length;
+        });
+    } catch (e) {}
+    document.getElementById('storageInfo').textContent = 'Round Tracker is using approximately ' + Math.round(used / 1024) + ' KB of local browser storage across ' + state.rounds.length + ' round(s), ' + state.tournaments.length + ' tournament(s), ' + state.judges.length + ' judge(s), and ' + state.opponents.length + ' opponent(s). A rolling backup of each key is kept automatically.';
+}
+
+function downloadFile(filename, content, mime) {
+    var blob = new Blob([content], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+}
+function exportJson() {
+    var payload = {
+        version: 1, exportedAt: nowIso(),
+        rounds: state.rounds, tournaments: state.tournaments, opponents: state.opponents,
+        judges: state.judges, goals: state.goals
+    };
+    downloadFile('round-tracker-export-' + todayStr() + '.json', JSON.stringify(payload, null, 2), 'application/json');
+    toast('Exported JSON backup.');
+}
+function csvEscape(v) {
+    v = (v === null || v === undefined) ? '' : String(v);
+    if (/[",\n]/.test(v)) v = '"' + v.replace(/"/g, '""') + '"';
+    return v;
+}
+function exportCsv() {
+    var cols = ['date','tournament','roundLabel','division','event','side','oppName','oppSchool','judge','result','speaks','myStrategy','theirStrategy','reason','notes','bid'];
+    var lines = [cols.join(',')];
+    state.rounds.forEach(function (r) {
+        lines.push(cols.map(function (c) { return csvEscape(r[c]); }).join(','));
+    });
+    downloadFile('round-tracker-rounds-' + todayStr() + '.csv', lines.join('\n'), 'text/csv');
+    toast('Exported CSV.');
+}
+function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+var pendingImport = null;
+function handleImportFile(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+        var parsed;
+        try { parsed = JSON.parse(reader.result); }
+        catch (e) { toast('That file is not valid JSON.', true); return; }
+        if (!parsed || typeof parsed !== 'object') { toast('Unrecognized file format.', true); return; }
+        pendingImport = parsed;
+        var newCounts = { rounds: 0, tournaments: 0, opponents: 0, judges: 0 };
+        var overwriteCounts = { rounds: 0, tournaments: 0, opponents: 0, judges: 0 };
+        ['rounds', 'tournaments', 'opponents', 'judges'].forEach(function (key) {
+            var incoming = Array.isArray(parsed[key]) ? parsed[key] : [];
+            var existingIds = {};
+            state[key].forEach(function (item) { existingIds[item.id] = true; });
+            incoming.forEach(function (item) {
+                if (item && item.id && existingIds[item.id]) overwriteCounts[key]++;
+                else newCounts[key]++;
+            });
+        });
+        var summary = 'This file contains ' + (Array.isArray(parsed.rounds) ? parsed.rounds.length : 0) + ' round(s). ' +
+            'It will add ' + newCounts.rounds + ' new round(s), ' + newCounts.tournaments + ' tournament(s), ' + newCounts.opponents + ' opponent(s), and ' + newCounts.judges + ' judge(s). ';
+        var totalOverwrite = overwriteCounts.rounds + overwriteCounts.tournaments + overwriteCounts.opponents + overwriteCounts.judges;
+        if (totalOverwrite > 0) {
+            summary += 'It will OVERWRITE ' + totalOverwrite + ' existing record(s) that share the same ID.';
+        } else {
+            summary += 'No existing records will be overwritten.';
+        }
+        document.getElementById('importSummary').textContent = summary;
+        openModal('importModal');
+    };
+    reader.readAsText(file);
+}
+function applyImport() {
+    if (!pendingImport) return;
+    ['rounds', 'tournaments', 'opponents', 'judges'].forEach(function (key) {
+        var incoming = Array.isArray(pendingImport[key]) ? pendingImport[key] : [];
+        incoming.forEach(function (item) {
+            if (!item || !item.id) return;
+            var idx = state[key].findIndex(function (x) { return x.id === item.id; });
+            if (idx !== -1) state[key][idx] = item;
+            else state[key].push(item);
+        });
+    });
+    if (pendingImport.goals && typeof pendingImport.goals === 'object') {
+        state.goals = Object.assign({}, state.goals, pendingImport.goals);
+    }
+    saveAll();
+    pendingImport = null;
+    closeModal('importModal');
+    refreshDatalists();
+    renderActiveTab();
+    toast('Import complete — data merged.');
+}
+
+function clearSampleData() {
+    state.rounds = state.rounds.filter(function (r) { return !r.sample; });
+    ['tournaments', 'opponents', 'judges'].forEach(function (key) {
+        state[key] = state[key].filter(function (item) {
+            if (!item.sample) return true;
+            // keep if a non-sample round still references it
+            if (key === 'tournaments') return state.rounds.some(function (r) { return r.tournament === item.name; });
+            if (key === 'judges') return state.rounds.some(function (r) { return (r.judge || '').toLowerCase() === item.name.toLowerCase(); });
+            if (key === 'opponents') return state.rounds.some(function (r) { return (r.oppName || '').toLowerCase() === item.name.toLowerCase() && (r.oppSchool || '').toLowerCase() === (item.school || '').toLowerCase(); });
+            return false;
+        });
+    });
+    saveAll();
+    refreshDatalists();
+    renderActiveTab();
+    toast('Sample data removed.');
+}
+
+function clearAllData() {
+    state.rounds = []; state.tournaments = []; state.opponents = []; state.judges = [];
+    state.goals = { winRate: null, bids: null, speaks: null };
+    state.meta = { seeded: true };
+    saveAll();
+    refreshDatalists();
+    renderActiveTab();
+    closeModal('clearAllModal');
+    toast('All data cleared.');
+}
+
+/* =========================================================================
+   PRINT REPORT
+   ========================================================================= */
+function renderPrintReport() {
+    var rounds = filteredRounds();
+    var stats = computeStats(rounds);
+    var rangeDesc = (filters.from || filters.to) ? ('Filtered: ' + (filters.from || 'start') + ' to ' + (filters.to || 'present')) : 'Full season';
+    var html = '<h1>Debate 101 — Round Tracker Season Report</h1>';
+    html += '<p>' + esc(rangeDesc) + ' &middot; Generated ' + esc(fmtDate(todayStr())) + '</p>';
+    html += '<h2>Overview</h2>';
+    html += '<table><tr><th>Record</th><th>Win rate</th><th>Aff</th><th>Neg</th><th>Avg speaks</th><th>Tournaments</th><th>Elims</th><th>Bids</th></tr>';
+    html += '<tr><td>' + stats.wins + '-' + stats.losses + '</td><td>' + pct(stats.winRate) + '</td><td>' + stats.bySide.aff.w + '-' + stats.bySide.aff.l + '</td><td>' + stats.bySide.neg.w + '-' + stats.bySide.neg.l + '</td><td>' + (stats.avgSpeaks !== null ? round1(stats.avgSpeaks) : '—') + '</td><td>' + stats.tournamentsCount + '</td><td>' + stats.elimCount + '</td><td>' + stats.bids + '</td></tr></table>';
+
+    function tableFromGroup(title, g) {
+        var out = '<h2>' + esc(title) + '</h2><table><tr><th>Name</th><th>Record</th><th>Win %</th></tr>';
+        Object.keys(g).forEach(function (k) {
+            var row = g[k]; var t = row.w + row.l; var wr = t ? (row.w / t) * 100 : 0;
+            out += '<tr><td>' + esc(k) + '</td><td>' + row.w + '-' + row.l + '</td><td>' + pct(wr) + '</td></tr>';
+        });
+        return out + '</table>';
+    }
+    html += tableFromGroup('Record by event', stats.byEvent);
+    html += tableFromGroup('Win rate by strategy read', stats.byStrategy);
+    html += tableFromGroup('Record vs. each school', stats.bySchool);
+
+    html += '<h2>Charts</h2><div>' + chartSideWL(stats) + '</div><div>' + chartSpeaksHistogram(rounds) + '</div><div>' + chartCumulative(rounds) + '</div>';
+
+    html += '<h2>All rounds</h2><table><tr><th>Date</th><th>Tournament</th><th>Rd</th><th>Event</th><th>Side</th><th>Opponent</th><th>Judge</th><th>Result</th><th>Speaks</th></tr>';
+    rounds.slice().sort(function (a, b) { return (a.date || '').localeCompare(b.date || ''); }).forEach(function (r) {
+        html += '<tr><td>' + esc(fmtDate(r.date)) + '</td><td>' + esc(r.tournament) + '</td><td>' + esc(r.roundLabel) + '</td><td>' + esc(r.event) + '</td><td>' + (r.side || '') + '</td><td>' + esc(r.oppName) + '</td><td>' + esc(r.judge) + '</td><td>' + r.result + '</td><td>' + (typeof r.speaks === 'number' ? r.speaks : '') + '</td></tr>';
+    });
+    html += '</table>';
+
+    html += '<h2>Judge book</h2><table><tr><th>Judge</th><th>Record</th><th>Win %</th><th>Avg speaks given</th><th>Notes</th></tr>';
+    judgeStatsList().forEach(function (j) {
+        html += '<tr><td>' + esc(j.name) + '</td><td>' + j.w + '-' + j.l + '</td><td>' + pct(j.winRate) + '</td><td>' + (j.avgSpeaks !== null ? round1(j.avgSpeaks) : '') + '</td><td>' + esc(j.notes || '') + '</td></tr>';
+    });
+    html += '</table>';
+
+    html += '<h2>Scouting book</h2><table><tr><th>Opponent</th><th>School</th><th>Head-to-head</th><th>Win %</th><th>Notes</th></tr>';
+    oppStatsList().forEach(function (o) {
+        html += '<tr><td>' + esc(o.name) + '</td><td>' + esc(o.school) + '</td><td>' + o.w + '-' + o.l + '</td><td>' + pct(o.winRate) + '</td><td>' + esc(o.notes || '') + '</td></tr>';
+    });
+    html += '</table>';
+
+    document.getElementById('printReport').innerHTML = html;
+}
+
+/* =========================================================================
+   MODALS
+   ========================================================================= */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+/* =========================================================================
+   EVENT WIRING
+   ========================================================================= */
+function wireEvents() {
+    document.getElementById('tabNav').addEventListener('click', function (e) {
+        var btn = e.target.closest('.tab-btn');
+        if (btn) switchTab(btn.getAttribute('data-tab'));
+    });
+
+    document.getElementById('roundForm').addEventListener('submit', handleRoundSubmit);
+    document.getElementById('cancelEditBtn').addEventListener('click', function () {
+        resetRoundFormPartial();
+        document.getElementById('formStatus').textContent = 'Edit cancelled.';
+    });
+
+    document.getElementById('roundsTbody').addEventListener('click', function (e) {
+        var editId = e.target.getAttribute('data-edit');
+        var delId = e.target.getAttribute('data-delete');
+        if (editId) {
+            var r = state.rounds.find(function (x) { return x.id === editId; });
+            if (r) { switchTab('rounds'); fillRoundForm(r); }
+        } else if (delId) {
+            if (confirm('Delete this round? This cannot be undone.')) {
+                state.rounds = state.rounds.filter(function (x) { return x.id !== delId; });
+                saveAll();
+                renderActiveTab();
+                toast('Round deleted.');
+            }
+        }
+    });
+
+    document.querySelectorAll('#roundsTable th.sortable').forEach(function (th) {
+        th.addEventListener('click', function () {
+            var key = th.getAttribute('data-sort');
+            var s = sortState.rounds;
+            s.dir = (s.key === key) ? -s.dir : -1;
+            s.key = key;
+            renderRoundsTable();
+        });
+    });
+    document.querySelectorAll('#judgesTable th.sortable').forEach(function (th) {
+        th.addEventListener('click', function () {
+            var key = th.getAttribute('data-sort');
+            var s = sortState.judges;
+            s.dir = (s.key === key) ? -s.dir : 1;
+            s.key = key;
+            renderJudges();
+        });
+    });
+    document.querySelectorAll('#oppTable th.sortable').forEach(function (th) {
+        th.addEventListener('click', function () {
+            var key = th.getAttribute('data-sort');
+            var s = sortState.opp;
+            s.dir = (s.key === key) ? -s.dir : 1;
+            s.key = key;
+            renderOpponents();
+        });
+    });
+
+    document.getElementById('judgeSearch').addEventListener('input', renderJudges);
+    document.getElementById('judgesTbody').addEventListener('click', function (e) {
+        var row = e.target.closest('tr[data-judge-row]');
+        if (!row) return;
+        var id = row.getAttribute('data-judge-row');
+        expandedJudge = (expandedJudge === id) ? null : id;
+        renderJudges();
+        if (expandedJudge) document.getElementById('judgeBrief').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    document.getElementById('judgeBrief').addEventListener('click', function (e) {
+        if (e.target.id === 'saveJudgeNotesBtn') {
+            var j = state.judges.find(function (x) { return x.id === expandedJudge; });
+            if (j) {
+                j.notes = document.getElementById('judgeNotes').value;
+                j.updatedAt = nowIso();
+                saveAll();
+                toast('Judge notes saved.');
+            }
+        }
+    });
+
+    document.getElementById('oppSearch').addEventListener('input', renderOpponents);
+    document.getElementById('oppTbody').addEventListener('click', function (e) {
+        var row = e.target.closest('tr[data-opp-row]');
+        if (!row) return;
+        var id = row.getAttribute('data-opp-row');
+        expandedOpp = (expandedOpp === id) ? null : id;
+        renderOpponents();
+        if (expandedOpp) document.getElementById('oppBrief').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    document.getElementById('oppBrief').addEventListener('click', function (e) {
+        if (e.target.id === 'saveOppNotesBtn') {
+            var o = state.opponents.find(function (x) { return x.id === expandedOpp; });
+            if (o) {
+                o.notes = document.getElementById('oppNotes').value;
+                o.updatedAt = nowIso();
+                saveAll();
+                toast('Scouting notes saved.');
+            }
+        }
+    });
+
+    document.getElementById('tournamentsList').addEventListener('click', function (e) {
+        var head = e.target.closest('[data-toggle-tournament]');
+        if (!head) return;
+        var name = head.getAttribute('data-toggle-tournament');
+        expandedTournaments[name] = !expandedTournaments[name];
+        renderTournaments();
+    });
+
+    // Filters
+    function applyFilters() {
+        filters.from = document.getElementById('fFrom').value;
+        filters.to = document.getElementById('fTo').value;
+        filters.event = document.getElementById('fEvent').value;
+        filters.tournament = document.getElementById('fTournament').value;
+        filters.side = document.getElementById('fSide').value;
+        updateFilterSummary();
+        renderActiveTab();
+    }
+    ['fFrom', 'fTo', 'fEvent', 'fTournament', 'fSide'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', applyFilters);
+    });
+    document.getElementById('clearFiltersBtn').addEventListener('click', function () {
+        filters = { from: '', to: '', event: '', tournament: '', side: '' };
+        ['fFrom', 'fTo', 'fEvent', 'fTournament', 'fSide'].forEach(function (id) { document.getElementById(id).value = ''; });
+        updateFilterSummary();
+        renderActiveTab();
+    });
+
+    // Goals modal
+    document.getElementById('editGoalsBtn').addEventListener('click', function () {
+        document.getElementById('goalWinRate').value = state.goals.winRate !== null && state.goals.winRate !== undefined ? state.goals.winRate : '';
+        document.getElementById('goalBids').value = state.goals.bids !== null && state.goals.bids !== undefined ? state.goals.bids : '';
+        document.getElementById('goalSpeaks').value = state.goals.speaks !== null && state.goals.speaks !== undefined ? state.goals.speaks : '';
+        openModal('goalsModal');
+    });
+    document.getElementById('goalsCancelBtn').addEventListener('click', function () { closeModal('goalsModal'); });
+    document.getElementById('goalsSaveBtn').addEventListener('click', function () {
+        var wr = document.getElementById('goalWinRate').value;
+        var b = document.getElementById('goalBids').value;
+        var sp = document.getElementById('goalSpeaks').value;
+        state.goals = {
+            winRate: wr === '' ? null : parseFloat(wr),
+            bids: b === '' ? null : parseInt(b, 10),
+            speaks: sp === '' ? null : parseFloat(sp)
+        };
+        saveAll();
+        closeModal('goalsModal');
+        renderDashboard();
+        toast('Goals saved.');
+    });
+
+    // Data tab actions
+    document.getElementById('exportJsonBtn').addEventListener('click', exportJson);
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    document.getElementById('printBtn').addEventListener('click', function () {
+        renderPrintReport();
+        setTimeout(function () { window.print(); }, 50);
+    });
+    document.getElementById('importBtn').addEventListener('click', function () { document.getElementById('importFile').click(); });
+    document.getElementById('importFile').addEventListener('change', function (e) {
+        if (e.target.files && e.target.files[0]) handleImportFile(e.target.files[0]);
+        e.target.value = '';
+    });
+    document.getElementById('importCancelBtn').addEventListener('click', function () { pendingImport = null; closeModal('importModal'); });
+    document.getElementById('importConfirmBtn').addEventListener('click', applyImport);
+
+    document.getElementById('clearSampleBtn').addEventListener('click', function () {
+        if (confirm('Remove all sample rounds and any judge/opponent/tournament entries created only for the sample data?')) clearSampleData();
+    });
+    document.getElementById('clearAllBtn').addEventListener('click', function () {
+        document.getElementById('clearAllInput').value = '';
+        document.getElementById('clearAllConfirmBtn').disabled = true;
+        openModal('clearAllModal');
+    });
+    document.getElementById('clearAllInput').addEventListener('input', function (e) {
+        document.getElementById('clearAllConfirmBtn').disabled = e.target.value !== 'DELETE ALL';
+    });
+    document.getElementById('clearAllCancelBtn').addEventListener('click', function () { closeModal('clearAllModal'); });
+    document.getElementById('clearAllConfirmBtn').addEventListener('click', function () {
+        if (document.getElementById('clearAllInput').value === 'DELETE ALL') clearAllData();
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(function (ov) {
+        ov.addEventListener('click', function (e) { if (e.target === ov) ov.classList.remove('open'); });
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(function (ov) { ov.classList.remove('open'); });
+    });
+}
+
+function updateFilterSummary() {
+    var n = filteredRounds().length;
+    document.getElementById('filterSummary').textContent = n + ' round' + (n === 1 ? '' : 's') + ' match current filters';
+}
+
+/* =========================================================================
+   INIT
+   ========================================================================= */
+function init() {
+    loadAll();
+    document.getElementById('rDate').valueAsDate = new Date();
+    refreshDatalists();
+    wireEvents();
+    updateFilterSummary();
+    renderActiveTab();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+})();
+</script>
+</body>
+</html>

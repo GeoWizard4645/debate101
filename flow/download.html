@@ -1,0 +1,196 @@
+<!doctype html>
+<!--
+    Cascade — desktop download page.
+
+    Deliberately standalone rather than a route inside the app: someone sent
+    here from the marketing site wants to install something, not boot an editor,
+    and this page has to render before a single module loads. It is styled in
+    the main site's voice (navy, Playfair, wide micro-labels), not the app's.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Get Cascade for desktop | Debate 101</title>
+    <meta name="description" content="Install Cascade, Debate 101's keyboard-first debate flowing app, as a native macOS, Windows or Linux application — or run it in any browser with no install at all.">
+    <meta name="theme-color" content="#051C2C">
+    <link rel="icon" type="image/png" href="../assets/logo.PNG">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #051C2C; --accent: #0072b1; --line: #e8eef2; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, sans-serif;
+            color: #1a1a1a;
+            background: #fff;
+            line-height: 1.7;
+        }
+        a { color: var(--accent); }
+        header {
+            border-bottom: 1px solid var(--line);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        header img { height: 28px; width: auto; }
+        .word { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; color: var(--navy); text-decoration: none; }
+        .word span { font-weight: 300; }
+        header nav { margin-left: auto; display: flex; gap: 1.5rem; }
+        header nav a {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.2em; text-decoration: none; color: var(--navy);
+        }
+        header nav a:hover { color: var(--accent); }
+        main { max-width: 62rem; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
+        .eyebrow {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.4em; color: var(--accent); margin: 0 0 1.5rem;
+        }
+        h1 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(2.25rem, 6vw, 3.75rem);
+            line-height: 1.1; color: var(--navy); margin: 0 0 1.5rem;
+        }
+        .lede { font-size: 1.15rem; color: #5c6b76; font-weight: 300; max-width: 42rem; margin: 0 0 3rem; }
+        .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+        .card { border: 1px solid var(--line); padding: 2rem; }
+        .card h2 {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.25em; color: #7c8b96; margin: 0 0 1rem;
+        }
+        .card p { font-size: 0.95rem; color: #5c6b76; margin: 0 0 1.25rem; }
+        .btn {
+            display: inline-block; background: var(--navy); color: #fff;
+            padding: 0.9rem 1.75rem; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.2em; text-decoration: none;
+            transition: background 0.25s;
+        }
+        .btn:hover { background: var(--accent); }
+        .btn.ghost { background: transparent; color: var(--navy); border: 1px solid var(--navy); }
+        .btn.ghost:hover { background: var(--navy); color: #fff; }
+        h3 { font-size: 1.25rem; color: var(--navy); margin: 3.5rem 0 1rem; }
+        pre {
+            background: #051C2C; color: #dbe7ef; padding: 1.25rem 1.5rem;
+            overflow-x: auto; font-size: 0.85rem; line-height: 1.7;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+        code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+        .note {
+            border-left: 3px solid var(--accent); background: #f7fbfd;
+            padding: 1rem 1.5rem; font-size: 0.95rem; color: #46545f;
+        }
+        ul { color: #5c6b76; }
+        footer {
+            border-top: 1px solid var(--line); padding: 2.5rem 1.5rem;
+            text-align: center; font-size: 0.85rem; color: #90a0ab;
+        }
+        @media (prefers-color-scheme: dark) {
+            body { background: #0B1622; color: #dbe7ef; }
+            header, footer { border-color: #16283a; }
+            .word, h1, h3, .card h2 { color: #fff; }
+            /* The nav links inherit the navy that reads as ink on white and as
+               nothing at all on the dark background. */
+            header nav a { color: #dbe7ef; }
+            header nav a:hover { color: #38bdf8; }
+            pre { background: #06111c; border: 1px solid #16283a; }
+            .card { border-color: #16283a; }
+            .lede, .card p, ul, footer { color: #90a4b4; }
+            .btn { background: var(--accent); }
+            .btn.ghost { color: #dbe7ef; border-color: #2a4257; }
+            .note { background: #10202e; color: #b9cbd8; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="../assets/logo.PNG" alt="">
+    <a class="word" href="../index.html">DEBATE<span>101</span></a>
+    <nav>
+        <a href="./">Open Cascade</a>
+        <a href="https://github.com/GeoWizard4645/debate101/tree/main/desktop" target="_blank" rel="noopener">Source</a>
+    </nav>
+</header>
+
+<main>
+    <p class="eyebrow">Cascade for desktop</p>
+    <h1>Install it, or don&rsquo;t.</h1>
+    <p class="lede">
+        Cascade is the same app either way &mdash; same keybindings, same
+        <code>.ebb</code> files, same offline behavior. The desktop build adds native
+        menus, double-click-to-open for <code>.ebb</code> files, and a window that
+        does not sit inside a browser tab you might close mid-round.
+    </p>
+
+    <div class="grid">
+        <div class="card">
+            <h2>No install</h2>
+            <p>
+                Open it in any modern browser and start flowing. Works offline after
+                the first load, and saves straight to your disk through the browser&rsquo;s
+                file API where it is supported.
+            </p>
+            <a class="btn" href="./">Open Cascade</a>
+        </div>
+        <div class="card">
+            <h2>Desktop &mdash; macOS, Windows, Linux</h2>
+            <p>
+                Built with Electron from the same source. Installers are produced with
+                <code>electron-builder</code>; until we publish signed releases you can
+                build one yourself in about two minutes.
+            </p>
+            <a class="btn ghost" href="https://github.com/GeoWizard4645/debate101/releases" target="_blank" rel="noopener">Check releases</a>
+        </div>
+    </div>
+
+    <h3>Build it yourself</h3>
+    <p style="color:#5c6b76">You need <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a> 18 or newer.</p>
+<pre>git clone https://github.com/GeoWizard4645/debate101.git
+cd debate101/desktop
+npm install
+npm start          # run it
+
+npm run dist:mac   # or dist:win / dist:linux — writes installers to desktop/dist/</pre>
+
+    <div class="note">
+        <strong>On first launch of an unsigned macOS build</strong>, right-click the app
+        and choose <em>Open</em> rather than double-clicking it. We do not yet have an
+        Apple Developer certificate, so Gatekeeper will otherwise refuse to start it.
+        The same source is on GitHub if you would rather read it before running it.
+    </div>
+
+    <h3>What you get either way</h3>
+    <ul>
+        <li>Speech, prep and cross-examination clocks on official event times, with auto-advance</li>
+        <li>Dropped-argument detection across every speech column</li>
+        <li>Answer links between an argument and its response</li>
+        <li>Voice-assisted flow capture</li>
+        <li>A block library that expands <code>;perm</code> into a whole shell</li>
+        <li>Round analytics and a printable post-round report</li>
+        <li>An evidence tracker and cite-sheet export</li>
+        <li>Import and export for <code>.ebb</code>, CSV, Markdown, plain text and PDF</li>
+    </ul>
+
+    <h3>File compatibility</h3>
+    <p style="color:#5c6b76">
+        Cascade reads and writes <code>.ebb</code> files that are byte-compatible with
+        <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener">ebb</a>
+        file version 3, so a flow moves between the two apps without conversion. Cascade&rsquo;s
+        own additions live in a namespaced key that ebb preserves and ignores; if you want
+        them stripped entirely, export with <em>.ebb (interop)</em>.
+    </p>
+</main>
+
+<footer>
+    <p>
+        Debate 101 &middot; <a href="../index.html">debate101.org</a> &middot;
+        <a href="https://github.com/GeoWizard4645/debate101" target="_blank" rel="noopener">Open source</a>
+    </p>
+</footer>
+
+</body>
+</html>

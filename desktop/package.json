@@ -1,0 +1,169 @@
+{
+    "name": "cascade-desktop",
+    "productName": "Cascade",
+    "version": "0.1.0",
+    "description": "Cascade, Debate 101's keyboard-first flowing app — desktop shell around the flow/ web app.",
+    "private": true,
+    "license": "UNLICENSED",
+    "author": {
+        "name": "Debate 101",
+        "url": "https://debate101.org"
+    },
+    "homepage": "https://debate101.org/flow/",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "dist": "electron-builder",
+        "dist:mac": "electron-builder --mac",
+        "dist:win": "electron-builder --win",
+        "dist:linux": "electron-builder --linux",
+        "pack": "electron-builder --dir"
+    },
+    "devDependencies": {
+        "electron": "^33.2.0",
+        "electron-builder": "^25.1.8"
+    },
+
+    "//": "electron-builder reads the 'build' key below. See build/README.md for icon setup.",
+    "build": {
+        "appId": "org.debate101.cascade",
+        "productName": "Cascade",
+        "copyright": "Copyright (c) Debate 101",
+
+        "directories": {
+            "output": "dist",
+            "buildResources": "build"
+        },
+
+        "//files": "Only the desktop shell code goes inside the app bundle/asar. The web app itself ships via extraResources below, not this list, because it needs to sit on plain disk (not inside the asar) so the app:// protocol handler in main.js can read it with plain fs calls at a predictable, resolveable path.",
+        "files": [
+            "main.js",
+            "preload.js",
+            "menu.js",
+            "package.json",
+            "!**/*.map"
+        ],
+
+        "//extraResources": "This is how /flow ships inside the desktop app. electron-builder copies '../flow' (resolved relative to THIS file, i.e. the repo's flow/ directory — the same one served at https://debate101.org/flow/) into the packaged app's resources directory, unpacked (not zipped into app.asar), under a 'flow' subfolder. main.js resolves that same folder two different ways depending on whether it's running from source or from a build: in dev, __dirname is .../desktop, so the flow dir is path.join(__dirname, '..', 'flow'); once packaged, extraResources always lands at process.resourcesPath (Contents/Resources on mac, resources/ on win & linux), so the flow dir is path.join(process.resourcesPath, 'flow'). Both paths are computed in main.js's resolveFlowDir().",
+        "extraResources": [
+            {
+                "from": "../flow",
+                "to": "flow",
+                "filter": [
+                    "**/*"
+                ]
+            }
+        ],
+
+        "//fileAssociations": "Registers the .ebb double-click-to-open behavior on all three platforms. This top-level block is the cross-platform baseline (electron-builder turns it into Windows registry entries, a Linux .desktop MimeType line, and — on its own — a basic mac CFBundleDocumentTypes entry). The mac.extendInfo block below layers a proper Uniform Type Identifier on top so Spotlight/QuickLook/Finder treat .ebb as a first-class, well-described type instead of a bare extension match.",
+        "fileAssociations": [
+            {
+                "ext": "ebb",
+                "name": "Cascade Flow",
+                "description": "Debate 101 Cascade flow (ebb v3 compatible)",
+                "mimeType": "application/x-ebb-flow",
+                "role": "Editor",
+                "icon": "build/icon"
+            }
+        ],
+
+        "mac": {
+            "category": "public.app-category.education",
+            "icon": "build/icon.icns",
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "arm64",
+                        "x64"
+                    ]
+                }
+            ],
+            "//hardenedRuntime": "Required by Apple for notarization. It is turned on here so the config is ready the day a paid Apple Developer certificate exists — but identity is forced to null below, which tells electron-builder to skip code signing entirely for local/CI builds run without a certificate. An unsigned, non-notarized .app still runs; macOS Gatekeeper just blocks the first double-click launch (see desktop/README.md for the right-click > Open workaround). Flip identity to a real 'Developer ID Application: ...' string (or delete the override) once signing is set up.",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "identity": null,
+            "extendInfo": {
+                "CFBundleDocumentTypes": [
+                    {
+                        "CFBundleTypeName": "Cascade Flow",
+                        "CFBundleTypeRole": "Editor",
+                        "LSHandlerRank": "Owner",
+                        "LSItemContentTypes": [
+                            "org.debate101.cascade.ebb"
+                        ]
+                    }
+                ],
+                "UTExportedTypeDeclarations": [
+                    {
+                        "UTTypeIdentifier": "org.debate101.cascade.ebb",
+                        "UTTypeDescription": "Debate 101 Cascade flow file",
+                        "UTTypeConformsTo": [
+                            "public.json"
+                        ],
+                        "UTTypeTagSpecification": {
+                            "public.filename-extension": [
+                                "ebb"
+                            ],
+                            "public.mime-type": "application/x-ebb-flow"
+                        }
+                    }
+                ]
+            }
+        },
+        "dmg": {
+            "//sign": "The dmg wrapper image itself doesn't need signing even when the .app inside does; keep it off so a no-certificate build doesn't fail trying.",
+            "sign": false
+        },
+
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "icon": "build/icon.ico",
+            "fileAssociations": [
+                {
+                    "ext": "ebb",
+                    "name": "Cascade Flow",
+                    "description": "Debate 101 Cascade flow (ebb v3 compatible)",
+                    "icon": "build/icon.ico"
+                }
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        },
+
+        "linux": {
+            "target": [
+                {
+                    "target": "AppImage",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "deb",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "icon": "build/icon.png",
+            "category": "Education",
+            "//mimeTypes": "Belt-and-suspenders alongside fileAssociations[].mimeType above — this is the field electron-builder documents specifically for adding extra MIME types to the generated .desktop entry.",
+            "mimeTypes": [
+                "application/x-ebb-flow"
+            ]
+        }
+    }
+}

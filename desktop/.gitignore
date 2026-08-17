@@ -1,0 +1,11 @@
+# Cascade desktop — local build artifacts, never committed.
+
+node_modules/
+dist/
+out/
+*.log
+npm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db

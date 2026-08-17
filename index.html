@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- PRIMARY SEO TAGS -->
-    <title>Debate 101 | Open Source Competitive Discourse & AI Tools</title>
-    <meta name="description" content="Debate 101 is an open-source collective providing elite AI resolution analysis, Verbatim auto-flow tools, and the world's largest collection of debate resources.">
-    <meta name="keywords" content="debate, LD debate, Policy debate, Lincoln Douglas, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
+    <title>Debate 101 | Cascade Flowing App, Card Cutter & Open Source Debate Tools</title>
+    <meta name="description" content="Debate 101 builds free, open-source tools for competitive debate: Cascade, a keyboard-first flowing app for web and desktop that reads and writes .ebb files, plus a card cutter, a speed trainer, a round tracker, and the largest curated collection of debate resources.">
+    <meta name="keywords" content="debate, LD debate, Policy debate, Public Forum, Lincoln Douglas, debate flowing app, flowing software, ebb, cascade, card cutter, spreading practice, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
     <meta name="author" content="Debate 101 Collective">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <meta name="theme-color" content="#051C2C">
@@ -50,6 +50,32 @@
         { "@type": "Person", "name": "Max Feinstein" },
         { "@type": "Person", "name": "Max McBride" },
         { "@type": "Person", "name": "Arjun Gupta" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Cascade",
+      "alternateName": "Cascade by Debate 101",
+      "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Debate flowing software",
+      "operatingSystem": "Web, macOS, Windows, Linux",
+      "url": "https://debate101.org/flow/",
+      "description": "A keyboard-first flowing app for Lincoln-Douglas, Policy, Public Forum and Parliamentary debate. Runs offline in the browser and as a desktop app, with speech and prep timers, dropped-argument detection, voice-assisted capture, a block library, round analytics, and an evidence tracker. Reads and writes ebb-compatible .ebb files.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "isAccessibleForFree": true,
+      "publisher": { "@type": "Organization", "name": "Debate 101", "url": "https://debate101.org" },
+      "featureList": [
+        "Speech, prep and cross-examination timers on official event times",
+        "Dropped-argument detection across every speech column",
+        "Answer links between an argument and its response",
+        "Voice-assisted flow capture",
+        "Block library with trigger expansion",
+        "Round analytics and a printable post-round report",
+        "Evidence tracker and cite-sheet export",
+        "Import and export .ebb, CSV, Markdown, text and PDF"
       ]
     }
     </script>
@@ -401,6 +427,117 @@
             color: var(--mck-accent);
         }
 
+        /* The flagship item in the Tools menu gets two lines and a tint so
+           Cascade reads as a product rather than one more link in a list. */
+        .dropdown-content a.dd-feature {
+            background: #f7fbfd;
+            border-bottom: 1px solid #e8eef2;
+            padding: 14px 16px;
+        }
+        .dd-feature .dd-title { display: block; color: var(--mck-accent); }
+        .dd-feature .dd-sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: none;
+            color: #7c8b96;
+        }
+        .dropdown-content .dd-divider {
+            height: 1px;
+            background: #eceff1;
+            margin: 6px 0;
+        }
+
+        /* Primary nav call-to-action. */
+        .nav-cta {
+            background: var(--mck-blue);
+            color: #fff !important;
+            padding: 10px 20px;
+            margin-left: 0.25rem;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: background 0.25s, transform 0.25s;
+        }
+        .nav-cta:hover {
+            background: var(--mck-accent);
+            transform: translateY(-1px);
+        }
+
+        /* Product cards on the home page tools rail. */
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #e8eef2;
+            padding: 2.5rem 2rem;
+            text-decoration: none;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .tool-card:hover {
+            border-color: var(--mck-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px -24px rgba(5, 28, 44, 0.45);
+        }
+        .tool-card .tool-icon {
+            font-size: 20px;
+            color: var(--mck-accent);
+            margin-bottom: 1.5rem;
+        }
+        .tool-card .tool-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--mck-blue);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+        }
+        .tool-card .tool-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #6b7a85;
+            flex-grow: 1;
+        }
+        .tool-card .tool-go {
+            margin-top: 1.75rem;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--mck-accent);
+        }
+
+        /* Keycap chips used in the Cascade section. */
+        .kbd {
+            display: inline-block;
+            padding: 3px 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #dbe7ef;
+        }
+
+        /* Skip link — keyboard users should not have to tab the whole nav. */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 200;
+            background: var(--mck-blue);
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .skip-link:focus { left: 0; }
+
         /* Directorate Masthead */
         .directorate-bar {
             border-top: 1px solid rgba(0,0,0,0.05);
@@ -675,6 +812,8 @@
 </head>
 <body class="bg-white">
 
+    <a href="#page-home" class="skip-link">Skip to content</a>
+
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[60] flex flex-col px-6 py-8">
         <div class="flex justify-between items-center mb-12">
@@ -689,8 +828,12 @@
             <button onclick="showPage('team')" class="text-left">Our Team</button>
             <button onclick="showPage('hub')" class="text-left">Resources</button>
             <button onclick="showPage('lectures')" class="text-left">Lectures</button>
+            <a href="flow/" class="text-left text-[#0072b1]">Cascade &mdash; Flowing App</a>
             <div class="flex flex-col space-y-4 ml-4">
                 <span class="text-[10px] text-gray-400">Tools</span>
+                <a href="tools/card-cutter/" class="text-left">Card Cutter</a>
+                <a href="tools/speed-trainer/" class="text-left">Speed Trainer</a>
+                <a href="tools/round-tracker/" class="text-left">Round Tracker</a>
                 <button onclick="showPage('timer')" class="text-left">Architect Timer</button>
                 <button onclick="showPage('screw')" class="text-left">Screw Calculator</button>
                 <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
@@ -719,7 +862,7 @@
                         DEBATE<span class="font-light">101</span>
                     </button>
                 </div>
-                <div class="hidden md:flex space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C] items-center">
+                <div class="hidden lg:flex space-x-8 xl:space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C] items-center">
                     <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Home</button>
                     <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
                     
@@ -739,6 +882,11 @@
                             Tools <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
                         </button>
                         <div class="dropdown-content">
+                            <a href="flow/" class="dd-feature"><span class="dd-title">Cascade &mdash; Flowing App</span><span class="dd-sub">Web &amp; desktop &middot; .ebb files</span></a>
+                            <a href="tools/card-cutter/">Card Cutter</a>
+                            <a href="tools/speed-trainer/">Speed Trainer</a>
+                            <a href="tools/round-tracker/">Round Tracker</a>
+                            <div class="dd-divider"></div>
                             <button onclick="showPage('timer')">Architect Timer</button>
                             <button onclick="showPage('screw')">Screw Calculator</button>
                             <button onclick="showPage('tools')">Resolution AI</button>
@@ -756,12 +904,13 @@
                             <a href="https://youtube.debate101.org" target="_blank">YouTube</a>
                         </div>
                     </div>
-                    
-                    <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2"><i class="fas fa-search"></i></button>
+
+                    <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2" aria-label="Search the site"><i class="fas fa-search"></i></button>
+                    <a href="flow/" class="nav-cta">Open Cascade</a>
                 </div>
-                <button onclick="toggleMobileMenu()" class="md:hidden text-[#051C2C]"><i class="fas fa-bars text-xl"></i></button>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-[#051C2C]" aria-label="Open menu"><i class="fas fa-bars text-xl"></i></button>
             </div>
-            <div class="hidden md:flex justify-end directorate-bar">
+            <div class="hidden lg:flex justify-end directorate-bar">
                 <p class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
                     Lead Architects: <span class="text-[#051C2C] ml-2">Vivaan S. | Max F. | Max M. | Arjun G.</span>
                 </p>
@@ -785,7 +934,7 @@
                     Debate 101 is an unincorporated non-profit collective bridging the gap between novice learners and elite competition through tools, community, and strategy.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6">
-                    <button onclick="showPage('autoflow')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px]">Try Auto Flow Generator</button>
+                    <a href="flow/" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center">Open Cascade &mdash; our flowing app</a>
                     <button onclick="showPage('hub')" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:bg-[#051C2C] hover:text-white transition-all">Visit Global Resource Hub</button>
                     <div class="flex flex-col gap-2">
                         <a href="https://discord.debate101.org" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
@@ -813,6 +962,112 @@
                     </a>
                     <a href="https://youtube.debate101.org" target="_blank" class="border border-red-500/30 text-red-500 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all rounded-sm">
                         Subscribe on YouTube
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cascade — the flagship product -->
+        <section id="cascade" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-20 items-start">
+                    <div>
+                        <h2 class="text-[#38bdf8] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Introducing Cascade</h2>
+                        <h3 class="mck-serif text-4xl md:text-6xl leading-[1.1] mb-8">
+                            The flow <span class="italic text-[#38bdf8]">follows</span> your hands.
+                        </h3>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-xl">
+                            Cascade is our keyboard-first flowing app for Lincoln&ndash;Douglas, Policy,
+                            Public Forum and Parli. It runs in the browser and as a native desktop app,
+                            works completely offline, and reads and writes
+                            <code class="text-[#38bdf8] font-mono text-base">.ebb</code> files &mdash; so a flow
+                            moves between Cascade and <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="underline decoration-white/30 hover:text-white">ebb</a> without conversion.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-10 text-gray-400 text-sm">
+                            <span><span class="kbd">Tab</span> answers an argument</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">L</span> links a response</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">⇧</span><span class="kbd">D</span> jumps to a drop</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="flow/" class="bg-[#0072b1] text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white hover:text-[#051C2C] transition-all">Open Cascade in the browser</a>
+                            <a href="flow/download.html" class="border border-white/25 text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white/10 transition-all">Get the desktop app</a>
+                        </div>
+                        <p class="mt-6 text-[10px] uppercase tracking-[0.2em] text-gray-500">Free &middot; Open source &middot; Nothing leaves your machine</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+                        <div>
+                            <i class="fas fa-stopwatch text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Round Clock</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Speech, prep and cross-ex clocks on official times, counting over when a speech runs long. Ending a speech walks the grid to the next column on its own.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-crosshairs text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Dropped-argument radar</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Cascade watches every row across every column and tells you exactly what the other team never answered &mdash; with a one-key jump to each drop.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-microphone-lines text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Voice Flow</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Assisted capture listens for the words that start a new argument &mdash; &ldquo;next off&rdquo;, &ldquo;turn&rdquo;, &ldquo;extend&rdquo; &mdash; and lays them down as rows while you keep typing tags.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-bolt text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Block library</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Type <code class="font-mono text-[#38bdf8]">;perm</code> and press Tab. Your shells, frontlines and frameworks expand in place, shared across a whole team as one JSON file.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-chart-simple text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Round analytics</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Coverage by side, time against the limit, density per speech, and a printable post-round report you can hand a partner or a coach.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-quote-right text-[#38bdf8] mb-4"></i>
+                            <h4 class="font-bold mb-2 text-sm">Evidence tracker</h4>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Every card you mark becomes a cite entry with author, year and URL, exportable as a clean cite sheet for the post-round email.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-24 pt-12 border-t border-white/10 grid sm:grid-cols-3 gap-8 text-sm text-gray-400 font-light">
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Open anything</span>Upload <code class="font-mono">.ebb</code>, legacy ebb JSON backups, CSV, TSV, Markdown or plain text &mdash; on the web version too, not just on desktop.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Export anywhere</span><code class="font-mono">.ebb</code> (native and strict interop), CSV, Markdown, text, a cite sheet, and a landscape print layout for PDF.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Offline by design</span>No account, no server, no telemetry. Autosave keeps a copy in your browser so a dead laptop never costs you a round.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools rail -->
+        <section id="tools-rail" class="py-32 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">The Toolkit</h2>
+                <h3 class="mck-serif text-4xl md:text-5xl text-[#051C2C] leading-tight mb-6 max-w-3xl">
+                    Everything else a debater needs, in the browser.
+                </h3>
+                <p class="text-lg text-gray-500 font-light max-w-2xl mb-16">
+                    Free, open source, and entirely client-side. Nothing you type on these pages is uploaded anywhere.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <a href="tools/card-cutter/" class="tool-card">
+                        <i class="fas fa-scissors tool-icon"></i>
+                        <div class="tool-name">Card Cutter</div>
+                        <p class="tool-desc">Paste an article, highlight and underline what you read, and get a properly cited card that pastes into a speech doc with its formatting intact. Keeps a searchable library of everything you have cut.</p>
+                        <span class="tool-go">Cut a card &rarr;</span>
+                    </a>
+                    <a href="tools/speed-trainer/" class="tool-card">
+                        <i class="fas fa-gauge-high tool-icon"></i>
+                        <div class="tool-name">Speed Trainer</div>
+                        <p class="tool-desc">A live words-per-minute meter with a clarity score that checks whether you are still comprehensible at speed. Five drills, a pacing metronome, and a season-long record of every session.</p>
+                        <span class="tool-go">Start a drill &rarr;</span>
+                    </a>
+                    <a href="tools/round-tracker/" class="tool-card">
+                        <i class="fas fa-trophy tool-icon"></i>
+                        <div class="tool-name">Round Tracker</div>
+                        <p class="tool-desc">Log every round and get the numbers back: aff/neg split, speaks distribution, win rate by strategy, plus a judge book and a scouting book on everyone you have hit.</p>
+                        <span class="tool-go">Log a round &rarr;</span>
                     </a>
                 </div>
             </div>
@@ -1278,8 +1533,9 @@
                 <div class="p-4 bg-white border-t border-gray-100">
                     <div class="flex gap-4">
                         <input type="text" id="resolution-input" placeholder="Enter resolution..." onkeypress="if(event.key === 'Enter') analyzeTopic('res')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
-                        <button onclick="analyzeTopic('res')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Send</button>
+                        <button onclick="analyzeTopic('res')" data-ai-send class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Send</button>
                     </div>
+                    <p data-ai-quota class="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-gray-400"></p>
                 </div>
             </div>
         </div>
@@ -1363,8 +1619,9 @@
                     <div class="p-4 bg-white border-t border-gray-100">
                         <div class="flex gap-4">
                             <input type="text" id="faq-input" placeholder="Ask a general debate question..." onkeypress="if(event.key === 'Enter') analyzeTopic('faq')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
-                            <button onclick="analyzeTopic('faq')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
+                            <button onclick="analyzeTopic('faq')" data-ai-send class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
                         </div>
+                        <p data-ai-quota class="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-gray-400"></p>
                     </div>
                 </div>
             </div>
@@ -1372,17 +1629,50 @@
     </main>
 
     <footer class="bg-white border-t border-gray-100 py-20 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-            <div class="flex items-center space-x-3">
-                <img src="assets/logo.PNG" alt="Logo" class="h-8 w-auto" onerror="this.style.display='none'">
-                <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="assets/logo.PNG" alt="" class="h-8 w-auto" onerror="this.style.display='none'">
+                    <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+                </div>
+                <p class="text-sm text-gray-500 font-light leading-relaxed max-w-xs">
+                    An unincorporated non-profit collective building free, open-source tools for competitive debate.
+                </p>
             </div>
-            <div class="flex flex-col space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                <a href="https://instagram.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Instagram</a>
-                <a href="https://discord.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">Discord</a>
-                <a href="https://youtube.debate101.org" target="_blank" class="text-sm text-gray-600 normal-case hover:text-[#0072b1] transition-colors">YouTube</a>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Apps</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="flow/" class="hover:text-[#0072b1] transition-colors">Cascade &mdash; flowing app</a></li>
+                    <li><a href="tools/card-cutter/" class="hover:text-[#0072b1] transition-colors">Card Cutter</a></li>
+                    <li><a href="tools/speed-trainer/" class="hover:text-[#0072b1] transition-colors">Speed Trainer</a></li>
+                    <li><a href="tools/round-tracker/" class="hover:text-[#0072b1] transition-colors">Round Tracker</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Learn</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><button onclick="showPage('hub')" class="hover:text-[#0072b1] transition-colors">Resource Hub</button></li>
+                    <li><button onclick="showPage('lectures')" class="hover:text-[#0072b1] transition-colors">Lectures</button></li>
+                    <li><button onclick="showPage('faq')" class="hover:text-[#0072b1] transition-colors">FAQ &amp; Mentor</button></li>
+                    <li><button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Community</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="https://discord.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">Discord</a></li>
+                    <li><a href="https://instagram.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">Instagram</a></li>
+                    <li><a href="https://youtube.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">YouTube</a></li>
+                    <li><a href="https://github.com/GeoWizard4645/debate101" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">GitHub</a></li>
+                </ul>
             </div>
         </div>
+        <p class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-100 text-xs text-gray-400 font-light leading-relaxed">
+            Cascade implements the <code class="font-mono">.ebb</code> file format from
+            <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="text-[#0072b1] hover:underline">ebb</a>
+            by Shreeram Modi, so flows move between the two apps without conversion. Cascade is an independent
+            Debate 101 project and is not affiliated with or endorsed by the ebb project.
+        </p>
         <p class="mt-20 text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold text-center">© 2026 DEBATE 101 COLLECTIVE</p>
         <p class="mt-4 text-[10px] text-gray-400 uppercase tracking-[0.1em] text-center">
             If you wish to support our mission buy us a coffee: <a href="https://buymeacoffee.com/debate101" target="_blank" class="text-[#0072b1] hover:underline normal-case tracking-normal font-normal">buymeacoffee.com/debate101</a>
@@ -1894,6 +2184,87 @@
             }, 100);
         }
 
+        /* ------------------------------------------------------------------
+           AI RATE LIMITING
+
+           The Gemini key is served to the browser (static site), so it is a
+           personal key that anyone can read out of the page. These limits are
+           therefore about protecting the quota from ordinary use and from an
+           impatient visitor hammering Enter — they are NOT a security control,
+           because a determined person can lift the key and skip this code
+           entirely. The load-bearing protections live in Google Cloud Console:
+             1. Restrict the key by HTTP referrer to debate101.org.
+             2. Restrict it to the Generative Language API only.
+             3. Set a hard quota / budget alert on the project.
+           See config.js for the same note.
+           ------------------------------------------------------------------ */
+        const AI_LIMITS = {
+            cooldownMs: 6000,      // between two requests, so Enter-mashing costs nothing
+            perHour: 15,
+            perDay: 60,
+            maxHistoryTurns: 12,   // messages kept per conversation; the whole history
+                                   // is re-sent every turn, so an unbounded chat costs
+                                   // quadratically more tokens as it grows
+        };
+        const AI_USAGE_KEY = 'd101.ai.usage';
+        let aiInFlight = false;
+
+        /** Timestamps of past requests in the last 24h, oldest first. */
+        function aiHistory() {
+            try {
+                const raw = JSON.parse(localStorage.getItem(AI_USAGE_KEY) || '[]');
+                const cutoff = Date.now() - 86400000;
+                return Array.isArray(raw) ? raw.filter(t => typeof t === 'number' && t > cutoff) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        /** Record one request against the budget. */
+        function aiSpend() {
+            try {
+                const stamps = aiHistory();
+                stamps.push(Date.now());
+                localStorage.setItem(AI_USAGE_KEY, JSON.stringify(stamps));
+            } catch (e) {
+                /* Private browsing or a full quota: the in-flight guard and the
+                   cooldown still apply, they just do not survive a reload. */
+            }
+        }
+
+        /**
+         * Whether another request is allowed right now.
+         * @returns {{ok: boolean, message?: string, remaining?: number}}
+         */
+        function aiBudget() {
+            if (aiInFlight) {
+                return { ok: false, message: "Still working on the last question — one at a time." };
+            }
+            const stamps = aiHistory();
+            const now = Date.now();
+            const last = stamps[stamps.length - 1] ?? 0;
+            const sinceLast = now - last;
+            if (sinceLast < AI_LIMITS.cooldownMs) {
+                const wait = Math.ceil((AI_LIMITS.cooldownMs - sinceLast) / 1000);
+                return { ok: false, message: `Give it ${wait} second${wait === 1 ? '' : 's'} — this runs on a personal API key.` };
+            }
+            const thisHour = stamps.filter(t => t > now - 3600000).length;
+            if (thisHour >= AI_LIMITS.perHour) {
+                return { ok: false, message: `That's ${AI_LIMITS.perHour} questions this hour, which is the cap. Try again a little later — the Resource Hub and Lectures are open in the meantime.` };
+            }
+            if (stamps.length >= AI_LIMITS.perDay) {
+                return { ok: false, message: `You've used today's ${AI_LIMITS.perDay} questions. The cap resets on a rolling 24-hour window. Ask in our Discord if you need more.` };
+            }
+            return { ok: true, remaining: Math.min(AI_LIMITS.perHour - thisHour, AI_LIMITS.perDay - stamps.length) };
+        }
+
+        /** Trim a conversation to the most recent turns, keeping user/model pairing. */
+        function trimHistory(store) {
+            const overflow = store.length - AI_LIMITS.maxHistoryTurns;
+            if (overflow > 0) store.splice(0, overflow);
+            return store;
+        }
+
         async function analyzeTopic(type) {
             const inputId = type === 'res' ? 'resolution-input' : 'faq-input';
             const msgId = type === 'res' ? 'chat-messages-res' : 'chat-messages-faq';
@@ -1902,48 +2273,123 @@
             const inputField = document.getElementById(inputId);
             const rawInput = inputField.value.trim();
             if (!rawInput) return;
-            
+
+            if (!apiKey) {
+                appendMessage('architect', "The AI tools aren't configured on this build. Everything else on the site works — try the Resource Hub or the Lectures.", msgId);
+                return;
+            }
+
+            // Check the budget before echoing the question into the transcript,
+            // so a refused turn does not leave a dangling user message that the
+            // next real request would then re-send as context.
+            const budget = aiBudget();
+            if (!budget.ok) {
+                appendMessage('architect', budget.message, msgId);
+                return;
+            }
+
             const loading = document.getElementById(loadingId);
-            appendMessage(type === 'res' ? 'user' : 'user', rawInput, msgId);
-            inputField.value = ""; 
+            appendMessage('user', rawInput, msgId);
+            inputField.value = "";
             loading.classList.remove('hidden');
             historyStore.push({ role: "user", parts: [{ text: rawInput }] });
-            
+            trimHistory(historyStore);
+
+            aiInFlight = true;
+            aiSpend();
+            setAiControlsEnabled(false);
+
             const prompt = type === 'res' ? "You are a Lead Debate Strategist. Break down this resolution, suggesting 3 AFF paths and 3 NEG paths. Focus on LD or Policy context." : "You are a Debate Mentor. Answer this general question about debate technicalities or theory clearly.";
-            
+
+            /**
+             * One request, retried only for failures a retry can actually fix.
+             * The old loop retried five times on any error including a 429,
+             * which turned one rate-limited question into six calls against the
+             * same personal quota — exactly backwards.
+             */
             const callGemini = async (retryCount = 0) => {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+                let response;
                 try {
-                    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-                    const response = await fetch(url, { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify({ 
-                            contents: historyStore, 
-                            systemInstruction: { parts: [{ text: prompt }] } 
-                        }) 
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: historyStore,
+                            systemInstruction: { parts: [{ text: prompt }] }
+                        })
                     });
-                    if (!response.ok) throw new Error("API Error");
-                    const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "Protocol Error.";
-                } catch (e) {
-                    if (retryCount < 5) {
-                        const delay = Math.pow(2, retryCount) * 1000;
-                        await new Promise(res => setTimeout(res, delay));
+                } catch (networkError) {
+                    // No response at all — the one case where retrying is right.
+                    if (retryCount < 2) {
+                        await new Promise(res => setTimeout(res, 1200 * (retryCount + 1)));
                         return callGemini(retryCount + 1);
                     }
-                    throw e;
+                    throw new Error("offline");
                 }
+
+                if (response.status === 429) throw new Error("quota");
+                if (response.status === 403) throw new Error("forbidden");
+                if (response.status >= 500 && retryCount < 1) {
+                    await new Promise(res => setTimeout(res, 1500));
+                    return callGemini(retryCount + 1);
+                }
+                if (!response.ok) throw new Error("api");
+
+                const result = await response.json();
+                return result.candidates?.[0]?.content?.parts?.[0]?.text
+                    || "That came back empty. Try rephrasing the question.";
             };
 
             try {
                 const aiText = await callGemini();
                 historyStore.push({ role: "model", parts: [{ text: aiText }] });
-                appendMessage(type === 'res' ? 'architect' : 'architect', aiText, msgId);
-            } catch (e) { 
-                appendMessage(type === 'res' ? 'architect' : 'architect', "Communication failed. Check protocols and try again.", msgId); 
-            } finally { 
-                loading.classList.add('hidden'); 
+                trimHistory(historyStore);
+                appendMessage('architect', aiText, msgId);
+            } catch (e) {
+                const reasons = {
+                    quota: "The shared API quota for today is used up — this runs on one personal key, not a subscription. It resets on Google's clock; the Resource Hub and Lectures don't need it.",
+                    forbidden: "The API key isn't authorized from here. If you're seeing this on debate101.org, let us know in the Discord.",
+                    offline: "Couldn't reach the model — check your connection and try again.",
+                };
+                appendMessage('architect', reasons[e.message] || "Something went wrong on that request. Try again in a moment.", msgId);
+                // A failed turn leaves an unanswered user message at the end of
+                // the history; drop it so the next question isn't sent with a
+                // dangling turn Gemini would reject.
+                if (historyStore[historyStore.length - 1]?.role === "user") historyStore.pop();
+            } finally {
+                loading.classList.add('hidden');
+                aiInFlight = false;
+                setAiControlsEnabled(true);
+                renderAiQuota();
             }
+        }
+
+        /** Grey out both chat inputs while a request is in flight. */
+        function setAiControlsEnabled(enabled) {
+            ['resolution-input', 'faq-input'].forEach(id => {
+                const field = document.getElementById(id);
+                if (field) field.disabled = !enabled;
+            });
+            document.querySelectorAll('[data-ai-send]').forEach(btn => {
+                btn.disabled = !enabled;
+                btn.style.opacity = enabled ? '' : '0.5';
+                btn.style.cursor = enabled ? '' : 'not-allowed';
+            });
+        }
+
+        /** Show what is left of the budget, so the cap is never a surprise. */
+        function renderAiQuota() {
+            const stamps = aiHistory();
+            const now = Date.now();
+            const hourLeft = AI_LIMITS.perHour - stamps.filter(t => t > now - 3600000).length;
+            const dayLeft = AI_LIMITS.perDay - stamps.length;
+            const left = Math.max(0, Math.min(hourLeft, dayLeft));
+            document.querySelectorAll('[data-ai-quota]').forEach(node => {
+                node.textContent = left > 0
+                    ? `${left} question${left === 1 ? '' : 's'} left · runs on a personal API key`
+                    : 'Question limit reached — try again later';
+            });
         }
 
         function appendMessage(role, text, containerId) {
@@ -2157,6 +2603,7 @@
             initAutoflow();
             setTimerFormat('LD');
             setupSectionScrollFx();
+            renderAiQuota();
 
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {

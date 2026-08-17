@@ -8,3 +8,11 @@ Thumbs.db
 # Editor
 .vscode/*
 !.vscode/extensions.json
+
+# Cascade desktop (Electron) build artifacts
+desktop/node_modules/
+desktop/dist/
+desktop/out/
+
+# Claude Code worktrees
+.claude/worktrees/

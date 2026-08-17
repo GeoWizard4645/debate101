@@ -5,6 +5,38 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Cascade — the flowing app. The desktop build ships from the repo. -->
+  <url>
+    <loc>https://debate101.org/flow/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://debate101.org/flow/download.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Standalone tools -->
+  <url>
+    <loc>https://debate101.org/tools/card-cutter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://debate101.org/tools/speed-trainer/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://debate101.org/tools/round-tracker/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sections of the single-page main site -->
   <url>
     <loc>https://debate101.org/#hub</loc>
     <changefreq>weekly</changefreq>
@@ -43,11 +75,11 @@
   <url>
     <loc>https://debate101.org/#faq</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://debate101.org/llms.txt</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
 </urlset>

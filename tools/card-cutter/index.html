@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Cutter | Debate 101</title>
+<meta name="description" content="Cut, tag, highlight, and export debate evidence cards in the browser — free, client-side, and built for speed. Part of the Debate 101 tool collective.">
+<meta name="theme-color" content="#051C2C">
+<link rel="canonical" href="https://debate101.org/tools/card-cutter/">
+<link rel="icon" href="../../assets/favicon.ico">
+<link rel="apple-touch-icon" href="../../assets/logo.PNG">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+    :root {
+        --navy: #051C2C;
+        --accent: #0072b1;
+        --hairline: #e5e7eb;
+        --hairline-soft: #f1f5f9;
+        --bg-soft: #f8fafc;
+        --text-secondary: #4b5563;
+        --text-faint: #94a3b8;
+        --highlight: #fde68a;
+        --shrink-gray: #8a8a8a;
+        --danger: #b91c1c;
+        --radius: 3px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        color: #1a1a1a;
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .mck-serif { font-family: 'Playfair Display', serif; }
+
+    a { color: inherit; }
+
+    img { max-width: 100%; }
+
+    button, input, textarea, select { font-family: inherit; }
+
+    /* ---------- Accessibility helpers ---------- */
+    .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--navy);
+        color: #fff;
+        padding: 0.75rem 1.25rem;
+        z-index: 999;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    .sr-only {
+        position: absolute;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+
+    /* ---------- Layout shell ---------- */
+    .cc-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    @media (min-width: 768px) {
+        .cc-container { padding: 0 3rem; }
+    }
+
+    /* ---------- Header ---------- */
+    .cc-header {
+        background: var(--navy);
+        color: #fff;
+        padding: 1.15rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .cc-header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    .cc-header-left { display: flex; align-items: center; gap: 0.9rem; }
+    .cc-wordmark {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        font-size: 1.35rem;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .cc-wordmark span { font-weight: 300; }
+    .cc-header-divider {
+        width: 1px; height: 20px;
+        background: rgba(255,255,255,0.2);
+        display: none;
+    }
+    .cc-header-tool {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #8fb8d6;
+        font-weight: 700;
+        display: none;
+    }
+    @media (min-width: 560px) {
+        .cc-header-divider, .cc-header-tool { display: block; }
+    }
+    .cc-header-back {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #cfe3f0;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.25);
+        padding: 0.55rem 1rem;
+        font-weight: 700;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    .cc-header-back:hover { background: rgba(255,255,255,0.08); border-color: var(--accent); }
+    .cc-header-back i { margin-right: 0.4rem; font-size: 9px; }
+
+    /* ---------- Hero ---------- */
+    .cc-hero { padding: 3.5rem 0 2.5rem; }
+    .cc-eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        font-size: 10px;
+        font-weight: 700;
+        margin: 0 0 1rem;
+    }
+    .cc-title {
+        font-size: clamp(2.2rem, 5vw, 3.75rem);
+        color: var(--navy);
+        line-height: 1.08;
+        margin: 0 0 1.25rem;
+        font-weight: 700;
+    }
+    .cc-title i { font-style: italic; color: var(--accent); font-weight: 400; }
+    .cc-lead {
+        font-size: clamp(1rem, 1.6vw, 1.25rem);
+        color: var(--text-secondary);
+        font-weight: 300;
+        line-height: 1.65;
+        max-width: 46rem;
+        margin: 0;
+    }
+
+    /* ---------- How to use ---------- */
+    .cc-howto {
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        padding: 1.75rem 0;
+        margin-bottom: 3rem;
+    }
+    .cc-howto summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--navy);
+    }
+    .cc-howto summary::-webkit-details-marker { display: none; }
+    .cc-howto summary .cc-chev { transition: transform 0.25s ease; color: var(--accent); }
+    .cc-howto[open] summary .cc-chev { transform: rotate(180deg); }
+    .cc-howto-body {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1.75rem;
+        margin-top: 1.75rem;
+    }
+    .cc-howto-step { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+    .cc-howto-step strong { display: block; color: var(--navy); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+    .cc-kbd-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    kbd, .cc-kbd {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 10px;
+        font-weight: 700;
+        background: var(--bg-soft);
+        border: 1px solid var(--hairline);
+        border-bottom-width: 2px;
+        border-radius: 3px;
+        padding: 1px 6px;
+        color: var(--navy);
+    }
+    .cc-honesty-note {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        border-left: 3px solid var(--accent);
+        padding: 0.6rem 0 0.6rem 1rem;
+        line-height: 1.6;
+        background: var(--bg-soft);
+    }
+    .cc-honesty-note strong { color: var(--navy); }
+
+    /* ---------- Section scaffolding ---------- */
+    .cc-section { padding: 2.5rem 0; }
+    .cc-section-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: var(--accent);
+        margin: 0 0 0.5rem;
+    }
+    .cc-section-title {
+        font-size: 1.6rem;
+        color: var(--navy);
+        margin: 0 0 1.5rem;
+        font-weight: 700;
+    }
+
+    /* ---------- Workspace grid ---------- */
+    .cc-workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+        gap: 2.5rem;
+        align-items: start;
+    }
+    @media (max-width: 980px) {
+        .cc-workspace { grid-template-columns: 1fr; }
+    }
+
+    .cc-panel {
+        border: 1px solid var(--hairline);
+        background: #fff;
+    }
+    .cc-panel-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--hairline);
+        background: var(--bg-soft);
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--navy);
+    }
+    .cc-panel-body { padding: 1.25rem; }
+
+    .cc-field { margin-bottom: 1.1rem; }
+    .cc-field label {
+        display: block;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--text-faint);
+        margin-bottom: 0.4rem;
+    }
+    .cc-field input[type="text"],
+    .cc-field input[type="url"],
+    .cc-field textarea {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid var(--hairline);
+        padding: 0.5rem 0.1rem;
+        font-size: 0.9rem;
+        color: var(--navy);
+        background: transparent;
+        transition: border-color 0.2s ease;
+        resize: vertical;
+    }
+    .cc-field input:focus, .cc-field textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+    .cc-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .cc-source-textarea { min-height: 160px; font-size: 0.85rem; line-height: 1.55; border: 1px solid var(--hairline) !important; padding: 0.75rem !important; }
+    .cc-tag-textarea { min-height: 56px; font-size: 0.9rem; line-height: 1.5; font-weight: 600; }
+
+    .cc-parse-box { background: var(--bg-soft); border: 1px solid var(--hairline); padding: 1rem; margin-bottom: 1.5rem; }
+    .cc-parse-box label { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--navy); margin-bottom: 0.5rem; }
+    .cc-parse-row { display: flex; gap: 0.5rem; }
+    .cc-parse-row input {
+        flex: 1;
+        border: 1px solid var(--hairline);
+        background: #fff;
+        padding: 0.55rem 0.7rem;
+        font-size: 0.8rem;
+        color: var(--navy);
+    }
+    .cc-parse-row input:focus { outline: none; border-color: var(--accent); }
+    .cc-parse-status { font-size: 0.75rem; color: var(--text-secondary); margin: 0.6rem 0 0; min-height: 1em; line-height: 1.5; }
+
+    .cc-format-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .cc-format-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+    .cc-format-toggle label {
+        flex: 1;
+        text-align: center;
+        border: 1px solid var(--hairline);
+        padding: 0.6rem 0.5rem;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--navy);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        margin: 0;
+    }
+    .cc-format-toggle input:checked + label { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .cc-format-toggle input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ---------- Buttons ---------- */
+    .cc-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 0.75rem 1.25rem;
+        border: 1px solid var(--navy);
+        background: #fff;
+        color: var(--navy);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    .cc-btn:hover { background: var(--bg-soft); border-color: var(--accent); color: var(--accent); }
+    .cc-btn-primary { background: var(--navy); color: #fff; }
+    .cc-btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .cc-btn-block { width: 100%; justify-content: center; }
+    .cc-btn-sm { padding: 0.45rem 0.75rem; font-size: 9px; }
+    .cc-btn-ghost { border-color: var(--hairline); color: var(--text-secondary); }
+    .cc-btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
+    .cc-btn-danger-ghost { border-color: var(--hairline); color: var(--text-secondary); }
+    .cc-btn-danger-ghost.cc-confirming { border-color: var(--danger); color: var(--danger); background: #fef2f2; }
+    .cc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .cc-btn-icon { padding: 0.45rem 0.6rem; }
+
+    /* ---------- Highlighter toolbar + pane ---------- */
+    .cc-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--hairline);
+        background: var(--bg-soft);
+        align-items: center;
+    }
+    .cc-tool-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        border: 1px solid var(--hairline);
+        background: #fff;
+        color: var(--navy);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .cc-tool-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .cc-tool-btn kbd { margin: 0; }
+    .cc-tool-btn[data-kind="highlight"] { border-left: 3px solid var(--highlight); }
+    .cc-tool-btn[data-kind="underline"] { border-left: 3px solid var(--navy); }
+    .cc-tool-btn[data-kind="bold"] { border-left: 3px solid var(--navy); }
+    .cc-tool-btn[data-kind="shrink"] { border-left: 3px solid var(--text-faint); }
+    .cc-tool-btn[data-kind="clear"] { border-left: 3px solid var(--danger); }
+    .cc-tool-spacer { flex: 1; min-width: 0.5rem; }
+
+    .cc-status-bar {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.78rem;
+        color: var(--accent);
+        min-height: 1.9rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--hairline-soft);
+    }
+
+    .cc-pane {
+        padding: 1.5rem;
+        min-height: 320px;
+        max-height: 560px;
+        overflow-y: auto;
+        font-size: 0.95rem;
+        line-height: 1.85;
+        color: #1a1a1a;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        cursor: text;
+        user-select: text;
+    }
+    .cc-pane[data-empty="true"]::before {
+        content: "Paste article text in the Source panel and click \201CLoad Into Highlighter\201D to begin marking it up.";
+        color: var(--text-faint);
+        font-style: italic;
+    }
+    .cc-pane:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+    .cc-seg { }
+    .cc-highlight { background: var(--highlight); }
+    .cc-underline { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; }
+    .cc-bold { font-weight: 700; }
+    .cc-shrink { font-size: 0.72em; color: var(--shrink-gray); }
+
+    .cc-workpane-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--hairline); background: var(--bg-soft); font-size: 0.78rem; color: var(--text-secondary); }
+
+    /* ---------- Analysis ---------- */
+    .cc-analysis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--hairline);
+        border: 1px solid var(--hairline);
+        margin-top: 1.5rem;
+    }
+    .cc-stat { background: #fff; padding: 1.1rem 1.25rem; }
+    .cc-stat-value { font-size: 1.6rem; font-weight: 700; color: var(--navy); line-height: 1; font-family: 'Playfair Display', serif; }
+    .cc-stat-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-faint); margin-top: 0.5rem; }
+
+    .cc-weakwords { margin-top: 1.25rem; }
+    .cc-weakwords-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-faint); margin-bottom: 0.6rem; }
+    .cc-weak-chip {
+        display: inline-block;
+        font-size: 0.75rem;
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        padding: 0.2rem 0.55rem;
+        border-radius: 2px;
+        margin: 0 0.35rem 0.35rem 0;
+    }
+    .cc-weak-none { font-size: 0.8rem; color: var(--text-secondary); }
+
+    .cc-warning {
+        margin-top: 1.25rem;
+        background: #fef2f2;
+        border-left: 3px solid var(--danger);
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+        color: #7f1d1d;
+        line-height: 1.55;
+    }
+
+    /* ---------- Preview ---------- */
+    .cc-preview-card {
+        border: 1px solid var(--hairline);
+        padding: 2rem 2.25rem;
+        background: #fff;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: #111;
+    }
+    .cc-preview-tag { font-weight: 700; margin: 0 0 0.75rem; color: var(--navy); font-family: 'Inter', sans-serif; font-size: 0.95rem; }
+    .cc-preview-cite { margin: 0 0 1.25rem; padding-bottom: 1.1rem; border-bottom: 1px solid var(--hairline); font-family: 'Inter', sans-serif; font-size: 0.82rem; color: var(--text-secondary); }
+    .cc-preview-cite strong { color: var(--navy); }
+    .cc-preview-body { white-space: pre-wrap; word-wrap: break-word; }
+    .cc-empty-note { color: var(--text-faint); font-style: italic; font-family: 'Inter', sans-serif; font-size: 0.85rem; }
+
+    /* ---------- Export bar ---------- */
+    .cc-export-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+    /* ---------- Library ---------- */
+    .cc-library-header { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .cc-search-wrap { position: relative; flex: 1; min-width: 220px; max-width: 360px; }
+    .cc-search-wrap i { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--text-faint); font-size: 0.8rem; }
+    .cc-search-input {
+        width: 100%;
+        padding: 0.65rem 0.9rem 0.65rem 2.2rem;
+        border: 1px solid var(--hairline);
+        font-size: 0.85rem;
+        outline: none;
+        background: #fff;
+    }
+    .cc-search-input:focus { border-color: var(--accent); }
+    .cc-card-count { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-faint); }
+    .cc-card-count strong { color: var(--navy); }
+
+    .cc-card-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--hairline); }
+    .cc-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.9rem 1.1rem;
+        border-bottom: 1px solid var(--hairline-soft);
+        flex-wrap: wrap;
+    }
+    .cc-card-row:last-child { border-bottom: none; }
+    .cc-card-row:hover { background: var(--bg-soft); }
+    .cc-card-row-main { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; flex: 1; }
+    .cc-card-name-btn {
+        background: none; border: none; padding: 0; text-align: left;
+        font-size: 0.9rem; font-weight: 700; color: var(--navy); cursor: pointer;
+        text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100%;
+    }
+    .cc-card-name-btn:hover { color: var(--accent); text-decoration: underline; }
+    .cc-card-meta { font-size: 0.72rem; color: var(--text-secondary); }
+    .cc-card-row-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .cc-card-row-actions button {
+        border: 1px solid var(--hairline);
+        background: #fff;
+        color: var(--text-secondary);
+        width: 30px; height: 30px;
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.15s ease;
+    }
+    .cc-card-row-actions button:hover { border-color: var(--accent); color: var(--accent); }
+    .cc-card-row-actions button.cc-confirming { border-color: var(--danger); color: var(--danger); background: #fef2f2; }
+    .cc-rename-input {
+        font-size: 0.9rem; font-weight: 700; color: var(--navy);
+        border: 1px solid var(--accent); padding: 0.25rem 0.4rem; width: 100%; max-width: 260px;
+    }
+    .cc-library-empty { padding: 2rem 1.25rem; text-align: center; color: var(--text-faint); font-size: 0.85rem; font-style: italic; }
+    .cc-library-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+    .cc-file-label {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+        padding: 0.75rem 1.25rem; border: 1px solid var(--hairline); color: var(--text-secondary); cursor: pointer;
+    }
+    .cc-file-label:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ---------- Footer ---------- */
+    .cc-footer { background: #fff; border-top: 1px solid var(--hairline-soft); padding: 3.5rem 0; margin-top: 3rem; }
+    .cc-footer-inner { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+    .cc-footer-word { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; color: var(--navy); text-decoration: none; }
+    .cc-footer-word span { font-weight: 300; }
+    .cc-footer-note { font-size: 0.78rem; color: var(--text-secondary); max-width: 40rem; line-height: 1.7; }
+    .cc-footer-copy { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); font-weight: 700; }
+
+    /* ---------- Print ---------- */
+    @media print {
+        body * { visibility: hidden; }
+        .cc-print-area, .cc-print-area * { visibility: visible; }
+        .cc-print-area {
+            position: absolute; left: 0; top: 0; width: 100%;
+            padding: 0.5in;
+        }
+        .cc-highlight { background: var(--highlight) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+</style>
+</head>
+<body>
+<a href="#cc-main" class="skip-link">Skip to main content</a>
+
+<header class="cc-header">
+    <div class="cc-container cc-header-inner">
+        <div class="cc-header-left">
+            <a href="../../index.html" class="cc-wordmark">DEBATE<span>101</span></a>
+            <div class="cc-header-divider" aria-hidden="true"></div>
+            <span class="cc-header-tool">Card Cutter</span>
+        </div>
+        <a href="../../index.html" class="cc-header-back"><i class="fas fa-arrow-left"></i>Back to Debate 101</a>
+    </div>
+</header>
+
+<main id="cc-main">
+    <div class="cc-container">
+        <section class="cc-hero">
+            <p class="cc-eyebrow">Evidence Production</p>
+            <h1 class="cc-title mck-serif">Card <i>Cutter</i></h1>
+            <p class="cc-lead">Paste an article, tag your argument, highlight the words you'll actually read, and export a properly formatted card — ready to drop into your speech doc. Everything runs in your browser; nothing you paste here is ever uploaded.</p>
+        </section>
+
+        <details class="cc-howto" id="cc-howto">
+            <summary>How to use Card Cutter <i class="fas fa-chevron-down cc-chev" aria-hidden="true"></i></summary>
+            <div class="cc-howto-body">
+                <div class="cc-howto-step">
+                    <strong>01 — Bring in the source</strong>
+                    Paste the article text into the Source panel, fill in (or auto-parse) the citation fields, then click "Load Into Highlighter."
+                </div>
+                <div class="cc-howto-step">
+                    <strong>02 — Mark it up</strong>
+                    Select text in the working pane with your mouse, then click a toolbar button or press a hotkey.
+                    <div class="cc-kbd-row">
+                        <span class="cc-kbd">H</span> Highlight
+                        <span class="cc-kbd">U</span> Underline
+                        <span class="cc-kbd">B</span> Bold
+                        <span class="cc-kbd">S</span> Shrink
+                        <span class="cc-kbd">X</span> Clear
+                        <span class="cc-kbd">Ctrl/⌘+Z</span> Undo
+                    </div>
+                </div>
+                <div class="cc-howto-step">
+                    <strong>03 — Check the read</strong>
+                    The analysis strip shows word count, estimated read time, weak-qualifier flags, and warns you if your highlighted portion is really just a power-tag.
+                </div>
+                <div class="cc-howto-step">
+                    <strong>04 — Export &amp; save</strong>
+                    Copy as formatted rich text straight into Word or Docs, download as .html/.txt, print to PDF, or save the card to your local library for later.
+                </div>
+            </div>
+            <p class="cc-honesty-note"><strong>A note on honesty:</strong> highlighting and cutting are tools of emphasis, not distortion. A cut card must never change what the author actually meant — read the full context before you cut, and never highlight your way into a claim the source doesn't support.</p>
+        </details>
+
+        <!-- ============ WORKSPACE ============ -->
+        <section class="cc-section">
+            <p class="cc-section-label">Step 1–2</p>
+            <h2 class="cc-section-title">Source &amp; Highlighter</h2>
+
+            <div class="cc-workspace">
+                <!-- Source / citation panel -->
+                <div class="cc-panel">
+                    <div class="cc-panel-header">Source Text &amp; Citation</div>
+                    <div class="cc-panel-body">
+
+                        <div class="cc-field">
+                            <label for="cc-source-text">Article text</label>
+                            <textarea id="cc-source-text" class="cc-source-textarea" placeholder="Paste the full article text here…" aria-describedby="cc-source-hint"></textarea>
+                            <p id="cc-source-hint" class="sr-only">After pasting, click Load Into Highlighter below to move the text into the working pane.</p>
+                        </div>
+                        <button type="button" id="cc-load-btn" class="cc-btn cc-btn-primary cc-btn-block" style="margin-bottom:1.5rem;"><i class="fas fa-bolt"></i> Load Into Highlighter</button>
+
+                        <div class="cc-parse-box">
+                            <label for="cc-parse-input">Parse a citation</label>
+                            <div class="cc-parse-row">
+                                <input type="text" id="cc-parse-input" placeholder="Paste a URL or a raw citation line…">
+                                <button type="button" id="cc-parse-btn" class="cc-btn cc-btn-sm">Parse</button>
+                            </div>
+                            <p id="cc-parse-status" class="cc-parse-status" aria-live="polite"></p>
+                        </div>
+
+                        <div class="cc-field-row">
+                            <div class="cc-field">
+                                <label for="cc-author-first">Author first name</label>
+                                <input type="text" id="cc-author-first" autocomplete="off">
+                            </div>
+                            <div class="cc-field">
+                                <label for="cc-author-last">Author last name</label>
+                                <input type="text" id="cc-author-last" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="cc-field">
+                            <label for="cc-title">Article title</label>
+                            <input type="text" id="cc-title" autocomplete="off">
+                        </div>
+
+                        <div class="cc-field-row">
+                            <div class="cc-field">
+                                <label for="cc-publication">Publication</label>
+                                <input type="text" id="cc-publication" autocomplete="off">
+                            </div>
+                            <div class="cc-field">
+                                <label for="cc-date">Date</label>
+                                <input type="text" id="cc-date" placeholder="e.g. March 5, 2014" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="cc-field">
+                            <label for="cc-url">URL</label>
+                            <input type="url" id="cc-url" autocomplete="off">
+                        </div>
+
+                        <div class="cc-field">
+                            <label for="cc-tag">Your tag line</label>
+                            <textarea id="cc-tag" class="cc-tag-textarea" placeholder="e.g. Extinction outweighs — even a small risk of human extinction swamps other considerations."></textarea>
+                        </div>
+
+                        <div class="cc-field">
+                            <label id="cc-format-label">Cite format</label>
+                            <div class="cc-format-toggle" role="radiogroup" aria-labelledby="cc-format-label">
+                                <input type="radio" name="cc-format" id="cc-format-camp" value="camp" checked>
+                                <label for="cc-format-camp">Debate-Camp</label>
+                                <input type="radio" name="cc-format" id="cc-format-mla" value="mla">
+                                <label for="cc-format-mla">MLA-ish</label>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:0.6rem;">
+                            <button type="button" id="cc-save-btn" class="cc-btn cc-btn-primary" style="flex:1;"><i class="fas fa-save"></i> Save Card</button>
+                            <button type="button" id="cc-new-btn" class="cc-btn cc-btn-ghost"><i class="fas fa-file"></i> New</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Working pane -->
+                <div class="cc-panel">
+                    <div class="cc-toolbar">
+                        <button type="button" class="cc-tool-btn" data-kind="highlight">Highlight <kbd>H</kbd></button>
+                        <button type="button" class="cc-tool-btn" data-kind="underline">Underline <kbd>U</kbd></button>
+                        <button type="button" class="cc-tool-btn" data-kind="bold">Bold <kbd>B</kbd></button>
+                        <button type="button" class="cc-tool-btn" data-kind="shrink">Shrink <kbd>S</kbd></button>
+                        <button type="button" class="cc-tool-btn" data-kind="clear">Clear <kbd>X</kbd></button>
+                        <div class="cc-tool-spacer"></div>
+                        <button type="button" id="cc-undo-btn" class="cc-tool-btn"><i class="fas fa-rotate-left" aria-hidden="true"></i> Undo <kbd>⌘Z</kbd></button>
+                    </div>
+                    <div id="cc-status" class="cc-status-bar" role="status" aria-live="polite"></div>
+                    <div id="cc-pane" class="cc-pane" tabindex="0" role="textbox" aria-multiline="true" aria-readonly="true" aria-label="Article working pane — select text, then apply a highlight, underline, bold, shrink, or clear mark" data-empty="true"></div>
+                    <div class="cc-workpane-footer">Select text with your mouse (or Shift+Arrow keys once focused), then click a toolbar button or press its hotkey. Overlapping marks combine correctly — highlight, underline and bold can all apply to the same words.</div>
+
+                    <div class="cc-panel-body" style="padding-top:1.25rem;">
+                        <div class="cc-analysis">
+                            <div class="cc-stat">
+                                <div class="cc-stat-value" id="cc-wordcount">0</div>
+                                <div class="cc-stat-label">Words Highlighted</div>
+                            </div>
+                            <div class="cc-stat">
+                                <div class="cc-stat-value" id="cc-readtime">0s</div>
+                                <div class="cc-stat-label">Est. Read Time @ 300 WPM</div>
+                            </div>
+                            <div class="cc-stat">
+                                <div class="cc-stat-value" id="cc-totalwords">0</div>
+                                <div class="cc-stat-label">Total Words In Card</div>
+                            </div>
+                        </div>
+
+                        <div class="cc-weakwords">
+                            <p class="cc-weakwords-title">Power-Words Check</p>
+                            <div id="cc-weakwords-body"></div>
+                        </div>
+
+                        <div id="cc-warning" class="cc-warning" hidden></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PREVIEW ============ -->
+        <section class="cc-section">
+            <p class="cc-section-label">Step 3</p>
+            <h2 class="cc-section-title">Live Card Preview</h2>
+
+            <div class="cc-print-area">
+                <div class="cc-preview-card" id="cc-preview-card">
+                    <p class="cc-preview-tag" id="cc-preview-tag"></p>
+                    <p class="cc-preview-cite"><strong id="cc-preview-short-cite"></strong> — <span id="cc-preview-full-cite"></span></p>
+                    <div class="cc-preview-body" id="cc-preview-body"></div>
+                </div>
+            </div>
+
+            <div class="cc-export-bar">
+                <button type="button" id="cc-copy-btn" class="cc-btn cc-btn-primary"><i class="fas fa-clipboard"></i> Copy Rich Text</button>
+                <button type="button" id="cc-download-html-btn" class="cc-btn"><i class="fas fa-file-code"></i> Download .html</button>
+                <button type="button" id="cc-download-txt-btn" class="cc-btn"><i class="fas fa-file-alt"></i> Download .txt</button>
+                <button type="button" id="cc-print-btn" class="cc-btn"><i class="fas fa-print"></i> Print / Save as PDF</button>
+            </div>
+        </section>
+
+        <!-- ============ LIBRARY ============ -->
+        <section class="cc-section">
+            <p class="cc-section-label">Step 4</p>
+            <h2 class="cc-section-title">Card Library</h2>
+
+            <div class="cc-library-header">
+                <div class="cc-search-wrap">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="text" id="cc-search" class="cc-search-input" placeholder="Search saved cards…" aria-label="Search saved cards">
+                </div>
+                <p class="cc-card-count" id="cc-card-count"><strong>0</strong> cards saved</p>
+            </div>
+
+            <ul class="cc-card-list" id="cc-card-list"></ul>
+
+            <div class="cc-library-actions">
+                <button type="button" id="cc-export-all-btn" class="cc-btn cc-btn-ghost"><i class="fas fa-download"></i> Export All (JSON)</button>
+                <label for="cc-import-input" class="cc-file-label"><i class="fas fa-upload"></i> Import JSON</label>
+                <input type="file" id="cc-import-input" accept="application/json" class="sr-only">
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="cc-footer">
+    <div class="cc-container cc-footer-inner">
+        <a href="../../index.html" class="cc-footer-word">DEBATE<span>101</span></a>
+        <p class="cc-footer-note">Card Cutter is part of the Debate 101 open-source tool collective. A cut card is a shortcut for the reader, not a replacement for the original argument — always represent the author's meaning honestly.</p>
+        <p class="cc-footer-copy">© 2026 Debate 101 Collective</p>
+    </div>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+
+    var KINDS = ['highlight', 'underline', 'bold', 'shrink'];
+    var STORAGE_KEY = 'd101.cards';
+    var DRAFT_KEY = 'd101.cardcutter.draft';
+    var WEAK_WORDS = ['might', 'could', 'maybe', 'perhaps', 'possibly', 'probably', 'likely', 'seem', 'seems',
+        'seemed', 'suggest', 'suggests', 'suggested', 'somewhat', 'relatively', 'fairly', 'rather', 'quite',
+        'arguably', 'potentially', 'tend', 'tends', 'tended', 'apparently', 'reportedly', 'allegedly', 'may',
+        'kind of', 'sort of', 'a bit', 'a little', 'generally', 'typically', 'usually', 'often', 'sometimes',
+        'in some cases', 'to some extent'];
+
+    var state = {
+        currentCardId: null,
+        format: 'camp',
+        fields: { url: '', publication: '', authorFirst: '', authorLast: '', date: '', title: '', tag: '' },
+        text: '',
+        marks: { highlight: [], underline: [], bold: [], shrink: [] },
+        history: []
+    };
+
+    var confirmingDeletes = {};
+    var confirmingRename = null;
+    var loadConfirmPending = false;
+    var newConfirmPending = false;
+    var statusTimer = null;
+    var draftSaveTimer = null;
+
+    var dom = {};
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    function init() {
+        cacheDom();
+        bindFieldEvents();
+        bindToolbar();
+        bindExportButtons();
+        bindLibraryEvents();
+        bindHotkeys();
+        loadDraft();
+        renderAll();
+        renderLibrary();
+    }
+
+    function cacheDom() {
+        dom.sourceText = document.getElementById('cc-source-text');
+        dom.loadBtn = document.getElementById('cc-load-btn');
+        dom.parseInput = document.getElementById('cc-parse-input');
+        dom.parseBtn = document.getElementById('cc-parse-btn');
+        dom.parseStatus = document.getElementById('cc-parse-status');
+
+        dom.fieldAuthorFirst = document.getElementById('cc-author-first');
+        dom.fieldAuthorLast = document.getElementById('cc-author-last');
+        dom.fieldTitle = document.getElementById('cc-title');
+        dom.fieldPublication = document.getElementById('cc-publication');
+        dom.fieldDate = document.getElementById('cc-date');
+        dom.fieldUrl = document.getElementById('cc-url');
+        dom.fieldTag = document.getElementById('cc-tag');
+
+        dom.formatCamp = document.getElementById('cc-format-camp');
+        dom.formatMla = document.getElementById('cc-format-mla');
+
+        dom.saveBtn = document.getElementById('cc-save-btn');
+        dom.newBtn = document.getElementById('cc-new-btn');
+
+        dom.pane = document.getElementById('cc-pane');
+        dom.status = document.getElementById('cc-status');
+        dom.undoBtn = document.getElementById('cc-undo-btn');
+
+        dom.wordcount = document.getElementById('cc-wordcount');
+        dom.readtime = document.getElementById('cc-readtime');
+        dom.totalwords = document.getElementById('cc-totalwords');
+        dom.weakwordsBody = document.getElementById('cc-weakwords-body');
+        dom.warning = document.getElementById('cc-warning');
+
+        dom.previewTag = document.getElementById('cc-preview-tag');
+        dom.previewShortCite = document.getElementById('cc-preview-short-cite');
+        dom.previewFullCite = document.getElementById('cc-preview-full-cite');
+        dom.previewBody = document.getElementById('cc-preview-body');
+
+        dom.copyBtn = document.getElementById('cc-copy-btn');
+        dom.downloadHtmlBtn = document.getElementById('cc-download-html-btn');
+        dom.downloadTxtBtn = document.getElementById('cc-download-txt-btn');
+        dom.printBtn = document.getElementById('cc-print-btn');
+
+        dom.search = document.getElementById('cc-search');
+        dom.cardCount = document.getElementById('cc-card-count');
+        dom.cardList = document.getElementById('cc-card-list');
+        dom.exportAllBtn = document.getElementById('cc-export-all-btn');
+        dom.importInput = document.getElementById('cc-import-input');
+    }
+
+    /* ================= Utility ================= */
+
+    function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escapeRegex(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+    function genId() {
+        return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+    function clamp(n, max) { return Math.max(0, Math.min(n, max)); }
+    function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    function setStatus(msg) {
+        dom.status.textContent = msg;
+    }
+    function setParseStatus(msg) {
+        dom.parseStatus.textContent = msg;
+    }
+
+    /* ================= Range model (offset-based marks) ================= */
+
+    function mergeRanges(ranges) {
+        if (!ranges.length) return [];
+        var sorted = ranges.slice().sort(function (a, b) { return a.start - b.start || a.end - b.end; });
+        var out = [{ start: sorted[0].start, end: sorted[0].end }];
+        for (var i = 1; i < sorted.length; i++) {
+            var last = out[out.length - 1];
+            var cur = sorted[i];
+            if (cur.start <= last.end) {
+                last.end = Math.max(last.end, cur.end);
+            } else {
+                out.push({ start: cur.start, end: cur.end });
+            }
+        }
+        return out;
+    }
+
+    function subtractRange(ranges, start, end) {
+        var result = [];
+        for (var i = 0; i < ranges.length; i++) {
+            var r = ranges[i];
+            if (r.end <= start || r.start >= end) { result.push(r); continue; }
+            if (r.start < start) result.push({ start: r.start, end: Math.min(r.end, start) });
+            if (r.end > end) result.push({ start: Math.max(r.start, end), end: r.end });
+        }
+        return result.filter(function (r) { return r.end > r.start; });
+    }
+
+    function buildSegments(text, marks) {
+        var boundarySet = {};
+        boundarySet[0] = true;
+        boundarySet[text.length] = true;
+        KINDS.forEach(function (k) {
+            marks[k].forEach(function (r) {
+                boundarySet[clamp(r.start, text.length)] = true;
+                boundarySet[clamp(r.end, text.length)] = true;
+            });
+        });
+        var bounds = Object.keys(boundarySet).map(Number).sort(function (a, b) { return a - b; });
+        var segs = [];
+        for (var i = 0; i < bounds.length - 1; i++) {
+            var s = bounds[i], e = bounds[i + 1];
+            if (s === e) continue;
+            var kindsActive = {};
+            KINDS.forEach(function (k) {
+                kindsActive[k] = marks[k].some(function (r) { return r.start <= s && r.end >= e; });
+            });
+            segs.push({ start: s, end: e, text: text.slice(s, e), kinds: kindsActive });
+        }
+        if (!segs.length && text.length) {
+            segs.push({ start: 0, end: text.length, text: text, kinds: {} });
+        }
+        return segs;
+    }
+
+    function segClasses(seg) {
+        var cls = ['cc-seg'];
+        if (seg.kinds.shrink) cls.push('cc-shrink');
+        if (seg.kinds.highlight) cls.push('cc-highlight');
+        if (seg.kinds.underline) cls.push('cc-underline');
+        if (seg.kinds.bold) cls.push('cc-bold');
+        return cls.join(' ');
+    }
+
+    /* ================= Selection <-> plain-text offsets ================= */
+
+    function textOffsetOf(node, offset) {
+        var r = document.createRange();
+        r.selectNodeContents(dom.pane);
+        try { r.setEnd(node, offset); } catch (e) { return 0; }
+        return r.toString().length;
+    }
+
+    function getPaneSelectionOffsets() {
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        var range = sel.getRangeAt(0);
+        if (range.collapsed) return null;
+        if (!dom.pane.contains(range.commonAncestorContainer) && range.commonAncestorContainer !== dom.pane) return null;
+        var a = textOffsetOf(range.startContainer, range.startOffset);
+        var b = textOffsetOf(range.endContainer, range.endOffset);
+        return { start: Math.min(a, b), end: Math.max(a, b) };
+    }
+
+    /* ================= Mark actions ================= */
+
+    function pushHistory() {
+        state.history.push(JSON.stringify(state.marks));
+        if (state.history.length > 60) state.history.shift();
+    }
+
+    function undo() {
+        if (!state.history.length) { setStatus('Nothing to undo.'); return; }
+        state.marks = JSON.parse(state.history.pop());
+        renderPane(); renderPreview(); renderAnalysis(); saveDraft();
+        setStatus('Undid last change.');
+    }
+
+    function doMark(kind) {
+        if (!state.text) { setStatus('Load an article into the highlighter first.'); return; }
+        var sel = getPaneSelectionOffsets();
+        if (!sel || sel.start === sel.end) {
+            setStatus('Select text in the article pane first.');
+            return;
+        }
+        pushHistory();
+        var count = sel.end - sel.start;
+        if (kind === 'clear') {
+            KINDS.forEach(function (k) { state.marks[k] = subtractRange(state.marks[k], sel.start, sel.end); });
+            setStatus('Cleared marks on ' + count + ' character' + (count === 1 ? '' : 's') + '.');
+        } else {
+            state.marks[kind] = mergeRanges(state.marks[kind].concat([{ start: sel.start, end: sel.end }]));
+            setStatus(capitalize(kind) + ' applied to ' + count + ' character' + (count === 1 ? '' : 's') + '.');
+        }
+        renderPane();
+        renderPreview();
+        renderAnalysis();
+        saveDraft();
+    }
+
+    function restorePaneSelection(start, end) {
+        // best-effort — used after re-render only if needed; not required for correctness.
+    }
+
+    /* ================= Rendering ================= */
+
+    function renderPane() {
+        if (!state.text) {
+            dom.pane.innerHTML = '';
+            dom.pane.setAttribute('data-empty', 'true');
+            return;
+        }
+        dom.pane.removeAttribute('data-empty');
+        var segs = buildSegments(state.text, state.marks);
+        dom.pane.innerHTML = segs.map(function (seg) {
+            return '<span class="' + segClasses(seg) + '">' + escapeHtml(seg.text) + '</span>';
+        }).join('');
+    }
+
+    function parseYearFrom(dateStr) {
+        if (!dateStr) return null;
+        var m = dateStr.match(/(19|20)\d{2}/);
+        return m ? m[0] : null;
+    }
+
+    function shortCiteText() {
+        var last = (state.fields.authorLast || '').trim();
+        var year = parseYearFrom(state.fields.date);
+        var yy = year ? year.slice(-2) : 'XX';
+        return (last || 'Author') + ' ' + yy;
+    }
+
+    function formatToday() {
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var d = new Date();
+        return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    }
+
+    function fullCiteText() {
+        var today = formatToday();
+        var last = (state.fields.authorLast || '').trim() || '[Last Name]';
+        var first = (state.fields.authorFirst || '').trim();
+        var title = (state.fields.title || '').trim() || '[Title]';
+        var pub = (state.fields.publication || '').trim() || '[Publication]';
+        var date = (state.fields.date || '').trim() || '[Date]';
+        var url = (state.fields.url || '').trim() || '[URL]';
+        var year = parseYearFrom(date) || '';
+
+        if (state.format === 'mla') {
+            var name = first ? (last + ', ' + first) : last;
+            return name + '. "' + title + '." ' + pub + ', ' + date + '. ' + url + '. Accessed ' + today + '.';
+        }
+        var firstPart = first ? (first.charAt(0) + '.') : '';
+        return last + ', ' + firstPart + ' ' + year + ' — "' + title + '," ' + pub + ', ' + date + ', ' + url + ', accessed ' + today + '.';
+    }
+
+    function renderPreview() {
+        var shortCite = shortCiteText();
+        var fullCite = fullCiteText();
+        dom.previewShortCite.textContent = shortCite;
+        dom.previewFullCite.textContent = fullCite;
+        dom.previewTag.textContent = state.fields.tag || '(No tag line yet — add one in the Source panel.)';
+
+        if (!state.text) {
+            dom.previewBody.innerHTML = '<span class="cc-empty-note">Paste and mark up an article to see your card here.</span>';
+            return;
+        }
+        var segs = buildSegments(state.text, state.marks);
+        dom.previewBody.innerHTML = segs.map(function (seg) {
+            return '<span class="' + segClasses(seg) + '">' + escapeHtml(seg.text) + '</span>';
+        }).join('');
+    }
+
+    function formatReadTime(minutes) {
+        var totalSeconds = Math.round(minutes * 60);
+        if (totalSeconds < 60) return '~' + totalSeconds + 's';
+        var m = Math.floor(totalSeconds / 60);
+        var s = totalSeconds % 60;
+        return '~' + m + 'm ' + (s < 10 ? '0' + s : s) + 's';
+    }
+
+    function renderAnalysis() {
+        var merged = mergeRanges(state.marks.highlight);
+        var hlText = merged.map(function (r) { return state.text.slice(r.start, r.end); }).join(' ');
+        var words = hlText.trim() ? hlText.trim().split(/\s+/) : [];
+        var wc = words.length;
+        var minutes = wc / 300;
+
+        dom.wordcount.textContent = wc;
+        dom.readtime.textContent = formatReadTime(minutes);
+        var totalWords = state.text.trim() ? state.text.trim().split(/\s+/).length : 0;
+        dom.totalwords.textContent = totalWords;
+
+        var found = {};
+        WEAK_WORDS.forEach(function (w) {
+            var re = new RegExp('\\b' + escapeRegex(w) + '\\b', 'gi');
+            var m = hlText.match(re);
+            if (m) found[w] = m.length;
+        });
+        var keys = Object.keys(found);
+        if (!keys.length) {
+            dom.weakwordsBody.innerHTML = '<p class="cc-weak-none">No weak qualifiers detected in the highlighted text.</p>';
+        } else {
+            dom.weakwordsBody.innerHTML = keys.map(function (w) {
+                return '<span class="cc-weak-chip">' + escapeHtml(w) + ' ×' + found[w] + '</span>';
+            }).join('');
+        }
+
+        if (wc > 0 && wc < 15) {
+            dom.warning.hidden = false;
+            dom.warning.textContent = 'Only ' + wc + ' word' + (wc === 1 ? '' : 's') + ' highlighted — this is a power-tag, not a card. Consider highlighting more of the warrant.';
+        } else {
+            dom.warning.hidden = true;
+        }
+    }
+
+    function renderAll() {
+        renderPane();
+        renderPreview();
+        renderAnalysis();
+    }
+
+    /* ================= Field / toolbar wiring ================= */
+
+    function bindFieldEvents() {
+        var map = [
+            [dom.fieldAuthorFirst, 'authorFirst'],
+            [dom.fieldAuthorLast, 'authorLast'],
+            [dom.fieldTitle, 'title'],
+            [dom.fieldPublication, 'publication'],
+            [dom.fieldDate, 'date'],
+            [dom.fieldUrl, 'url'],
+            [dom.fieldTag, 'tag']
+        ];
+        map.forEach(function (pair) {
+            var el = pair[0], key = pair[1];
+            el.addEventListener('input', function () {
+                state.fields[key] = el.value;
+                renderPreview();
+                saveDraft();
+            });
+        });
+
+        dom.formatCamp.addEventListener('change', onFormatChange);
+        dom.formatMla.addEventListener('change', onFormatChange);
+
+        dom.loadBtn.addEventListener('click', onLoadArticle);
+        dom.parseBtn.addEventListener('click', onParseCitation);
+        dom.parseInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') { e.preventDefault(); onParseCitation(); }
+        });
+
+        dom.saveBtn.addEventListener('click', saveCurrentCard);
+        dom.newBtn.addEventListener('click', onNewClick);
+    }
+
+    function onFormatChange() {
+        state.format = dom.formatMla.checked ? 'mla' : 'camp';
+        renderPreview();
+        saveDraft();
+    }
+
+    function onLoadArticle() {
+        var val = dom.sourceText.value;
+        if (!val.trim()) { setStatus('Paste some article text into the Source panel first.'); return; }
+        var hasMarks = KINDS.some(function (k) { return state.marks[k].length > 0; });
+        if (hasMarks && val !== state.text) {
+            if (!loadConfirmPending) {
+                loadConfirmPending = true;
+                setStatus('Loading will clear your current highlight marks. Click "Load Into Highlighter" again to confirm.');
+                setTimeout(function () { loadConfirmPending = false; }, 5000);
+                return;
+            }
+        }
+        loadConfirmPending = false;
+        state.text = val;
+        state.marks = { highlight: [], underline: [], bold: [], shrink: [] };
+        state.history = [];
+        renderAll();
+        setStatus('Article loaded into the highlighter (' + val.trim().split(/\s+/).length + ' words). Select text, then mark it up.');
+        saveDraft();
+    }
+
+    function onNewClick() {
+        if (!newConfirmPending) {
+            newConfirmPending = true;
+            dom.newBtn.classList.add('cc-confirming');
+            setStatus('This clears the entire workspace. Click "New" again to confirm.');
+            setTimeout(function () { newConfirmPending = false; dom.newBtn.classList.remove('cc-confirming'); }, 5000);
+            return;
+        }
+        newConfirmPending = false;
+        dom.newBtn.classList.remove('cc-confirming');
+        state.currentCardId = null;
+        state.format = 'camp';
+        state.fields = { url: '', publication: '', authorFirst: '', authorLast: '', date: '', title: '', tag: '' };
+        state.text = '';
+        state.marks = { highlight: [], underline: [], bold: [], shrink: [] };
+        state.history = [];
+        dom.sourceText.value = '';
+        dom.fieldAuthorFirst.value = '';
+        dom.fieldAuthorLast.value = '';
+        dom.fieldTitle.value = '';
+        dom.fieldPublication.value = '';
+        dom.fieldDate.value = '';
+        dom.fieldUrl.value = '';
+        dom.fieldTag.value = '';
+        dom.formatCamp.checked = true;
+        renderAll();
+        setStatus('Workspace cleared. Ready for a new card.');
+        saveDraft();
+    }
+
+    function setFieldIfEmpty(key, el, value) {
+        if (value && !(state.fields[key] || '').trim()) {
+            state.fields[key] = value;
+            el.value = value;
+        }
+    }
+
+    function parseCitation(raw) {
+        var result = {};
+        var urlMatch = raw.match(/https?:\/\/\S+/);
+        if (urlMatch) result.url = urlMatch[0].replace(/[.,)]+$/, '');
+
+        var titleMatch = raw.match(/["“]([^"”]{4,200})["”]/);
+        if (titleMatch) {
+            result.title = titleMatch[1].trim().replace(/[.,;:]+$/, '');
+            var afterTitle = raw.slice(titleMatch.index + titleMatch[0].length);
+            var pubMatch = afterTitle.match(/^\s*([A-Z][A-Za-z0-9 &.'-]{1,60}?)\s*,/);
+            if (pubMatch) result.publication = pubMatch[1].trim();
+        }
+
+        var yearMatch = raw.match(/\b(19|20)\d{2}\b/);
+        if (yearMatch) result.year = yearMatch[0];
+
+        var months = 'January|February|March|April|May|June|July|August|September|October|November|December|Jan\\.?|Feb\\.?|Mar\\.?|Apr\\.?|Jun\\.?|Jul\\.?|Aug\\.?|Sep\\.?|Sept\\.?|Oct\\.?|Nov\\.?|Dec\\.?';
+        var dm = raw.match(new RegExp('\\b(' + months + ')\\s+(\\d{1,2}),?\\s+(\\d{4})\\b', 'i'));
+        if (dm) {
+            result.date = dm[1].replace(/\.$/, '') + ' ' + dm[2] + ', ' + dm[3];
+        } else {
+            var iso = raw.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
+            if (iso) result.date = iso[0];
+            else if (yearMatch) result.date = yearMatch[0];
+        }
+
+        var m = raw.match(/^\s*([A-Z][A-Za-z'’-]+),\s+([A-Z][A-Za-z.'’-]+)\b/);
+        if (m) {
+            result.authorLast = m[1]; result.authorFirst = m[2];
+        } else {
+            m = raw.match(/\b([A-Z][a-z]+)\s+([A-Z][a-zA-Z'’-]+)(?=[,.])/);
+            if (m) { result.authorFirst = m[1]; result.authorLast = m[2]; }
+        }
+
+        if (result.url && !result.publication) {
+            try {
+                var host = new URL(result.url).hostname.replace(/^www\./, '');
+                var parts = host.split('.');
+                parts.pop();
+                var name = parts.join(' ').replace(/-/g, ' ');
+                result.publication = name.replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+            } catch (e) { /* invalid URL, skip */ }
+        }
+        return result;
+    }
+
+    function onParseCitation() {
+        var raw = dom.parseInput.value.trim();
+        if (!raw) { setParseStatus('Paste a URL or citation line above first.'); return; }
+        var parsed = parseCitation(raw);
+        var filled = [];
+
+        if (parsed.authorFirst) { setFieldIfEmpty('authorFirst', dom.fieldAuthorFirst, parsed.authorFirst); filled.push('first name'); }
+        if (parsed.authorLast) { setFieldIfEmpty('authorLast', dom.fieldAuthorLast, parsed.authorLast); filled.push('last name'); }
+        if (parsed.title) { setFieldIfEmpty('title', dom.fieldTitle, parsed.title); filled.push('title'); }
+        if (parsed.publication) { setFieldIfEmpty('publication', dom.fieldPublication, parsed.publication); filled.push('publication'); }
+        if (parsed.date) { setFieldIfEmpty('date', dom.fieldDate, parsed.date); filled.push('date'); }
+        if (parsed.url) { setFieldIfEmpty('url', dom.fieldUrl, parsed.url); filled.push('URL'); }
+
+        renderPreview();
+        saveDraft();
+
+        if (filled.length) {
+            setParseStatus('Filled: ' + filled.join(', ') + '. Review before saving — already-typed fields were left untouched.');
+        } else {
+            setParseStatus('Could not confidently extract anything from that text — please fill the fields manually.');
+        }
+    }
+
+    function bindToolbar() {
+        var buttons = document.querySelectorAll('.cc-tool-btn[data-kind]');
+        buttons.forEach(function (btn) {
+            btn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+            btn.addEventListener('click', function () { doMark(btn.getAttribute('data-kind')); });
+        });
+        dom.undoBtn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+        dom.undoBtn.addEventListener('click', undo);
+    }
+
+    function bindHotkeys() {
+        var map = { h: 'highlight', u: 'underline', b: 'bold', s: 'shrink', x: 'clear' };
+        document.addEventListener('keydown', function (e) {
+            var ae = document.activeElement;
+            var isTyping = ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable);
+
+            if ((e.key === 'z' || e.key === 'Z') && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
+                if (isTyping) return;
+                e.preventDefault();
+                undo();
+                return;
+            }
+            if (isTyping) return;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            var key = e.key.toLowerCase();
+            if (map[key]) {
+                e.preventDefault();
+                doMark(map[key]);
+            }
+        });
+    }
+
+    /* ================= Export builders ================= */
+
+    function buildBodyHtml(text, marks) {
+        var segs = buildSegments(text, marks);
+        return segs.map(function (seg) {
+            var styles = [];
+            if (seg.kinds.highlight) styles.push('background-color:#fde68a');
+            if (seg.kinds.underline) styles.push('text-decoration:underline');
+            if (seg.kinds.bold) styles.push('font-weight:700');
+            if (seg.kinds.shrink) styles.push('font-size:0.75em', 'color:#8a8a8a');
+            var styleAttr = styles.length ? ' style="' + styles.join(';') + '"' : '';
+            return '<span' + styleAttr + '>' + escapeHtml(seg.text).replace(/\n/g, '<br>') + '</span>';
+        }).join('');
+    }
+
+    function buildExportHtmlFragment() {
+        var tag = escapeHtml(state.fields.tag || '');
+        var shortCite = escapeHtml(shortCiteText());
+        var fullCite = escapeHtml(fullCiteText());
+        var body = buildBodyHtml(state.text, state.marks);
+        return '<div style="font-family:Georgia,\'Times New Roman\',serif;font-size:12pt;line-height:1.5;color:#111;">' +
+            '<p style="margin:0 0 6pt 0;font-family:Arial,sans-serif;"><strong>' + tag + '</strong></p>' +
+            '<p style="margin:0 0 8pt 0;font-family:Arial,sans-serif;font-size:10pt;"><strong>' + shortCite + '</strong> — ' + fullCite + '</p>' +
+            '<p style="margin:0;">' + body + '</p>' +
+            '</div>';
+    }
+
+    function buildPlainBody(text, marks) {
+        var segs = buildSegments(text, marks);
+        return segs.map(function (seg) {
+            var t = seg.text;
+            if (seg.kinds.bold) t = '*' + t + '*';
+            if (seg.kinds.underline) t = '_' + t + '_';
+            if (seg.kinds.shrink) t = '[' + t + ']';
+            return t;
+        }).join('');
+    }
+
+    function buildExportPlainText() {
+        var tag = state.fields.tag || '';
+        var shortCite = shortCiteText();
+        var fullCite = fullCiteText();
+        var body = buildPlainBody(state.text, state.marks);
+        return tag + '\n\n**' + shortCite + '** — ' + fullCite + '\n\n' + body;
+    }
+
+    function downloadBlob(content, filename, mime) {
+        var blob = new Blob([content], { type: mime });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    }
+
+    function safeFilename() {
+        var base = (state.fields.tag || shortCiteText() || 'card-cutter-card').slice(0, 60);
+        return base.replace(/[^a-z0-9\-_]+/gi, '-').replace(/^-+|-+$/g, '') || 'card';
+    }
+
+    function bindExportButtons() {
+        dom.copyBtn.addEventListener('click', copyRichHTML);
+        dom.downloadHtmlBtn.addEventListener('click', function () {
+            if (!state.text) { setStatus('Nothing to export yet — load and mark up an article first.'); return; }
+            var frag = buildExportHtmlFragment();
+            var doc = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escapeHtml(shortCiteText()) + '</title></head><body>' + frag + '</body></html>';
+            downloadBlob(doc, safeFilename() + '.html', 'text/html');
+            setStatus('Downloaded card as .html.');
+        });
+        dom.downloadTxtBtn.addEventListener('click', function () {
+            if (!state.text) { setStatus('Nothing to export yet — load and mark up an article first.'); return; }
+            var content = buildExportPlainText() + '\n\n---\nSource: ' + (state.fields.url || '') + '\nAccessed: ' + formatToday() + '\n';
+            downloadBlob(content, safeFilename() + '.txt', 'text/plain');
+            setStatus('Downloaded card as .txt.');
+        });
+        dom.printBtn.addEventListener('click', function () {
+            if (!state.text) { setStatus('Nothing to print yet — load and mark up an article first.'); return; }
+            window.print();
+        });
+    }
+
+    function copyRichHTML() {
+        if (!state.text) { setStatus('Nothing to copy yet — load and mark up an article first.'); return; }
+        var html = buildExportHtmlFragment();
+        var text = buildExportPlainText();
+
+        if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+            try {
+                var item = new ClipboardItem({
+                    'text/html': new Blob([html], { type: 'text/html' }),
+                    'text/plain': new Blob([text], { type: 'text/plain' })
+                });
+                navigator.clipboard.write([item]).then(function () {
+                    setStatus('Card copied to clipboard as formatted text — paste into Word or Docs.');
+                }).catch(function () {
+                    fallbackCopy(html);
+                });
+                return;
+            } catch (e) {
+                fallbackCopy(html);
+                return;
+            }
+        }
+        fallbackCopy(html);
+    }
+
+    function fallbackCopy(html) {
+        var tmp = document.createElement('div');
+        tmp.setAttribute('contenteditable', 'true');
+        tmp.style.position = 'fixed';
+        tmp.style.left = '-9999px';
+        tmp.style.top = '0';
+        tmp.innerHTML = html;
+        document.body.appendChild(tmp);
+        var range = document.createRange();
+        range.selectNodeContents(tmp);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        sel.removeAllRanges();
+        document.body.removeChild(tmp);
+        setStatus(ok ? 'Card copied to clipboard (fallback mode).' : 'Copy failed — please select and copy the preview manually.');
+    }
+
+    /* ================= Library (localStorage) ================= */
+
+    function loadCardsFromStorage() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch (e) { return []; }
+    }
+    function saveCardsToStorage(cards) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cards)); } catch (e) { setStatus('Could not save — local storage may be full or disabled.'); }
+    }
+
+    function buildCardObject(id, createdAt) {
+        return {
+            id: id || genId(),
+            name: (state.fields.tag || state.fields.title || shortCiteText() || 'Untitled card').slice(0, 140),
+            createdAt: createdAt || new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            format: state.format,
+            fields: JSON.parse(JSON.stringify(state.fields)),
+            text: state.text,
+            marks: JSON.parse(JSON.stringify(state.marks))
+        };
+    }
+
+    function saveCurrentCard() {
+        if (!state.text.trim()) { setStatus('Nothing to save — load an article first.'); return; }
+        var cards = loadCardsFromStorage();
+        if (state.currentCardId) {
+            var idx = cards.findIndex(function (c) { return c.id === state.currentCardId; });
+            var existing = idx > -1 ? cards[idx] : null;
+            var updated = buildCardObject(state.currentCardId, existing ? existing.createdAt : null);
+            if (idx > -1) cards[idx] = updated; else cards.push(updated);
+        } else {
+            var card = buildCardObject(null, null);
+            state.currentCardId = card.id;
+            cards.push(card);
+        }
+        saveCardsToStorage(cards);
+        renderLibrary();
+        setStatus('Card saved to your library.');
+    }
+
+    function loadCardIntoWorkspace(id) {
+        var cards = loadCardsFromStorage();
+        var card = cards.find(function (c) { return c.id === id; });
+        if (!card) return;
+        state.currentCardId = card.id;
+        state.format = card.format || 'camp';
+        state.fields = Object.assign({ url: '', publication: '', authorFirst: '', authorLast: '', date: '', title: '', tag: '' }, card.fields || {});
+        state.text = card.text || '';
+        state.marks = card.marks ? JSON.parse(JSON.stringify(card.marks)) : { highlight: [], underline: [], bold: [], shrink: [] };
+        state.history = [];
+
+        dom.sourceText.value = state.text;
+        dom.fieldAuthorFirst.value = state.fields.authorFirst || '';
+        dom.fieldAuthorLast.value = state.fields.authorLast || '';
+        dom.fieldTitle.value = state.fields.title || '';
+        dom.fieldPublication.value = state.fields.publication || '';
+        dom.fieldDate.value = state.fields.date || '';
+        dom.fieldUrl.value = state.fields.url || '';
+        dom.fieldTag.value = state.fields.tag || '';
+        dom.formatCamp.checked = state.format === 'camp';
+        dom.formatMla.checked = state.format === 'mla';
+
+        renderAll();
+        saveDraft();
+        setStatus('Loaded "' + card.name + '" into the workspace.');
+        window.scrollTo({ top: document.querySelector('.cc-workspace').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function duplicateCard(id) {
+        var cards = loadCardsFromStorage();
+        var card = cards.find(function (c) { return c.id === id; });
+        if (!card) return;
+        var copy = JSON.parse(JSON.stringify(card));
+        copy.id = genId();
+        copy.name = (card.name || 'Untitled card') + ' (copy)';
+        copy.createdAt = new Date().toISOString();
+        copy.updatedAt = copy.createdAt;
+        cards.push(copy);
+        saveCardsToStorage(cards);
+        renderLibrary();
+        setStatus('Duplicated "' + card.name + '".');
+    }
+
+    function deleteCard(id) {
+        var cards = loadCardsFromStorage();
+        var idx = cards.findIndex(function (c) { return c.id === id; });
+        if (idx === -1) return;
+        var name = cards[idx].name;
+        cards.splice(idx, 1);
+        saveCardsToStorage(cards);
+        if (state.currentCardId === id) state.currentCardId = null;
+        delete confirmingDeletes[id];
+        renderLibrary();
+        setStatus('Deleted "' + name + '".');
+    }
+
+    function renameCard(id, newName) {
+        var cards = loadCardsFromStorage();
+        var card = cards.find(function (c) { return c.id === id; });
+        if (!card) return;
+        var trimmed = (newName || '').trim();
+        if (trimmed) { card.name = trimmed.slice(0, 140); card.updatedAt = new Date().toISOString(); }
+        saveCardsToStorage(cards);
+        confirmingRename = null;
+        renderLibrary();
+        setStatus('Renamed card to "' + card.name + '".');
+    }
+
+    function formatShortDate(iso) {
+        try {
+            var d = new Date(iso);
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        } catch (e) { return ''; }
+    }
+
+    function cardShortCite(card) {
+        var last = (card.fields && card.fields.authorLast || '').trim();
+        var year = parseYearFrom(card.fields && card.fields.date);
+        var yy = year ? year.slice(-2) : 'XX';
+        return (last || 'Author') + ' ' + yy;
+    }
+
+    function cardWordCount(card) {
+        if (!card.marks || !card.marks.highlight) return 0;
+        var merged = mergeRanges(card.marks.highlight);
+        var t = merged.map(function (r) { return (card.text || '').slice(r.start, r.end); }).join(' ').trim();
+        return t ? t.split(/\s+/).length : 0;
+    }
+
+    function renderLibrary() {
+        var cards = loadCardsFromStorage();
+        var query = (dom.search.value || '').toLowerCase().trim();
+        var filtered = cards.filter(function (c) {
+            if (!query) return true;
+            var hay = [c.name, c.fields && c.fields.title, c.fields && c.fields.authorLast, c.fields && c.fields.publication]
+                .filter(Boolean).join(' ').toLowerCase();
+            return hay.indexOf(query) !== -1;
+        }).sort(function (a, b) { return new Date(b.updatedAt) - new Date(a.updatedAt); });
+
+        dom.cardCount.innerHTML = '<strong>' + cards.length + '</strong> card' + (cards.length === 1 ? '' : 's') + ' saved';
+
+        if (!filtered.length) {
+            dom.cardList.innerHTML = '<li class="cc-library-empty">' + (cards.length ? 'No cards match your search.' : 'No cards saved yet — cut one above and click "Save Card."') + '</li>';
+            return;
+        }
+
+        dom.cardList.innerHTML = filtered.map(function (card) {
+            if (confirmingRename === card.id) {
+                return '<li class="cc-card-row" data-id="' + card.id + '">' +
+                    '<div class="cc-card-row-main">' +
+                    '<input type="text" class="cc-rename-input" data-action="rename-input" value="' + escapeHtml(card.name) + '" aria-label="Rename card">' +
+                    '</div>' +
+                    '<div class="cc-card-row-actions">' +
+                    '<button type="button" data-action="rename-save" aria-label="Save name"><i class="fas fa-check"></i></button>' +
+                    '<button type="button" data-action="rename-cancel" aria-label="Cancel rename"><i class="fas fa-times"></i></button>' +
+                    '</div></li>';
+            }
+            var deleting = !!confirmingDeletes[card.id];
+            return '<li class="cc-card-row" data-id="' + card.id + '">' +
+                '<div class="cc-card-row-main">' +
+                '<button type="button" class="cc-card-name-btn" data-action="load">' + escapeHtml(card.name) + '</button>' +
+                '<span class="cc-card-meta">' + escapeHtml(cardShortCite(card)) + ' · ' + cardWordCount(card) + ' words highlighted · updated ' + formatShortDate(card.updatedAt) + '</span>' +
+                '</div>' +
+                '<div class="cc-card-row-actions">' +
+                '<button type="button" data-action="rename" aria-label="Rename card"><i class="fas fa-pen"></i></button>' +
+                '<button type="button" data-action="duplicate" aria-label="Duplicate card"><i class="fas fa-copy"></i></button>' +
+                '<button type="button" data-action="delete" aria-label="' + (deleting ? 'Confirm delete card' : 'Delete card') + '" class="' + (deleting ? 'cc-confirming' : '') + '">' +
+                '<i class="fas ' + (deleting ? 'fa-triangle-exclamation' : 'fa-trash') + '"></i></button>' +
+                '</div></li>';
+        }).join('');
+    }
+
+    function bindLibraryEvents() {
+        dom.search.addEventListener('input', renderLibrary);
+
+        dom.cardList.addEventListener('click', function (e) {
+            var btn = e.target.closest('button');
+            if (!btn) return;
+            var row = e.target.closest('.cc-card-row');
+            if (!row) return;
+            var id = row.getAttribute('data-id');
+            var action = btn.getAttribute('data-action');
+
+            if (action === 'load') { loadCardIntoWorkspace(id); return; }
+            if (action === 'duplicate') { duplicateCard(id); return; }
+            if (action === 'rename') { confirmingRename = id; renderLibrary(); var inp = dom.cardList.querySelector('.cc-rename-input'); if (inp) { inp.focus(); inp.select(); } return; }
+            if (action === 'rename-save') {
+                var inputEl = row.querySelector('.cc-rename-input');
+                renameCard(id, inputEl ? inputEl.value : '');
+                return;
+            }
+            if (action === 'rename-cancel') { confirmingRename = null; renderLibrary(); return; }
+            if (action === 'delete') {
+                if (confirmingDeletes[id]) {
+                    deleteCard(id);
+                } else {
+                    confirmingDeletes[id] = true;
+                    renderLibrary();
+                    setTimeout(function () { delete confirmingDeletes[id]; renderLibrary(); }, 4000);
+                }
+                return;
+            }
+        });
+
+        dom.cardList.addEventListener('keydown', function (e) {
+            if (e.target.classList.contains('cc-rename-input')) {
+                var row = e.target.closest('.cc-card-row');
+                var id = row.getAttribute('data-id');
+                if (e.key === 'Enter') { e.preventDefault(); renameCard(id, e.target.value); }
+                if (e.key === 'Escape') { e.preventDefault(); confirmingRename = null; renderLibrary(); }
+            }
+        });
+
+        dom.exportAllBtn.addEventListener('click', function () {
+            var cards = loadCardsFromStorage();
+            if (!cards.length) { setStatus('No saved cards to export yet.'); return; }
+            downloadBlob(JSON.stringify(cards, null, 2), 'card-cutter-library.json', 'application/json');
+            setStatus('Exported ' + cards.length + ' card' + (cards.length === 1 ? '' : 's') + ' as JSON.');
+        });
+
+        dom.importInput.addEventListener('change', function () {
+            var file = dom.importInput.files && dom.importInput.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function () {
+                try {
+                    var data = JSON.parse(reader.result);
+                    var incoming = Array.isArray(data) ? data : [data];
+                    incoming = incoming.filter(function (c) { return c && typeof c.text === 'string'; });
+                    if (!incoming.length) { setStatus('That file did not contain any recognizable cards.'); return; }
+                    var existing = loadCardsFromStorage();
+                    incoming.forEach(function (c) {
+                        c.id = genId();
+                        c.name = c.name || 'Imported card';
+                        c.marks = c.marks || { highlight: [], underline: [], bold: [], shrink: [] };
+                        c.fields = c.fields || {};
+                        c.format = c.format || 'camp';
+                        c.createdAt = c.createdAt || new Date().toISOString();
+                        c.updatedAt = new Date().toISOString();
+                        existing.push(c);
+                    });
+                    saveCardsToStorage(existing);
+                    renderLibrary();
+                    setStatus('Imported ' + incoming.length + ' card' + (incoming.length === 1 ? '' : 's') + '.');
+                } catch (e) {
+                    setStatus('Could not read that file — make sure it is a Card Cutter JSON export.');
+                }
+                dom.importInput.value = '';
+            };
+            reader.readAsText(file);
+        });
+    }
+
+    /* ================= Draft autosave ================= */
+
+    function saveDraft() {
+        clearTimeout(draftSaveTimer);
+        draftSaveTimer = setTimeout(function () {
+            try {
+                localStorage.setItem(DRAFT_KEY, JSON.stringify({
+                    currentCardId: state.currentCardId,
+                    format: state.format,
+                    fields: state.fields,
+                    text: state.text,
+                    marks: state.marks
+                }));
+            } catch (e) { /* storage unavailable — ignore */ }
+        }, 300);
+    }
+
+    function loadDraft() {
+        var raw;
+        try { raw = localStorage.getItem(DRAFT_KEY); } catch (e) { raw = null; }
+        if (!raw) return;
+        try {
+            var draft = JSON.parse(raw);
+            if (!draft || typeof draft.text !== 'string') return;
+            state.currentCardId = draft.currentCardId || null;
+            state.format = draft.format === 'mla' ? 'mla' : 'camp';
+            state.fields = Object.assign({ url: '', publication: '', authorFirst: '', authorLast: '', date: '', title: '', tag: '' }, draft.fields || {});
+            state.text = draft.text || '';
+            state.marks = draft.marks || { highlight: [], underline: [], bold: [], shrink: [] };
+
+            dom.sourceText.value = state.text;
+            dom.fieldAuthorFirst.value = state.fields.authorFirst || '';
+            dom.fieldAuthorLast.value = state.fields.authorLast || '';
+            dom.fieldTitle.value = state.fields.title || '';
+            dom.fieldPublication.value = state.fields.publication || '';
+            dom.fieldDate.value = state.fields.date || '';
+            dom.fieldUrl.value = state.fields.url || '';
+            dom.fieldTag.value = state.fields.tag || '';
+            dom.formatCamp.checked = state.format === 'camp';
+            dom.formatMla.checked = state.format === 'mla';
+        } catch (e) { /* corrupted draft — ignore */ }
+    }
+
+})();
+</script>
+</body>
+</html>
