@@ -1,0 +1,3724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Debate 101 | Cascade Flowing App, Card Cutter & Open Source Debate Tools</title>
+    <meta name="description" content="Debate 101 — free, open-source tools for LD, Policy, PF and Parli debate. Cascade is our keyboard-first flowing app (web and desktop) with .ebb, .docx and .xlsx import. Plus 100+ curated debate resources, lectures, and prep tools.">
+    <meta name="keywords" content="debate, LD debate, Policy debate, Public Forum, Lincoln Douglas, debate flowing app, flowing software, ebb, cascade, card cutter, spreading practice, debate tools, resolution ai, verbatim, debate flow, high school debate, debate resources">
+    <meta name="author" content="Debate 101 Collective">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="theme-color" content="#051C2C">
+    <link rel="canonical" href="https://debate101.org/">
+
+    <!-- OPEN GRAPH / SOCIAL MEDIA SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debate101.org/">
+    <meta property="og:title" content="Debate 101 | Cascade Flowing App & Debate Resource Hub">
+    <meta property="og:description" content="Free debate flowing software, Verbatim case import, and the largest curated catalog of debate tools, camps, and research resources.">
+    <meta property="og:image" content="https://debate101.org/assets/logo.PNG">
+    <meta property="og:image:alt" content="Debate 101 logo">
+    <meta property="og:site_name" content="Debate 101">
+    <meta property="og:locale" content="en_US">
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Debate 101 | Cascade Flowing App & Debate Resource Hub">
+    <meta name="twitter:description" content="Free debate flowing software, Verbatim case import, and 100+ curated debate resources for LD, Policy, PF and Parli.">
+    <meta name="twitter:image" content="https://debate101.org/assets/logo.PNG">
+    <meta name="twitter:image:alt" content="Debate 101 logo">
+
+    <!-- STRUCTURED DATA (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Debate 101",
+      "alternateName": "Debate101 Collective",
+      "url": "https://debate101.org",
+      "logo": "https://debate101.org/assets/logo.PNG",
+      "description": "An unincorporated non-profit collective bridging the gap between novice learners and elite competition through AI tools and community.",
+      "sameAs": [
+        "https://github.com/GeoWizard4645/debate101",
+        "https://discord.debate101.org",
+        "https://instagram.debate101.org"
+      ],
+      "founders": [
+        { "@type": "Person", "name": "Vivaan Shahani" },
+        { "@type": "Person", "name": "Max Feinstein" },
+        { "@type": "Person", "name": "Max McBride" },
+        { "@type": "Person", "name": "Arjun Gupta" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Cascade",
+      "alternateName": "Cascade by Debate 101",
+      "applicationCategory": "EducationalApplication",
+      "applicationSubCategory": "Debate flowing software",
+      "operatingSystem": "Web, macOS, Windows, Linux",
+      "url": "https://debate101.org/flow/",
+      "description": "A keyboard-first flowing app for Lincoln-Douglas, Policy, Public Forum and Parliamentary debate. Runs offline in the browser and as a desktop app, with speech and prep timers, dropped-argument detection, voice-assisted capture, a block library, round analytics, and an evidence tracker. Imports Verbatim cases (.docx) and Excel flow templates (.xlsx). Reads and writes ebb-compatible .ebb files.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "isAccessibleForFree": true,
+      "publisher": { "@type": "Organization", "name": "Debate 101", "url": "https://debate101.org" },
+      "featureList": [
+        "Speech, prep and cross-examination timers on official event times",
+        "Dropped-argument detection across every speech column",
+        "Answer links between an argument and its response",
+        "Voice-assisted flow capture",
+        "Block library with trigger expansion",
+        "Round analytics and a printable post-round report",
+        "Evidence tracker and cite-sheet export",
+        "Import Verbatim cases (.docx) and Excel flow templates (.xlsx)",
+        "Import and export .ebb, CSV, Markdown, text and PDF"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Debate 101",
+      "url": "https://debate101.org",
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://debate101.org/#hub?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a flow in debate?", "acceptedAnswer": { "@type": "Answer", "text": "Flowing is the specialized form of note-taking used by debaters to track the evolution of every argument throughout a round, usually organized in columns by speech." }},
+        { "@type": "Question", "name": "What is Cascade?", "acceptedAnswer": { "@type": "Answer", "text": "Cascade is Debate 101's free, keyboard-first debate flowing app. It runs in the browser and as a desktop app, imports Verbatim cases and Excel templates, and reads and writes ebb-compatible .ebb files." }},
+        { "@type": "Question", "name": "What is Lincoln-Douglas (LD) debate?", "acceptedAnswer": { "@type": "Answer", "text": "LD is a one-on-one debate format focusing on philosophical values and criteria. It traditionally clashes on moral imperatives, though modern circuit LD includes policy-style plans and kritiks." }},
+        { "@type": "Question", "name": "What is Policy debate?", "acceptedAnswer": { "@type": "Answer", "text": "Policy debate involves two-on-two teams debating a government's course of action. It is highly technical, evidence-intensive, and focuses on pragmatism and structural outcomes." }}
+      ]
+    }
+    </script>
+
+    <!-- Performance: preconnect for third-party fonts/CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.PNG">
+    <link rel="apple-touch-icon" href="assets/logo.PNG">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --mck-blue: #051C2C;
+            --mck-accent: #0072b1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+        }
+
+        .mck-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        /* Wavy Background Animation */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .wave-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%230072b1" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: repeat-x;
+            background-position: 0 bottom;
+            animation: flow 20s linear infinite;
+        }
+
+        .wave2 {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: flow 15s linear infinite reverse;
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Carousel Section Styles */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 16px;
+            padding: 12px 0;
+            scrollbar-width: none;
+        }
+        .carousel-container::-webkit-scrollbar { display: none; }
+
+        .carousel-card {
+            flex: 0 0 300px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #eee;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .carousel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(5, 28, 44, 0.06);
+            border-color: transparent;
+        }
+
+        .carousel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #eee;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-card.accent-blue::before { background: var(--mck-accent); }
+        .carousel-card.accent-navy::before { background: var(--mck-blue); }
+        .carousel-card.accent-gray::before { background: #d1d5db; }
+
+        .carousel-card .arrow-icon {
+            transition: all 0.4s ease;
+            color: #ddd;
+            font-size: 1rem;
+        }
+
+        .carousel-card:hover .arrow-icon {
+            color: var(--mck-accent);
+            transform: translateX(6px);
+        }
+
+        .system-tag {
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #bbb;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            z-index: 30;
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            color: var(--mck-blue);
+        }
+        .nav-arrow:hover {
+            background: var(--mck-blue);
+            color: white;
+            border-color: var(--mck-blue);
+        }
+        .nav-arrow-left { left: -18px; }
+        .nav-arrow-right { right: -18px; }
+
+        @media (max-width: 768px) {
+            .nav-arrow { display: none; }
+        }
+
+        /* Team Card Interactions */
+        .team-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .team-card:hover {
+            border-top-color: var(--mck-accent);
+            background-color: #fcfcfc;
+        }
+
+        .expand-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out;
+        }
+
+        .expand-content.active {
+            max-height: 4000px;
+        }
+
+        .btn-mck {
+            background-color: var(--mck-blue);
+            transition: all 0.3s ease;
+        }
+
+        .btn-mck:hover {
+            background-color: var(--mck-accent);
+            letter-spacing: 0.5px;
+        }
+
+        /* View transitions */
+        .page-view {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll-tied "lift away" effect for sections leaving the top of viewport.
+           --past is a 0..1 progress var set by JS; sections are fully visible by
+           default and only deform as they scroll past the top of the viewport. */
+        section {
+            transform-origin: top center;
+            will-change: transform, opacity;
+            transform: translateY(calc(var(--past, 0) * -14px)) scale(calc(1 - var(--past, 0) * 0.03));
+            opacity: calc(1 - var(--past, 0) * 0.25);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            section { transform: none !important; opacity: 1 !important; }
+        }
+
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-card:hover .profile-img {
+            filter: grayscale(0%);
+        }
+
+        /* Chat Styling */
+        .chat-container {
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e5e5e5;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            scroll-behavior: smooth;
+            background-color: #fcfcfc;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1.25rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            border-radius: 2px;
+        }
+
+        .message-user { align-self: flex-end; background: #f8fafc; border-right: 3px solid var(--mck-accent); color: var(--mck-blue); font-weight: 500; }
+        .message-architect { align-self: flex-start; background: white; border-left: 3px solid var(--mck-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+        .ai-content h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mck-accent); margin: 1.5rem 0 0.75rem 0; }
+        .ai-content h4:first-child { margin-top: 0; }
+        .ai-content p { margin-bottom: 1rem; }
+        .ai-content p:last-child { margin-bottom: 0; }
+        .ai-content strong { font-weight: 700; color: var(--mck-blue); }
+        .ai-content code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8em; background: #f1f5f9; padding: 0.1em 0.35em; border-radius: 3px; }
+        .ai-content ul, .ai-content ol { margin: 0 0 1rem 0; padding-left: 0; }
+        .ai-content ul li { list-style-type: none; padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; }
+        .ai-content ul li::before { content: "—"; position: absolute; left: 0; color: #ccc; }
+        .ai-content ol { list-style: decimal; padding-left: 1.5rem; }
+        .ai-content ol li { margin-bottom: 0.5rem; padding-left: 0.25rem; }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 100;
+            border-top: 2px solid var(--mck-accent);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content button, .dropdown-content a {
+            color: var(--mck-blue);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: background 0.2s;
+        }
+
+        .dropdown-content button:hover, .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: var(--mck-accent);
+        }
+
+        /* The flagship item in the Tools menu gets two lines and a tint so
+           Cascade reads as a product rather than one more link in a list. */
+        .dropdown-content a.dd-feature {
+            background: #f7fbfd;
+            border-bottom: 1px solid #e8eef2;
+            padding: 14px 16px;
+        }
+        .dd-feature .dd-title { display: block; color: var(--mck-accent); }
+        .dd-feature .dd-sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: none;
+            color: #7c8b96;
+        }
+        .dropdown-content .dd-divider {
+            height: 1px;
+            background: #eceff1;
+            margin: 6px 0;
+        }
+
+        /* Primary nav call-to-action. */
+        .nav-cta {
+            background: var(--mck-blue);
+            color: #fff !important;
+            padding: 10px 20px;
+            margin-left: 0.25rem;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: background 0.25s, transform 0.25s;
+        }
+        .nav-cta:hover {
+            background: var(--mck-accent);
+            transform: translateY(-1px);
+        }
+
+        /* Keycap chips used in the Cascade section. */
+        .kbd {
+            display: inline-block;
+            padding: 3px 8px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #dbe7ef;
+        }
+
+        /* Skip link — keyboard users should not have to tab the whole nav. */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 200;
+            background: var(--mck-blue);
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .skip-link:focus { left: 0; }
+
+        /* Directorate Masthead */
+        .directorate-bar {
+            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+        }
+
+        #mobile-menu-overlay { transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; }
+        #mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+
+        /* FAQ Styling */
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.25rem 0;
+            transition: background 0.3s;
+        }
+        .faq-item:hover { background-color: #fafafa; }
+        .faq-question {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: #666;
+            line-height: 1.6;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: var(--mck-accent);
+        }
+
+        /* Resource Label Styling */
+        .res-label {
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 0;
+            display: inline-block;
+        }
+        .label-internal { background: #e0f2fe; color: #0369a1; border: 1px solid #0369a1; }
+        .label-external { background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
+
+        /* Compact Hub Layout - 1/8th margins */
+        .resource-category-section {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 2px;
+        }
+        .hub-title {
+            margin-bottom: 4px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .resource-hub-card {
+            min-height: 190px;
+            height: 190px;
+        }
+
+        /* Search Styling */
+        .search-bar-container {
+            position: relative;
+            max-width: 400px;
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .search-input:focus {
+            border-color: var(--mck-accent);
+            box-shadow: 0 0 0 4px rgba(0, 114, 177, 0.05);
+        }
+
+        /* Timer Specific UI */
+        #timer-display {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.05em;
+        }
+        .timer-btn {
+            @apply border border-gray-200 px-6 py-3 text-[10px] font-bold uppercase tracking-widest transition-all;
+        }
+        .timer-btn:hover {
+            @apply bg-gray-50 border-gray-400;
+        }
+        .timer-btn-active {
+            @apply bg-[#051C2C] text-white border-[#051C2C];
+        }
+        .speech-item {
+            @apply flex justify-between items-center p-3 cursor-pointer transition-all border-l-4 border-transparent;
+        }
+        .speech-item:hover {
+            @apply bg-gray-50 border-gray-200;
+        }
+        .speech-item-active {
+            @apply bg-blue-50 border-[#0072b1] opacity-100 !important;
+        }
+
+        /* Screw Calculator Visuals */
+        .chart-bar {
+            height: 24px;
+            background: #f1f5f9;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-bar-fill {
+            height: 100%;
+            background: #cbd5e1;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bubble-danger {
+            background: #ef4444 !important;
+        }
+
+        .screw-input-group {
+            @apply relative border-b border-gray-200 py-2 transition-all;
+        }
+        .screw-input-group:focus-within {
+            @apply border-[#0072b1];
+        }
+        .screw-input-group label {
+            @apply block text-[8px] font-bold uppercase tracking-widest text-gray-400 mb-1;
+        }
+        .screw-input-group input, .screw-input-group select {
+            @apply w-full bg-transparent text-xl font-light outline-none text-[#051C2C];
+        }
+        
+        /* Collaborator Section Styles */
+        .collab-table {
+            @apply w-full text-left border-collapse mt-8 overflow-hidden rounded-sm;
+            border: 1px solid #f1f5f9;
+        }
+        .collab-table thead {
+            @apply bg-gray-50;
+        }
+        .collab-table th {
+            @apply text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 py-4 px-6 border-b border-gray-200;
+        }
+        .collab-table tr {
+            @apply transition-colors;
+        }
+        .collab-table tr:hover {
+            @apply bg-blue-50/30;
+        }
+        .collab-table td {
+            @apply py-6 px-6 border-b border-gray-100 text-sm align-top;
+        }
+        .collab-name {
+            @apply mck-serif text-lg text-[#051C2C] font-bold block;
+        }
+        .collab-bio {
+            @apply text-gray-500 italic font-light leading-relaxed;
+        }
+
+        /* YouTube Container */
+        .video-card {
+            background: white;
+            border: 1px solid #eee;
+            transition: all 0.4s ease;
+        }
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .video-embed-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mini Founders Avatars (Fun/Caricature styles) */
+        .mini-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2) brightness(0.9);
+            border: 2px solid #e5e5e5;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .founder-icon-container:hover .mini-avatar {
+            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.15) rotate(5deg);
+            border-color: var(--mck-accent);
+            box-shadow: 0 4px 12px rgba(0, 114, 177, 0.15);
+        }
+        .founder-name-pill {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+        .founder-icon-container:hover .founder-name-pill {
+            background: white;
+            border-color: var(--mck-accent);
+            color: var(--mck-accent);
+        }
+    </style>
+
+    <!-- ==================================================================
+         UI LAYER — theme, motion, command palette, and micro-interactions.
+
+         Additive on purpose: this block and the matching script at the end of
+         <body> add the whole interface layer without editing the markup above,
+         so the page's structure and its Tailwind classes stay exactly as they
+         are. Dark mode is retrofitted by overriding the handful of Tailwind
+         surface utilities this page actually uses rather than rewriting four
+         hundred class attributes.
+         ================================================================== -->
+    <style id="d1-ui">
+        :root {
+            /* Light surface ramp. Dark mode swaps these and nothing else. */
+            --sf-0: #ffffff;   /* page */
+            --sf-1: #ffffff;   /* cards */
+            --sf-2: #f7f9fb;   /* raised / muted bands */
+            --sf-3: #eef3f7;   /* wells */
+            --sf-deep: #051C2C;/* the navy bands */
+            --ink-0: #051C2C;
+            --ink-1: #55636e;
+            --ink-2: #8a97a3;
+            --line: #e8eef2;
+            --line-soft: #f1f5f8;
+            --glass: rgba(255, 255, 255, 0.82);
+            --scrim: rgba(5, 28, 44, 0.55);
+            --accent: #0072b1;
+            --accent-2: #38bdf8;
+            --shadow-card: 0 18px 40px -28px rgba(5, 28, 44, 0.45);
+            --shadow-pop: 0 24px 70px -20px rgba(5, 28, 44, 0.35);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            color-scheme: light;
+        }
+
+        [data-theme="dark"] {
+            --sf-0: #060f18;
+            --sf-1: #0b1a28;
+            --sf-2: #0e2032;
+            --sf-3: #13293d;
+            --sf-deep: #030b13;
+            --ink-0: #eef5fa;
+            --ink-1: #a6b8c6;
+            --ink-2: #6c8092;
+            --line: rgba(226, 240, 250, 0.10);
+            --line-soft: rgba(226, 240, 250, 0.06);
+            --glass: rgba(6, 15, 24, 0.78);
+            --scrim: rgba(0, 0, 0, 0.68);
+            --accent: #38bdf8;
+            --accent-2: #7dd3fc;
+            --shadow-card: 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+            --shadow-pop: 0 24px 70px -20px rgba(0, 0, 0, 0.75);
+            color-scheme: dark;
+        }
+
+        /* --- Dark mode retrofit over the Tailwind utilities in use --------- */
+        [data-theme="dark"] body,
+        [data-theme="dark"] .bg-white { background-color: var(--sf-1) !important; }
+        [data-theme="dark"] body { background-color: var(--sf-0) !important; }
+        [data-theme="dark"] .bg-gray-50 { background-color: var(--sf-2) !important; }
+        [data-theme="dark"] .bg-gray-100 { background-color: var(--sf-3) !important; }
+        [data-theme="dark"] .bg-\[\#051C2C\] { background-color: var(--sf-deep) !important; }
+        [data-theme="dark"] .text-\[\#051C2C\] { color: var(--ink-0) !important; }
+        [data-theme="dark"] .text-gray-500,
+        [data-theme="dark"] .text-gray-600,
+        [data-theme="dark"] .text-gray-700 { color: var(--ink-1) !important; }
+        [data-theme="dark"] .text-gray-400 { color: var(--ink-2) !important; }
+        [data-theme="dark"] .border-gray-100,
+        [data-theme="dark"] .border-gray-200,
+        [data-theme="dark"] .border-t,
+        [data-theme="dark"] .border-b,
+        [data-theme="dark"] .border-y { border-color: var(--line) !important; }
+        [data-theme="dark"] .text-\[\#0072b1\] { color: var(--accent) !important; }
+        [data-theme="dark"] .border-\[\#051C2C\] { border-color: var(--line) !important; }
+        [data-theme="dark"] .hero-section { background-color: var(--sf-0) !important; }
+        [data-theme="dark"] .nav-scrolled {
+            background: var(--glass) !important;
+            box-shadow: 0 1px 0 var(--line), 0 10px 30px -20px rgba(0, 0, 0, 0.9);
+        }
+        [data-theme="dark"] .dropdown-content { background-color: var(--sf-2); }
+        [data-theme="dark"] .dropdown-content button:hover,
+        [data-theme="dark"] .dropdown-content a:hover { background-color: var(--sf-3); }
+        [data-theme="dark"] .dropdown-content a.dd-feature { background: var(--sf-3); border-bottom-color: var(--line); }
+        [data-theme="dark"] .carousel-card,
+        [data-theme="dark"] .resource-category-section,
+        [data-theme="dark"] .chat-messages,
+        [data-theme="dark"] .message { background-color: var(--sf-1) !important; }
+        [data-theme="dark"] .resource-category-section { background-color: var(--sf-2) !important; }
+        [data-theme="dark"] #mobile-menu-overlay { background: var(--sf-0) !important; }
+        [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select {
+            background-color: var(--sf-2) !important;
+            border-color: var(--line) !important;
+            color: var(--ink-0) !important;
+        }
+        [data-theme="dark"] input::placeholder, [data-theme="dark"] textarea::placeholder { color: var(--ink-2); }
+        [data-theme="dark"] .wave { opacity: 0.25; }
+
+        /* The primary button is navy, which disappears against a navy page.
+           On dark it takes the accent instead so the main call to action is
+           still the loudest thing in the hero. */
+        [data-theme="dark"] .btn-mck {
+            background-color: var(--accent) !important;
+            color: #04121f !important;
+        }
+        [data-theme="dark"] .btn-mck:hover { background-color: var(--accent-2) !important; }
+
+        /* Outline buttons pick up the accent edge rather than an invisible
+           navy one. */
+        [data-theme="dark"] .border-\[\#051C2C\]:not(.bg-\[\#051C2C\]) {
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            color: var(--ink-0) !important;
+        }
+        [data-theme="dark"] .hover\:bg-\[\#051C2C\]:hover {
+            background-color: var(--accent) !important;
+            color: #04121f !important;
+        }
+
+        /* The wordmark art ships with a white plate baked in; on a dark page a
+           soft rounded backing reads as intentional instead of as a bug. */
+        [data-theme="dark"] #navbar img[alt="Logo"],
+        [data-theme="dark"] #mobile-menu-overlay img,
+        [data-theme="dark"] footer img {
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 2px;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 320ms var(--ease-out), color 320ms var(--ease-out); }
+
+        /* --- Scroll progress ---------------------------------------------- */
+        #d1-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            width: 100%;
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            z-index: 90;
+            pointer-events: none;
+        }
+
+        /* --- Nav polish ---------------------------------------------------- */
+        #navbar { backdrop-filter: saturate(140%) blur(0px); }
+        .nav-scrolled { backdrop-filter: saturate(160%) blur(14px) !important; }
+        .d1-navlink { position: relative; }
+        .d1-navlink::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -6px;
+            height: 1.5px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform 260ms var(--ease-out);
+        }
+        .d1-navlink:hover::after, .d1-navlink[aria-current="page"]::after { transform: scaleX(1); }
+
+        /* --- Icon buttons in the nav (theme, palette) ---------------------- */
+        .d1-iconbtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 32px;
+            min-width: 32px;
+            padding: 0 9px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--ink-0);
+            background: transparent;
+            transition: background 200ms var(--ease-out), border-color 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+        .d1-iconbtn:hover { background: var(--sf-2); border-color: var(--accent); transform: translateY(-1px); }
+        .d1-kbd {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 9.5px;
+            letter-spacing: 0;
+            padding: 1px 5px;
+            border: 1px solid var(--line);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            color: var(--ink-1);
+            background: var(--sf-2);
+        }
+
+        /* --- Hero canvas + mesh -------------------------------------------- */
+        #d1-hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.55;
+        }
+        [data-theme="dark"] #d1-hero-canvas { opacity: 0.8; }
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(60% 50% at 12% 8%, rgba(0, 114, 177, 0.10), transparent 70%),
+                radial-gradient(45% 45% at 92% 22%, rgba(56, 189, 248, 0.10), transparent 70%);
+        }
+        [data-theme="dark"] .hero-section::after {
+            background:
+                radial-gradient(60% 50% at 12% 8%, rgba(56, 189, 248, 0.14), transparent 70%),
+                radial-gradient(45% 45% at 92% 22%, rgba(0, 114, 177, 0.18), transparent 70%);
+        }
+        .hero-section > .max-w-5xl { position: relative; z-index: 2; }
+
+        /* --- Scroll reveal -------------------------------------------------- */
+        .d1-reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+            transition-delay: var(--d1-delay, 0ms);
+        }
+        .d1-reveal.is-in { opacity: 1; transform: none; }
+
+        /* --- Spotlight cards ------------------------------------------------ */
+        .d1-spot { position: relative; isolation: isolate; }
+        .d1-spot::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 260ms var(--ease-out);
+            background: radial-gradient(
+                220px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(0, 114, 177, 0.13),
+                transparent 70%
+            );
+        }
+        [data-theme="dark"] .d1-spot::before {
+            background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(56, 189, 248, 0.16), transparent 70%);
+        }
+        .d1-spot:hover::before { opacity: 1; }
+
+        /* --- Command palette ------------------------------------------------ */
+        #d1-palette {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12vh 1rem 1rem;
+            background: var(--scrim);
+            backdrop-filter: blur(6px);
+        }
+        #d1-palette.is-open { display: flex; }
+        .d1-pal-box {
+            width: min(640px, 100%);
+            background: var(--sf-1);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: var(--shadow-pop);
+            overflow: hidden;
+            animation: d1-pop 240ms var(--ease-out);
+        }
+        @keyframes d1-pop {
+            from { opacity: 0; transform: translateY(-10px) scale(0.985); }
+            to { opacity: 1; transform: none; }
+        }
+        .d1-pal-input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 15px;
+            background: transparent;
+            color: var(--ink-0);
+            outline: none;
+        }
+        .d1-pal-list { max-height: 52vh; overflow-y: auto; padding: 6px; }
+        .d1-pal-group {
+            padding: 10px 14px 4px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-2);
+        }
+        .d1-pal-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 9px 14px;
+            border-radius: 8px;
+            text-align: left;
+            color: var(--ink-0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .d1-pal-item[aria-selected="true"] { background: var(--sf-3); }
+        .d1-pal-item .d1-pal-icon { width: 18px; color: var(--accent); font-size: 12px; text-align: center; }
+        .d1-pal-item .d1-pal-sub { color: var(--ink-2); font-size: 11px; }
+        .d1-pal-item mark { background: transparent; color: var(--accent); font-weight: 700; }
+        .d1-pal-foot {
+            display: flex;
+            gap: 14px;
+            padding: 9px 16px;
+            border-top: 1px solid var(--line);
+            font-size: 10px;
+            color: var(--ink-2);
+        }
+        .d1-pal-empty { padding: 28px 16px; text-align: center; color: var(--ink-2); font-size: 13px; }
+
+        /* --- Section rail (home) -------------------------------------------- */
+        #d1-rail {
+            position: fixed;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (min-width: 1280px) { #d1-rail.is-on { display: flex; } }
+        .d1-rail-dot {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid var(--ink-2);
+            background: transparent;
+            transition: all 260ms var(--ease-out);
+        }
+        .d1-rail-dot[aria-current="true"] { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+        .d1-rail-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%) translateX(6px);
+            white-space: nowrap;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-1);
+            background: var(--sf-1);
+            border: 1px solid var(--line);
+            padding: 4px 8px;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+        }
+        .d1-rail-dot:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+        /* --- Back to top ----------------------------------------------------- */
+        #d1-top {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 45;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--sf-deep);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: var(--shadow-card);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out), background 200ms;
+        }
+        #d1-top.is-on { opacity: 1; transform: none; pointer-events: auto; }
+        #d1-top:hover { background: var(--accent); }
+
+        /* --- Toasts ----------------------------------------------------------- */
+        #d1-toasts {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            z-index: 210;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            pointer-events: none;
+        }
+        .d1-toast {
+            background: var(--sf-deep);
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            box-shadow: var(--shadow-pop);
+            animation: d1-toast-in 260ms var(--ease-out);
+        }
+        [data-theme="dark"] .d1-toast { background: var(--sf-3); border: 1px solid var(--line); }
+        @keyframes d1-toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* --- Page transition --------------------------------------------------- */
+        .page-view.d1-enter { animation: d1-page 420ms var(--ease-out); }
+        @keyframes d1-page { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+        /* --- Counters ----------------------------------------------------------- */
+        .d1-count { font-variant-numeric: tabular-nums; }
+
+        /* --- Button shine --------------------------------------------------------- */
+        .btn-mck, .d1-shine { position: relative; overflow: hidden; }
+        .btn-mck::after, .d1-shine::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transition: left 620ms var(--ease-out);
+        }
+        .btn-mck:hover::after, .d1-shine:hover::after { left: 130%; }
+
+        /* --- Shortcut sheet -------------------------------------------------------- */
+        .d1-sheet-grid { display: grid; grid-template-columns: 1fr auto; gap: 10px 20px; font-size: 13px; }
+        .d1-sheet-grid dt { color: var(--ink-1); }
+        .d1-sheet-grid dd { margin: 0; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .d1-reveal { opacity: 1; transform: none; transition: none; }
+            #d1-hero-canvas { display: none; }
+            .btn-mck::after, .d1-shine::after { display: none; }
+            .page-view.d1-enter { animation: none; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+
+    <script>
+        /* Theme bootstrap. Runs before first paint so a reader who chose dark
+           never sees a white flash on reload. Deliberately tiny and inline —
+           any deferred script is already too late for this. */
+        (function () {
+            try {
+                var stored = localStorage.getItem("d1.theme");
+                var system = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                document.documentElement.setAttribute("data-theme", stored || system);
+            } catch (e) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+</head>
+<body class="bg-white">
+
+    <a href="#page-home" class="skip-link">Skip to content</a>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-white z-[60] flex flex-col px-6 py-8">
+        <div class="flex justify-between items-center mb-12">
+            <div class="flex items-center space-x-3">
+                <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'">
+                <span class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></span>
+            </div>
+            <button onclick="toggleMobileMenu()" class="text-[#051C2C] text-2xl"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex flex-col space-y-8 text-sm font-bold uppercase tracking-[0.2em] text-[#051C2C]">
+            <button onclick="showPage('home')" class="text-left">Home</button>
+            <button onclick="showPage('team')" class="text-left">Our Team</button>
+            <button onclick="showPage('hub')" class="text-left">Resources</button>
+            <button onclick="showPage('lectures')" class="text-left">Lectures</button>
+            <a href="flow/" class="text-left text-[#0072b1]">Cascade &mdash; Flowing App</a>
+            <div class="flex flex-col space-y-4 ml-4">
+                <span class="text-[10px] text-gray-400">Tools</span>
+                <a href="tools/card-cutter/" class="text-left">Card Cutter</a>
+                <a href="tools/speed-trainer/" class="text-left">Speed Trainer</a>
+                <a href="tools/round-tracker/" class="text-left">Round Tracker</a>
+                <button onclick="showPage('timer')" class="text-left">Architect Timer</button>
+                <button onclick="showPage('screw')" class="text-left">Screw Calculator</button>
+                <button onclick="showPage('tools')" class="text-left">Resolution AI</button>
+            </div>
+            <div class="flex flex-col space-y-4 ml-4">
+                <span class="text-[10px] text-gray-400">Socials</span>
+                <a href="https://discord.debate101.org" target="_blank">Discord</a>
+                <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
+                <a href="https://youtube.debate101.org" target="_blank">YouTube</a>
+            </div>
+        </div>
+        <div class="mt-auto border-t pt-8">
+            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">Lead Architects</p>
+            <p class="text-xs text-gray-600">Vivaan S. // Max F. // Max M. // Arjun G.</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 px-6 py-5 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="assets/logo.PNG" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'">
+                    <button onclick="showPage('home')" class="text-2xl font-bold tracking-tighter text-[#051C2C] focus:outline-none">
+                        DEBATE<span class="font-light">101</span>
+                    </button>
+                </div>
+                <div class="hidden lg:flex space-x-8 xl:space-x-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[#051C2C] items-center">
+                    <button onclick="showPage('home')" class="hover:text-[#0072b1] transition-colors">Home</button>
+                    <button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button>
+                    
+                    <div class="dropdown">
+                        <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
+                            Resources <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <button onclick="showPage('hub')">Resource Hub</button>
+                            <button onclick="showPage('lectures')">Lectures</button>
+                            <button onclick="showPage('faq')">FAQ</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
+                            Tools <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="flow/" class="dd-feature"><span class="dd-title">Cascade &mdash; Flowing App</span><span class="dd-sub">Web &amp; desktop &middot; .ebb, .docx, .xlsx</span></a>
+                            <a href="tools/card-cutter/">Card Cutter</a>
+                            <a href="tools/speed-trainer/">Speed Trainer</a>
+                            <a href="tools/round-tracker/">Round Tracker</a>
+                            <div class="dd-divider"></div>
+                            <button onclick="showPage('timer')">Architect Timer</button>
+                            <button onclick="showPage('screw')">Screw Calculator</button>
+                            <button onclick="showPage('tools')">Resolution AI</button>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="hover:text-[#0072b1] transition-colors focus:outline-none flex items-center">
+                            Socials <i class="fas fa-chevron-down ml-2 text-[8px]"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="https://discord.debate101.org" target="_blank">Discord</a>
+                            <a href="https://instagram.debate101.org" target="_blank">Instagram</a>
+                            <a href="https://youtube.debate101.org" target="_blank">YouTube</a>
+                        </div>
+                    </div>
+
+                    <button onclick="triggerGlobalSearch()" class="hover:text-[#0072b1] transition-colors ml-2" aria-label="Search the site"><i class="fas fa-search"></i></button>
+                    <a href="flow/" class="nav-cta">Open Cascade</a>
+                </div>
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-[#051C2C]" aria-label="Open menu"><i class="fas fa-bars text-xl"></i></button>
+            </div>
+            <div class="hidden lg:flex justify-end directorate-bar">
+                <p class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
+                    Lead Architects: <span class="text-[#051C2C] ml-2">Vivaan S. | Max F. | Max M. | Arjun G.</span>
+                </p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page: Home -->
+    <main id="page-home" class="page-view pt-16">
+        <section class="min-h-[85vh] flex items-center px-6 md:px-12 hero-section">
+            <div class="wave-container">
+                <div class="wave"></div>
+                <div class="wave wave2"></div>
+            </div>
+            <div class="max-w-5xl mx-auto w-full relative z-10 pt-12 md:pt-0">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Building the Discourse of Tomorrow</h2>
+                <h1 class="mck-serif text-5xl md:text-8xl text-[#051C2C] leading-[1.1] mb-10">
+                    Reshaping <span class="italic font-normal text-[#0072b1]">competitive</span> debate through <span class="text-[#051C2C]">open source</span> rigor.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-500 max-w-3xl mb-12 leading-relaxed font-light">
+                    Debate 101 is an unincorporated non-profit collective bridging the gap between novice learners and elite competition through tools, community, and strategy.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="flow/" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center">Open Cascade &mdash; our flowing app</a>
+                    <button onclick="showPage('hub')" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:bg-[#051C2C] hover:text-white transition-all">Visit Global Resource Hub</button>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://discord.debate101.org" target="_blank" class="border border-gray-200 text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-gray-50 transition-all">Join Discord</a>
+                        <a href="https://youtube.debate101.org" target="_blank" class="text-[9px] font-bold text-center text-gray-400 uppercase tracking-widest hover:text-[#0072b1]">Visit YouTube Lab</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discord Banner -->
+        <section class="bg-[#051C2C] py-6 px-6 md:px-12 border-y border-white/10">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-6">
+                    <div class="bg-blue-500/20 p-3 rounded-sm">
+                        <i class="fab fa-discord text-blue-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-[10px] font-bold uppercase tracking-[0.3em] mb-1">Architect Community</h4>
+                        <p class="text-gray-400 text-xs font-light">Join 100+ debaters in our live analysis and strategy hub.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://discord.debate101.org" target="_blank" class="border border-blue-400/30 text-blue-400 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-blue-400 hover:text-white transition-all rounded-sm">
+                        Enter Official Discord
+                    </a>
+                    <a href="https://youtube.debate101.org" target="_blank" class="border border-red-500/30 text-red-500 px-8 py-3 text-[9px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all rounded-sm">
+                        Subscribe on YouTube
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Global Resource Hub Section (CTA) -->
+        <section id="resource-hub" class="py-32 px-6 md:px-12 bg-white" aria-labelledby="resource-hub-heading">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <p class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Universal Knowledge Base</p>
+                    <h2 id="resource-hub-heading" class="mck-serif text-5xl md:text-6xl text-[#051C2C] leading-tight mb-8">The World's Largest <br><span class="italic font-normal text-[#0072b1]">Debate Resource Hub.</span></h2>
+                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
+                        Debate 101 is cataloging every essential tool, lecture, camp, and research asset in the international circuit. From specialized software like Verbatim to niche critical theory scholarly databases, our Global Hub provides debaters with an ecosystem of strategic advantages.
+                    </p>
+                    <button onclick="showPage('hub')" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:shadow-2xl transition-all">Explore Global Collection</button>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-tools text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Strategic Tools</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-university text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Verified Camps</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-book-open text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Research Bases</span>
+                    </div>
+                    <div class="bg-gray-50 aspect-square flex flex-col items-center justify-center p-8 border border-gray-100">
+                        <i class="fas fa-video text-3xl text-blue-200 mb-4"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Lecture Vaults</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cascade — the flagship product -->
+        <section id="cascade" class="bg-[#051C2C] text-white py-32 px-6 md:px-12" aria-labelledby="cascade-heading">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-20 items-start">
+                    <div>
+                        <p class="text-[#38bdf8] uppercase tracking-[0.4em] text-[10px] font-bold mb-8">Introducing Cascade</p>
+                        <h2 id="cascade-heading" class="mck-serif text-4xl md:text-6xl leading-[1.1] mb-8">
+                            The flow <span class="italic text-[#38bdf8]">follows</span> your hands.
+                        </h2>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-xl">
+                            Cascade is Debate 101&rsquo;s keyboard-first <strong class="font-normal text-gray-300">debate flowing app</strong> for Lincoln&ndash;Douglas, Policy,
+                            Public Forum and Parli. It runs in the browser and as a native desktop app,
+                            works completely offline, imports Verbatim cases and Excel templates, and reads and writes
+                            <code class="text-[#38bdf8] font-mono text-base">.ebb</code> files &mdash; so a flow
+                            moves between Cascade and <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="underline decoration-white/30 hover:text-white">ebb</a> without conversion.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-10 text-gray-400 text-sm">
+                            <span><span class="kbd">Tab</span> answers an argument</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">L</span> links a response</span>
+                            <span class="text-white/20">&middot;</span>
+                            <span><span class="kbd">⌘</span><span class="kbd">⇧</span><span class="kbd">D</span> jumps to a drop</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="flow/" class="bg-[#0072b1] text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white hover:text-[#051C2C] transition-all">Open Cascade in the browser</a>
+                            <a href="flow/download.html" class="border border-white/25 text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] text-center hover:bg-white/10 transition-all">Get the desktop app</a>
+                        </div>
+                        <p class="mt-6 text-[10px] uppercase tracking-[0.2em] text-gray-500">Free &middot; Open source &middot; Nothing leaves your machine</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-x-10 gap-y-10">
+                        <div>
+                            <i class="fas fa-stopwatch text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Round Clock</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Speech, prep and cross-ex clocks on official times, counting over when a speech runs long. Ending a speech walks the grid to the next column on its own.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-crosshairs text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Dropped-argument radar</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Cascade watches every row across every column and tells you exactly what the other team never answered &mdash; with a one-key jump to each drop.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-microphone-lines text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Voice Flow</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Assisted capture listens for the words that start a new argument &mdash; &ldquo;next off&rdquo;, &ldquo;turn&rdquo;, &ldquo;extend&rdquo; &mdash; and lays them down as rows while you keep typing tags.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-bolt text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Block library</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Type <code class="font-mono text-[#38bdf8]">;perm</code> and press Tab. Your shells, frontlines and frameworks expand in place, shared across a whole team as one JSON file.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-chart-simple text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Round analytics</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Coverage by side, time against the limit, density per speech, and a printable post-round report you can hand a partner or a coach.</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-quote-right text-[#38bdf8] mb-4" aria-hidden="true"></i>
+                            <h3 class="font-bold mb-2 text-sm">Evidence tracker</h3>
+                            <p class="text-gray-400 text-sm font-light leading-relaxed">Every card you mark becomes a cite entry with author, year and URL, exportable as a clean cite sheet for the post-round email.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-24 pt-12 border-t border-white/10 grid sm:grid-cols-3 gap-8 text-sm text-gray-400 font-light">
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Open anything</span>Upload <code class="font-mono">.ebb</code>, Verbatim cases (<code class="font-mono">.docx</code>), Excel flow templates (<code class="font-mono">.xlsx</code>), CSV, TSV, Markdown or plain text &mdash; on the web version too, not just on desktop.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Export anywhere</span><code class="font-mono">.ebb</code> (native and strict interop), CSV, Markdown, text, a cite sheet, and a landscape print layout for PDF.</p>
+                    <p><span class="text-white font-bold block mb-1 text-[10px] uppercase tracking-[0.2em]">Offline by design</span>No account, no server, no telemetry. Autosave keeps a copy in your browser so a dead laptop never costs you a round.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Become a Known Collaborator Section -->
+        <section class="py-32 px-6 md:px-12 bg-white border-y border-gray-50">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Open Source Collaboration</h2>
+                    <h3 class="mck-serif text-5xl text-[#051C2C] mb-8 leading-tight">Become a <span class="italic text-[#0072b1] font-normal">Known Collaborator.</span></h3>
+                    <p class="text-xl text-gray-500 font-light leading-relaxed mb-10">
+                        Join the collective of debaters helping scale competitive discourse. Known collaborators gain recognition on our platform and direct influence over our resource pipeline.
+                    </p>
+                    <button onclick="scrollToCollaborators()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">See other known collaborators</button>
+                </div>
+                <div class="md:w-1/2 bg-gray-50 p-12 border border-gray-100 rounded-sm shadow-sm">
+                    <h4 class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#051C2C] mb-8">Onboarding Protocol</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">1</span>
+                            <p class="text-sm text-gray-600">Audit our platform and analyze the currently indexed strategic assets.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">2</span>
+                            <p class="text-sm text-gray-600">Submit 3 resource suggestions via the <code class="bg-gray-200 px-1 rounded text-[11px]">#resource_suggestion</code> channel on Discord.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">3</span>
+                            <p class="text-sm text-gray-600">Follow our official analysis channel on Instagram at <a href="https://instagram.debate101.org" target="_blank" class="text-[#0072b1] underline">instagram.debate101.org</a>.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">4</span>
+                            <p class="text-sm text-gray-600">Submit your name and a brief biography in the <code class="bg-gray-200 px-1 rounded text-[11px]">#known_collabrator_request</code> channel.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="w-6 h-6 bg-[#051C2C] text-white flex items-center justify-center text-[10px] font-bold rounded-full flex-shrink-0">5</span>
+                            <p class="text-sm text-gray-600">Subscribe to our official YouTube channel at <a href="https://youtube.debate101.org" target="_blank" class="text-[#0072b1] underline">youtube.debate101.org</a>.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ecosystem Hub Carousel -->
+        <section class="py-32 px-6 md:px-12 bg-gray-100 overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Assets</h2>
+                <h3 class="mck-serif text-4xl text-[#051C2C] mb-8">Ecosystem Hub</h3>
+                <div class="carousel-wrapper">
+                    <div class="nav-arrow nav-arrow-left" onclick="scrollCarousel('home-carousel', -320)"><i class="fas fa-chevron-left"></i></div>
+                    <div id="home-carousel" class="carousel-container">
+                        <div class="carousel-card accent-blue" onclick="showPage('timer')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: TIME-01</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Architect Timer</span></div>
+                                <i class="fas fa-stopwatch text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Precision tournament timer for LD, Policy, and PF. Integrated speech sequences and prep-tracking.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Tool</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <div class="carousel-card accent-blue" onclick="showPage('screw')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: CALC-04</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Screw Calculator</span></div>
+                                <i class="fas fa-calculator text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Statistically project outround break points and "bubble" probabilities based on field entries.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">New Tool</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <div class="carousel-card accent-blue" onclick="showPage('tools')">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: RES-AI</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Resolution AI</span></div>
+                                <i class="fas fa-robot text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Real-time strategic synthesis engine for resolution analysis and follow-up support.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-blue-500">Live Beta</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <a href="flow/" class="carousel-card accent-navy">
+                            <div class="flex justify-between items-start">
+                                <div><span class="system-tag">SYS_ID: FLOW-02</span><span class="text-[11px] font-bold uppercase tracking-widest text-[#051C2C]">Cascade Case Import</span></div>
+                                <i class="fas fa-file-word text-blue-100 text-2xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm leading-relaxed mt-4">Drop a Verbatim case (.docx) or Excel flow template (.xlsx) straight into Cascade — tags and citations extracted automatically.</p>
+                            <div class="flex justify-between items-center mt-6">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Open Cascade</span>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('home-carousel', 320)"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revamped Team Intro -->
+        <section class="py-32 px-6 md:px-12 bg-white border-t border-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row gap-16 items-start">
+                    <div class="lg:w-1/3">
+                        <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">The Collective</h2>
+                        <h3 class="mck-serif text-4xl text-[#051C2C] mb-8">Who we are.</h3>
+                        <p class="text-xl text-gray-600 mb-12 font-light leading-relaxed">
+                            Debate 101 is driven by a quartet of dedicated debaters and developers committed to scaling high-level discourse. We are architecting a sustainable learning ecosystem for the next generation.
+                        </p>
+                        <button onclick="showPage('team')" class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px]">Meet the team</button>
+                    </div>
+                    <div class="lg:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <!-- Founder 1 -->
+                        <div class="founder-icon-container flex flex-col items-center text-center">
+                            <img src="assets/vivaan.png" alt="Vivaan" class="mini-avatar mb-4" onerror="this.src='https://via.placeholder.com/150/051C2C/FFFFFF?text=VS'">
+                            <span class="founder-name-pill text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Vivaan Shahani</span>
+                            <span class="text-[8px] text-gray-400 mt-2 uppercase tracking-[0.2em]">Co-Founder</span>
+                        </div>
+                        <!-- Founder 2 -->
+                        <div class="founder-icon-container flex flex-col items-center text-center">
+                            <img src="assets/max-f.png" alt="Max F" class="mini-avatar mb-4" onerror="this.src='https://via.placeholder.com/150/051C2C/FFFFFF?text=MF'">
+                            <span class="founder-name-pill text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Max Feinstein</span>
+                            <span class="text-[8px] text-gray-400 mt-2 uppercase tracking-[0.2em]">Co-Founder</span>
+                        </div>
+                        <!-- Founder 3 -->
+                        <div class="founder-icon-container flex flex-col items-center text-center">
+                            <img src="assets/max-m.png" alt="Max M" class="mini-avatar mb-4" onerror="this.src='https://via.placeholder.com/150/051C2C/FFFFFF?text=MM'">
+                            <span class="founder-name-pill text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Max McBride</span>
+                            <span class="text-[8px] text-gray-400 mt-2 uppercase tracking-[0.2em]">Co-Founder</span>
+                        </div>
+                        <!-- Founder 4 -->
+                        <div class="founder-icon-container flex flex-col items-center text-center">
+                            <img src="assets/arjun.png" alt="Arjun" class="mini-avatar mb-4" onerror="this.src='https://via.placeholder.com/150/051C2C/FFFFFF?text=AG'">
+                            <span class="founder-name-pill text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Arjun Gupta</span>
+                            <span class="text-[8px] text-gray-400 mt-2 uppercase tracking-[0.2em]">Co-Founder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Replace Vision Map with Lecture Lab Intro -->
+        <section id="lecture-intro" class="bg-[#051C2C] text-white py-32 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-12">
+                    <div class="md:w-2/3">
+                        <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Elite Instruction</h2>
+                        <h1 class="mck-serif text-5xl md:text-7xl mb-10">The <span class="italic font-normal">Lecture Lab.</span></h1>
+                        <p class="text-xl text-gray-400 font-light leading-relaxed max-w-2xl mb-12">
+                            Master the mechanics of high-level debate through our digital archive of instruction. From technical drilling to complex critical theory breakdowns, we host the circuit's most advanced conceptual analysis.
+                        </p>
+                        <button onclick="showPage('lectures')" class="bg-white text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] hover:bg-[#0072b1] hover:text-white transition-all rounded-sm">
+                            Enter the Lecture Lab
+                        </button>
+                    </div>
+                    <div class="md:w-1/3 flex justify-center">
+                        <div class="relative w-64 h-64 border-2 border-[#0072b1]/30 rounded-sm flex items-center justify-center group overflow-hidden">
+                            <div class="absolute inset-0 bg-[#0072b1]/10 group-hover:bg-[#0072b1]/20 transition-all"></div>
+                            <i class="fas fa-play text-6xl text-[#0072b1] opacity-40 group-hover:scale-110 transition-all"></i>
+                            <div class="absolute bottom-4 left-4 right-4 h-1 bg-[#0072b1]/20"><div class="w-1/3 h-full bg-[#0072b1]"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-12 border-t border-white/10 pt-20">
+                    <div>
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">01 // Logic</span>
+                        <h3 class="text-xl font-light mt-4">Theory Fundamentals</h3>
+                    </div>
+                    <div>
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">02 // Speed</span>
+                        <h3 class="text-xl font-light mt-4">Technical Mechanics</h3>
+                    </div>
+                    <div>
+                        <span class="text-[#0072b1] font-bold text-xs tracking-widest uppercase">03 // Deep Dive</span>
+                        <h3 class="text-xl font-light mt-4">Kritikal Breakdown</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Page: Our Team -->
+    <main id="page-team" class="page-view hidden pt-32 px-6 md:px-12 pb-32">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Leadership</h2>
+            <h1 class="mck-serif text-6xl md:text-7xl text-[#051C2C] mb-24">The Architects.</h1>
+            <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-20 mb-32"></div>
+
+            <!-- Collaborators Section -->
+            <div id="collaborators-section" class="border-t pt-24 mt-24">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Community Contribution</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-12">Known Collaborators.</h1>
+                <div id="collaborators-list" class="space-y-10 max-w-3xl">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Architect Timer -->
+    <main id="page-timer" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 text-center">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Round Precision</h2>
+                <h1 class="mck-serif text-6xl text-[#051C2C] mb-8">Architect Timer</h1>
+                
+                <div class="flex flex-col items-center gap-6 mb-12">
+                    <div class="flex justify-center gap-4">
+                        <button onclick="setTimerFormat('LD')" id="format-LD" class="timer-btn timer-btn-active">LD</button>
+                        <button onclick="setTimerFormat('Policy')" id="format-Policy" class="timer-btn">Policy</button>
+                        <button onclick="setTimerFormat('PF')" id="format-PF" class="timer-btn">PF</button>
+                    </div>
+                    
+                    <div id="ld-settings" class="flex items-center gap-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">LD Prep Duration:</span>
+                        <button onclick="setLDPrep(240)" id="ld-prep-240" class="border border-gray-200 px-4 py-2 text-[10px] font-bold rounded-sm timer-btn-active">4m</button>
+                        <button onclick="setLDPrep(300)" id="ld-prep-300" class="border border-gray-200 px-4 py-2 text-[10px] font-bold rounded-sm">5m</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-12 shadow-2xl rounded-sm border border-gray-100 text-center">
+                <div class="mb-4">
+                    <span id="timer-stage-label" class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#0072b1]">1AC (6:00)</span>
+                </div>
+                <div id="timer-display" class="text-[120px] md:text-[160px] font-light leading-none text-[#051C2C] mb-12">
+                    06:00
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <button id="timer-start-pause" onclick="toggleTimer()" class="btn-mck text-white px-16 py-6 text-xs font-bold uppercase tracking-widest rounded-sm">Start</button>
+                    <button onclick="resetTimer()" class="border border-gray-200 text-[#051C2C] px-16 py-6 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-gray-50">Reset</button>
+                    <button onclick="nextStage()" class="border border-gray-200 text-[#051C2C] px-10 py-6 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-gray-50"><i class="fas fa-step-forward mr-2"></i>Next</button>
+                </div>
+            </div>
+
+            <div class="mt-12 grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 border border-gray-100 shadow-sm rounded-sm">
+                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Prep Management</h3>
+                    <div class="flex justify-between items-center mb-6 border-b pb-6">
+                        <div>
+                            <span class="text-xs font-bold text-[#051C2C] uppercase tracking-wider">AFF Prep Left</span>
+                            <div id="prep-aff-display" class="text-3xl font-light text-[#051C2C]">04:00</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="togglePrep('aff')" id="prep-aff-btn" class="border border-[#0072b1] text-[#0072b1] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-blue-50 transition-all">Start</button>
+                            <button onclick="resetPrep('aff')" class="text-gray-400 hover:text-red-500 transition-colors px-2"><i class="fas fa-undo text-xs"></i></button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-xs font-bold text-[#051C2C] uppercase tracking-wider">NEG Prep Left</span>
+                            <div id="prep-neg-display" class="text-3xl font-light text-[#051C2C]">04:00</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="togglePrep('neg')" id="prep-neg-btn" class="border border-[#0072b1] text-[#0072b1] px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-blue-50 transition-all">Start</button>
+                            <button onclick="resetPrep('neg')" class="text-gray-400 hover:text-red-500 transition-colors px-2"><i class="fas fa-undo text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 border border-gray-100 shadow-sm rounded-sm">
+                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-6">Speech Sequence (Click to Jump)</h3>
+                    <div id="speech-queue" class="space-y-1">
+                        <!-- Sequence injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Screw Calculator -->
+    <main id="page-screw" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-12 text-center">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Break Probability</h2>
+                <h1 class="mck-serif text-6xl text-[#051C2C] mb-8">Screw Calculator</h1>
+                <p class="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">Determine how many debaters with common records will miss the outround break based on total entries and field size.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div class="screw-input-group">
+                    <label>Total Entries</label>
+                    <input type="number" id="screw-entries" value="56">
+                </div>
+                <div class="screw-input-group">
+                    <label>Total Rounds</label>
+                    <input type="number" id="screw-rounds" value="6">
+                </div>
+                <div class="screw-input-group">
+                    <label>Outround Break</label>
+                    <select id="screw-break" onchange="toggleCustomBreak()">
+                        <option value="2">Finals (2)</option>
+                        <option value="4">Semifinals (4)</option>
+                        <option value="8">Quarterfinals (8)</option>
+                        <option value="12">Partial Quarters (12)</option>
+                        <option value="16">Octafinals (16)</option>
+                        <option value="24">Partial Octas (24)</option>
+                        <option value="32" selected>Double Octas (32)</option>
+                        <option value="48">Partial Doubles (48)</option>
+                        <option value="64">Triples (64)</option>
+                        <option value="custom">Custom Break Size...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="custom-break-container" class="hidden max-w-xs mx-auto mb-12">
+                <div class="screw-input-group">
+                    <label>Custom Break Count</label>
+                    <input type="number" id="screw-custom-break" value="32" placeholder="e.g. 52">
+                </div>
+            </div>
+
+            <div class="text-center mb-12">
+                <button onclick="calculateScrew()" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm">Calculate Projection</button>
+            </div>
+
+            <div id="screw-results" class="hidden">
+                <div class="bg-white p-12 shadow-2xl rounded-sm border border-gray-100 mb-8">
+                    <h3 class="mck-serif text-3xl text-[#051C2C] mb-6 text-center">The Architect's Verdict</h3>
+                    <div id="screw-verdict-text" class="text-xl text-center text-gray-600 leading-relaxed max-w-2xl mx-auto mb-10">
+                        <!-- Injected verdict -->
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <h4 class="text-[10px] font-bold uppercase tracking-widest text-gray-400 text-center mb-8">Record Distribution Projection</h4>
+                        <div id="screw-chart-container" class="space-y-4">
+                            <!-- Bars injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Resource Hub -->
+    <main id="page-hub" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-4 flex flex-col md:flex-row justify-between items-end gap-4 border-b pb-8">
+                <div>
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-1">Universal Repository</h2>
+                    <h1 class="mck-serif text-3xl md:text-4xl text-[#051C2C] leading-tight">Global <span class="italic text-[#0072b1] font-normal">Resource Hub.</span></h1>
+                    <div class="mt-4 flex items-center gap-6">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0072b1] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                            Live Count: <span id="resource-counter" class="ml-1">0</span> Strategic Assets
+                        </span>
+                        <a href="https://discord.debate101.org" target="_blank" class="text-[9px] font-bold uppercase tracking-[0.2em] text-[#051C2C] hover:text-[#0072b1] flex items-center transition-colors">
+                            <i class="fab fa-discord mr-2"></i> Recommend more resources
+                        </a>
+                    </div>
+                </div>
+                <div class="search-bar-container w-full md:w-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="resource-search" placeholder="Search phil, camps, tools, authors..." oninput="filterResources()" class="search-input shadow-sm rounded-sm">
+                </div>
+            </div>
+
+            <div id="resource-hub-container">
+                <!-- Categories Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Debate101 Lectures -->
+    <main id="page-lectures" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8 flex flex-col md:flex-row justify-between items-end gap-4 border-b pb-8">
+                <div>
+                    <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-1">Knowledge Lab</h2>
+                    <h1 class="mck-serif text-3xl md:text-4xl text-[#051C2C] leading-tight">Debate101 <span class="italic text-[#0072b1] font-normal">Lectures.</span></h1>
+                    <div class="mt-4 flex items-center gap-6">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0072b1] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                            Live Count: <span id="lecture-counter" class="ml-1">0</span> Video Lectures
+                        </span>
+                    </div>
+                </div>
+                <div class="search-bar-container w-full md:w-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="lecture-search" placeholder="Search theory, tech, LARP, prep..." oninput="filterLectures()" class="search-input shadow-sm rounded-sm">
+                </div>
+            </div>
+
+            <!-- Recency Warning -->
+            <div class="mb-12 inline-flex items-center gap-3 bg-blue-50 border border-blue-200 px-6 py-4 rounded-sm shadow-sm w-full">
+                <i class="fas fa-info-circle text-blue-500"></i>
+                <p class="text-xs font-bold text-blue-900 uppercase tracking-wider leading-relaxed">
+                    Due to the recency of creating Debate 101, some categories are still populating. Check the discord for updates and utilize the discord to ask any questions you may have.
+                </p>
+            </div>
+
+            <div id="lectures-container">
+                <!-- Categories Injected via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Resolution AI -->
+    <main id="page-tools" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Strategic Lab</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Resolution AI</h1>
+                <p class="text-gray-500 max-w-2xl text-base font-light leading-relaxed">Collaborate with our strategic engine to break down resolutions and map offensive paths.</p>
+                
+                <div class="inline-flex items-center gap-3 bg-yellow-50 border border-yellow-200 px-5 py-3 rounded-full mt-6 shadow-sm">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                    <p class="text-[10px] font-bold text-yellow-800 uppercase tracking-wider">
+                        System Notice: Significant token overhead and technical constraints may affect chatbot operational stability.
+                    </p>
+                </div>
+            </div>
+            <div class="chat-container max-w-5xl shadow-2xl rounded-sm overflow-hidden mx-auto">
+                <div id="chat-messages-res" class="chat-messages">
+                    <div class="message message-architect">
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>
+                        <div class="ai-content"><p>Strategic protocols initialized. Provide a resolution below to begin analysis.</p></div>
+                    </div>
+                </div>
+                <div id="chat-loading-res" class="px-8 py-4 hidden bg-white">
+                    <div class="flex items-center space-x-3">
+                        <div class="animate-pulse flex space-x-1"><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Architect is processing...</span>
+                    </div>
+                </div>
+                <div class="p-4 bg-white border-t border-gray-100">
+                    <div class="flex gap-4">
+                        <input type="text" id="resolution-input" placeholder="Enter resolution..." onkeypress="if(event.key === 'Enter') analyzeTopic('res')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
+                        <button onclick="analyzeTopic('res')" data-ai-send class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Send</button>
+                    </div>
+                    <p data-ai-quota class="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-gray-400"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: FAQ & Mentor AI -->
+    <main id="page-faq" class="page-view hidden pt-32 px-6 md:px-12 pb-32 min-h-screen bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-16">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Learning Hub</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">FAQ</h1>
+                <p class="text-gray-500 text-base font-light leading-relaxed">Fundamental knowledge for every debater, architected for clarity.</p>
+            </div>
+            <div id="faq-list" class="space-y-2 mb-24"></div>
+            <div class="bg-gray-50 p-12 border border-gray-100 text-center mb-24">
+                <h3 class="mck-serif text-3xl text-[#051C2C] mb-6">Still have questions?</h3>
+                <p class="text-gray-600 mb-8 max-w-md mx-auto">Our human architects and community members are active 24/7 in the Discord.</p>
+                <div class="flex justify-center gap-4">
+                    <a href="https://discord.debate101.org" target="_blank" class="btn-mck text-white px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block">Join our Discord</a>
+                    <a href="https://youtube.debate101.org" target="_blank" class="border border-[#051C2C] text-[#051C2C] px-12 py-5 font-bold uppercase tracking-widest text-[10px] rounded-sm inline-block hover:bg-gray-50">YouTube Lab</a>
+                </div>
+            </div>
+
+            <div class="mb-12 border-t pt-24">
+                <h2 class="text-[#0072b1] uppercase tracking-[0.4em] text-[10px] font-bold mb-4">Beta Prototype</h2>
+                <h1 class="mck-serif text-5xl text-[#051C2C] mb-6">Debate Mentor AI</h1>
+                <p class="text-gray-500 text-base font-light leading-relaxed mb-6 italic">Generic Debate AI trained on broad theory and terminology.</p>
+                
+                <div class="inline-flex items-center gap-3 bg-yellow-50 border border-yellow-200 px-5 py-3 rounded-full mb-12 shadow-sm">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                    <p class="text-[10px] font-bold text-yellow-800 uppercase tracking-wider">
+                        System Notice: High token overhead and ongoing implementation challenges may affect beta chatbot stability.
+                    </p>
+                </div>
+
+                <div class="chat-container shadow-2xl rounded-sm overflow-hidden">
+                    <div id="chat-messages-faq" class="chat-messages">
+                        <div class="message message-architect">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Mentor AI</p>
+                            <div class="ai-content"><p>Ask me any general question about debate. For example: "What is a Kritik?" or "How do I flow more efficiently?"</p></div>
+                        </div>
+                    </div>
+                    <div id="chat-loading-faq" class="px-8 py-4 hidden bg-white">
+                        <div class="flex items-center space-x-3">
+                            <div class="animate-pulse flex space-x-1"><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div><div class="h-1.5 w-1.5 bg-[#0072b1] rounded-full"></div></div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1]">Mentor is teaching...</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border-t border-gray-100">
+                        <div class="flex gap-4">
+                            <input type="text" id="faq-input" placeholder="Ask a general debate question..." onkeypress="if(event.key === 'Enter') analyzeTopic('faq')" class="flex-grow p-4 bg-white border border-gray-200 focus:border-[#0072b1] outline-none text-sm transition-all rounded-sm">
+                            <button onclick="analyzeTopic('faq')" data-ai-send class="btn-mck text-white px-10 py-4 font-bold uppercase tracking-widest text-[10px] rounded-sm">Ask</button>
+                        </div>
+                        <p data-ai-quota class="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-gray-400"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 py-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="assets/logo.PNG" alt="" class="h-8 w-auto" onerror="this.style.display='none'">
+                    <div class="text-2xl font-bold tracking-tighter text-[#051C2C]">DEBATE<span class="font-light">101</span></div>
+                </div>
+                <p class="text-sm text-gray-500 font-light leading-relaxed max-w-xs">
+                    An unincorporated non-profit collective building free, open-source tools for competitive debate.
+                </p>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Apps</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="flow/" class="hover:text-[#0072b1] transition-colors">Cascade &mdash; flowing app</a></li>
+                    <li><a href="tools/card-cutter/" class="hover:text-[#0072b1] transition-colors">Card Cutter</a></li>
+                    <li><a href="tools/speed-trainer/" class="hover:text-[#0072b1] transition-colors">Speed Trainer</a></li>
+                    <li><a href="tools/round-tracker/" class="hover:text-[#0072b1] transition-colors">Round Tracker</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Learn</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><button onclick="showPage('hub')" class="hover:text-[#0072b1] transition-colors">Resource Hub</button></li>
+                    <li><button onclick="showPage('lectures')" class="hover:text-[#0072b1] transition-colors">Lectures</button></li>
+                    <li><button onclick="showPage('faq')" class="hover:text-[#0072b1] transition-colors">FAQ &amp; Mentor</button></li>
+                    <li><button onclick="showPage('team')" class="hover:text-[#0072b1] transition-colors">Our Team</button></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-5">Community</p>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="https://discord.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">Discord</a></li>
+                    <li><a href="https://instagram.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">Instagram</a></li>
+                    <li><a href="https://youtube.debate101.org" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">YouTube</a></li>
+                    <li><a href="https://github.com/GeoWizard4645/debate101" target="_blank" rel="noopener" class="hover:text-[#0072b1] transition-colors">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-100 text-xs text-gray-400 font-light leading-relaxed">
+            Cascade implements the <code class="font-mono">.ebb</code> file format from
+            <a href="https://github.com/shreerammodi/ebb" target="_blank" rel="noopener" class="text-[#0072b1] hover:underline">ebb</a>
+            by Shreeram Modi, so flows move between the two apps without conversion. Cascade is an independent
+            Debate 101 project and is not affiliated with or endorsed by the ebb project.
+        </p>
+        <p class="mt-20 text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold text-center">© 2026 DEBATE 101 COLLECTIVE</p>
+        <p class="mt-4 text-[10px] text-gray-400 uppercase tracking-[0.1em] text-center">
+            If you wish to support our mission buy us a coffee: <a href="https://buymeacoffee.com/debate101" target="_blank" class="text-[#0072b1] hover:underline normal-case tracking-normal font-normal">buymeacoffee.com/debate101</a>
+        </p>
+    </footer>
+
+    <!-- Local config. Retained for compatibility; no AI feature reads it. -->
+    <script src="config.js"></script>
+    <script>
+        // The AI features moved on-device (see the ON-DEVICE AI block below), so
+        // nothing here calls a hosted model and no API key is required. This is
+        // kept only so an existing config.js keeps loading harmlessly, and so a
+        // future server-backed feature has somewhere to read a key from.
+        const apiKey = (typeof window !== 'undefined' && window.GEMINI_API_KEY) ? window.GEMINI_API_KEY : "";
+
+        // Content data is loaded asynchronously from data/content.json on window.onload.
+        let resourceCategories = [];
+        let lectureCategories = [];
+        let teamData = [];
+        let collaboratorData = [];
+        let faqContent = [];
+
+
+        // TIMER LOGIC
+        const timerConfig = {
+            LD: {
+                sequence: [
+                    { name: "1AC", time: 360 },
+                    { name: "CX by NEG", time: 180 },
+                    { name: "1NC", time: 420 },
+                    { name: "CX by AFF", time: 180 },
+                    { name: "1AR", time: 240 },
+                    { name: "2NR", time: 360 },
+                    { name: "2AR", time: 180 }
+                ],
+                prep: 240
+            },
+            Policy: {
+                sequence: [
+                    { name: "1AC", time: 480 },
+                    { name: "CX by 2N", time: 180 },
+                    { name: "1NC", time: 480 },
+                    { name: "CX by 1A", time: 180 },
+                    { name: "2AC", time: 480 },
+                    { name: "CX by 1N", time: 180 },
+                    { name: "2NC", time: 480 },
+                    { name: "CX by 2A", time: 180 },
+                    { name: "1NR", time: 300 },
+                    { name: "1AR", time: 300 },
+                    { name: "2NR", time: 300 },
+                    { name: "2AR", time: 300 }
+                ],
+                prep: 480
+            },
+            PF: {
+                sequence: [
+                    { name: "1st Speaker (Team A)", time: 240 },
+                    { name: "1st Speaker (Team B)", time: 240 },
+                    { name: "Crossfire", time: 180 },
+                    { name: "2nd Speaker (Team A)", time: 240 },
+                    { name: "2nd Speaker (Team B)", time: 240 },
+                    { name: "Crossfire", time: 180 },
+                    { name: "Summary (Team A)", time: 180 },
+                    { name: "Summary (Team B)", time: 180 },
+                    { name: "Grand Crossfire", time: 180 },
+                    { name: "Final Focus (Team A)", time: 120 },
+                    { name: "Final Focus (Team B)", time: 120 }
+                ],
+                prep: 180
+            }
+        };
+
+        let currentFormat = 'LD';
+        let currentStageIdx = 0;
+        let timeLeft = 360;
+        let isRunning = false;
+        let timerInterval = null;
+
+        let affPrepLeft = 240;
+        let negPrepLeft = 240;
+        let prepActive = null; 
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep() {
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.5);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.5);
+        }
+
+        function setTimerFormat(format) {
+            currentFormat = format;
+            currentStageIdx = 0;
+            timeLeft = timerConfig[format].sequence[0].time;
+            affPrepLeft = timerConfig[format].prep;
+            negPrepLeft = timerConfig[format].prep;
+            isRunning = false;
+            prepActive = null;
+            clearInterval(timerInterval);
+            
+            document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('timer-btn-active'));
+            document.getElementById(`format-${format}`).classList.add('timer-btn-active');
+            
+            document.getElementById('ld-settings').style.display = format === 'LD' ? 'flex' : 'none';
+            
+            updateTimerUI();
+            renderSpeechQueue();
+        }
+
+        function setLDPrep(seconds) {
+            timerConfig.LD.prep = seconds;
+            affPrepLeft = seconds;
+            negPrepLeft = seconds;
+            document.getElementById('ld-prep-240').classList.toggle('timer-btn-active', seconds === 240);
+            document.getElementById('ld-prep-300').classList.toggle('timer-btn-active', seconds === 300);
+            updateTimerUI();
+        }
+
+        function updateTimerUI() {
+            const stage = timerConfig[currentFormat].sequence[currentStageIdx];
+            document.getElementById('timer-stage-label').innerText = `${stage.name} (${Math.floor(stage.time/60)}:00)`;
+            
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timer-start-pause').innerText = isRunning ? 'Pause' : 'Start';
+            
+            const amins = Math.floor(affPrepLeft / 60);
+            const asecs = affPrepLeft % 60;
+            document.getElementById('prep-aff-display').innerText = `${amins.toString().padStart(2, '0')}:${asecs.toString().padStart(2, '0')}`;
+            document.getElementById('prep-aff-btn').innerText = prepActive === 'aff' ? 'Stop' : 'Start';
+            
+            const nmins = Math.floor(negPrepLeft / 60);
+            const nsecs = negPrepLeft % 60;
+            document.getElementById('prep-neg-display').innerText = `${nmins.toString().padStart(2, '0')}:${nsecs.toString().padStart(2, '0')}`;
+            document.getElementById('prep-neg-btn').innerText = prepActive === 'neg' ? 'Stop' : 'Start';
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                isRunning = false;
+                clearInterval(timerInterval);
+            } else {
+                prepActive = null; 
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerUI();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        playBeep();
+                        updateTimerUI();
+                    }
+                }, 1000);
+            }
+            updateTimerUI();
+        }
+
+        function togglePrep(side) {
+            if (prepActive === side) {
+                prepActive = null;
+                clearInterval(timerInterval);
+            } else {
+                isRunning = false; 
+                prepActive = side;
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    if (side === 'aff' && affPrepLeft > 0) {
+                        affPrepLeft--;
+                    } else if (side === 'neg' && negPrepLeft > 0) {
+                        negPrepLeft--;
+                    } else {
+                        clearInterval(timerInterval);
+                        prepActive = null;
+                        playBeep();
+                    }
+                    updateTimerUI();
+                }, 1000);
+            }
+            updateTimerUI();
+        }
+
+        function resetPrep(side) {
+            if (side === 'aff') affPrepLeft = timerConfig[currentFormat].prep;
+            else negPrepLeft = timerConfig[currentFormat].prep;
+            if (prepActive === side) {
+                prepActive = null;
+                clearInterval(timerInterval);
+            }
+            updateTimerUI();
+        }
+
+        function resetTimer() {
+            timeLeft = timerConfig[currentFormat].sequence[currentStageIdx].time;
+            isRunning = false;
+            prepActive = null;
+            clearInterval(timerInterval);
+            updateTimerUI();
+        }
+
+        function jumpToStage(idx) {
+            currentStageIdx = idx;
+            timeLeft = timerConfig[currentFormat].sequence[currentStageIdx].time;
+            isRunning = false;
+            prepActive = null;
+            clearInterval(timerInterval);
+            updateTimerUI();
+            renderSpeechQueue();
+        }
+
+        function nextStage() {
+            if (currentStageIdx < timerConfig[currentFormat].sequence.length - 1) {
+                jumpToStage(currentStageIdx + 1);
+            }
+        }
+
+        function renderSpeechQueue() {
+            const container = document.getElementById('speech-queue');
+            container.innerHTML = timerConfig[currentFormat].sequence.map((s, idx) => `
+                <div onclick="jumpToStage(${idx})" class="speech-item ${idx === currentStageIdx ? 'speech-item-active' : 'opacity-40'}">
+                    <span class="text-[10px] font-bold uppercase tracking-widest">${s.name}</span>
+                    <span class="text-[10px] font-mono">${Math.floor(s.time/60)}:00</span>
+                </div>
+            `).join('');
+        }
+
+        // SCREW CALCULATOR LOGIC
+        function factorial(n) {
+            if (n === 0) return 1;
+            let res = 1;
+            for (let i = 1; i <= n; i++) res *= i;
+            return res;
+        }
+
+        function nCr(n, r) {
+            if (r < 0 || r > n) return 0;
+            return factorial(n) / (factorial(r) * factorial(n - r));
+        }
+
+        function toggleCustomBreak() {
+            const val = document.getElementById('screw-break').value;
+            document.getElementById('custom-break-container').classList.toggle('hidden', val !== 'custom');
+        }
+
+        function calculateScrew() {
+            const entries = parseInt(document.getElementById('screw-entries').value);
+            const rounds = parseInt(document.getElementById('screw-rounds').value);
+            const breakSelect = document.getElementById('screw-break').value;
+            const breakSize = breakSelect === 'custom' ? parseInt(document.getElementById('screw-custom-break').value) : parseInt(breakSelect);
+            
+            const resultsDiv = document.getElementById('screw-results');
+            const verdictDiv = document.getElementById('screw-verdict-text');
+            const chartDiv = document.getElementById('screw-chart-container');
+
+            resultsDiv.classList.remove('hidden');
+
+            const distribution = [];
+            for (let wins = rounds; wins >= 0; wins--) {
+                const prob = nCr(rounds, wins) / Math.pow(2, rounds);
+                const count = Math.round(entries * prob * 10) / 10;
+                distribution.push({ wins, count, losses: rounds - wins });
+            }
+
+            let slotsLeft = breakSize;
+            let bubbleRecord = null;
+            let bubbleScrewCount = 0;
+            let bubbleTotalAtRecord = 0;
+
+            for (let i = 0; i < distribution.length; i++) {
+                const item = distribution[i];
+                if (slotsLeft >= item.count) {
+                    slotsLeft -= item.count;
+                } else if (slotsLeft > 0) {
+                    bubbleRecord = `${item.wins}-${item.losses}`;
+                    bubbleTotalAtRecord = item.count;
+                    bubbleScrewCount = Math.round((item.count - slotsLeft) * 10) / 10;
+                    slotsLeft = 0;
+                }
+            }
+
+            if (bubbleRecord) {
+                const percent = Math.round((bubbleScrewCount / bubbleTotalAtRecord) * 100);
+                verdictDiv.innerHTML = `Approximately <span class="text-red-500 font-bold">${bubbleScrewCount} out of ${bubbleTotalAtRecord}</span> debaters with a <strong>${bubbleRecord}</strong> record will miss the break.<br><br>The <span class="text-red-500 font-bold">${bubbleRecord} Screw probability is ${percent}%</span>.`;
+            } else {
+                verdictDiv.innerHTML = `<span class="text-green-600 font-bold">Clear Break</span>: All debaters with competitive records are projected to break without a screw.`;
+            }
+
+            const maxCount = Math.max(...distribution.map(d => d.count));
+            chartDiv.innerHTML = distribution.map(d => {
+                const isBubble = `${d.wins}-${d.losses}` === bubbleRecord;
+                const width = (d.count / maxCount) * 100;
+                return `
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 text-[10px] font-bold text-gray-500">${d.wins}-${d.losses}</div>
+                        <div class="flex-grow chart-bar">
+                            <div class="chart-bar-fill ${isBubble ? 'bubble-danger' : ''}" style="width: ${width}%"></div>
+                        </div>
+                        <div class="w-12 text-[10px] font-bold text-[#051C2C]">${d.count}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // CAROUSEL NAVIGATION
+        function scrollCarousel(id, offset) {
+            const el = document.getElementById(id);
+            if (el) el.scrollLeft += offset;
+        }
+
+        function triggerGlobalSearch() {
+            showPage('hub');
+            setTimeout(() => {
+                document.getElementById('resource-search').focus();
+            }, 100);
+        }
+        
+        function scrollToCollaborators() {
+            showPage('team');
+            setTimeout(() => {
+                const el = document.getElementById('collaborators-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        let chatHistoryRes = [];
+        let chatHistoryFaq = [];
+
+        function initHub() {
+            const container = document.getElementById('resource-hub-container');
+            const counter = document.getElementById('resource-counter');
+            if (!container) return;
+
+            resourceCategories.forEach(cat => {
+                cat.resources.sort((a, b) => {
+                    const aGit = a.title.toLowerCase().includes('github') || (a.keywords && a.keywords.includes('github'));
+                    const bGit = b.title.toLowerCase().includes('github') || (b.keywords && b.keywords.includes('github'));
+                    if (aGit && !bGit) return 1;
+                    if (!aGit && bGit) return -1;
+                    return 0;
+                });
+            });
+
+            const total = resourceCategories.reduce((acc, cat) => acc + cat.resources.length, 0);
+            counter.innerText = total;
+
+            container.innerHTML = resourceCategories.map((cat, idx) => `
+                <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-8 border-y border-gray-100 mt-4">
+                    <h3 class="mck-serif text-xl text-[#051C2C] mb-6 pb-2 border-b border-gray-200">${cat.title}</h3>
+                    <div class="carousel-wrapper">
+                        <div class="nav-arrow nav-arrow-left" onclick="scrollCarousel('cat-carousel-${idx}', -320)"><i class="fas fa-chevron-left"></i></div>
+                        <div id="cat-carousel-${idx}" class="carousel-container pb-4">
+                            ${cat.resources.map(res => `
+                                <a href="${res.link}" target="${res.type === 'internal' ? '_self' : '_blank'}" class="carousel-card ${res.type === 'internal' ? 'accent-blue' : 'accent-gray'} resource-item-card resource-hub-card" data-title="${res.title}" data-desc="${res.desc}" data-keywords="${res.keywords || ''}" ${res.type === 'internal' ? `onclick="showPage('${res.link.replace('#','')}')"` : ''}>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="res-label ${res.type === 'internal' ? 'label-internal' : 'label-external'}">${res.type}</span>
+                                            <span class="text-[11px] block mt-1 font-bold uppercase tracking-widest text-[#051C2C]">${res.title}</span>
+                                        </div>
+                                        <i class="${res.icon} text-blue-100 text-lg"></i>
+                                    </div>
+                                    <p class="text-[11px] text-gray-500 leading-tight mt-1 line-clamp-3">${res.desc}</p>
+                                    <div class="flex justify-between items-center mt-auto">
+                                        <span class="text-[8px] font-bold uppercase tracking-widest text-gray-400">Access</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
+                        <div class="nav-arrow nav-arrow-right" onclick="scrollCarousel('cat-carousel-${idx}', 320)"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initLectures() {
+            const container = document.getElementById('lectures-container');
+            const counter = document.getElementById('lecture-counter');
+            if (!container) return;
+
+            const total = lectureCategories.reduce((acc, cat) => acc + cat.lectures.length, 0);
+            counter.innerText = total;
+
+            // Sort categories by lecture count (desc); ties keep original order
+            // because Array.prototype.sort is stable (ES2019+).
+            const sortedCategories = [...lectureCategories].sort(
+                (a, b) => b.lectures.length - a.lectures.length
+            );
+
+            container.innerHTML = sortedCategories.map((cat, idx) => `
+                <div class="resource-category-section ${cat.bgColor} -mx-12 px-12 py-8 border-y border-gray-100 mt-4">
+                    <h3 class="mck-serif text-xl text-[#051C2C] mb-6 pb-2 border-b border-gray-200">${cat.title}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${cat.lectures.length === 0 ? `<p class="text-gray-400 italic text-xs py-4">Category pending population...</p>` : cat.lectures.map(lec => `
+                            <div class="video-card rounded-sm overflow-hidden flex flex-col lecture-item-card" data-title="${lec.title}" data-desc="${lec.desc}">
+                                <div class="video-embed-container">
+                                    <iframe src="https://www.youtube.com/embed/${lec.youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <div class="p-6">
+                                    <span class="text-[8px] font-bold uppercase tracking-widest text-[#0072b1] mb-2 block">${lec.category}</span>
+                                    <h4 class="mck-serif text-lg text-[#051C2C] mb-2">${lec.title}</h4>
+                                    <p class="text-xs text-gray-500 leading-relaxed">${lec.desc}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterResources() {
+            const query = document.getElementById('resource-search').value.toLowerCase();
+            document.querySelectorAll('.resource-item-card').forEach(card => {
+                const searchStr = (card.getAttribute('data-title') + card.getAttribute('data-desc') + card.getAttribute('data-keywords')).toLowerCase();
+                card.style.display = searchStr.includes(query) ? 'flex' : 'none';
+            });
+            document.querySelectorAll('#resource-hub-container .resource-category-section').forEach(sec => {
+                const visible = Array.from(sec.querySelectorAll('.resource-item-card')).some(c => c.style.display === 'flex');
+                sec.style.display = visible ? 'block' : 'none';
+            });
+        }
+
+        function filterLectures() {
+            const query = document.getElementById('lecture-search').value.toLowerCase();
+            document.querySelectorAll('.lecture-item-card').forEach(card => {
+                const searchStr = (card.getAttribute('data-title') + card.getAttribute('data-desc')).toLowerCase();
+                card.style.display = searchStr.includes(query) ? 'flex' : 'none';
+            });
+            document.querySelectorAll('#lectures-container .resource-category-section').forEach(sec => {
+                const visible = Array.from(sec.querySelectorAll('.lecture-item-card')).some(c => c.style.display === 'flex');
+                sec.style.display = visible ? 'block' : 'none';
+            });
+        }
+
+        function initFaq() {
+            const list = document.getElementById('faq-list');
+            if (!list) return;
+            list.innerHTML = faqContent.map((item) => `
+                <div class="faq-item" onclick="this.classList.toggle('active')">
+                    <div class="faq-question">
+                        <span class="text-sm font-bold uppercase tracking-widest text-[#051C2C]">${item.q}</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer"><p class="text-sm text-gray-600">${item.a}</p></div>
+                </div>
+            `).join('');
+        }
+
+        function initTeam() {
+            const grid = document.getElementById('team-grid');
+            if (!grid) return;
+            grid.innerHTML = teamData.map((member, index) => `
+                <div class="team-card py-12 px-2">
+                    <img src="${member.image}" alt="${member.name}" class="profile-img" style="${member.customStyle || ''}" onerror="this.src='https://via.placeholder.com/600/051C2C/FFFFFF?text=${member.name}'">
+                    <span class="text-[#0072b1] text-[10px] font-bold uppercase tracking-[0.3em]">${member.role}</span>
+                    <h3 class="mck-serif text-3xl text-[#051C2C] mt-4 mb-8">${member.name}</h3>
+                    <button onclick="toggleDepth(${index})" class="text-[10px] font-bold uppercase tracking-widest text-[#051C2C]">Full Profile +</button>
+                    <div id="depth-${index}" class="expand-content"><div class="py-8 text-gray-600 text-sm leading-relaxed border-t mt-6">${member.depth}</div></div>
+                </div>
+            `).join('');
+        }
+
+        function initCollaborators() {
+            const list = document.getElementById('collaborators-list');
+            if (!list) return;
+            list.innerHTML = collaboratorData.map(c => `
+                <div class="pb-10">
+                    <span class="font-bold text-[#051C2C] text-lg block">${c.name}</span>
+                    <p class="text-xs text-gray-500 italic mt-1 leading-relaxed">${c.bio}</p>
+                </div>
+            `).join('');
+        }
+
+        function toggleDepth(index) { document.getElementById(`depth-${index}`).classList.toggle('active'); }
+
+        const PAGE_META = {
+            home: {
+                title: 'Debate 101 | Cascade Flowing App, Card Cutter & Open Source Debate Tools',
+                description: 'Debate 101 — free, open-source tools for LD, Policy, PF and Parli debate. Cascade is our keyboard-first flowing app (web and desktop) with .ebb, .docx and .xlsx import. Plus 100+ curated debate resources, lectures, and prep tools.',
+            },
+            hub: {
+                title: 'Global Debate Resource Hub | Debate 101',
+                description: 'Browse 100+ curated debate tools, camps, research databases, timers, and prep utilities for LD, Policy, PF and Parli — the largest open debate resource catalog.',
+            },
+            lectures: {
+                title: 'Debate101 Lectures | LD, Policy, K, Phil & LARP | Debate 101',
+                description: 'Free video lecture archive for competitive debate: Kritiks, philosophy, LARP, lay debate, practice rounds, and tournament footage.',
+            },
+            faq: {
+                title: 'Debate FAQ — AFF, NEG, Kritiks, Theory & More | Debate 101',
+                description: 'Answers to common debate questions: what is flowing, LD vs Policy, Kritiks, counterplans, topicality, theory, spreading, disclosure, and permutations.',
+            },
+            team: {
+                title: 'Our Team | Debate 101 Collective',
+                description: 'Meet the Debate 101 leadership and collaborators building open-source tools and resources for competitive debate.',
+            },
+            tools: {
+                title: 'Resolution AI | Debate 101',
+                description: 'AI-powered resolution analysis for competitive debate — map offensive paths, framework clashes, and strategic angles.',
+            },
+            timer: {
+                title: 'Architect Timer | Debate 101',
+                description: 'High-precision tournament timer for LD, Policy, and PF with automated speech sequences and prep tracking.',
+            },
+            screw: {
+                title: 'Screw Calculator | Debate 101',
+                description: 'Probabilistic outround break and bubble-round estimator for tournament debaters.',
+            },
+        };
+
+        function setPageMeta(pageId) {
+            const meta = PAGE_META[pageId] || PAGE_META.home;
+            document.title = meta.title;
+            const desc = document.querySelector('meta[name="description"]');
+            if (desc) desc.setAttribute('content', meta.description);
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', meta.title);
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', meta.description);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) {
+                target.classList.remove('hidden');
+                if (history.pushState) history.pushState(null, null, '#' + pageId);
+                else location.hash = '#' + pageId;
+                setPageMeta(pageId);
+            }
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            if (menuOverlay.classList.contains('active')) toggleMobileMenu();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu-overlay');
+            menu.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            showPage('home');
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+
+        /* ------------------------------------------------------------------
+           ON-DEVICE AI
+
+           Every AI feature on this site runs a language model inside the
+           visitor's own browser. Nothing is sent to a server, there is no API
+           key, and there is no per-question cost or quota — which is why the
+           rate limiting this block used to hold is gone.
+
+           The model is SmolLM2-135M-Instruct at 4-bit quantization, chosen for
+           being about the smallest instruction-tuned model that still answers
+           in sentences: roughly 100 MB downloaded once into Cache Storage, and
+           in the low hundreds of MB of RAM while it runs. It is small enough
+           that it will be confidently wrong on occasion, so the UI says so
+           rather than dressing its output up as authoritative.
+
+           It loads lazily and only on an explicit click. A visitor who never
+           touches the AI pages never downloads a byte of it.
+           ------------------------------------------------------------------ */
+        /*
+           Backend choice, measured rather than assumed. Same model, same
+           prompt, 100 tokens, this machine:
+
+             q4    + wasm     3.5 tok/s   coherent   (the slow original)
+             q8    + wasm    27.8 tok/s   coherent
+             fp16  + webgpu  55.1 tok/s   coherent
+             fp32  + webgpu  62.6 tok/s   coherent
+             q4f16 + webgpu  84.6 tok/s   coherent   <- chosen
+
+           Two things worth knowing. First, plain `q4` is a WASM-oriented
+           quantization; asking WebGPU to run it produced fluent-looking token
+           soup, which is what made WebGPU look broken. `q4f16` — 4-bit weights
+           with fp16 compute — is the variant the GPU path actually wants, and
+           it is both the fastest and the smallest download. Second, `q4` is
+           *slower* than `q8` on WASM, because 4-bit weights are dequantized on
+           every operation, so the smallest file was also the slowest run.
+        */
+        const AI_MODEL = {
+            repo: 'HuggingFaceTB/SmolLM2-135M-Instruct',
+            label: 'SmolLM2 135M Instruct',
+            lib: 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.1',
+            gpu: { dtype: 'q4f16', device: 'webgpu', approxMB: 100, name: 'WebGPU' },
+            cpu: { dtype: 'q8', device: 'wasm', approxMB: 135, name: 'CPU' }
+        };
+        const AI_BACKEND_KEY = 'd1.ai.backend';
+
+        /** The backend to use: the user's override, else WebGPU when present. */
+        function aiVariant() {
+            let forced = null;
+            try { forced = localStorage.getItem(AI_BACKEND_KEY); } catch (e) { /* private mode */ }
+            if (forced === 'cpu') return AI_MODEL.cpu;
+            if (forced === 'gpu') return AI_MODEL.gpu;
+            return ('gpu' in navigator) ? AI_MODEL.gpu : AI_MODEL.cpu;
+        }
+
+        let aiPipelinePromise = null;   // set once loading starts
+        let aiPipeline = null;          // set once ready
+        let aiBusy = false;
+        let aiStopFlag = false;
+
+        function aiState() {
+            if (aiPipeline) return 'ready';
+            if (aiPipelinePromise) return 'loading';
+            return 'idle';
+        }
+
+        const AI_LINK_STYLE = 'text-decoration:underline;text-transform:none;letter-spacing:0;font-weight:700;color:var(--accent)';
+
+        function aiLink(label, onClick) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = label;
+            btn.style.cssText = AI_LINK_STYLE;
+            btn.addEventListener('click', onClick);
+            return btn;
+        }
+
+        /** Paint every model-status strip on the page. */
+        function renderAiStatus(detail) {
+            const variant = aiVariant();
+            document.querySelectorAll('[data-ai-quota]').forEach(node => {
+                const state = aiState();
+                node.textContent = '';
+
+                if (state === 'ready') {
+                    const dot = document.createElement('span');
+                    dot.style.color = 'var(--accent)';
+                    dot.textContent = '● ';
+                    node.append(dot, AI_MODEL.label + ' · ' + (aiPipeline.__backend || variant.name) +
+                        ' — runs on your device, nothing uploaded. It is a very small model, ' +
+                        'so check anything it tells you. ');
+                    // GPU drivers vary, and a bad one shows up as fluent
+                    // nonsense rather than an error. Give the reader the switch
+                    // rather than making them guess what went wrong.
+                    if ((aiPipeline.__backend || variant.name) === 'WebGPU') {
+                        node.append(aiLink('Answers look wrong? Use CPU mode', () => setAiBackend('cpu')));
+                    } else if ('gpu' in navigator) {
+                        node.append(aiLink('Try GPU mode (faster)', () => setAiBackend('gpu')));
+                    }
+                } else if (state === 'loading') {
+                    node.append(detail || 'Loading the model…');
+                } else {
+                    node.append('Runs a small AI model in your browser · ~' + variant.approxMB +
+                        ' MB, downloaded once · ' + variant.name + ' · ');
+                    node.append(aiLink('Load it now', preloadModel));
+                }
+            });
+        }
+
+        /** Switch backend and rebuild the pipeline against the new one. */
+        function setAiBackend(which) {
+            try { localStorage.setItem(AI_BACKEND_KEY, which); } catch (e) { /* private mode */ }
+            aiPipeline = null;
+            aiPipelinePromise = null;
+            renderAiStatus();
+            if (window.d1) {
+                window.d1.toast(which === 'cpu'
+                    ? 'Switched to CPU mode — slower, but the most compatible'
+                    : 'Switched to GPU mode');
+            }
+            preloadModel();
+        }
+
+        /** Fetch the weights ahead of the first question. */
+        async function preloadModel() {
+            if (aiPipelinePromise) return;
+            try {
+                await ensureModel((pct, mb, device) =>
+                    renderAiStatus('Downloading — ' + pct + '% (' + mb + ' MB) · ' + device.toUpperCase()));
+                if (window.d1) window.d1.toast('Model ready — it runs offline from now on');
+            } catch (e) {
+                console.error('[local-ai] preload failed', e);
+                renderAiStatus('Could not load the model. Everything else on the site still works.');
+            }
+            renderAiStatus();
+        }
+
+        /**
+         * Load the model, reporting progress. Resolves to a text-generation
+         * pipeline. Concurrent callers share one download.
+         */
+        function ensureModel(onProgress) {
+            if (aiPipelinePromise) return aiPipelinePromise;
+
+            aiPipelinePromise = (async () => {
+                const { pipeline, TextStreamer } = await import(AI_MODEL.lib);
+                window.__aiTextStreamer = TextStreamer;
+
+                const variant = aiVariant();
+                const device = variant.device;
+
+                const files = new Map();
+                const generator = await pipeline('text-generation', AI_MODEL.repo, {
+                    dtype: variant.dtype,
+                    device,
+                    progress_callback: (p) => {
+                        if (!p || !p.file) return;
+                        if (p.status === 'progress' && typeof p.loaded === 'number') {
+                            files.set(p.file, { loaded: p.loaded, total: p.total || 0 });
+                        } else if (p.status === 'done') {
+                            const f = files.get(p.file);
+                            if (f) f.loaded = f.total;
+                        }
+                        let loaded = 0, total = 0;
+                        files.forEach(f => { loaded += f.loaded; total += f.total; });
+                        const pct = total ? Math.min(99, Math.round((loaded / total) * 100)) : 0;
+                        const mb = (loaded / 1048576).toFixed(0);
+                        onProgress && onProgress(pct, mb, device);
+                    }
+                });
+
+                aiPipeline = generator;
+                aiPipeline.__device = device;
+                aiPipeline.__backend = variant.name;
+                return generator;
+            })();
+
+            aiPipelinePromise.catch(() => {
+                // A failed load must not poison every later attempt.
+                aiPipelinePromise = null;
+            });
+
+            return aiPipelinePromise;
+        }
+
+        const AI_SYSTEM = {
+            res: 'You are a debate coach. Given a resolution, give a short, concrete breakdown: ' +
+                 '2-3 affirmative arguments and 2-3 negative arguments. Be brief and use short bullet points.',
+            faq: 'You are a debate coach answering a question from a high school debater. ' +
+                 'Answer in 2-4 short sentences. Be concrete and plain-spoken.'
+        };
+
+        /** Trim a conversation so a long chat cannot blow up the context window. */
+        function trimHistory(store, keep = 6) {
+            const overflow = store.length - keep;
+            if (overflow > 0) store.splice(0, overflow);
+            return store;
+        }
+
+        async function analyzeTopic(type) {
+            const inputId = type === 'res' ? 'resolution-input' : 'faq-input';
+            const msgId = type === 'res' ? 'chat-messages-res' : 'chat-messages-faq';
+            const loadingId = type === 'res' ? 'chat-loading-res' : 'chat-loading-faq';
+            const historyStore = type === 'res' ? chatHistoryRes : chatHistoryFaq;
+            const inputField = document.getElementById(inputId);
+            const rawInput = inputField.value.trim();
+            if (!rawInput) return;
+
+            if (aiBusy) {
+                appendMessage('architect', 'Still thinking about the last one — one at a time.', msgId);
+                return;
+            }
+
+            const loading = document.getElementById(loadingId);
+            appendMessage('user', rawInput, msgId);
+            inputField.value = '';
+            aiBusy = true;
+            setAiControlsEnabled(false);
+            loading.classList.remove('hidden');
+
+            // The reply element is created up front so tokens can stream into
+            // it as they are produced — on a small model on WASM that is the
+            // difference between "responsive" and "frozen".
+            const replyEl = appendMessage('architect', '', msgId);
+            const body = replyEl ? replyEl.querySelector('.ai-content') : null;
+            if (body) body.textContent = '…';
+
+            try {
+                if (!aiPipeline) {
+                    if (body) body.textContent = 'Downloading the model (about ' + aiVariant().approxMB + ' MB). This happens once — after that it works offline.';
+                    await ensureModel((pct, mb, device) => {
+                        renderAiStatus('Loading the model — ' + pct + '% (' + mb + ' MB) · ' + device.toUpperCase());
+                        if (body) body.textContent = 'Downloading the model — ' + pct + '% (' + mb + ' MB read). One time only.';
+                    });
+                    renderAiStatus();
+                }
+
+                historyStore.push({ role: 'user', content: rawInput });
+                trimHistory(historyStore);
+
+                const messages = [{ role: 'system', content: AI_SYSTEM[type] || AI_SYSTEM.faq }]
+                    .concat(historyStore);
+
+                let text = '';
+                if (body) body.textContent = '';
+                const Streamer = window.__aiTextStreamer;
+                const streamer = Streamer ? new Streamer(aiPipeline.tokenizer, {
+                    skip_prompt: true,
+                    skip_special_tokens: true,
+                    callback_function: (chunk) => {
+                        if (aiStopFlag) return;
+                        text += chunk;
+                        if (body) body.textContent = text;
+                        const container = document.getElementById(msgId);
+                        if (container) container.scrollTop = container.scrollHeight;
+                    }
+                }) : null;
+
+                // Greedy decoding. Sampling at any temperature this model can
+                // hold turned coherent answers into word salad — at 135M
+                // parameters there is no probability mass to spare.
+                const out = await aiPipeline(messages, {
+                    max_new_tokens: type === 'res' ? 200 : 140,
+                    do_sample: false,
+                    repetition_penalty: 1.1,
+                    streamer
+                });
+
+                // The streamer already painted the text; this is the
+                // authoritative copy and the fallback when streaming is absent.
+                let final = text;
+                try {
+                    const generated = out[0].generated_text;
+                    if (Array.isArray(generated)) final = generated.at(-1).content || text;
+                    else if (typeof generated === 'string' && !text) final = generated;
+                } catch (e) { /* keep the streamed text */ }
+
+                final = (final || '').trim() || 'That came back empty — try rephrasing the question.';
+                historyStore.push({ role: 'assistant', content: final });
+                trimHistory(historyStore);
+                if (body) body.innerHTML = formatAiResponse(final);
+            } catch (e) {
+                console.error('[local-ai]', e);
+                const offline = !navigator.onLine;
+                if (body) {
+                    body.textContent = offline
+                        ? 'The model has not been downloaded yet and you are offline. Reconnect once to fetch it, then it works offline forever.'
+                        : 'The model could not run in this browser. It needs a recent Chrome, Edge, Firefox or Safari with enough memory — everything else on the site works without it.';
+                }
+            } finally {
+                loading.classList.add('hidden');
+                aiBusy = false;
+                aiStopFlag = false;
+                setAiControlsEnabled(true);
+                renderAiStatus();
+            }
+        }
+
+        /** Grey out both chat inputs while a generation is in flight. */
+        function setAiControlsEnabled(enabled) {
+            ['resolution-input', 'faq-input'].forEach(id => {
+                const field = document.getElementById(id);
+                if (field) field.disabled = !enabled;
+            });
+            document.querySelectorAll('[data-ai-send]').forEach(btn => {
+                btn.disabled = !enabled;
+                btn.style.opacity = enabled ? '' : '0.5';
+                btn.style.cursor = enabled ? '' : 'not-allowed';
+            });
+        }
+
+        /** Kept under its old name so existing callers keep working. */
+        function renderAiQuota() {
+            renderAiStatus();
+        }
+
+        function appendMessage(role, text, containerId) {
+            const container = document.getElementById(containerId);
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${role === 'user' ? 'message-user' : 'message-architect'}`;
+            msgDiv.innerHTML = `
+                ${role === 'architect' ? `<p class="text-[10px] font-bold uppercase tracking-widest text-[#0072b1] mb-2">Architect AI</p>` : ''}
+                <div class="ai-content">${formatAiResponse(text)}</div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+            // Returned so a caller can stream tokens into this exact bubble
+            // instead of appending a new one per chunk.
+            return msgDiv;
+        }
+
+        function formatAiResponse(text) {
+            // Escape HTML first so model output can never inject markup.
+            const escape = (s) => s
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Inline markdown: bold, italic, inline code.
+            const inline = (s) => escape(s)
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/(^|[^*])\*(?!\s)(.+?)\*/g, '$1<em>$2</em>')
+                .replace(/`([^`]+?)`/g, '<code>$1</code>');
+
+            const lines = text.replace(/\r\n/g, '\n').split('\n');
+            const html = [];
+            let listType = null;       // 'ul' | 'ol' | null
+            let para = [];             // buffered plain-text lines for a paragraph
+
+            const flushPara = () => {
+                if (para.length) { html.push(`<p>${para.map(inline).join('<br>')}</p>`); para = []; }
+            };
+            const closeList = () => {
+                if (listType) { html.push(`</${listType}>`); listType = null; }
+            };
+            const openList = (type) => {
+                if (listType !== type) { closeList(); html.push(`<${type}>`); listType = type; }
+            };
+
+            for (const raw of lines) {
+                const line = raw.trim();
+                if (!line) { flushPara(); closeList(); continue; }
+
+                const header = line.match(/^#{1,6}\s+(.*)$/);
+                const bullet = line.match(/^[-*+]\s+(.*)$/);
+                const numbered = line.match(/^\d+\.\s+(.*)$/);
+
+                if (header) {
+                    flushPara(); closeList();
+                    html.push(`<h4>${inline(header[1])}</h4>`);
+                } else if (bullet) {
+                    flushPara(); openList('ul');
+                    html.push(`<li>${inline(bullet[1])}</li>`);
+                } else if (numbered) {
+                    flushPara(); openList('ol');
+                    html.push(`<li>${inline(numbered[1])}</li>`);
+                } else {
+                    closeList();
+                    para.push(line);
+                }
+            }
+            flushPara(); closeList();
+            return html.join('');
+        }
+
+        // --- Scroll-tied "lift away" effect for sections leaving the top of viewport.
+        // Sets a CSS var --past (0..1) on each section based on how far its top
+        // edge has scrolled above the viewport. CSS reads --past to apply a small
+        // translate + scale + opacity falloff. rAF-throttled so it stays smooth. ---
+        let _scrollRafPending = false;
+        function updateSectionPast() {
+            _scrollRafPending = false;
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                const r = sec.getBoundingClientRect();
+                // 0 while top of section is at/below viewport top;
+                // grows to 1 once the section has scrolled fully above the viewport.
+                const past = Math.max(0, Math.min(1, -r.top / Math.max(r.height, 1)));
+                if (past > 0) sec.style.setProperty('--past', past.toFixed(3));
+                else sec.style.removeProperty('--past');
+            });
+        }
+        function onScrollOrResize() {
+            if (_scrollRafPending) return;
+            _scrollRafPending = true;
+            requestAnimationFrame(updateSectionPast);
+        }
+        function setupSectionScrollFx() {
+            window.addEventListener('scroll', onScrollOrResize, { passive: true });
+            window.addEventListener('resize', onScrollOrResize);
+            updateSectionPast();
+        }
+
+        async function loadSiteContent() {
+            try {
+                const res = await fetch('data/content.json', { cache: 'no-cache' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+                resourceCategories = data.resources || [];
+                lectureCategories  = data.lectures  || [];
+                teamData           = data.team      || [];
+                collaboratorData   = data.collaborators || [];
+                faqContent         = data.faq       || [];
+            } catch (e) {
+                console.error('[debate101] Failed to load data/content.json:', e);
+                console.error('[debate101] If you are opening index.html via file:// the fetch will fail. Run a local web server instead (e.g. `python3 -m http.server`).');
+            }
+        }
+
+        window.onload = async () => {
+            await loadSiteContent();
+
+            const hash = location.hash.replace('#', '') || 'home';
+            showPage(hash);
+            initHub();
+            initLectures();
+            initTeam();
+            initCollaborators();
+            initFaq();
+            setTimerFormat('LD');
+            setupSectionScrollFx();
+            renderAiQuota();
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+        };
+
+        window.onpopstate = () => {
+            const hash = location.hash.replace('#', '') || 'home';
+            showPage(hash);
+        };
+    </script>
+
+    <!-- ==================================================================
+         UI LAYER — behaviour.
+
+         Everything here builds its own DOM and wraps existing functions
+         rather than editing the markup above, so the page keeps working
+         exactly as before if this script is removed. Each block bails out
+         quietly when the element it wants is absent.
+         ================================================================== -->
+    <script>
+    (function () {
+        "use strict";
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /**
+         * Run an update inside a View Transition when the browser can, and
+         * plainly when it cannot. The API rejects its `finished` promise if a
+         * transition is superseded or the document is hidden — both are normal,
+         * neither is an error worth surfacing, and an uncaught rejection in the
+         * console is noise a real bug would then hide behind.
+         */
+        function withTransition(update) {
+            if (!document.startViewTransition || reduceMotion || document.hidden) return update();
+            let transition;
+            try {
+                transition = document.startViewTransition(update);
+            } catch (e) {
+                return update();
+            }
+            if (transition && transition.finished) transition.finished.catch(() => {});
+            if (transition && transition.updateCallbackDone) transition.updateCallbackDone.catch(() => {});
+            if (transition && transition.ready) transition.ready.catch(() => {});
+        }
+        const el = (tag, props = {}, ...kids) => {
+            const n = document.createElement(tag);
+            for (const [k, v] of Object.entries(props)) {
+                if (k === "class") n.className = v;
+                else if (k === "html") n.innerHTML = v;
+                else if (k === "text") n.textContent = v;
+                else if (k.startsWith("on")) n.addEventListener(k.slice(2).toLowerCase(), v);
+                else if (v !== null && v !== false) n.setAttribute(k, v);
+            }
+            kids.flat().forEach(c => c && n.append(c instanceof Node ? c : document.createTextNode(c)));
+            return n;
+        };
+
+        /* ---------------------------------------------------------------
+           Theme. Applied before first paint by the inline bootstrap below,
+           so there is no flash of the wrong theme on reload.
+           --------------------------------------------------------------- */
+        const THEME_KEY = "d1.theme";
+        function currentTheme() {
+            return document.documentElement.getAttribute("data-theme") || "light";
+        }
+        function setTheme(name, announce) {
+            document.documentElement.setAttribute("data-theme", name);
+            try { localStorage.setItem(THEME_KEY, name); } catch (e) { /* private mode */ }
+            document.querySelectorAll("[data-theme-icon]").forEach(i => {
+                i.className = name === "dark" ? "fas fa-sun" : "fas fa-moon";
+            });
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", name === "dark" ? "#060f18" : "#051C2C");
+            if (announce) toast(name === "dark" ? "Dark mode" : "Light mode");
+        }
+        function toggleTheme() {
+            const next = currentTheme() === "dark" ? "light" : "dark";
+            // View Transitions turn the swap into one clean cross-fade instead
+            // of a hundred individual property transitions racing each other.
+            withTransition(() => setTheme(next, true));
+        }
+
+        /* --- Toasts ---------------------------------------------------- */
+        const toastHost = el("div", { id: "d1-toasts" });
+        function toast(message, ms = 2200) {
+            const t = el("div", { class: "d1-toast", text: message });
+            toastHost.append(t);
+            setTimeout(() => {
+                t.style.transition = "opacity 240ms, transform 240ms";
+                t.style.opacity = "0";
+                t.style.transform = "translateY(8px)";
+                setTimeout(() => t.remove(), 260);
+            }, ms);
+        }
+
+        /* --- Scroll progress + back to top ------------------------------ */
+        const progress = el("div", { id: "d1-progress" });
+        const topBtn = el("button", {
+            id: "d1-top",
+            type: "button",
+            "aria-label": "Back to top",
+            onclick: () => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })
+        }, el("i", { class: "fas fa-arrow-up" }));
+
+        let ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                ticking = false;
+                const doc = document.documentElement;
+                const max = doc.scrollHeight - window.innerHeight;
+                progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
+                topBtn.classList.toggle("is-on", window.scrollY > 700);
+                updateRail();
+            });
+        }
+
+        /* ---------------------------------------------------------------
+           Hero canvas — columns of light falling like a flow being written
+           down the page. Cheap: a few dozen streaks on a 2D context, paused
+           whenever the hero is offscreen or the tab is hidden.
+           --------------------------------------------------------------- */
+        function mountHero() {
+            const hero = document.querySelector(".hero-section");
+            if (!hero || reduceMotion) return;
+            const canvas = el("canvas", { id: "d1-hero-canvas", "aria-hidden": "true" });
+            hero.prepend(canvas);
+            const ctx = canvas.getContext("2d");
+            if (!ctx) return;
+
+            let w = 0, h = 0, streaks = [], running = true, raf = 0;
+            const COLS = 26;
+
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = hero.clientWidth;
+                h = hero.clientHeight;
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = w + "px";
+                canvas.style.height = h + "px";
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                streaks = Array.from({ length: COLS }, (_, i) => ({
+                    x: (i + 0.5) * (w / COLS),
+                    y: Math.random() * h,
+                    len: 60 + Math.random() * 160,
+                    speed: 0.25 + Math.random() * 0.9,
+                    alpha: 0.06 + Math.random() * 0.16
+                }));
+            }
+
+            function frame() {
+                if (!running) return;
+                ctx.clearRect(0, 0, w, h);
+                const dark = currentTheme() === "dark";
+                for (const s of streaks) {
+                    const grad = ctx.createLinearGradient(s.x, s.y - s.len, s.x, s.y);
+                    const rgb = dark ? "56, 189, 248" : "0, 114, 177";
+                    grad.addColorStop(0, `rgba(${rgb}, 0)`);
+                    grad.addColorStop(1, `rgba(${rgb}, ${s.alpha})`);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y - s.len);
+                    ctx.lineTo(s.x, s.y);
+                    ctx.stroke();
+                    s.y += s.speed;
+                    if (s.y - s.len > h) {
+                        s.y = -Math.random() * 120;
+                        s.len = 60 + Math.random() * 160;
+                        s.speed = 0.25 + Math.random() * 0.9;
+                        s.alpha = 0.06 + Math.random() * 0.16;
+                    }
+                }
+                raf = requestAnimationFrame(frame);
+            }
+
+            function start() { if (!running) { running = true; frame(); } }
+            function stop() { running = false; cancelAnimationFrame(raf); }
+
+            resize();
+            frame();
+            window.addEventListener("resize", resize);
+            document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+            new IntersectionObserver(entries => {
+                entries[0].isIntersecting ? start() : stop();
+            }, { threshold: 0 }).observe(hero);
+        }
+
+        /* --- Scroll reveal, staggered per container --------------------- */
+        function mountReveal() {
+            if (reduceMotion || !("IntersectionObserver" in window)) return;
+            const io = new IntersectionObserver(entries => {
+                for (const e of entries) {
+                    if (!e.isIntersecting) continue;
+                    e.target.classList.add("is-in");
+                    io.unobserve(e.target);
+                }
+            }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+
+            const mark = root => {
+                root.querySelectorAll("section > div > h2, section > div > h3, section h2 + p, .carousel-card, .tool-card, [data-reveal]")
+                    .forEach((n, i) => {
+                        if (n.classList.contains("d1-reveal")) return;
+                        n.classList.add("d1-reveal");
+                        n.style.setProperty("--d1-delay", Math.min(i % 8, 7) * 55 + "ms");
+                        io.observe(n);
+                    });
+            };
+            mark(document);
+            window.d1MarkReveal = mark;
+        }
+
+        /* --- Cursor spotlight on cards ---------------------------------- */
+        function mountSpotlight() {
+            document.addEventListener("pointermove", e => {
+                const card = e.target.closest && e.target.closest(".carousel-card, .tool-card, .d1-spot");
+                if (!card) return;
+                if (!card.classList.contains("d1-spot")) card.classList.add("d1-spot");
+                const r = card.getBoundingClientRect();
+                card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+                card.style.setProperty("--my", `${e.clientY - r.top}px`);
+            }, { passive: true });
+        }
+
+        /* ---------------------------------------------------------------
+           Animated counters.
+
+           These write into elements that hold a real figure the page computed
+           from its own data, so the animation is only ever allowed to borrow
+           the number briefly and must always hand back the true one. Two rules
+           follow from that: never start until the data has actually loaded
+           (the markup ships a "0" placeholder, and animating toward a
+           placeholder would freeze a wrong total on screen), and never leave a
+           partial value behind if frames stop — a background tab throttles rAF,
+           and "17 Strategic Assets" is worse than no animation at all.
+           --------------------------------------------------------------- */
+        function mountCounters() {
+            const targets = ["resource-counter", "lecture-counter"]
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+            if (!targets.length || !("IntersectionObserver" in window)) return;
+
+            /** Resolve once the element holds a real (non-zero) figure. */
+            function whenPopulated(node, cb, tries = 0) {
+                const value = parseInt(String(node.textContent).replace(/\D/g, ""), 10);
+                if (value > 0) return cb(value);
+                if (tries > 60) return; // ~6s — leave whatever the page wrote alone
+                setTimeout(() => whenPopulated(node, cb, tries + 1), 100);
+            }
+
+            const io = new IntersectionObserver(entries => {
+                for (const e of entries) {
+                    if (!e.isIntersecting) continue;
+                    const node = e.target;
+                    io.unobserve(node);
+                    if (reduceMotion) continue;
+                    whenPopulated(node, end => animateCount(node, end));
+                }
+            }, { threshold: 0.5 });
+            targets.forEach(t => io.observe(t));
+        }
+
+        /** Count up to `end`, and land exactly on it however frames behave. */
+        function animateCount(node, end) {
+            node.classList.add("d1-count");
+            const dur = 900;
+            const t0 = performance.now();
+            let done = false;
+            const finish = () => {
+                if (done) return;
+                done = true;
+                node.textContent = end;
+            };
+            const step = now => {
+                if (done) return;
+                const p = Math.min(1, (now - t0) / dur);
+                // easeOutCubic — quick off the line, settles onto the real value
+                node.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+                if (p < 1) requestAnimationFrame(step);
+                else finish();
+            };
+            requestAnimationFrame(step);
+            // rAF stops in a background tab; this timer is the guarantee that
+            // the true figure lands whatever the compositor decides to do.
+            setTimeout(finish, dur + 500);
+        }
+
+        /* ---------------------------------------------------------------
+           Command palette. The index is built from the page's own data, so
+           a resource added to content.json is searchable here for free.
+           --------------------------------------------------------------- */
+        const PAGES = [
+            { label: "Home", sub: "Overview", icon: "fas fa-house", page: "home" },
+            { label: "Resource Hub", sub: "100+ curated debate tools", icon: "fas fa-layer-group", page: "hub" },
+            { label: "Lectures", sub: "Video archive by argument style", icon: "fas fa-graduation-cap", page: "lectures" },
+            { label: "Our Team", sub: "Founders and collaborators", icon: "fas fa-users", page: "team" },
+            { label: "Architect Timer", sub: "Round timer with format presets", icon: "fas fa-stopwatch", page: "timer" },
+            { label: "Screw Calculator", sub: "Break / bubble-round estimator", icon: "fas fa-calculator", page: "screw" },
+            { label: "Resolution AI", sub: "Break down a resolution", icon: "fas fa-wand-magic-sparkles", page: "tools" },
+            { label: "FAQ & Mentor", sub: "Glossary and Q&A", icon: "fas fa-circle-question", page: "faq" }
+        ];
+        const APPS = [
+            { label: "Cascade", sub: "Our flowing app — web & desktop", icon: "fas fa-water", href: "flow/" },
+            { label: "Get Cascade for desktop", sub: "macOS, Windows, Linux", icon: "fas fa-download", href: "flow/download.html" },
+            { label: "Card Cutter", sub: "Cut and format evidence", icon: "fas fa-scissors", href: "tools/card-cutter/" },
+            { label: "Speed Trainer", sub: "Spreading practice with a WPM meter", icon: "fas fa-gauge-high", href: "tools/speed-trainer/" },
+            { label: "Round Tracker", sub: "Record, judge book, scouting book", icon: "fas fa-trophy", href: "tools/round-tracker/" }
+        ];
+        const LINKS = [
+            { label: "Discord", sub: "discord.debate101.org", icon: "fab fa-discord", href: "https://discord.debate101.org" },
+            { label: "Instagram", sub: "instagram.debate101.org", icon: "fab fa-instagram", href: "https://instagram.debate101.org" },
+            { label: "YouTube", sub: "youtube.debate101.org", icon: "fab fa-youtube", href: "https://youtube.debate101.org" },
+            { label: "GitHub", sub: "Source for everything we build", icon: "fab fa-github", href: "https://github.com/GeoWizard4645/debate101" }
+        ];
+        const ACTIONS = [
+            { label: "Toggle dark mode", sub: "Switch the whole site", icon: "fas fa-circle-half-stroke", run: toggleTheme },
+            { label: "Keyboard shortcuts", sub: "Everything you can press", icon: "fas fa-keyboard", run: () => openSheet() }
+        ];
+
+        function buildIndex() {
+            const items = [];
+            PAGES.forEach(p => items.push({ ...p, group: "Pages" }));
+            APPS.forEach(a => items.push({ ...a, group: "Apps" }));
+
+            // The page's own data, if it has loaded. `resourceCategories` and
+            // `lectureCategories` are top-level `let` bindings, which are NOT
+            // properties of `window` — reading them off `window` silently found
+            // nothing and quietly cost the palette its best 100+ results.
+            const resources = typeof resourceCategories !== "undefined" ? resourceCategories : null;
+            if (Array.isArray(resources)) {
+                resources.forEach(cat => {
+                    (cat.resources || []).forEach(r => items.push({
+                        label: r.title,
+                        sub: cat.title,
+                        icon: r.icon || "fas fa-link",
+                        keywords: r.keywords || "",
+                        href: r.type === "internal" ? null : r.link,
+                        page: r.type === "internal" ? String(r.link).replace("#", "") : null,
+                        group: "Resources"
+                    }));
+                });
+            }
+
+            const lectures = typeof lectureCategories !== "undefined" ? lectureCategories : null;
+            if (Array.isArray(lectures)) {
+                lectures.forEach(cat => {
+                    (cat.lectures || cat.resources || []).forEach(l => items.push({
+                        label: l.title,
+                        sub: cat.title,
+                        icon: l.icon || "fas fa-play",
+                        keywords: l.keywords || "",
+                        href: l.link || null,
+                        group: "Lectures"
+                    }));
+                });
+            }
+            LINKS.forEach(l => items.push({ ...l, group: "Community" }));
+            ACTIONS.forEach(a => items.push({ ...a, group: "Actions" }));
+            return items;
+        }
+
+        /** Subsequence match with a bonus for prefixes and word starts. */
+        function score(query, text) {
+            const q = query.toLowerCase();
+            const t = text.toLowerCase();
+            if (!q) return 1;
+            if (t.startsWith(q)) return 1000 - t.length;
+            const direct = t.indexOf(q);
+            if (direct >= 0) return 600 - direct - t.length * 0.1;
+            let qi = 0, s = 0, streak = 0;
+            for (let i = 0; i < t.length && qi < q.length; i++) {
+                if (t[i] === q[qi]) {
+                    streak += 1;
+                    s += 8 + streak * 3 + (i === 0 || /[\s\-—·&]/.test(t[i - 1]) ? 12 : 0);
+                    qi += 1;
+                } else streak = 0;
+            }
+            return qi === q.length ? s : -1;
+        }
+
+        function highlight(text, query) {
+            const frag = document.createDocumentFragment();
+            const i = query ? text.toLowerCase().indexOf(query.toLowerCase()) : -1;
+            if (i < 0) { frag.append(text); return frag; }
+            frag.append(text.slice(0, i));
+            frag.append(el("mark", { text: text.slice(i, i + query.length) }));
+            frag.append(text.slice(i + query.length));
+            return frag;
+        }
+
+        let palette, palInput, palList, palItems = [], palIndex = 0, palIndexCache = null;
+
+        function mountPalette() {
+            palInput = el("input", {
+                class: "d1-pal-input",
+                type: "text",
+                placeholder: "Search pages, tools, resources…",
+                "aria-label": "Search Debate 101",
+                autocomplete: "off",
+                spellcheck: "false"
+            });
+            palList = el("div", { class: "d1-pal-list", role: "listbox" });
+            const box = el("div", { class: "d1-pal-box", role: "dialog", "aria-modal": "true", "aria-label": "Command palette" },
+                palInput,
+                palList,
+                el("div", { class: "d1-pal-foot" },
+                    el("span", { html: '<span class="d1-kbd">↑↓</span> navigate' }),
+                    el("span", { html: '<span class="d1-kbd">↵</span> open' }),
+                    el("span", { html: '<span class="d1-kbd">esc</span> close' })
+                )
+            );
+            palette = el("div", { id: "d1-palette", onclick: e => { if (e.target === palette) closePalette(); } }, box);
+            document.body.append(palette);
+
+            palInput.addEventListener("input", () => renderPalette(palInput.value));
+            palInput.addEventListener("keydown", e => {
+                if (e.key === "ArrowDown") { movePal(1); e.preventDefault(); }
+                else if (e.key === "ArrowUp") { movePal(-1); e.preventDefault(); }
+                else if (e.key === "Enter") { runPal(palItems[palIndex]); e.preventDefault(); }
+                else if (e.key === "Escape") { closePalette(); e.preventDefault(); }
+            });
+        }
+
+        function renderPalette(query) {
+            if (!palIndexCache) palIndexCache = buildIndex();
+            const q = (query || "").trim();
+            const scored = palIndexCache
+                .map(item => ({ item, s: Math.max(score(q, item.label), score(q, item.sub || "") * 0.6, score(q, item.keywords || "") * 0.4) }))
+                .filter(x => x.s > (q ? 0 : -1))
+                .sort((a, b) => b.s - a.s)
+                .slice(0, q ? 40 : 14);
+
+            palList.textContent = "";
+            palItems = [];
+            if (!scored.length) {
+                palList.append(el("div", { class: "d1-pal-empty", text: `Nothing matches “${q}”.` }));
+                return;
+            }
+            let group = null;
+            scored.forEach(({ item }) => {
+                if (item.group !== group) {
+                    group = item.group;
+                    palList.append(el("div", { class: "d1-pal-group", text: group }));
+                }
+                const row = el("div", { class: "d1-pal-item", role: "option", tabindex: "-1" },
+                    el("i", { class: "d1-pal-icon " + (item.icon || "fas fa-circle") }),
+                    el("span", {}, highlight(item.label, q)),
+                    el("span", { class: "d1-pal-sub", text: item.sub || "" })
+                );
+                row.addEventListener("click", () => runPal(item));
+                row.addEventListener("pointermove", () => {
+                    palIndex = palItems.indexOf(item);
+                    paintPal();
+                });
+                palList.append(row);
+                palItems.push(item);
+                item._el = row;
+            });
+            palIndex = 0;
+            paintPal();
+        }
+
+        function paintPal() {
+            palItems.forEach((it, i) => it._el && it._el.setAttribute("aria-selected", i === palIndex ? "true" : "false"));
+            const active = palItems[palIndex] && palItems[palIndex]._el;
+            if (active) active.scrollIntoView({ block: "nearest" });
+        }
+
+        function movePal(delta) {
+            if (!palItems.length) return;
+            palIndex = (palIndex + delta + palItems.length) % palItems.length;
+            paintPal();
+        }
+
+        function runPal(item) {
+            if (!item) return;
+            closePalette();
+            if (item.run) return item.run();
+            if (item.page && typeof window.showPage === "function") return window.showPage(item.page);
+            if (item.href) window.open(item.href, item.href.startsWith("http") ? "_blank" : "_self");
+        }
+
+        function openPalette() {
+            palIndexCache = null; // resources may have loaded since last time
+            palette.classList.add("is-open");
+            palInput.value = "";
+            renderPalette("");
+            setTimeout(() => palInput.focus(), 10);
+        }
+        function closePalette() { palette.classList.remove("is-open"); }
+
+        /* --- Keyboard shortcut sheet ------------------------------------- */
+        function openSheet() {
+            const rows = [
+                ["Open the command palette", "⌘K / Ctrl K"],
+                ["Search resources", "/"],
+                ["Toggle dark mode", "⇧D"],
+                ["Go home", "G then H"],
+                ["Go to the Resource Hub", "G then R"],
+                ["Go to Lectures", "G then L"],
+                ["Open Cascade", "G then C"],
+                ["Back to top", "T"],
+                ["This sheet", "?"]
+            ];
+            const dl = el("dl", { class: "d1-sheet-grid" });
+            rows.forEach(([what, key]) => {
+                dl.append(el("dt", { text: what }));
+                dl.append(el("dd", {}, el("span", { class: "d1-kbd", text: key })));
+            });
+            const box = el("div", { class: "d1-pal-box", style: "padding:28px", role: "dialog", "aria-modal": "true", "aria-label": "Keyboard shortcuts" },
+                el("h2", { style: "font-family:'Playfair Display',serif;font-size:26px;margin:0 0 18px;color:var(--ink-0)", text: "Keyboard shortcuts" }),
+                dl
+            );
+            const overlay = el("div", {
+                id: "d1-sheet",
+                style: "position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--scrim);backdrop-filter:blur(6px)",
+                onclick: e => { if (e.target === overlay) overlay.remove(); }
+            }, box);
+            document.body.append(overlay);
+            const onKey = e => {
+                if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", onKey); }
+            };
+            document.addEventListener("keydown", onKey);
+        }
+
+        /* --- Global keyboard ---------------------------------------------- */
+        let chordTimer = null, awaitingG = false;
+        function mountKeys() {
+            document.addEventListener("keydown", e => {
+                const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
+                const mod = e.metaKey || e.ctrlKey;
+
+                if (mod && e.key.toLowerCase() === "k") {
+                    e.preventDefault();
+                    palette.classList.contains("is-open") ? closePalette() : openPalette();
+                    return;
+                }
+                if (typing) return;
+
+                if (awaitingG) {
+                    awaitingG = false;
+                    clearTimeout(chordTimer);
+                    const map = { h: "home", r: "hub", l: "lectures", t: "team", f: "faq" };
+                    const k = e.key.toLowerCase();
+                    if (k === "c") { window.location.href = "flow/"; return e.preventDefault(); }
+                    if (map[k] && typeof window.showPage === "function") {
+                        window.showPage(map[k]);
+                        return e.preventDefault();
+                    }
+                    return;
+                }
+
+                if (e.key === "g" && !mod) {
+                    awaitingG = true;
+                    chordTimer = setTimeout(() => { awaitingG = false; }, 1200);
+                    return;
+                }
+                if (e.key === "/" && !mod) {
+                    e.preventDefault();
+                    openPalette();
+                } else if (e.key === "?" ) {
+                    e.preventDefault();
+                    openSheet();
+                } else if (e.key === "D" && e.shiftKey && !mod) {
+                    e.preventDefault();
+                    toggleTheme();
+                } else if (e.key === "t" && !mod) {
+                    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+                }
+            });
+        }
+
+        /* --- Nav additions: theme toggle + palette trigger ---------------- */
+        function mountNavControls() {
+            const desktop = document.querySelector("#navbar .hidden.lg\\:flex");
+            if (desktop) {
+                const search = el("button", {
+                    class: "d1-iconbtn",
+                    type: "button",
+                    "aria-label": "Search — press Command K",
+                    title: "Search (⌘K)",
+                    onclick: openPalette
+                }, el("i", { class: "fas fa-magnifying-glass" }), el("span", { class: "d1-kbd", text: "⌘K" }));
+
+                const theme = el("button", {
+                    class: "d1-iconbtn",
+                    type: "button",
+                    "aria-label": "Toggle dark mode",
+                    title: "Toggle dark mode (Shift D)",
+                    onclick: toggleTheme
+                }, el("i", { class: "fas fa-moon", "data-theme-icon": "" }));
+
+                const cta = desktop.querySelector(".nav-cta");
+                // The old magnifying-glass button opened the hub's own search;
+                // the palette supersedes it, so it steps aside rather than
+                // sitting next to a second search icon.
+                const legacy = desktop.querySelector('button[aria-label="Search the site"]');
+                if (legacy) legacy.remove();
+                if (cta) { desktop.insertBefore(search, cta); desktop.insertBefore(theme, cta); }
+                else desktop.append(search, theme);
+
+                desktop.querySelectorAll(":scope > button").forEach(b => {
+                    if (!b.classList.contains("d1-iconbtn")) b.classList.add("d1-navlink");
+                });
+            }
+
+            const mobile = document.querySelector("#mobile-menu-overlay .flex.flex-col.space-y-8");
+            if (mobile) {
+                mobile.prepend(el("button", {
+                    class: "text-left",
+                    type: "button",
+                    onclick: () => { openPalette(); }
+                }, "Search everything"));
+                mobile.append(el("button", {
+                    class: "text-left",
+                    type: "button",
+                    onclick: toggleTheme
+                }, el("i", { class: "fas fa-moon", "data-theme-icon": "", style: "margin-right:10px" }), "Toggle theme"));
+            }
+        }
+
+        /* --- Section rail on the home page -------------------------------- */
+        let railDots = [], railTargets = [];
+        function mountRail() {
+            const home = document.getElementById("page-home");
+            if (!home) return;
+            const sections = [...home.querySelectorAll("section")];
+            if (sections.length < 3) return;
+            const labels = ["Top", "Community", "Resource Hub", "Cascade", "Collaborate", "Ecosystem", "Team", "Lectures", "More", "More"];
+            const rail = el("nav", { id: "d1-rail", "aria-label": "Page sections" });
+            sections.forEach((sec, i) => {
+                const label = (sec.querySelector("h2, h3, h4") || {}).textContent || labels[i] || `Section ${i + 1}`;
+                const dot = el("button", {
+                    class: "d1-rail-dot",
+                    type: "button",
+                    "data-label": label.trim().slice(0, 26),
+                    "aria-label": `Jump to ${label.trim().slice(0, 40)}`,
+                    onclick: () => sec.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" })
+                });
+                rail.append(dot);
+                railDots.push(dot);
+                railTargets.push(sec);
+            });
+            document.body.append(rail);
+            updateRailVisibility();
+        }
+
+        function updateRail() {
+            if (!railDots.length) return;
+            const mid = window.scrollY + window.innerHeight * 0.35;
+            let active = 0;
+            railTargets.forEach((sec, i) => {
+                if (sec.offsetTop <= mid) active = i;
+            });
+            railDots.forEach((d, i) => d.setAttribute("aria-current", i === active ? "true" : "false"));
+        }
+
+        function updateRailVisibility() {
+            const rail = document.getElementById("d1-rail");
+            if (!rail) return;
+            const home = document.getElementById("page-home");
+            rail.classList.toggle("is-on", !!home && !home.classList.contains("hidden"));
+        }
+
+        /* --- Page transitions --------------------------------------------- */
+        function wrapShowPage() {
+            const original = window.showPage;
+            if (typeof original !== "function") return;
+            window.showPage = function (pageId) {
+                const run = () => {
+                    original.apply(this, arguments);
+                    const target = document.getElementById("page-" + pageId);
+                    if (target && !reduceMotion) {
+                        target.classList.remove("d1-enter");
+                        void target.offsetWidth; // restart the animation
+                        target.classList.add("d1-enter");
+                    }
+                    updateRailVisibility();
+                    if (window.d1MarkReveal && target) window.d1MarkReveal(target);
+                    document.querySelectorAll("#navbar .d1-navlink").forEach(b => b.removeAttribute("aria-current"));
+                };
+                withTransition(run);
+            };
+        }
+
+        /* --- Boot ----------------------------------------------------------- */
+        function boot() {
+            document.body.append(progress, topBtn, toastHost);
+            mountPalette();
+            mountNavControls();
+            mountHero();
+            mountReveal();
+            mountSpotlight();
+            mountCounters();
+            mountRail();
+            mountKeys();
+            wrapShowPage();
+            setTheme(currentTheme(), false);
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
+
+            // Resources render asynchronously; re-mark reveal targets and drop
+            // the palette's cached index once they exist.
+            setTimeout(() => {
+                palIndexCache = null;
+                if (window.d1MarkReveal) window.d1MarkReveal(document);
+            }, 1200);
+        }
+
+        if (document.readyState === "complete") boot();
+        else window.addEventListener("load", boot);
+
+        window.d1 = { toast, toggleTheme, openPalette, openSheet };
+    })();
+    </script>
+</body>
+</html>

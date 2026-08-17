@@ -40,15 +40,49 @@ See [`flow/README.md`](flow/README.md) and
 
 ## Running the site locally
 
+The main site is a **Vite + React** app and needs a build. Cascade and the
+standalone tools are not — they are plain static apps that get copied into the
+output untouched.
+
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then open <http://localhost:8000>. The AI tools on the main site read a Gemini
-key from `config.js`; copy `config.example.js` to `config.js` and paste a key in
-if you want to exercise them locally. In production the key is injected at deploy
-time by [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) from a
-repository secret.
+Then open <http://localhost:5173>. `/flow` and `/tools` resolve in dev too,
+because Vite serves the project root statically.
+
+```bash
+npm run build     # -> dist/
+npm run preview   # serve dist/ exactly as it will deploy
+```
+
+### Where to edit what
+
+| You want to change | Edit |
+|---|---|
+| Site copy, layout, design | `src/` (`pages/`, `components/`, `styles/`) |
+| Resources, lectures, team bios, FAQ | `data/content.json` — no rebuild needed to change data, only to change how it renders |
+| Cascade | `flow/` — plain ES modules, no build step |
+| Card Cutter / Speed Trainer / Round Tracker | `tools/<name>/index.html` — self-contained, no build step |
+
+`index.html` at the repo root is now the Vite entry point, not the site itself.
+The previous single-file site is preserved verbatim at
+[`legacy/index.html`](legacy/index.html).
+
+The AI features run **on-device** (see `src/lib/ai.js`), so no API key is
+required; `config.example.js` explains what is left of the old key plumbing.
+
+### Images
+
+Team headshots in `assets/` are full-resolution originals (46 MB in total). The
+site serves 640px derivatives from `assets/opt/`, and the build deliberately
+leaves the originals out of `dist/`. Regenerate the derivatives after adding a
+photo:
+
+```bash
+sips -s format jpeg -s formatOptions 78 -Z 640 assets/NAME.png --out assets/opt/NAME.jpg
+```
 
 ## Building the desktop app
 
@@ -57,6 +91,17 @@ cd desktop && npm install && npm start
 ```
 
 See [`desktop/README.md`](desktop/README.md) for packaging installers.
+
+## License
+
+This project is open source under the **Debate 101 Non-Commercial Open Source
+License v1.0** ([`LICENSE`](LICENSE), SPDX: `D101-NC-OS-1.0`).
+
+You may use, copy, modify, and redistribute the code freely for **non-commercial**
+purposes — school debate prep, teaching, research, team workflows, and community
+hosting at no charge. Commercial use (selling the software, paid access, or
+using it as part of a for-profit product or service) is not permitted without
+separate written permission from the Debate 101 Collective.
 
 ## Credit
 

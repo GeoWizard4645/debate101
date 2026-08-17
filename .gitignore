@@ -9,6 +9,11 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 
+# Main site build (Vite + React). package-lock.json IS committed — the deploy
+# workflow runs `npm ci`, which requires it.
+node_modules/
+dist/
+
 # Cascade desktop (Electron) build artifacts
 desktop/node_modules/
 desktop/dist/

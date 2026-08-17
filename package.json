@@ -1,0 +1,21 @@
+{
+  "name": "debate101",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Debate 101 — the main site. Cascade (/flow) and the standalone tools (/tools) are plain static apps and are not part of this build; they are copied into the output untouched.",
+  "license": "D101-NC-OS-1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

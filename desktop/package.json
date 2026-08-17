@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "description": "Cascade, Debate 101's keyboard-first flowing app — desktop shell around the flow/ web app.",
     "private": true,
-    "license": "UNLICENSED",
+    "license": "D101-NC-OS-1.0",
     "author": {
         "name": "Debate 101",
         "url": "https://debate101.org"

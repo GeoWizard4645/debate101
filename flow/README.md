@@ -100,3 +100,9 @@ The `.ebb` file format is the work of the
 [ebb](https://github.com/shreerammodi/ebb) project by Shreeram Modi. Cascade
 implements it so the two apps interoperate. Cascade is an independent Debate 101
 project and is not affiliated with or endorsed by ebb.
+
+## License
+
+Cascade and the rest of Debate 101 are released under the
+[Debate 101 Non-Commercial Open Source License v1.0](../LICENSE) (D101-NC-OS-1.0):
+free to use, modify, and redistribute for non-commercial purposes.

@@ -19,7 +19,7 @@ site without scraping every page.
 - Co-Founders & Leaders: Vivaan Shahani, Max Feinstein, Max McBride, Arjun Gupta
 - Leaders: Diego Villareal, Eric Xiong
 - Source: https://github.com/GeoWizard4645/debate101
-- License: Open source (see repo)
+- License: Debate 101 Non-Commercial Open Source License v1.0 (D101-NC-OS-1.0) — free to use, modify, and redistribute for non-commercial purposes only; see LICENSE in the repo
 
 ## Applications
 

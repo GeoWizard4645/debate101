@@ -53,14 +53,42 @@ jobs:
           EOF
           echo "Wrote config.js ($(wc -c < config.js) bytes)"
 
+      # The main site is a Vite + React app and now needs a build. Cascade
+      # (/flow) and the standalone tools (/tools) are still plain static apps —
+      # vite.config.js copies them into dist/ untouched, so nothing about them
+      # changed and they are never processed by the bundler.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the site
+        run: npm run build
+
+      - name: Verify the static apps survived the build
+        run: |
+          for path in dist/flow/index.html dist/tools/card-cutter/index.html \
+                      dist/tools/speed-trainer/index.html dist/tools/round-tracker/index.html \
+                      dist/data/content.json dist/CNAME; do
+            if [ ! -f "$path" ]; then
+              echo "::error::$path is missing from the build output."
+              exit 1
+            fi
+          done
+          echo "All passthrough apps and files present."
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the whole repo root as the static site.
-          path: '.'
+          # The built site, not the repo root.
+          path: 'dist'
 
   deploy:
     needs: build
