@@ -36,14 +36,14 @@ export const VARIANTS = {
         repo: "onnx-community/Llama-3.2-1B-Instruct",
         dtype: "q4f16",
         device: "webgpu",
-        approxMB: 1000,
+        approxMB: 1625,
         name: "WebGPU",
     },
     cpu: {
         repo: "onnx-community/Llama-3.2-1B-Instruct",
         dtype: "q4",
         device: "wasm",
-        approxMB: 900,
+        approxMB: 1500,
         name: "CPU",
     },
 };

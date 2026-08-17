@@ -46,11 +46,12 @@ export default function App() {
         document.title = TITLES[page] ?? TITLES.home;
     }, [page]);
 
-    // Warm the first slice of the model at idle, so a visitor who later opens
-    // an AI tool is already most of the way there. Declines to run on metered
-    // or slow connections and on low-memory devices — see modelPrefetch.js.
+    // Start the real model download as soon as the site opens, at idle, so a
+    // visitor who later opens an AI tool finds it done or nearly done.
+    // Declines on Save-Data, 2G, and devices reporting under 8 GB — see
+    // modelPrefetch.js.
     useEffect(() => {
-        prefetchWhenIdle("stage1", 3000);
+        prefetchWhenIdle(2000);
     }, []);
 
     const onToggleTheme = useCallback(() => {

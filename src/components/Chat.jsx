@@ -110,8 +110,10 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
 
     useEffect(() => {
         ai.isCached().then(setCached);
-        // An AI tool is open, so the rest of the weights are worth having now.
-        prefetchWhenIdle("stage2", 400);
+        // An AI tool is on screen, so the model is wanted now rather than
+        // eventually: start immediately and, because this page exists to use
+        // it, without the device gate that governs the sitewide warm.
+        prefetchWhenIdle(0, { force: true });
     }, []);
 
     useEffect(() => {
