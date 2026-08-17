@@ -361,3 +361,76 @@
 .footer-fine + .footer-fine { margin-top: 0.8rem; }
 .footer-fine a { color: var(--accent); }
 .footer-fine code { font-family: var(--font-mono); font-size: 0.85em; }
+
+/* --- Chat activity strip -------------------------------------------------
+   A local model has two long waits — a one-time weight download and a
+   per-answer generation. Both used to show one static "…", which is
+   indistinguishable from a hang. This strip names the phase, shows progress,
+   counts elapsed time, and reports live tokens/sec. */
+
+.chat-activity {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--rule-soft);
+    background: var(--paper-3);
+    font-size: 0.68rem;
+    color: var(--ink-2);
+}
+.chat-phase {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+.chat-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: chat-pulse 1.1s ease-in-out infinite;
+}
+@keyframes chat-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.7); } }
+
+.chat-bar { flex: 1 1 8rem; min-width: 6rem; height: 3px; background: var(--rule); overflow: hidden; }
+.chat-bar span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: 0 50%;
+    transition: transform 300ms var(--ease);
+}
+.chat-timer { margin-left: auto; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.chat-stop {
+    border: 1px solid var(--rule);
+    padding: 0.2rem 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.chat-stop:hover { border-color: var(--neg); color: var(--neg); }
+
+.chat-waiting { color: var(--ink-3); letter-spacing: 0.08em; }
+.chat-ellipsis::after {
+    content: "";
+    animation: chat-dots 1.4s steps(4, end) infinite;
+}
+@keyframes chat-dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+.chat-dot { color: var(--accent); }
+
+/* Engine-answered messages: instant, exact, and free of the model entirely. */
+.chat-badge {
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid color-mix(in srgb, var(--aff) 45%, transparent);
+    color: var(--aff);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+}
+.chat-engine { color: var(--ink-3); display: inline-block; margin-bottom: 0.3rem; }

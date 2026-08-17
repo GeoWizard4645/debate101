@@ -11,11 +11,17 @@ import { useState } from "react";
 import Reveal from "../components/Reveal.jsx";
 import { optimized, onImageError } from "../lib/images.js";
 
+/**
+ * A member card, carried back to the original treatment: one big square
+ * portrait per person, desaturated until you hover the card. The colour
+ * arriving on hover is the whole effect — it only works if the image is large,
+ * so this is a two-up grid rather than the compact row layout the rest of the
+ * site uses.
+ */
 function Member({ member, index }) {
     const [open, setOpen] = useState(false);
     return (
-        <article className="member">
-            <span className="section-index">{String(index + 1).padStart(2, "0")}</span>
+        <article className="member-card">
             <div className="member-photo">
                 <img
                     src={optimized(member.image)}
@@ -25,18 +31,19 @@ function Member({ member, index }) {
                     style={member.customStyle ? { objectPosition: "top" } : undefined}
                     onError={onImageError(member.image)}
                 />
+                <span className="member-index mono">{String(index + 1).padStart(2, "0")}</span>
             </div>
-            <div className="member-info">
-                <h2>{member.name}</h2>
-                <p className="mono member-role">{member.role}</p>
-                <p className="member-blurb">{member.blurb}</p>
-                <button className="linkish mono" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-                    {open ? "Hide full bio" : "Read full bio"}
-                </button>
-                {open && (
-                    <div className="member-depth" dangerouslySetInnerHTML={{ __html: member.depth || "" }} />
-                )}
-            </div>
+
+            <p className="member-role mono">{member.role}</p>
+            <h2 className="member-name-lg">{member.name}</h2>
+            <p className="member-blurb">{member.blurb}</p>
+
+            <button className="member-toggle mono" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+                {open ? "Hide full profile −" : "Full profile +"}
+            </button>
+            {open && (
+                <div className="member-depth" dangerouslySetInnerHTML={{ __html: member.depth || "" }} />
+            )}
         </article>
     );
 }
@@ -60,9 +67,9 @@ export default function Team({ content }) {
                     </p>
                 </header>
 
-                <div className="member-list">
+                <div className="member-grid">
                     {team.map((m, i) => (
-                        <Reveal key={m.name} delay={Math.min(i, 6) * 60}>
+                        <Reveal key={m.name} delay={Math.min(i, 4) * 70}>
                             <Member member={m} index={i} />
                         </Reveal>
                     ))}

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Masthead, Footer, ScrollProgress, BackToTop, Toasts } from "./components/Chrome.jsx";
 import CommandPalette from "./components/CommandPalette.jsx";
 import { useContent, useHashRoute, useSpotlight, useTheme } from "./lib/hooks.js";
+import { prefetchWhenIdle } from "./lib/modelPrefetch.js";
 
 import Home from "./pages/Home.jsx";
 import Hub from "./pages/Hub.jsx";
@@ -44,6 +45,13 @@ export default function App() {
     useEffect(() => {
         document.title = TITLES[page] ?? TITLES.home;
     }, [page]);
+
+    // Warm the first slice of the model at idle, so a visitor who later opens
+    // an AI tool is already most of the way there. Declines to run on metered
+    // or slow connections and on low-memory devices — see modelPrefetch.js.
+    useEffect(() => {
+        prefetchWhenIdle("stage1", 3000);
+    }, []);
 
     const onToggleTheme = useCallback(() => {
         toggleTheme();
