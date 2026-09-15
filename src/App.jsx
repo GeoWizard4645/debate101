@@ -6,7 +6,6 @@ import { useCallback, useEffect, useState } from "react";
 import { Masthead, Footer, ScrollProgress, BackToTop, Toasts } from "./components/Chrome.jsx";
 import CommandPalette from "./components/CommandPalette.jsx";
 import { useContent, useHashRoute, useSpotlight, useTheme } from "./lib/hooks.js";
-import { prefetchWhenIdle } from "./lib/modelPrefetch.js";
 
 import Home from "./pages/Home.jsx";
 import Hub from "./pages/Hub.jsx";
@@ -46,13 +45,6 @@ export default function App() {
         document.title = TITLES[page] ?? TITLES.home;
     }, [page]);
 
-    // Start the real model download as soon as the site opens, at idle, so a
-    // visitor who later opens an AI tool finds it done or nearly done.
-    // Declines on Save-Data, 2G, and devices reporting under 8 GB — see
-    // modelPrefetch.js.
-    useEffect(() => {
-        prefetchWhenIdle(2000);
-    }, []);
 
     const onToggleTheme = useCallback(() => {
         toggleTheme();

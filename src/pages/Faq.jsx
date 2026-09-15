@@ -1,6 +1,6 @@
 /**
  * FAQ and mentor. The glossary is the authoritative, human-written answer set;
- * the chat below it is the on-device model for anything not covered.
+ * the chat below it is the cloud model for anything not covered.
  */
 
 import { useMemo, useState } from "react";
@@ -74,12 +74,12 @@ export default function Faq({ content }) {
                 <section className="hub-cat">
                     <div className="hub-cat-head">
                         <h2>Ask the mentor</h2>
-                        <span className="mono">On-device</span>
+                        <span className="mono">Cloud AI</span>
                     </div>
                     <Chat
                         kind="faq"
                         placeholder="Ask a debate question…"
-                        intro="Ask me anything about debate technique, theory, or vocabulary. I run entirely on your device — and I'm small, so double-check anything that matters."
+                        intro="Ask me anything about debate technique, theory, or vocabulary. I run on a cloud model (GPT-OSS 20B via Groq), so what you type leaves this device — and double-check anything that matters."
                         seedPrompts={[
                             "What is a kritik?",
                             "How does topicality work?",

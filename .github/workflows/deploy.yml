@@ -1,16 +1,15 @@
 name: Deploy to GitHub Pages
 
-# Builds the site and deploys to GitHub Pages, injecting the Gemini API key
-# from a repository secret named GEMINI_API_KEY at deploy time so the key
-# is never committed to source control.
+# Builds the site and deploys to GitHub Pages, writing config.js at deploy
+# time so runtime configuration is never committed to source control.
 #
 # ONE-TIME SETUP (do this once in repo settings):
 #   1. Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
-#   2. Confirm the repo secret named GEMINI_API_KEY exists under
-#      Settings -> Secrets and variables -> Actions.
-#   3. (Recommended) In Google Cloud Console, restrict the key by HTTP
-#      referrer to https://debate101.org/* and https://www.debate101.org/*
-#      so even though it ships to the browser, only your domain can use it.
+#   2. Settings -> Secrets and variables -> Actions -> Variables: add
+#      GROQ_WORKER_URL with the URL printed by `wrangler deploy` (see
+#      worker/README.md). This value is the public Worker endpoint, not a
+#      secret — the Groq API key lives only in the Worker.
+#   3. The old GEMINI_API_KEY repo secret can be deleted; nothing reads it.
 
 on:
   push:
@@ -34,29 +33,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # The AI features run on-device now (Transformers.js in the visitor's
-      # browser), so no key is required and a missing secret is no longer a
-      # deploy failure. config.js is still written because index.html loads it;
-      # an absent file would just be a 404 in every visitor's console.
+      # config.js carries the public Worker endpoint that src/lib/ai.js reads.
+      # It is written here rather than committed because config.js is
+      # gitignored (it historically held an API key, and keeping the whole
+      # file out of the repo keeps that habit safe).
       - name: Write config.js
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_WORKER_URL: ${{ vars.GROQ_WORKER_URL }}
         run: |
-          if [ -z "${GEMINI_API_KEY}" ]; then
-            echo "::notice::No GEMINI_API_KEY secret set — writing an empty config.js."
-            echo "::notice::This is expected: the site's AI runs locally in the browser."
+          if [ -z "${GROQ_WORKER_URL}" ]; then
+            echo "::warning::No GROQ_WORKER_URL repo variable set — AI chat will not work until it is."
           fi
           cat > config.js <<EOF
           // Auto-generated at deploy time by .github/workflows/deploy.yml.
-          // The site's AI features run on-device and do not read this value.
-          window.GEMINI_API_KEY = "${GEMINI_API_KEY}";
+          // Public endpoint only — never put a key in this file.
+          window.DEBATE101_AI_ENDPOINT = "${GROQ_WORKER_URL}";
           EOF
           echo "Wrote config.js ($(wc -c < config.js) bytes)"
 
-      # The main site is a Vite + React app and now needs a build. Cascade
-      # (/flow) and the standalone tools (/tools) are still plain static apps —
-      # vite.config.js copies them into dist/ untouched, so nothing about them
-      # changed and they are never processed by the bundler.
+      # The main site is a Vite + React app and needs a build. Cascade (/flow)
+      # and the standalone tools (/tools) are plain static apps — vite.config.js
+      # copies them into dist/ untouched, so nothing about them changed and
+      # they are never processed by the bundler.
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -73,7 +71,7 @@ jobs:
         run: |
           for path in dist/flow/index.html dist/tools/card-cutter/index.html \
                       dist/tools/speed-trainer/index.html dist/tools/round-tracker/index.html \
-                      dist/data/content.json dist/CNAME; do
+                      dist/data/content.json dist/CNAME dist/config.js; do
             if [ ! -f "$path" ]; then
               echo "::error::$path is missing from the build output."
               exit 1
@@ -91,11 +89,11 @@ jobs:
           path: 'dist'
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
