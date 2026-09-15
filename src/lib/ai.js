@@ -18,7 +18,9 @@
  * falls through.
  */
 
-const FALLBACK_ENDPOINT = "https://debate101-ai.PLACEHOLDER.workers.dev";
+// The deployed debate101-ai Worker. config.js (written at deploy time from
+// the GROQ_WORKER_URL repo variable) can override it without a rebuild.
+const FALLBACK_ENDPOINT = "https://debate101-ai.vivaan-shahani.workers.dev";
 
 export const MODEL_LABEL = "GPT-OSS 20B · Groq";
 
