@@ -1,6 +1,7 @@
 name = "debate101-ai"
 main = "worker.js"
 compatibility_date = "2026-09-15"
+account_id = "e673c5b91ee04035903ef5e2d1114c9e"
 workers_dev = true
 
 # The Groq API key is NEVER in this file. Set it once, server-side only:
