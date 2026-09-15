@@ -1,0 +1,16 @@
+name = "debate101-ai"
+main = "worker.js"
+compatibility_date = "2026-09-15"
+workers_dev = true
+
+# The Groq API key is NEVER in this file. Set it once, server-side only:
+#   wrangler secret put GROQ_API_KEY
+#
+# Non-secret knobs can live here:
+[vars]
+MODEL = "openai/gpt-oss-20b"
+# Requests per visitor IP per day (best-effort, per isolate).
+PER_IP_DAILY_LIMIT = "20"
+# Sitewide daily cap, kept under the Groq free tier's 1,000 requests/day so a
+# busy day degrades gracefully instead of burning the whole quota.
+GLOBAL_DAILY_LIMIT = "900"

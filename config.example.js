@@ -1,23 +1,21 @@
 /*
  * Optional local configuration.
  *
- * ⚠ You almost certainly do not need this file any more.
+ * The site's AI features (Resolution AI and the FAQ mentor) call a model
+ * (GPT-OSS 20B on Groq) through the debate101-ai Cloudflare Worker, which
+ * holds the Groq API key server-side — see worker/. The key never ships to
+ * the browser.
  *
- * The site's AI features (Resolution AI and the FAQ Mentor) now run a language
- * model inside the visitor's own browser via Transformers.js — SmolLM2-135M-
- * Instruct at 4-bit, roughly 100 MB fetched once into Cache Storage and then
- * available offline. There is no API call, no key, no quota, and no per-question
- * cost, which is why the old client-side rate limiting is gone too.
+ * What the browser DOES need is the Worker's URL. It is not a secret. The
+ * Pages deploy workflow writes it into config.js from the GROQ_WORKER_URL
+ * repo variable at deploy time; for local dev, copy this file to config.js
+ * (gitignored) and fill in the URL from `wrangler deploy`.
  *
- * See the "ON-DEVICE AI" block in index.html.
+ * window.DEBATE101_AI_ENDPOINT is read by src/lib/ai.js.
  *
- * This file is kept only so that:
- *   - an existing config.js keeps loading without a 404, and
- *   - a future server-backed feature has an obvious place to read a key from.
- *
- * If you ever do reintroduce a hosted model on a static site, remember the key
- * ships to the browser. Restrict it in the provider's console — by HTTP
- * referrer to debate101.org, to the single API it needs, and with a hard quota
- * or budget cap — because nothing in client-side JavaScript can protect it.
+ * A note for the future: if you ever put an API key back in client-side code
+ * on this static site, the key ships to the browser and will be scraped — it
+ * happened before and Google suspended the project over it. Keys belong in
+ * the Worker.
  */
-window.GEMINI_API_KEY = "";
+window.DEBATE101_AI_ENDPOINT = "";

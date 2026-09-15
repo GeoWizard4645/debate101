@@ -1,25 +1,19 @@
 /**
- * The shared on-device chat surface, used by both Resolution AI and the FAQ
- * mentor. The model runs in the visitor's browser; see lib/ai.js.
+ * The shared chat surface, used by both Resolution AI and the FAQ mentor.
+ * The model (GPT-OSS 20B on Groq) is called through the debate101-ai
+ * Cloudflare Worker, which holds the API key server-side; see lib/ai.js.
  *
- * The status line is the point of this component as much as the messages are.
- * A local model has two long waits — a one-time weight download measured in
- * hundreds of megabytes, and a per-answer generation measured in seconds — and
- * both previously showed a single static "…". Every phase now reports what it
- * is doing, how far along it is, how long it has taken, and for generation the
- * live token count and speed.
+ * The status line is the point of this component as much as the messages are:
+ * every phase reports what it is doing, how long it has taken, and for
+ * generation the live token count and speed.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as ai from "../lib/ai.js";
 import { route, ENGINE_STATS } from "../lib/debateEngine.js";
-import { prefetchWhenIdle } from "../lib/modelPrefetch.js";
 import { Icon } from "./Chrome.jsx";
 
 const PHASE_LABEL = {
-    connecting: "Connecting",
-    downloading: "Downloading model",
-    warming: "Warming up",
     thinking: "Thinking",
     writing: "Writing",
 };
@@ -98,48 +92,14 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
     const [input, setInput] = useState("");
     const [busy, setBusy] = useState(false);
     const [phase, setPhase] = useState(null);
-    const [progress, setProgress] = useState(null);
     const [stats, setStats] = useState(null);
-    const [modelState, setModelState] = useState(ai.state());
-    const [cached, setCached] = useState(null);
     const historyRef = useRef([]);
     const scrollRef = useRef(null);
-    const elapsed = useElapsed(busy || modelState === "loading");
-
-    const v = ai.variant();
-
-    useEffect(() => {
-        ai.isCached().then(setCached);
-        // An AI tool is on screen, so the model is wanted now rather than
-        // eventually: start immediately and, because this page exists to use
-        // it, without the device gate that governs the sitewide warm.
-        prefetchWhenIdle(0, { force: true });
-    }, []);
+    const elapsed = useElapsed(busy);
 
     useEffect(() => {
         scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
     }, [messages]);
-
-    const onProgress = useCallback((p) => {
-        setPhase(p.phase);
-        setProgress(p.phase === "downloading" ? p : null);
-    }, []);
-
-    const load = useCallback(async () => {
-        if (ai.state() !== "idle") return;
-        setModelState("loading");
-        try {
-            await ai.ensureModel(onProgress);
-            setModelState("ready");
-            setCached(true);
-        } catch (e) {
-            console.error("[local-ai]", e);
-            setModelState("idle");
-        } finally {
-            setPhase(null);
-            setProgress(null);
-        }
-    }, [onProgress]);
 
     async function ask(question) {
         const q = (question ?? input).trim();
@@ -153,7 +113,7 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
             setMessages((m) => m.map((msg, i) => (i === replyAt ? { ...msg, content, meta } : msg)));
 
         // Layer 1 and 2: the deterministic engine. When it is confident the
-        // model is never loaded at all — the answer is instant and exact.
+        // model is never called at all — the answer is instant and exact.
         const decision = route(kind, q);
         if (decision.mode === "answer") {
             historyRef.current.push({ role: "user", content: q });
@@ -164,13 +124,6 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
 
         setBusy(true);
         try {
-            if (ai.state() !== "ready") {
-                setModelState("loading");
-                await ai.ensureModel(onProgress);
-                setModelState("ready");
-                setCached(true);
-            }
-
             setPhase("thinking");
             historyRef.current.push({ role: "user", content: q });
             if (historyRef.current.length > 6) {
@@ -206,17 +159,13 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
             historyRef.current.push({ role: "assistant", content: answer });
             patch(answer, { source: decision.source });
         } catch (e) {
-            console.error("[local-ai]", e);
+            console.error("[ai]", e);
             patch(ai.describeFailure(e));
         } finally {
             setBusy(false);
             setPhase(null);
-            setProgress(null);
         }
     }
-
-    const backend = ai.activeBackend() ?? v.name;
-    const working = busy || modelState === "loading";
 
     return (
         <div className="chat">
@@ -225,7 +174,7 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
                     <div key={i} className={`chat-msg chat-${m.role}`}>
                         {m.role === "assistant" && (
                             <p className="chat-who mono">
-                                {m.meta?.instant ? "Instant · debate engine" : "On-device model"}
+                                {m.meta?.instant ? "Instant · debate engine" : "Cloud model · Groq"}
                                 {m.meta?.instant && <span className="chat-badge">0 tokens</span>}
                             </p>
                         )}
@@ -243,27 +192,15 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
                 ))}
             </div>
 
-            {/* Live activity strip — phase, progress, timer, tokens. */}
-            {working && (
+            {/* Live activity strip — phase, timer, tokens. */}
+            {busy && (
                 <div className="chat-activity" role="status" aria-live="polite">
                     <span className="chat-phase">
                         <span className="chat-pulse" aria-hidden="true" />
                         {PHASE_LABEL[phase] ?? "Working"}
                     </span>
 
-                    {progress && (
-                        <>
-                            <span className="chat-bar" aria-hidden="true">
-                                <span style={{ transform: `scaleX(${(progress.pct || 0) / 100})` }} />
-                            </span>
-                            <span className="mono">
-                                {progress.pct}% · {progress.loadedMB}
-                                {progress.totalMB ? `/${progress.totalMB}` : ""} MB
-                            </span>
-                        </>
-                    )}
-
-                    {stats && !progress && (
+                    {stats && (
                         <span className="mono">
                             {stats.tokens} tokens · {stats.tps} tok/s
                         </span>
@@ -271,15 +208,13 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
 
                     <span className="mono chat-timer">{clock(elapsed)}</span>
 
-                    {busy && (
-                        <button className="chat-stop mono" onClick={() => ai.stop()}>
-                            Stop
-                        </button>
-                    )}
+                    <button className="chat-stop mono" onClick={() => ai.stop()}>
+                        Stop
+                    </button>
                 </div>
             )}
 
-            {seedPrompts.length > 0 && messages.length <= 1 && !working && (
+            {seedPrompts.length > 0 && messages.length <= 1 && !busy && (
                 <div className="chat-seeds">
                     {seedPrompts.map((s) => (
                         <button key={s} className="seed" onClick={() => ask(s)} disabled={busy}>
@@ -309,34 +244,8 @@ export default function Chat({ kind, placeholder, intro, seedPrompts = [] }) {
                     areas · {ENGINE_STATS.arguments} arguments — answers instantly where it can.
                 </span>
                 <br />
-                {modelState === "ready" ? (
-                    <>
-                        <b className="chat-dot">●</b> {ai.MODEL_LABEL} · {backend} — runs on your
-                        device, nothing uploaded.{" "}
-                        <button
-                            className="linkish"
-                            onClick={() => {
-                                ai.setBackend(backend === "WebGPU" ? "cpu" : "gpu");
-                                setModelState("idle");
-                            }}
-                        >
-                            {backend === "WebGPU" ? "Answers look wrong? Use CPU mode" : "Try GPU mode (faster)"}
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        {ai.MODEL_LABEL} runs in your browser · ~{v.approxMB} MB,{" "}
-                        {cached ? "already downloaded — loads in seconds" : "downloading in the background"} · {v.name}
-                        {modelState === "idle" && (
-                            <>
-                                {" · "}
-                                <button className="linkish" onClick={load}>
-                                    {cached ? "Load it" : "Download it now"}
-                                </button>
-                            </>
-                        )}
-                    </>
-                )}
+                <b className="chat-dot">●</b> {ai.MODEL_LABEL} — runs in the cloud, so what you
+                type leaves this device.
             </p>
         </div>
     );
