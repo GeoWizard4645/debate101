@@ -336,6 +336,14 @@
           "keywords": "haku, search, cards, evidence, opencaselist, logos"
         },
         {
+          "title": "DebateCardAI",
+          "desc": "All-in-one debate prep platform for PF, LD and Policy: a card cutter that keeps every word of the card, Evidence Finder, Logos (a search over a million-plus OpenCaselist cards), and Prep, a personal AI debate assistant that helps you brainstorm, find evidence, answer arguments and prep out cases and blocks. Free plan; Pro is paid, and free for students who can't pay through its Access program.",
+          "link": "https://debatecard.ai/",
+          "type": "external",
+          "icon": "fas fa-layer-group",
+          "keywords": "debatecardai, card cutter, ai, cut cards, logos, evidence finder, prep, blocks"
+        },
+        {
           "title": "Logos Debate",
           "desc": "A modern platform providing high-quality drills, evidence sets, and prep materials for LD and PF debaters.",
           "link": "https://logos-debate.netlify.app/",
